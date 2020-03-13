@@ -1,0 +1,22 @@
+{
+  "npmScope": "plopdown",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "extension": {
+      "tags": []
+    },
+    "extension-e2e": {
+      "tags": [],
+      "implicitDependencies": ["extension"]
+    }
+  }
+}
