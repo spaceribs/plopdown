@@ -11,12 +11,36 @@
     "nx.json": "*"
   },
   "projects": {
-    "extension": {
+    "web-ext": {
       "tags": []
     },
-    "extension-e2e": {
+    "web-ext-e2e": {
       "tags": [],
-      "implicitDependencies": ["extension"]
+      "implicitDependencies": ["web-ext"]
+    },
+    "plopdown-ext": {
+      "tags": [],
+      "implicitDependencies": [
+        "background",
+        "browser-action",
+        "options",
+        "content-script"
+      ]
+    },
+    "background": {
+      "tags": []
+    },
+    "browser-action": {
+      "tags": []
+    },
+    "options": {
+      "tags": []
+    },
+    "browser-storage": {
+      "tags": []
+    },
+    "content-script": {
+      "tags": []
     }
   }
 }

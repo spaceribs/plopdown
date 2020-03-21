@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "id": "ext",
+  "title": "Web Extension",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "home": {
+      "type": "string",
+      "description": "A URL representing the homepage of the project.",
+      "default": "http://localhost:8000",
+      "x-prompt": "What is the homepage of the web extension?"
+    },
+    "desc": {
+      "type": "string",
+      "description": "A short sentence describing the project.",
+      "default": "A web extension.",
+      "x-prompt": "What does this extension do?"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Add tags to the project (used for linting)",
+      "alias": "t"
+    },
+    "directory": {
+      "type": "string",
+      "description": "A directory where the project is placed",
+      "alias": "d"
+    }
+  },
+  "required": ["name"]
+}

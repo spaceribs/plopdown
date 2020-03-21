@@ -1,39 +1,122 @@
 {
   "version": 1,
   "projects": {
-    "extension": {
+    "web-ext": {
+      "root": "libs/web-ext",
+      "sourceRoot": "libs/web-ext/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web-ext/tsconfig.lib.json",
+              "libs/web-ext/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/web-ext/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web-ext/jest.config.js",
+            "tsConfig": "libs/web-ext/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/web-ext",
+            "tsConfig": "libs/web-ext/tsconfig.lib.json",
+            "packageJson": "libs/web-ext/package.json",
+            "main": "libs/web-ext/src/index.ts",
+            "assets": [
+              "libs/web-ext/*.md",
+              {
+                "input": "./libs/web-ext/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/web-ext",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/web-ext",
+                "glob": "builders.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "web-ext-e2e": {
+      "projectType": "application",
+      "root": "apps/web-ext-e2e",
+      "sourceRoot": "apps/web-ext-e2e/src",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "web-ext:build",
+            "npmPackageName": "@plopdown/web-ext",
+            "pluginOutputPath": "dist/libs/web-ext",
+            "jestConfig": "apps/web-ext-e2e/jest.config.js",
+            "tsSpecConfig": "apps/web-ext-e2e/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "plopdown-ext": {
+      "projectType": "application",
+      "root": "apps/plopdown-ext",
+      "sourceRoot": "apps/plopdown-ext/src",
+      "architect": {
+        "build": {
+          "builder": "@plopdown/web-ext:build",
+          "options": {
+            "destinationDir": "dist/apps/plopdown-ext",
+            "artifactsDir": "dist/extensions",
+            "sourceDir": "apps/plopdown-ext/src",
+            "overwriteDest": true
+          }
+        }
+      }
+    },
+    "background": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
         }
       },
-      "root": "apps/extension",
-      "sourceRoot": "apps/extension/src",
+      "root": "apps/background",
+      "sourceRoot": "apps/background/src",
       "prefix": "plopdown",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/extension",
-            "index": "apps/extension/src/index.html",
-            "main": "apps/extension/src/main.ts",
-            "polyfills": "apps/extension/src/polyfills.ts",
-            "tsConfig": "apps/extension/tsconfig.app.json",
+            "outputPath": "dist/apps/plopdown-ext/background",
+            "index": "apps/background/src/index.html",
+            "main": "apps/background/src/main.ts",
+            "polyfills": "apps/background/src/polyfills.ts",
+            "tsConfig": "apps/background/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/extension/src/favicon.ico",
-              "apps/extension/src/assets"
-            ],
-            "styles": ["apps/extension/src/styles.scss"],
+            "assets": [],
+            "styles": ["apps/background/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/extension/src/environments/environment.ts",
-                  "with": "apps/extension/src/environments/environment.prod.ts"
+                  "replace": "apps/background/src/environments/environment.ts",
+                  "with": "apps/background/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -62,64 +145,353 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "extension:build"
+            "browserTarget": "background:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "extension:build:production"
+              "browserTarget": "background:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "extension:build"
+            "browserTarget": "background:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/extension/tsconfig.app.json",
-              "apps/extension/tsconfig.spec.json"
+              "apps/background/tsconfig.app.json",
+              "apps/background/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/extension/**"]
+            "exclude": ["**/node_modules/**", "!apps/background/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/extension/jest.config.js",
-            "tsConfig": "apps/extension/tsconfig.spec.json",
+            "jestConfig": "apps/background/jest.config.js",
+            "tsConfig": "apps/background/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "apps/extension/src/test-setup.ts"
+            "setupFile": "apps/background/src/test-setup.ts"
           }
         }
       }
     },
-    "extension-e2e": {
-      "root": "apps/extension-e2e",
-      "sourceRoot": "apps/extension-e2e/src",
-      "projectType": "application",
+    "browser-storage": {
+      "projectType": "library",
+      "root": "libs/browser-storage",
+      "sourceRoot": "libs/browser-storage/src",
+      "prefix": "plopdown",
       "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "cypressConfig": "apps/extension-e2e/cypress.json",
-            "tsConfig": "apps/extension-e2e/tsconfig.e2e.json",
-            "devServerTarget": "extension:serve"
+            "tsConfig": [
+              "libs/browser-storage/tsconfig.lib.json",
+              "libs/browser-storage/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/browser-storage/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/browser-storage/jest.config.js",
+            "tsConfig": "libs/browser-storage/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/browser-storage/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "browser-action": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/browser-action",
+      "sourceRoot": "apps/browser-action/src",
+      "prefix": "plopdown",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/plopdown-ext/browser-action",
+            "index": "apps/browser-action/src/index.html",
+            "main": "apps/browser-action/src/main.ts",
+            "polyfills": "apps/browser-action/src/polyfills.ts",
+            "tsConfig": "apps/browser-action/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/browser-action/src/favicon.ico",
+              "apps/browser-action/src/assets"
+            ],
+            "styles": ["apps/browser-action/src/styles.scss"],
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "devServerTarget": "extension:serve:production"
+              "fileReplacements": [
+                {
+                  "replace": "apps/browser-action/src/environments/environment.ts",
+                  "with": "apps/browser-action/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "browser-action:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "browser-action:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "browser-action:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/extension-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/extension-e2e/**"]
+            "tsConfig": [
+              "apps/browser-action/tsconfig.app.json",
+              "apps/browser-action/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/browser-action/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/browser-action/jest.config.js",
+            "tsConfig": "apps/browser-action/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/browser-action/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "options": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/options",
+      "sourceRoot": "apps/options/src",
+      "prefix": "plopdown",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/plopdown-ext/options",
+            "index": "apps/options/src/index.html",
+            "main": "apps/options/src/main.ts",
+            "polyfills": "apps/options/src/polyfills.ts",
+            "tsConfig": "apps/options/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/options/src/favicon.ico",
+              "apps/options/src/assets"
+            ],
+            "styles": ["apps/options/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/options/src/environments/environment.ts",
+                  "with": "apps/options/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "options:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "options:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "options:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/options/tsconfig.app.json",
+              "apps/options/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/options/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/options/jest.config.js",
+            "tsConfig": "apps/options/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/options/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "content-script": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/content-script",
+      "sourceRoot": "apps/content-script/src",
+      "prefix": "plopdown",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/plopdown-ext/content-script",
+            "index": "apps/content-script/src/index.html",
+            "main": "apps/content-script/src/main.ts",
+            "polyfills": "apps/content-script/src/polyfills.ts",
+            "tsConfig": "apps/content-script/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/content-script/src/favicon.ico",
+              "apps/content-script/src/assets"
+            ],
+            "styles": ["apps/content-script/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/content-script/src/environments/environment.ts",
+                  "with": "apps/content-script/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "content-script:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "content-script:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "content-script:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/content-script/tsconfig.app.json",
+              "apps/content-script/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/content-script/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/content-script/jest.config.js",
+            "tsConfig": "apps/content-script/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/content-script/src/test-setup.ts"
           }
         }
       }
@@ -137,5 +509,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "extension"
+  "defaultProject": "plopdown-ext"
 }

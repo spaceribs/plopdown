@@ -15,7 +15,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@plopdown/browser-storage": ["libs/browser-storage/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
