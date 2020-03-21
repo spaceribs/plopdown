@@ -82,7 +82,14 @@
             "destinationDir": "dist/apps/plopdown-ext",
             "artifactsDir": "dist/extensions",
             "sourceDir": "apps/plopdown-ext/src",
+            "verbose": true,
             "overwriteDest": true
+          }
+        },
+        "serve": {
+          "builder": "@plopdown/web-ext:run",
+          "options": {
+            "sourceDir": "dist/apps/plopdown-ext"
           }
         }
       }
@@ -108,8 +115,10 @@
             "tsConfig": "apps/background/tsconfig.app.json",
             "aot": true,
             "assets": [],
-            "styles": ["apps/background/src/styles.scss"],
-            "scripts": []
+            "styles": [],
+            "scripts": [],
+            "vendorChunk": false,
+            "extractCss": true
           },
           "configurations": {
             "production": {
@@ -120,7 +129,7 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "none",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
@@ -425,7 +434,9 @@
               "apps/content-script/src/assets"
             ],
             "styles": ["apps/content-script/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": false,
+            "extractCss": true
           },
           "configurations": {
             "production": {
@@ -436,7 +447,7 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "none",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,

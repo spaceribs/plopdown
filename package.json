@@ -6,6 +6,7 @@
     "ng": "ng",
     "nx": "nx",
     "web-ext": "web-ext",
+    "addons-linter": "addons-linter",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -67,6 +68,7 @@
     "@types/fs-extra": "^8.1.0",
     "@types/jest": "24.9.1",
     "@types/node": "~8.9.4",
+    "addons-linter": "^1.22.0",
     "codelyzer": "~5.0.1",
     "cypress": "^4.1.0",
     "dotenv": "6.2.0",
@@ -80,6 +82,7 @@
     "tslint": "~6.0.0",
     "typescript": "~3.7.4",
     "web-ext": "^4.1.0",
-    "web-ext-types": "^3.2.1"
+    "web-ext-types": "^3.2.1",
+    "webextension-polyfill": "^0.6.0"
   }
 }

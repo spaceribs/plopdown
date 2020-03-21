@@ -16,8 +16,6 @@
     "scripts": [
       "background/runtime.js",
       "background/polyfills.js",
-      "background/styles.js",
-      "background/vendor.js",
       "background/main.js"
     ],
     "persistent": false
@@ -28,10 +26,9 @@
       "js": [
         "content-script/runtime.js",
         "content-script/polyfills.js",
-        "content-script/styles.js",
-        "content-script/vendor.js",
         "content-script/main.js"
-      ]
+      ],
+      "css": ["content-script/styles.css"]
     }
   ],
   "options_ui": {
