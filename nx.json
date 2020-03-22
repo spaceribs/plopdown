@@ -36,10 +36,16 @@
     "options": {
       "tags": []
     },
-    "browser-storage": {
+    "content-script": {
       "tags": []
     },
-    "content-script": {
+    "testing-sandbox": {
+      "tags": []
+    },
+    "plopdown-file": {
+      "tags": []
+    },
+    "browser": {
       "tags": []
     }
   }

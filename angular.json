@@ -89,6 +89,7 @@
         "serve": {
           "builder": "@plopdown/web-ext:run",
           "options": {
+            "startUrl": "http://localhost:4200/",
             "sourceDir": "dist/apps/plopdown-ext"
           }
         }
@@ -188,34 +189,6 @@
           }
         }
       }
-    },
-    "browser-storage": {
-      "projectType": "library",
-      "root": "libs/browser-storage",
-      "sourceRoot": "libs/browser-storage/src",
-      "prefix": "plopdown",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/browser-storage/tsconfig.lib.json",
-              "libs/browser-storage/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/browser-storage/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/browser-storage/jest.config.js",
-            "tsConfig": "libs/browser-storage/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/browser-storage/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {}
     },
     "browser-action": {
       "projectType": "application",
@@ -504,6 +477,166 @@
             "passWithNoTests": true,
             "setupFile": "apps/content-script/src/test-setup.ts"
           }
+        }
+      }
+    },
+    "testing-sandbox": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/testing-sandbox",
+      "sourceRoot": "apps/testing-sandbox/src",
+      "prefix": "plopdown",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/testing-sandbox",
+            "index": "apps/testing-sandbox/src/index.html",
+            "main": "apps/testing-sandbox/src/main.ts",
+            "polyfills": "apps/testing-sandbox/src/polyfills.ts",
+            "tsConfig": "apps/testing-sandbox/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/testing-sandbox/src/favicon.ico",
+              "apps/testing-sandbox/src/assets"
+            ],
+            "styles": ["apps/testing-sandbox/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/testing-sandbox/src/environments/environment.ts",
+                  "with": "apps/testing-sandbox/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "testing-sandbox:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "testing-sandbox:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "testing-sandbox:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/testing-sandbox/tsconfig.app.json",
+              "apps/testing-sandbox/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/testing-sandbox/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/testing-sandbox/jest.config.js",
+            "tsConfig": "apps/testing-sandbox/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/testing-sandbox/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "plopdown-file": {
+      "projectType": "library",
+      "root": "libs/plopdown-file",
+      "sourceRoot": "libs/plopdown-file/src",
+      "prefix": "plopdown",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/plopdown-file/tsconfig.lib.json",
+              "libs/plopdown-file/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/plopdown-file/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/plopdown-file/jest.config.js",
+            "tsConfig": "libs/plopdown-file/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/plopdown-file/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "browser": {
+      "projectType": "library",
+      "root": "libs/browser",
+      "sourceRoot": "libs/browser/src",
+      "prefix": "plopdown",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/browser/tsconfig.lib.json",
+              "libs/browser/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/browser/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/browser/jest.config.js",
+            "tsConfig": "libs/browser/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/browser/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     }

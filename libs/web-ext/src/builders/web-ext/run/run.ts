@@ -31,12 +31,14 @@ export function runBuilder(
       ).pipe(
         switchMap((res: any) => {
           return new Observable(observer => {
-            if (res.extensionRunners) {
-              observer.next({ success: true });
-              res.extensionRunners[0].registerCleanup(() => {
-                observer.complete();
-              });
+            if (res.extensionRunners && res.extensionRunners.length <= 0) {
+              throw new Error('No instances running the extension.');
             }
+
+            observer.next({ success: true });
+            res.extensionRunners[0].registerCleanup(() => {
+              observer.complete();
+            });
           });
         })
       );

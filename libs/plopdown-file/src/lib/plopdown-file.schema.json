@@ -1,0 +1,191 @@
+{
+  "$id": "plopdown_v1",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Plopdown File v1",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "percentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "degree": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
+    },
+    "icon": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "top": {
+          "$ref": "#/definitions/percentage"
+        },
+        "left": {
+          "$ref": "#/definitions/percentage"
+        },
+        "size": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "rotate": {
+          "$ref": "#/definitions/degree"
+        },
+        "emoji": {
+          "type": "string"
+        }
+      }
+    },
+    "annotation-info": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Information card displayed on the top left.",
+      "required": ["type", "title", "authors"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "INFO"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "annotation-plop": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A simple plopdown annotation with text and an icon.",
+      "required": ["type", "top", "left", "width", "desc", "icons"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "PLOP"
+        },
+        "top": {
+          "$ref": "#/definitions/percentage"
+        },
+        "left": {
+          "$ref": "#/definitions/percentage"
+        },
+        "width": {
+          "$ref": "#/definitions/percentage"
+        },
+        "desc": {
+          "type": "string"
+        },
+        "icons": {
+          "type": "array",
+          "items": [{ "$ref": "#/definitions/icon" }]
+        }
+      }
+    }
+  },
+  "required": ["headers", "cues"],
+  "properties": {
+    "headers": {
+      "type": "object",
+      "required": ["type", "id", "title", "for", "created"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "plopdown_v1",
+          "description": "The filetype and version number."
+        },
+        "id": {
+          "description": "The unique ID of the track. Needs to be in uuid_v4 format.",
+          "type": "string",
+          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+          "format": "uuid"
+        },
+        "title": {
+          "type": "string",
+          "description": "The human readable file title."
+        },
+        "for": {
+          "description": "The title of the video this track is for.",
+          "type": "string"
+        },
+        "url": {
+          "description": "The URL of the platform.",
+          "type": "string",
+          "format": "uri"
+        },
+        "license": {
+          "description": "The license terms for this track.",
+          "type": "string"
+        },
+        "authors": {
+          "description": "The author or authors of this file.",
+          "type": "string"
+        },
+        "created": {
+          "description": "The datetime the file was first created.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated": {
+          "description": "The datetime the file was last updated.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "origin": {
+          "description": "The location of the video to combine this file with.",
+          "type": "string",
+          "format": "uri"
+        },
+        "path": {
+          "description": "The absolute path to the associated video.",
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "search": {
+          "description": "The search query of the video this track is associated with.",
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "xpath": {
+          "description": "The XPath of the video this track is associated with.",
+          "type": "string"
+        }
+      }
+    },
+    "cues": {
+      "description": "The cues to annotate the video with.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["startTime", "endTime", "data"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "number"
+          },
+          "endTime": {
+            "type": "number"
+          },
+          "data": {
+            "oneOf": [
+              { "$ref": "#/definitions/annotation-info" },
+              { "$ref": "#/definitions/annotation-plop" }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

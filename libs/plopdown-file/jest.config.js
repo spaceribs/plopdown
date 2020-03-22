@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'browser-storage',
+  name: 'plopdown-file',
   preset: '../../jest.config.js',
-  coverageDirectory: '../../coverage/libs/browser-storage',
+  coverageDirectory: '../../coverage/libs/plopdown-file',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

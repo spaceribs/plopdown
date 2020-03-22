@@ -39,15 +39,16 @@
     "@angular/platform-browser": "9.0.0",
     "@angular/platform-browser-dynamic": "9.0.0",
     "@angular/router": "9.0.0",
-    "@nrwl/angular": "9.1.1",
-    "core-js": "^2.5.4",
-    "document-register-element": "1.13.1",
-    "rxjs": "~6.5.0",
-    "zone.js": "^0.10.2",
     "@nestjs/common": "^6.8.3",
     "@nestjs/core": "^6.8.3",
     "@nestjs/platform-express": "^6.8.3",
-    "reflect-metadata": "^0.1.13"
+    "@nrwl/angular": "9.1.1",
+    "ajv": "^6.12.0",
+    "core-js": "^2.5.4",
+    "document-register-element": "1.13.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "~6.5.0",
+    "zone.js": "^0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.900.1",

@@ -1,3 +1,4 @@
+import { BrowserService } from './browser.service';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { Injectable, ErrorHandler } from '@angular/core';
@@ -13,12 +14,10 @@ export class BrowserStorageService {
   private readonly changed$: Observable<
     [browser.storage.StorageChange, StorageAreaName]
   >;
+  browser: typeof browser;
 
-  constructor(errorHandler: ErrorHandler) {
-    if (browser == null) {
-      errorHandler.handleError(new Error('Browser global could not be found.'));
-      return;
-    }
+  constructor(browserService: BrowserService) {
+    this.browser = browserService.getBrowser();
 
     this.changed$ = new Observable<
       [browser.storage.StorageChange, StorageAreaName]
@@ -30,10 +29,10 @@ export class BrowserStorageService {
         observer.next([change, area]);
       }
 
-      browser.storage.onChanged.addListener(listener);
+      this.browser.storage.onChanged.addListener(listener);
 
       return () => {
-        browser.storage.onChanged.removeListener(listener);
+        this.browser.storage.onChanged.removeListener(listener);
       };
     }).pipe(share());
   }
@@ -45,18 +44,18 @@ export class BrowserStorageService {
   }
 
   public get(area: StorageAreaName, keys: string | string[]) {
-    return browser.storage[area].get(keys);
+    return this.browser.storage[area].get(keys);
   }
 
   public set(area: StorageAreaName, keys: object) {
-    browser.storage[area].set(keys);
+    this.browser.storage[area].set(keys);
   }
 
   public clear(area: StorageAreaName) {
-    browser.storage[area].clear();
+    this.browser.storage[area].clear();
   }
 
   public remove(area: StorageAreaName, keys: string | string[]) {
-    return browser.storage[area].remove(keys);
+    return this.browser.storage[area].remove(keys);
   }
 }

@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { BrowserStorageModule } from './browser-storage.module';
+import { BrowserModule } from './browser.module';
 
-describe('BrowserStorageModule', () => {
+describe('BrowserModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [BrowserStorageModule]
+      imports: [BrowserModule]
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(BrowserStorageModule).toBeDefined();
+    expect(BrowserModule).toBeDefined();
   });
 });
