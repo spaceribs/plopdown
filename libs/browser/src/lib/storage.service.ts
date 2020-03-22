@@ -1,16 +1,11 @@
 import { BrowserService } from './browser.service';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { share } from 'rxjs/operators';
-import { Injectable, ErrorHandler } from '@angular/core';
-
-export enum StorageAreaName {
-  Local = 'local',
-  Sync = 'sync',
-  Managed = 'managed'
-}
+import { Injectable } from '@angular/core';
+import { StorageAreaName } from './storage.model';
 
 @Injectable()
-export class BrowserStorageService {
+export class StorageService {
   private readonly changed$: Observable<
     [browser.storage.StorageChange, StorageAreaName]
   >;
@@ -37,25 +32,31 @@ export class BrowserStorageService {
     }).pipe(share());
   }
 
-  public onChanged(): Observable<
+  public getOnChanged(): Observable<
     [browser.storage.StorageChange, StorageAreaName]
   > {
     return this.changed$;
   }
 
-  public get(area: StorageAreaName, keys: string | string[]) {
-    return this.browser.storage[area].get(keys);
+  public get(
+    area: StorageAreaName,
+    keys: string | string[]
+  ): Observable<object> {
+    return from(this.browser.storage[area].get(keys));
   }
 
-  public set(area: StorageAreaName, keys: object) {
-    this.browser.storage[area].set(keys);
+  public set(area: StorageAreaName, keys: object): Observable<void> {
+    return from(this.browser.storage[area].set(keys));
   }
 
-  public clear(area: StorageAreaName) {
-    this.browser.storage[area].clear();
+  public clear(area: StorageAreaName): Observable<void> {
+    return from(this.browser.storage[area].clear());
   }
 
-  public remove(area: StorageAreaName, keys: string | string[]) {
-    return this.browser.storage[area].remove(keys);
+  public remove(
+    area: StorageAreaName,
+    keys: string | string[]
+  ): Observable<void> {
+    return from(this.browser.storage[area].remove(keys));
   }
 }

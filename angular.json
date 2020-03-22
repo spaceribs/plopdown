@@ -639,6 +639,102 @@
           "styleext": "scss"
         }
       }
+    },
+    "ports": {
+      "projectType": "library",
+      "root": "libs/ports",
+      "sourceRoot": "libs/ports/src",
+      "prefix": "plopdown",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ports/tsconfig.lib.json",
+              "libs/ports/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ports/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ports/jest.config.js",
+            "tsConfig": "libs/ports/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ports/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "video-refs": {
+      "projectType": "library",
+      "root": "libs/video-refs",
+      "sourceRoot": "libs/video-refs/src",
+      "prefix": "plopdown",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/video-refs/tsconfig.lib.json",
+              "libs/video-refs/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/video-refs/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/video-refs/jest.config.js",
+            "tsConfig": "libs/video-refs/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/video-refs/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "tracks": {
+      "projectType": "library",
+      "root": "libs/tracks",
+      "sourceRoot": "libs/tracks/src",
+      "prefix": "plopdown",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/tracks/tsconfig.lib.json",
+              "libs/tracks/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/tracks/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tracks/jest.config.js",
+            "tsConfig": "libs/tracks/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/tracks/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

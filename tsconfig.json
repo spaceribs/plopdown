@@ -17,7 +17,10 @@
     "baseUrl": ".",
     "paths": {
       "@plopdown/plopdown-file": ["libs/plopdown-file/src/index.ts"],
-      "@plopdown/browser": ["libs/browser/src/index.ts"]
+      "@plopdown/browser": ["libs/browser/src/index.ts"],
+      "@plopdown/ports": ["libs/ports/src/index.ts"],
+      "@plopdown/video-refs": ["libs/video-refs/src/index.ts"],
+      "@plopdown/tracks": ["libs/tracks/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,4 +1,5 @@
-import { BrowserStorageService } from '@plopdown/browser-storage';
+import { VideoRefsService } from '@plopdown/video-refs';
+import { BrowserService, RuntimeService } from '@plopdown/browser';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, DoBootstrap, ApplicationRef } from '@angular/core';
 
@@ -7,7 +8,7 @@ import { AppComponent } from './app.component';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule],
-  providers: [BrowserStorageService]
+  providers: [BrowserService, VideoRefsService, RuntimeService]
 })
 export class AppModule implements DoBootstrap {
   ngDoBootstrap(appRef: ApplicationRef): void {

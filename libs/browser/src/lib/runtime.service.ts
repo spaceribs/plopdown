@@ -1,7 +1,7 @@
 import { OnInstalledDetails } from './runtime.model';
 import { share } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Observable, fromEventPattern } from 'rxjs';
+import { Observable, fromEventPattern, from } from 'rxjs';
 import { BrowserService } from './browser.service';
 
 @Injectable()
@@ -38,5 +38,9 @@ export class RuntimeService {
 
   public getOnConnect() {
     return this.onConnect$;
+  }
+
+  public openOptionsPage(): Observable<void> {
+    return from(this.browser.runtime.openOptionsPage());
   }
 }

@@ -47,6 +47,15 @@
     },
     "browser": {
       "tags": []
+    },
+    "ports": {
+      "tags": []
+    },
+    "video-refs": {
+      "tags": []
+    },
+    "tracks": {
+      "tags": []
     }
   }
 }
