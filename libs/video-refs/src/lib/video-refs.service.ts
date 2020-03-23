@@ -13,7 +13,7 @@ export class VideoRefsService {
   constructor(storage: StorageService) {
     const changed$ = storage.getOnChanged().pipe(
       filter(([_, area]) => area === StorageAreaName.Local),
-      filter(([changes]) => changes.videoRefs != null),
+      filter(([changes]) => changes['videoRefs'] != null),
       map(([changes]) => {
         return changes[STORAGE_KEY];
       })

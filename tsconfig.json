@@ -8,6 +8,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "target": "es2015",
     "module": "esnext",
     "typeRoots": ["node_modules/@types"],
@@ -20,7 +23,8 @@
       "@plopdown/browser": ["libs/browser/src/index.ts"],
       "@plopdown/ports": ["libs/ports/src/index.ts"],
       "@plopdown/video-refs": ["libs/video-refs/src/index.ts"],
-      "@plopdown/tracks": ["libs/tracks/src/index.ts"]
+      "@plopdown/tracks": ["libs/tracks/src/index.ts"],
+      "@plopdown/logger": ["libs/logger/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

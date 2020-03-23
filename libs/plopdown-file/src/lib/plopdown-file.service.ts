@@ -1,7 +1,7 @@
 import { PlopdownFile, Cue } from './plopdown-file.model';
 import { Injectable } from '@angular/core';
 import * as Ajv from 'ajv';
-import { PlopdownSchema } from '..';
+import validator from '../schema/plopdown-file.schema.js';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class PlopdownFileService {
 
   constructor() {
     const ajv = new Ajv({ allErrors: true });
-    this.validator = ajv.compile(PlopdownSchema);
+    this.validator = validator;
   }
 
   public decode(rawFile: string): PlopdownFile {

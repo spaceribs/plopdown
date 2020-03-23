@@ -115,7 +115,7 @@
             "polyfills": "apps/background/src/polyfills.ts",
             "tsConfig": "apps/background/tsconfig.app.json",
             "aot": true,
-            "assets": [],
+            "assets": ["apps/background/src/assets"],
             "styles": [],
             "scripts": [],
             "vendorChunk": false,
@@ -209,6 +209,7 @@
             "main": "apps/browser-action/src/main.ts",
             "polyfills": "apps/browser-action/src/polyfills.ts",
             "tsConfig": "apps/browser-action/tsconfig.app.json",
+            "baseHref": "/browser-action/",
             "aot": true,
             "assets": [
               "apps/browser-action/src/favicon.ico",
@@ -306,6 +307,7 @@
             "polyfills": "apps/options/src/polyfills.ts",
             "tsConfig": "apps/options/tsconfig.app.json",
             "aot": true,
+            "baseHref": "/options/",
             "assets": [
               "apps/options/src/favicon.ico",
               "apps/options/src/assets"
@@ -727,6 +729,38 @@
             "tsConfig": "libs/tracks/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/tracks/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "logger": {
+      "projectType": "library",
+      "root": "libs/logger",
+      "sourceRoot": "libs/logger/src",
+      "prefix": "plopdown",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/logger/tsconfig.lib.json",
+              "libs/logger/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/logger/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/logger/jest.config.js",
+            "tsConfig": "libs/logger/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/logger/src/test-setup.ts"
           }
         }
       },

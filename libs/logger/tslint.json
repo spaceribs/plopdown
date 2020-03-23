@@ -1,0 +1,11 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [true, "attribute", "plopdown", "camelCase"],
+    "component-selector": [true, "element", "plopdown", "kebab-case"],
+    "no-console": false
+  },
+  "linterOptions": {
+    "exclude": ["!**/*"]
+  }
+}

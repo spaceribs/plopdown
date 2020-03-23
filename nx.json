@@ -56,6 +56,9 @@
     },
     "tracks": {
       "tags": []
+    },
+    "logger": {
+      "tags": []
     }
   }
 }
