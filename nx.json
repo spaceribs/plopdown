@@ -45,10 +45,7 @@
     "plopdown-file": {
       "tags": []
     },
-    "browser": {
-      "tags": []
-    },
-    "ports": {
+    "messages": {
       "tags": []
     },
     "video-refs": {
@@ -58,6 +55,12 @@
       "tags": []
     },
     "logger": {
+      "tags": []
+    },
+    "window-ref": {
+      "tags": []
+    },
+    "browser-ref": {
       "tags": []
     }
   }

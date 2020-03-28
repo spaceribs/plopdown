@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     RouterModule.forRoot([], { initialNavigation: 'enabled' })
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

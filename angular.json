@@ -610,61 +610,29 @@
         }
       }
     },
-    "browser": {
+    "messages": {
       "projectType": "library",
-      "root": "libs/browser",
-      "sourceRoot": "libs/browser/src",
+      "root": "libs/messages",
+      "sourceRoot": "libs/messages/src",
       "prefix": "plopdown",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/browser/tsconfig.lib.json",
-              "libs/browser/tsconfig.spec.json"
+              "libs/messages/tsconfig.lib.json",
+              "libs/messages/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/browser/**"]
+            "exclude": ["**/node_modules/**", "!libs/messages/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/browser/jest.config.js",
-            "tsConfig": "libs/browser/tsconfig.spec.json",
+            "jestConfig": "libs/messages/jest.config.js",
+            "tsConfig": "libs/messages/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/browser/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "ports": {
-      "projectType": "library",
-      "root": "libs/ports",
-      "sourceRoot": "libs/ports/src",
-      "prefix": "plopdown",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/ports/tsconfig.lib.json",
-              "libs/ports/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/ports/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/ports/jest.config.js",
-            "tsConfig": "libs/ports/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/ports/src/test-setup.ts"
+            "setupFile": "libs/messages/src/test-setup.ts"
           }
         }
       },
@@ -761,6 +729,70 @@
             "tsConfig": "libs/logger/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/logger/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "window-ref": {
+      "projectType": "library",
+      "root": "libs/window-ref",
+      "sourceRoot": "libs/window-ref/src",
+      "prefix": "plopdown",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/window-ref/tsconfig.lib.json",
+              "libs/window-ref/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/window-ref/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/window-ref/jest.config.js",
+            "tsConfig": "libs/window-ref/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/window-ref/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "browser-ref": {
+      "projectType": "library",
+      "root": "libs/browser-ref",
+      "sourceRoot": "libs/browser-ref/src",
+      "prefix": "plopdown",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/browser-ref/tsconfig.lib.json",
+              "libs/browser-ref/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/browser-ref/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/browser-ref/jest.config.js",
+            "tsConfig": "libs/browser-ref/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/browser-ref/src/test-setup.ts"
           }
         }
       },
