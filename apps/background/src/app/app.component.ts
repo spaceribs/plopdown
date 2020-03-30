@@ -1,11 +1,12 @@
+import { VideoElementRef } from '@plopdown/video-refs';
 import {
   ContentScriptSubService,
   BackgroundPubService,
   BrowserActionSubService,
-  BrowserActionOpened,
-  BrowserActionRefreshed,
   ContentScriptCommand,
-  ContentScriptReady
+  ContentScriptReady,
+  BrowserActionQueryVideoRefs,
+  ContentScriptIFramesFound
 } from '@plopdown/messages';
 import { LoggerService } from '@plopdown/logger';
 import { PlopdownFileService, PlopdownFile } from '@plopdown/plopdown-file';
@@ -15,8 +16,16 @@ import {
   OnInstalledDetails,
   TabsService
 } from '@plopdown/browser-ref';
-import { Subscription, Observable, concat, merge } from 'rxjs';
-import { filter, switchMap, map, first } from 'rxjs/operators';
+import { Subscription, Observable, concat, merge, combineLatest } from 'rxjs';
+import {
+  filter,
+  switchMap,
+  map,
+  first,
+  tap,
+  shareReplay,
+  scan
+} from 'rxjs/operators';
 import { Track, TracksService } from '@plopdown/tracks';
 import { HttpClient } from '@angular/common/http';
 
@@ -28,11 +37,15 @@ export class AppComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
   private onNewInstall$: Observable<OnInstalledDetails>;
 
-  private onBrowserActionOpened$: Observable<BrowserActionOpened>;
-  private onBrowserActionRefreshed$: Observable<BrowserActionRefreshed>;
+  private onBrowserActionQueryVideoRefs$: Observable<
+    BrowserActionQueryVideoRefs
+  >;
 
   private onContentScriptVideos$: Observable<ContentScriptCommand>;
+  private onContentScriptIFrames$: Observable<ContentScriptIFramesFound>;
   private onContentScriptReady$: Observable<ContentScriptReady>;
+  private knownVideos$: Observable<VideoElementRef[]>;
+  private knownIFrames$: Observable<string[]>;
 
   constructor(
     private errorHandler: ErrorHandler,
@@ -46,33 +59,58 @@ export class AppComponent implements OnInit, OnDestroy {
     csSub: ContentScriptSubService,
     baSub: BrowserActionSubService
   ) {
-    NewInstalls: {
-      const nullTracks$ = tracksService
-        .getTracks()
-        .pipe(filter<null>(tracks => tracks == null));
+    this.onNewInstall$ = runtime.getOnInstalled().pipe(
+      filter(details => details.reason === 'install'),
+      first()
+    );
 
-      const onInstall$ = runtime
-        .getOnInstalled()
-        .pipe(filter(details => details.reason === 'install'));
+    this.onBrowserActionQueryVideoRefs$ = baSub.getQueryVideoRefs();
 
-      this.onNewInstall$ = merge(nullTracks$, onInstall$).pipe(first());
-    }
+    this.onContentScriptReady$ = csSub.onReady();
+    this.onContentScriptVideos$ = csSub.onVideosFound();
+    this.onContentScriptIFrames$ = csSub.onIFramesFound();
 
-    ContentScriptCommands: {
-      this.onContentScriptReady$ = csSub.onReady();
-      this.onContentScriptVideos$ = csSub.onVideosFound();
-    }
+    this.knownVideos$ = this.onContentScriptVideos$.pipe(
+      scan((acc, msg) => {
+        msg.args.forEach(videoRef => {
+          const exists = acc.find(item => {
+            return (
+              item.frameOrigin === videoRef.frameOrigin &&
+              videoRef.xpath === item.xpath
+            );
+          });
 
-    BrowserActionCommands: {
-      this.onBrowserActionOpened$ = baSub.getOpened();
-      this.onBrowserActionRefreshed$ = baSub.getRefreshed();
-    }
+          if (!exists) {
+            acc.push(videoRef);
+          }
+        });
+
+        return acc;
+      }, [] as VideoElementRef[]),
+      shareReplay(1)
+    );
+
+    this.knownIFrames$ = this.onContentScriptIFrames$.pipe(
+      scan((acc, msg) => {
+        msg.args.forEach(iframe => {
+          if (!acc.includes(iframe)) {
+            acc.push(iframe);
+          }
+        });
+
+        return acc;
+      }, []),
+      shareReplay(1)
+    );
   }
 
   ngOnInit(): void {
     NewInstall: {
       const newInstallSub = this.onNewInstall$
         .pipe(
+          tap(() => {
+            this.logger.info('First Time Install Detected');
+          }),
           switchMap(() => {
             return this.addIntroTrack();
           })
@@ -80,7 +118,6 @@ export class AppComponent implements OnInit, OnDestroy {
         .subscribe({
           next: () => {
             this.runtime.openOptionsPage();
-            this.logger.info('First time install detected');
           },
           error: err => {
             this.errorHandler.handleError(err);
@@ -90,31 +127,36 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     InstallContentScript: {
-      const installContentScriptSub = this.onBrowserActionOpened$.subscribe({
-        next: () => this.installContentScript(),
-        error: err => this.errorHandler.handleError(err)
-      });
+      const installContentScriptSub = this.onBrowserActionQueryVideoRefs$
+        .pipe(
+          switchMap(() => {
+            return this.installContentScript();
+          }),
+          switchMap(() => {
+            return this.onContentScriptReady$;
+          })
+        )
+        .subscribe({
+          next: () => {
+            this.logger.debug('Content Scripts Installed');
+            this.bgPub.findVideos();
+          },
+          error: err => this.errorHandler.handleError(err)
+        });
       this.subs.add(installContentScriptSub);
     }
 
-    VideosRefresh: {
-      const videosRefreshSub = this.onBrowserActionRefreshed$.subscribe({
-        next: () => {
-          this.bgPub.findVideos();
-        },
-        error: err => this.errorHandler.handleError(err)
-      });
-      this.subs.add(videosRefreshSub);
-    }
-
     VideosFound: {
-      const videosFoundSub = this.onContentScriptVideos$.subscribe({
-        next: msg => {
-          this.bgPub.videosFound(msg.args);
+      const contentFoundSub = combineLatest([
+        this.knownVideos$,
+        this.knownIFrames$
+      ]).subscribe({
+        next: ([videoRefs, iframes]) => {
+          this.bgPub.contentFound(videoRefs, iframes);
         },
         error: err => this.errorHandler.handleError(err)
       });
-      this.subs.add(videosFoundSub);
+      this.subs.add(contentFoundSub);
     }
   }
 

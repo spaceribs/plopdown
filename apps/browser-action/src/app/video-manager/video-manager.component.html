@@ -1,0 +1,24 @@
+<section class="content" *ngIf="videoRefs$ | async as videoRefs">
+  <div class="card" *ngFor="let videoRef of videoRefs">
+    <div slot="trigger" class="card-header" role="button">
+      <div class="card-header-title">{{ getVideoTitle(videoRef.ref) }}</div>
+      <a (click)="onRemoveVideo(videoRef)" class="card-header-icon">
+        <span class="icon">
+          <i class="mdi mdi-trash-can-outline"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<a
+  href="#"
+  class="button is-expanded"
+  (click)="openExtensionsPage('/options.html#/videos')"
+>
+  Manage Videos
+</a>
+
+<a href="#" class="button is-expanded" (click)="requestPermissions($event)">
+  Add Perms
+</a>

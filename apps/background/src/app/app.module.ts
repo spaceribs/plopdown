@@ -7,6 +7,7 @@ import { NgModule, DoBootstrap, ApplicationRef } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MessagesModule } from '@plopdown/messages';
+import { VideoRefsModule } from '@plopdown/video-refs';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { MessagesModule } from '@plopdown/messages';
     HttpClientModule,
     LoggerModule.forRoot({ appName: 'Background', color: 'red' }),
     MessagesModule,
+    VideoRefsModule,
     TracksModule
   ]
 })

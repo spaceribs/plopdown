@@ -1,8 +1,16 @@
+import { LoggerService } from '@plopdown/logger';
 import { StorageService, StorageAreaName } from '@plopdown/browser-ref';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Track } from './track.model';
-import { map, filter, shareReplay, pluck } from 'rxjs/operators';
-import { Observable, merge } from 'rxjs';
+import {
+  map,
+  filter,
+  shareReplay,
+  pluck,
+  tap,
+  concatMap
+} from 'rxjs/operators';
+import { Observable, merge, Subscription, Subject } from 'rxjs';
 import { TracksModule } from './tracks.module';
 
 const STORAGE_KEY = 'tracks';
@@ -10,29 +18,67 @@ const STORAGE_KEY = 'tracks';
 @Injectable({
   providedIn: TracksModule
 })
-export class TracksService {
+export class TracksService implements OnDestroy {
   private tracks$: Observable<Track[] | null>;
+  private setTracks$: Subject<Track[]> = new Subject();
+  private subs: Subscription = new Subscription();
 
-  constructor(private storage: StorageService) {
+  constructor(private storage: StorageService, private logger: LoggerService) {
     const changed$ = storage.getOnChanged().pipe(
       filter(([_, area]) => area === StorageAreaName.Local),
-      filter(([changes]) => changes[STORAGE_KEY] != null),
-      map(([changes]) => {
-        return changes[STORAGE_KEY];
-      })
+      map(([changes]) => changes),
+      filter(changes => changes[STORAGE_KEY] != null),
+      map(changes => changes[STORAGE_KEY].newValue)
     );
 
-    const initial$ = storage
-      .get(StorageAreaName.Local, STORAGE_KEY)
-      .pipe(pluck(STORAGE_KEY));
+    const initial$ = storage.get(StorageAreaName.Local, [STORAGE_KEY]).pipe(
+      tap(initial => this.logger.debug('Initial Tracks', initial)),
+      pluck(STORAGE_KEY)
+    );
 
     this.tracks$ = merge(initial$, changed$).pipe(shareReplay(1));
+
+    const emptySub = this.tracks$
+      .pipe(
+        filter(refs => {
+          return refs == null;
+        }),
+        tap(tracks => {
+          logger.debug('Tracks Empty', tracks);
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.setTracks([]);
+        },
+        error: err => {
+          logger.error(err);
+        }
+      });
+    this.subs.add(emptySub);
+
+    const setTracksSub = this.setTracks$
+      .pipe(
+        concatMap(tracks => {
+          return this.storage.set(StorageAreaName.Local, {
+            [STORAGE_KEY]: tracks
+          });
+        })
+      )
+      .subscribe({
+        next: () => {
+          logger.debug('Tracks Set');
+        }
+      });
+    this.subs.add(setTracksSub);
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   public setTracks(tracks: Track[]) {
-    return this.storage.set(StorageAreaName.Local, {
-      [STORAGE_KEY]: tracks
-    });
+    this.setTracks$.next(tracks);
   }
 
   public getTracks(): Observable<Track[] | null> {

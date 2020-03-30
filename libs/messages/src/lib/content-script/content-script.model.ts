@@ -6,9 +6,10 @@ export type ContentScriptVideosFound = Command<
   'CS_VIDEOS_FOUND',
   VideoElementRef[]
 >;
+
+export type ContentScriptIFramesFound = Command<'CS_IFRAMES_FOUND', string[]>;
+
 export type ContentScriptCommand =
   | ContentScriptReady
-  | ContentScriptVideosFound;
-
-type FrameIdMap = Map<number, browser.runtime.Port>;
-export type TabIdMap = Map<number, FrameIdMap>;
+  | ContentScriptVideosFound
+  | ContentScriptIFramesFound;

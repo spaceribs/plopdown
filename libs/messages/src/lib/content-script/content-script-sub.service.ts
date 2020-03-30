@@ -1,7 +1,9 @@
+import { LoggerService } from '@plopdown/logger';
 import {
   ContentScriptCommand,
   ContentScriptReady,
-  ContentScriptVideosFound
+  ContentScriptVideosFound,
+  ContentScriptIFramesFound
 } from './content-script.model';
 import { Injectable } from '@angular/core';
 import { PortSubscriber } from '../subscriber.abstract';
@@ -15,8 +17,8 @@ import { MessagesService } from '../messages.service';
 export class ContentScriptSubService extends PortSubscriber<
   ContentScriptCommand
 > {
-  constructor(messages: MessagesService) {
-    super(Source.ContentScript, messages);
+  constructor(messages: MessagesService, logger: LoggerService) {
+    super(Source.ContentScript, messages, logger);
   }
 
   public onReady() {
@@ -25,5 +27,9 @@ export class ContentScriptSubService extends PortSubscriber<
 
   public onVideosFound() {
     return this.filterCommand<ContentScriptVideosFound>('CS_VIDEOS_FOUND');
+  }
+
+  public onIFramesFound() {
+    return this.filterCommand<ContentScriptIFramesFound>('CS_IFRAMES_FOUND');
   }
 }

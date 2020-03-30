@@ -1,3 +1,4 @@
+import { TabsService } from '@plopdown/browser-ref';
 import { VideoElementRef } from '@plopdown/video-refs';
 import { Injectable } from '@angular/core';
 import { BackgroundCommand } from './background.model';
@@ -11,8 +12,12 @@ import { MessagesModule } from '../messages.module';
   providedIn: MessagesModule
 })
 export class BackgroundPubService extends PortPublisher<BackgroundCommand> {
-  constructor(messages: MessagesService, logger: LoggerService) {
-    super(Source.BrowserAction, messages, logger);
+  constructor(
+    messages: MessagesService,
+    logger: LoggerService,
+    tabs: TabsService
+  ) {
+    super(Source.Background, messages, logger, tabs);
   }
 
   public checkAlive() {
@@ -23,7 +28,10 @@ export class BackgroundPubService extends PortPublisher<BackgroundCommand> {
     this.command$.next({ command: 'BG_FIND_VIDEOS', args: null });
   }
 
-  public videosFound(videoRefs: VideoElementRef[]) {
-    this.command$.next({ command: 'BG_VIDEOS_FOUND', args: videoRefs });
+  public contentFound(videoRefs: VideoElementRef[], iframes: string[]) {
+    this.command$.next({
+      command: 'BG_CONTENT_FOUND',
+      args: [videoRefs, iframes]
+    });
   }
 }

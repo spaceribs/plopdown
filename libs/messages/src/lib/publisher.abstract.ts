@@ -1,9 +1,10 @@
+import { TabsService } from '@plopdown/browser-ref';
 import { OnDestroy } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, forkJoin, combineLatest, of } from 'rxjs';
 import { MessagesService } from './messages.service';
 import { LoggerService } from '@plopdown/logger';
-import { withLatestFrom } from 'rxjs/operators';
 import { Source } from './messages.model';
+import { map, switchMap, tap, catchError, mapTo } from 'rxjs/operators';
 
 export abstract class PortPublisher<C extends object> implements OnDestroy {
   protected command$: Subject<C> = new Subject();
@@ -12,16 +13,35 @@ export abstract class PortPublisher<C extends object> implements OnDestroy {
   constructor(
     source: Source,
     messages: MessagesService,
-    logger: LoggerService
+    logger: LoggerService,
+    tabs?: TabsService
   ) {
-    const commandsSub = this.command$.subscribe({
-      next: command => {
-        messages.sendMessage({ source, ...command });
-      },
-      error: err => {
-        logger.error(err);
-      }
-    });
+    const commandsSub = this.command$
+      .pipe(
+        tap(command => logger.debug('Command to be Published', command)),
+        map(command => {
+          return { source, ...command };
+        }),
+        switchMap(message => {
+          if (tabs) {
+            return forkJoin([
+              messages.sendMessage(message),
+              tabs.sendMessage(message)
+            ]);
+          }
+
+          return messages.sendMessage(message);
+        }),
+        tap(() => logger.debug('Command Published'))
+      )
+      .subscribe({
+        next: err => {
+          logger.debug('Messages Published', err);
+        },
+        error: err => {
+          logger.error('Messages Pipeline Broken', err);
+        }
+      });
     this.subs.add(commandsSub);
   }
 

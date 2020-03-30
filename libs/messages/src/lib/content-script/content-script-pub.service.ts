@@ -24,4 +24,8 @@ export class ContentScriptPubService extends PortPublisher<
   public videosFound(videoRefs: VideoElementRef[]) {
     this.command$.next({ command: 'CS_VIDEOS_FOUND', args: videoRefs });
   }
+
+  public iframesFound(iframeUrls: string[]) {
+    this.command$.next({ command: 'CS_IFRAMES_FOUND', args: iframeUrls });
+  }
 }

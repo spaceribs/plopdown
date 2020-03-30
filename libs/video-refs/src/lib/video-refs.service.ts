@@ -1,15 +1,17 @@
+import { LoggerService } from '@plopdown/logger';
 import { StorageService, StorageAreaName } from '@plopdown/browser-ref';
-import { Observable, merge, Subject } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Observable, merge, Subject, Subscription, of } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
 import { VideoRef } from './video-ref.model';
 import {
   filter,
   pluck,
   shareReplay,
   map,
-  switchMap,
   withLatestFrom,
-  mapTo
+  mapTo,
+  tap,
+  concatMap
 } from 'rxjs/operators';
 import { VideoRefsModule } from './video-refs.module';
 
@@ -18,23 +20,54 @@ const STORAGE_KEY = 'videoRefs';
 @Injectable({
   providedIn: VideoRefsModule
 })
-export class VideoRefsService {
+export class VideoRefsService implements OnDestroy {
   private updating$: Observable<boolean>;
   private videoRefs$: Observable<VideoRef[]>;
+  private setVideoRefs$: Subject<VideoRef[]> = new Subject();
   private addVideoRef$: Subject<VideoRef> = new Subject();
   private removeVideoRef$: Subject<VideoRef> = new Subject();
+  private subs: Subscription = new Subscription();
 
-  constructor(private storage: StorageService) {
+  constructor(private storage: StorageService, private logger: LoggerService) {
     this.initChangeListeners();
     this.initUpdateListeners();
+
+    const emptySub = this.videoRefs$
+      .pipe(
+        filter(refs => {
+          return refs == null;
+        }),
+        tap(refs => {
+          logger.debug('videoRefs empty', refs);
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.setVideoRefs([]);
+        },
+        error: err => {
+          logger.error(err);
+        }
+      });
+
+    this.subs.add(emptySub);
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   private initChangeListeners() {
     const storageChanged$ = this.storage.getOnChanged().pipe(
+      tap(change => {
+        this.logger.debug('Change Detected', change);
+      }),
       filter(([_, area]) => area === StorageAreaName.Local),
-      filter(([changes]) => changes[STORAGE_KEY] != null),
-      map(([changes]) => {
-        return changes[STORAGE_KEY];
+      map(([changes]) => changes),
+      filter(changes => changes[STORAGE_KEY] != null),
+      map(changes => changes[STORAGE_KEY].newValue),
+      tap(change => {
+        this.logger.debug('Changed VideoRefs', change);
       })
     );
 
@@ -64,9 +97,14 @@ export class VideoRefsService {
       })
     );
 
-    const storageUpdates$ = merge(addVideoRefs$, removeVideoRefs$);
+    const storageUpdates$ = merge(
+      addVideoRefs$,
+      removeVideoRefs$,
+      this.setVideoRefs$
+    );
+
     const storageUpdated$ = storageUpdates$.pipe(
-      switchMap(newRefs => {
+      concatMap(newRefs => {
         return this.storage.set(StorageAreaName.Local, {
           [STORAGE_KEY]: newRefs
         });
@@ -77,6 +115,13 @@ export class VideoRefsService {
       storageUpdates$.pipe(mapTo(true)),
       storageUpdated$.pipe(mapTo(false))
     );
+
+    const updateSub = this.updating$.subscribe({
+      next: updated => {
+        this.logger.debug(updated ? 'Updating videoRefs' : 'VideoRefs updated');
+      }
+    });
+    this.subs.add(updateSub);
   }
 
   public getVideoRefs(): Observable<VideoRef[]> {
@@ -85,6 +130,10 @@ export class VideoRefsService {
 
   public getUpdating(): Observable<boolean> {
     return this.updating$;
+  }
+
+  public setVideoRefs(videoRefs: VideoRef[]) {
+    this.setVideoRefs$.next(videoRefs);
   }
 
   public addVideoRef(videoRef: VideoRef) {

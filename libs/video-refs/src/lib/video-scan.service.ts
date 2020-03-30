@@ -52,8 +52,8 @@ export class VideoScanService {
     );
   }
 
-  static scan(): NodeListOf<HTMLVideoElement> | null {
-    return document.querySelectorAll('video');
+  public scan(): void {
+    this.scan$.next();
   }
 
   public getVideoElems(): Observable<VideoElementRef[]> {

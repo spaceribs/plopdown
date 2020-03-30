@@ -8,3 +8,5 @@ export * from './lib/storage.model';
 export * from './lib/storage.service';
 
 export * from './lib/tabs.service';
+
+export * from './lib/permissions.service';

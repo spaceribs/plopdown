@@ -16,7 +16,7 @@ import { Source } from '../messages.model';
 })
 export class BackgroundSubService extends PortSubscriber<BackgroundCommand> {
   constructor(ports: MessagesService, logger: LoggerService) {
-    super(Source.Background, ports);
+    super(Source.Background, ports, logger);
   }
   public getCheckAlive() {
     return super.filterCommand<BackgroundCheckAlive>('BG_CHECK_ALIVE');
@@ -24,7 +24,8 @@ export class BackgroundSubService extends PortSubscriber<BackgroundCommand> {
   public getFindVideos() {
     return super.filterCommand<BackgroundFindVideos>('BG_FIND_VIDEOS');
   }
-  public getVideosFound() {
-    return super.filterCommand<BackgroundVideoRefsFound>('BG_VIDEOS_FOUND');
+  public getContentFound() {
+    console.log('getContentFound');
+    return super.filterCommand<BackgroundVideoRefsFound>('BG_CONTENT_FOUND');
   }
 }

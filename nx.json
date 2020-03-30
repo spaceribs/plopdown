@@ -28,16 +28,16 @@
       ]
     },
     "background": {
-      "tags": []
+      "tags": ["ext-dep"]
     },
     "browser-action": {
-      "tags": []
+      "tags": ["ext-dep"]
     },
     "options": {
-      "tags": []
+      "tags": ["ext-dep"]
     },
     "content-script": {
-      "tags": []
+      "tags": ["ext-dep"]
     },
     "testing-sandbox": {
       "tags": []

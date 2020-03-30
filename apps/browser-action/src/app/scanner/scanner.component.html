@@ -1,0 +1,101 @@
+<div class="scan-status has-text-centered" [ngSwitch]="state$ | async">
+  <div *ngSwitchCase="ActionState.Loading" [@fadeInOut] class="hero is-dark">
+    <div class="hero-body">
+      <div class="container">
+        <span class="icon">
+          <i class="mdi mdi-36px mdi-radar mdi-spin"></i>
+        </span>
+        <h1 class="title">Scanning...</h1>
+        <h2 class="subtitle">Looking for Videos</h2>
+      </div>
+    </div>
+  </div>
+  <section
+    *ngSwitchCase="ActionState.NoTracks"
+    [@fadeInOut]
+    class="hero is-dark is-bold"
+  >
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">No Tracks Found</h1>
+        <h2 class="subtitle">
+          Create or add a track to associate with a video.
+        </h2>
+        <button
+          class="button is-dark is-inverted is-outlined"
+          (click)="openExtensionsPage('/options.html#/tracks')"
+        >
+          Add Tracks
+        </button>
+      </div>
+    </div>
+  </section>
+  <section
+    *ngSwitchCase="ActionState.NoVideos"
+    [@fadeInOut]
+    class="hero is-dark is-bold"
+  >
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">No Videos Found</h1>
+        <h2 class="subtitle">Go to a page that contains a video.</h2>
+        <button
+          class="button is-dark is-inverted is-outlined"
+          (click)="queryVideoRefs()"
+        >
+          Refresh
+        </button>
+      </div>
+    </div>
+  </section>
+  <section
+    *ngSwitchCase="ActionState.Ready"
+    [@fadeInOut]
+    class="hero is-success"
+  >
+    <div class="hero-body" *ngIf="foundVideos$ | async as foundVideos">
+      <div class="container">
+        <h1 class="title">
+          {{ foundVideos.length }}
+          {{ foundVideos.length === 1 ? 'Video' : 'Videos' }} Found
+        </h1>
+        <h2 class="subtitle">Initialized Plopdowns Successfully</h2>
+        <div class="buttons">
+          <button
+            class="button is-success is-expanded is-inverted"
+            (click)="queryVideoRefs()"
+          >
+            Refresh
+          </button>
+        </div>
+        <div class="field">
+          <div class="select is-success is-expanded is-outlined">
+            <select ([ngModel])="(selectedVideo)" placeholder="Select Video...">
+              <option
+                *ngFor="let foundVideo of foundVideos"
+                [value]="foundVideo"
+                >{{ getVideoTitle(foundVideo) }}</option
+              >
+            </select>
+          </div>
+        </div>
+        <div class="field" *ngIf="selectedVideo">
+          <div class="select is-success is-expanded is-outlined">
+            <select
+              (input)="onSelectTrack()"
+              ([ngModel])="(selectedTrack)"
+              placeholder="Select Track..."
+              *ngIf="tracks$ | async as tracks"
+            >
+              <option
+                *ngFor="let track of tracks; trackBy: track.id"
+                [value]="track"
+                >{{ track.title }}</option
+              >
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

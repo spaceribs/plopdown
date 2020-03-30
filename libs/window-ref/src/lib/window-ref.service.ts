@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: WindowRefModule
 })
 export class WindowRefService {
-  window: Window & typeof globalThis;
+  private window: Window & typeof globalThis;
 
   constructor() {
     this.window = window;

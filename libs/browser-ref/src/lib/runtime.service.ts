@@ -1,7 +1,8 @@
+import { LoggerService } from '@plopdown/logger';
 import { OnInstalledDetails } from './runtime.model';
-import { share } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-import { Observable, fromEventPattern, from } from 'rxjs';
+import { share, tap, map } from 'rxjs/operators';
+import { Injectable, NgZone } from '@angular/core';
+import { Observable, from } from 'rxjs';
 import { BrowserRefService } from './browser-ref.service';
 import { BrowserRefModule } from './browser-ref.module';
 
@@ -10,45 +11,55 @@ import { BrowserRefModule } from './browser-ref.module';
 })
 export class RuntimeService {
   private readonly onInstalled$: Observable<OnInstalledDetails>;
-  private readonly onConnect$: Observable<browser.runtime.Port>;
-  private readonly browser: typeof browser;
+  private readonly runtime: typeof browser.runtime;
   private onMessage$: Observable<object>;
 
-  constructor(browserRefService: BrowserRefService) {
-    this.browser = browserRefService.getBrowser();
+  constructor(
+    browserRefService: BrowserRefService,
+    logger: LoggerService,
+    ngZone: NgZone
+  ) {
+    this.runtime = browserRefService.getBrowser().runtime;
 
-    this.onInstalled$ = fromEventPattern<OnInstalledDetails>(
-      handler => {
-        this.browser.runtime.onInstalled.addListener(handler);
-      },
-      handler => {
-        if (this.browser.runtime.onInstalled.hasListener(handler)) {
-          this.browser.runtime.onInstalled.removeListener(handler);
-        }
+    this.onInstalled$ = new Observable<OnInstalledDetails>(observer => {
+      function listener(details: OnInstalledDetails) {
+        ngZone.run(() => {
+          observer.next(details);
+        });
       }
-    ).pipe(share());
 
-    this.onConnect$ = fromEventPattern<browser.runtime.Port>(
-      handler => {
-        this.browser.runtime.onConnect.addListener(handler);
-      },
-      handler => {
-        if (this.browser.runtime.onConnect.hasListener(handler)) {
-          this.browser.runtime.onConnect.removeListener(handler);
-        }
-      }
-    ).pipe(share());
+      this.runtime.onInstalled.addListener(listener);
 
-    this.onMessage$ = fromEventPattern<object>(
-      handler => {
-        this.browser.runtime.onMessage.addListener(handler);
-      },
-      handler => {
-        if (this.browser.runtime.onMessage.hasListener(handler)) {
-          this.browser.runtime.onMessage.removeListener(handler);
+      return () => {
+        if (this.runtime.onInstalled.hasListener(listener)) {
+          this.runtime.onInstalled.removeListener(listener);
         }
+      };
+    }).pipe(share());
+
+    this.onMessage$ = new Observable(observer => {
+      function listener(
+        msg: any,
+        sender: browser.runtime.MessageSender,
+        cb: () => void
+      ) {
+        ngZone.run(() => {
+          observer.next([msg, sender, cb]);
+        });
       }
-    ).pipe(share());
+
+      this.runtime.onMessage.addListener(listener);
+
+      return () => {
+        if (this.runtime.onMessage.hasListener(listener)) {
+          this.runtime.onMessage.removeListener(listener);
+        }
+      };
+    }).pipe(
+      tap(msg => logger.debug('New Message', msg)),
+      map(([cmd]) => cmd),
+      share()
+    );
   }
 
   public getOnInstalled() {
@@ -59,15 +70,15 @@ export class RuntimeService {
     return this.onMessage$;
   }
 
-  public sendMessage(msg: object) {
-    return from(this.browser.runtime.sendMessage(msg));
+  public sendMessage(message: object) {
+    return from(this.runtime.sendMessage(message));
   }
 
   public openOptionsPage(): Observable<void> {
-    return from(this.browser.runtime.openOptionsPage());
+    return from(this.runtime.openOptionsPage());
   }
 
   public getURL(path: string) {
-    return this.browser.runtime.getURL(path);
+    return this.runtime.getURL(path);
   }
 }

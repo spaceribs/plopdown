@@ -2,9 +2,8 @@ import { MessagesService } from './../messages.service';
 import { LoggerService } from '@plopdown/logger';
 import { Injectable } from '@angular/core';
 import {
-  BrowserActionOpened,
   BrowserActionCommand,
-  BrowserActionRefreshed
+  BrowserActionQueryVideoRefs
 } from './browser-action.model';
 import { PortSubscriber } from '../subscriber.abstract';
 import { MessagesModule } from '../messages.module';
@@ -17,14 +16,12 @@ export class BrowserActionSubService extends PortSubscriber<
   BrowserActionCommand
 > {
   constructor(messages: MessagesService, logger: LoggerService) {
-    super(Source.BrowserAction, messages);
+    super(Source.BrowserAction, messages, logger);
   }
 
-  public getOpened() {
-    return super.filterCommand<BrowserActionOpened>('BA_OPENED');
-  }
-
-  public getRefreshed() {
-    return super.filterCommand<BrowserActionRefreshed>('BA_REFRESHED');
+  public getQueryVideoRefs() {
+    return super.filterCommand<BrowserActionQueryVideoRefs>(
+      'BA_QUERY_VIDEOREFS'
+    );
   }
 }

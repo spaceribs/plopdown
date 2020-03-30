@@ -16,11 +16,7 @@ export class BrowserActionPubService extends PortPublisher<
     super(Source.BrowserAction, messages, logger);
   }
 
-  public opened() {
-    this.command$.next({ command: 'BA_OPENED', args: null });
-  }
-
-  public refreshed() {
-    this.command$.next({ command: 'BA_REFRESHED', args: null });
+  public queryVideoRefs() {
+    this.command$.next({ command: 'BA_QUERY_VIDEOREFS', args: null });
   }
 }

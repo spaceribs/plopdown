@@ -1,5 +1,4 @@
 import { Command } from '../messages.model';
 
-export type BrowserActionOpened = Command<'BA_OPENED'>;
-export type BrowserActionRefreshed = Command<'BA_REFRESHED'>;
-export type BrowserActionCommand = BrowserActionOpened | BrowserActionRefreshed;
+export type BrowserActionQueryVideoRefs = Command<'BA_QUERY_VIDEOREFS'>;
+export type BrowserActionCommand = BrowserActionQueryVideoRefs;

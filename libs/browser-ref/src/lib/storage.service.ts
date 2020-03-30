@@ -1,7 +1,7 @@
 import { BrowserRefService } from './browser-ref.service';
 import { Observable, from } from 'rxjs';
 import { share } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { StorageAreaName } from './storage.model';
 import { BrowserRefModule } from './browser-ref.module';
 
@@ -14,7 +14,7 @@ export class StorageService {
   >;
   browser: typeof browser;
 
-  constructor(browserRefService: BrowserRefService) {
+  constructor(browserRefService: BrowserRefService, ngZone: NgZone) {
     this.browser = browserRefService.getBrowser();
 
     this.changed$ = new Observable<
@@ -24,7 +24,9 @@ export class StorageService {
         change: browser.storage.StorageChange,
         area: StorageAreaName
       ) {
-        observer.next([change, area]);
+        ngZone.run(() => {
+          observer.next([change, area]);
+        });
       }
 
       this.browser.storage.onChanged.addListener(listener);
