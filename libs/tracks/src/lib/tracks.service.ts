@@ -1,5 +1,5 @@
 import { LoggerService } from '@plopdown/logger';
-import { StorageService, StorageAreaName } from '@plopdown/browser-ref';
+import { ExtStorageService, ExtStorageAreaName } from '@plopdown/ext-storage';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Track } from './track.model';
 import {
@@ -23,15 +23,18 @@ export class TracksService implements OnDestroy {
   private setTracks$: Subject<Track[]> = new Subject();
   private subs: Subscription = new Subscription();
 
-  constructor(private storage: StorageService, private logger: LoggerService) {
+  constructor(
+    private storage: ExtStorageService,
+    private logger: LoggerService
+  ) {
     const changed$ = storage.getOnChanged().pipe(
-      filter(([_, area]) => area === StorageAreaName.Local),
+      filter(([_, area]) => area === ExtStorageAreaName.Local),
       map(([changes]) => changes),
       filter(changes => changes[STORAGE_KEY] != null),
       map(changes => changes[STORAGE_KEY].newValue)
     );
 
-    const initial$ = storage.get(StorageAreaName.Local, [STORAGE_KEY]).pipe(
+    const initial$ = storage.get(ExtStorageAreaName.Local, [STORAGE_KEY]).pipe(
       tap(initial => this.logger.debug('Initial Tracks', initial)),
       pluck(STORAGE_KEY)
     );
@@ -60,7 +63,7 @@ export class TracksService implements OnDestroy {
     const setTracksSub = this.setTracks$
       .pipe(
         concatMap(tracks => {
-          return this.storage.set(StorageAreaName.Local, {
+          return this.storage.set(ExtStorageAreaName.Local, {
             [STORAGE_KEY]: tracks
           });
         })

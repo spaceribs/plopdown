@@ -1,5 +1,5 @@
 import { Track } from '@plopdown/tracks';
-import { VideoElementRef } from '@plopdown/video-refs';
+import { VideoElementRef } from 'libs/video-elem-refs/src';
 
 export interface PlopdownFile {
   headers: {

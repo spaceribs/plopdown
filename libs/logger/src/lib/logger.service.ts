@@ -1,9 +1,7 @@
 import { LoggerConfigService } from './logger.config';
 import { Injectable, Inject, isDevMode } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LoggerService {
   private devMode: boolean;
   private appName: string;

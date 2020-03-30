@@ -1,8 +1,8 @@
+import { WindowRefService } from './window-ref.service';
 import { Injectable } from '@angular/core';
-import { VideoRefsModule } from './video-refs.module';
 
 @Injectable({
-  providedIn: VideoRefsModule
+  providedIn: WindowRefService
 })
 export class XPathService {
   constructor() {}

@@ -1,4 +1,4 @@
-import { VideoElementRef } from '@plopdown/video-refs';
+import { VideoElementRef } from '@plopdown/video-elem-refs';
 import {
   ContentScriptSubService,
   BackgroundPubService,
@@ -16,7 +16,7 @@ import {
   OnInstalledDetails,
   TabsService
 } from '@plopdown/browser-ref';
-import { Subscription, Observable, concat, merge, combineLatest } from 'rxjs';
+import { Subscription, Observable, concat, combineLatest } from 'rxjs';
 import {
   filter,
   switchMap,
@@ -181,7 +181,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
           return introTrack;
         }),
-        switchMap(track => {
+        map(track => {
           return this.tracksService.setTracks([track]);
         })
       );

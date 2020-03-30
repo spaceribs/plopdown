@@ -62,6 +62,12 @@
     },
     "browser-ref": {
       "tags": []
+    },
+    "ext-storage": {
+      "tags": []
+    },
+    "video-elem-refs": {
+      "tags": []
     }
   }
 }

@@ -1,5 +1,5 @@
 import { LoggerService } from '@plopdown/logger';
-import { StorageService, StorageAreaName } from '@plopdown/browser-ref';
+import { ExtStorageService, ExtStorageAreaName } from '@plopdown/ext-storage';
 import { Observable, merge, Subject, Subscription, of } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { VideoRef } from './video-ref.model';
@@ -28,7 +28,10 @@ export class VideoRefsService implements OnDestroy {
   private removeVideoRef$: Subject<VideoRef> = new Subject();
   private subs: Subscription = new Subscription();
 
-  constructor(private storage: StorageService, private logger: LoggerService) {
+  constructor(
+    private storage: ExtStorageService,
+    private logger: LoggerService
+  ) {
     this.initChangeListeners();
     this.initUpdateListeners();
 
@@ -62,7 +65,7 @@ export class VideoRefsService implements OnDestroy {
       tap(change => {
         this.logger.debug('Change Detected', change);
       }),
-      filter(([_, area]) => area === StorageAreaName.Local),
+      filter(([_, area]) => area === ExtStorageAreaName.Local),
       map(([changes]) => changes),
       filter(changes => changes[STORAGE_KEY] != null),
       map(changes => changes[STORAGE_KEY].newValue),
@@ -72,7 +75,7 @@ export class VideoRefsService implements OnDestroy {
     );
 
     const storageInitial$ = this.storage
-      .get(StorageAreaName.Local, STORAGE_KEY)
+      .get(ExtStorageAreaName.Local, STORAGE_KEY)
       .pipe(pluck(STORAGE_KEY));
 
     this.videoRefs$ = merge(storageInitial$, storageChanged$).pipe(
@@ -105,7 +108,7 @@ export class VideoRefsService implements OnDestroy {
 
     const storageUpdated$ = storageUpdates$.pipe(
       concatMap(newRefs => {
-        return this.storage.set(StorageAreaName.Local, {
+        return this.storage.set(ExtStorageAreaName.Local, {
           [STORAGE_KEY]: newRefs
         });
       })

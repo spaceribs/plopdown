@@ -12,12 +12,14 @@ import {
   OnDestroy,
   AfterViewInit
 } from '@angular/core';
-import {
-  VideoScanService,
-  VideoElementRef,
-  IFrameScanService
-} from '@plopdown/video-refs';
+import { VideoElementRef } from 'libs/video-elem-refs/src';
 import { map } from 'rxjs/operators';
+import {
+  WindowRefService,
+  VideoScanService,
+  IFrameScanService,
+  XPathService
+} from '@plopdown/window-ref';
 
 @Component({
   selector: 'plopdown-cs',
@@ -26,7 +28,7 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
-  private videoElems$: Observable<VideoElementRef[]>;
+  private foundVideos$: Observable<VideoElementRef[]>;
   private iframeOrigins$: Observable<string[]>;
   private subs: Subscription = new Subscription();
   private onBackgroundFindVideos$: Observable<BackgroundFindVideos>;
@@ -36,12 +38,32 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     private iframeScanner: IFrameScanService,
     private logger: LoggerService,
     private csPub: ContentScriptPubService,
-    bgSub: BackgroundSubService
+    bgSub: BackgroundSubService,
+    window: WindowRefService,
+    xpathService: XPathService
   ) {
     this.onBackgroundFindVideos$ = bgSub.getFindVideos();
 
-    this.videoElems$ = videoScanner.getVideoElems();
+    const videoElems$ = videoScanner.getVideoElems();
     const iframeElems$ = iframeScanner.getIFrameElems();
+    const document = window.getDocument();
+
+    this.foundVideos$ = videoElems$.pipe(
+      map(elems => {
+        return elems.map(elem => {
+          const xpath = xpathService.getXPath(elem);
+
+          return {
+            xpath,
+            title: elem.title,
+            frameTitle: document.title,
+            frameOrigin: document.location.origin,
+            framePath: document.location.pathname,
+            frameSearch: document.location.search
+          } as VideoElementRef;
+        });
+      })
+    );
 
     this.iframeOrigins$ = iframeElems$.pipe(
       map(elems => elems.map(elem => elem.src))
@@ -50,7 +72,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     const elemsFoundSub = combineLatest([
-      this.videoElems$,
+      this.foundVideos$,
       this.iframeOrigins$
     ]).subscribe({
       next: ([videos, iframes]) => {

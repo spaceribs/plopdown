@@ -1,5 +1,5 @@
 import { TabsService } from '@plopdown/browser-ref';
-import { VideoElementRef } from '@plopdown/video-refs';
+import { VideoElementRef } from 'libs/video-elem-refs/src';
 import { Injectable } from '@angular/core';
 import { BackgroundCommand } from './background.model';
 import { MessagesService } from '../messages.service';

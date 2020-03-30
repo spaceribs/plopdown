@@ -1,12 +1,13 @@
+import { WindowRefModule } from './window-ref.module';
 import { XPathService } from './xpath.service';
-import { WindowRefService } from '@plopdown/window-ref';
+
+import { WindowRefService } from './window-ref.service';
 import { Observable, Subject } from 'rxjs';
-import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { VideoRefsModule } from './video-refs.module';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: VideoRefsModule
+  providedIn: WindowRefModule
 })
 export class IFrameScanService {
   private document: Document;

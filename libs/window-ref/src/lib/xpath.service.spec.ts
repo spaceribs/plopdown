@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { XpathService } from './xpath.service';
+import { XPathService } from './xpath.service';
 
 describe('XpathService', () => {
-  let service: XpathService;
+  let service: XPathService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(XpathService);
+    service = TestBed.inject(XPathService);
   });
 
   it('should be created', () => {

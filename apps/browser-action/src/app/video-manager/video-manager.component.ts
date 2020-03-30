@@ -1,11 +1,11 @@
-import { VideoRefsService, VideoElementRef } from '@plopdown/video-refs';
 import { Observable } from 'rxjs';
 import { WindowRefService } from '@plopdown/window-ref';
 import { RuntimeService, PermissionsService } from '@plopdown/browser-ref';
-import { Component, OnInit } from '@angular/core';
-import { VideoRef } from '@plopdown/video-refs';
+import { Component } from '@angular/core';
+import { VideoRefsService, VideoRef } from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
 import { tap } from 'rxjs/operators';
+import { VideoElementRef } from 'libs/video-elem-refs/src';
 
 @Component({
   selector: 'plopdown-video-manager',

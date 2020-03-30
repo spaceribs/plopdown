@@ -10,7 +10,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "run-many": "nx run-many --target=build --projects=browser-action,content-script,options,background --parallel --watch",
+    "run-many": "nx run-many --target=build --projects=browser-action,content-script,options,background --parallel --maxParallel=4 --watch",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
     "affected:apps": "nx affected:apps",

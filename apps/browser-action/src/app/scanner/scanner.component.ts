@@ -5,32 +5,15 @@ import {
   BackgroundCheckAlive
 } from '@plopdown/messages';
 import { Track, TracksService } from '@plopdown/tracks';
-import {
-  VideoRef,
-  VideoElementRef,
-  VideoRefsService
-} from '@plopdown/video-refs';
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
-} from '@angular/core';
-import {
-  of,
-  Observable,
-  timer,
-  merge,
-  Subscription,
-  combineLatest
-} from 'rxjs';
-import { mapTo, map, startWith, tap, shareReplay } from 'rxjs/operators';
+import { VideoRef, VideoRefsService } from '@plopdown/video-refs';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Observable, Subscription, combineLatest } from 'rxjs';
+import { map, startWith, tap, shareReplay } from 'rxjs/operators';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { fadeOut, fadeIn } from 'ng-animate';
 import { RuntimeService } from '@plopdown/browser-ref';
 import { WindowRefService } from '@plopdown/window-ref';
+import { VideoElementRef } from 'libs/video-elem-refs/src';
 
 enum ActionState {
   Loading = 'LOADING',
@@ -81,7 +64,6 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     private runtime: RuntimeService,
     private window: WindowRefService,
     private logger: LoggerService,
-    private cd: ChangeDetectorRef,
     bgSub: BackgroundSubService,
     tracksService: TracksService
   ) {

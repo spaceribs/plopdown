@@ -1,5 +1,5 @@
 import { Command } from '../messages.model';
-import { VideoElementRef } from '@plopdown/video-refs';
+import { VideoElementRef } from 'libs/video-elem-refs/src';
 
 export type ContentScriptReady = Command<'CS_READY'>;
 export type ContentScriptVideosFound = Command<

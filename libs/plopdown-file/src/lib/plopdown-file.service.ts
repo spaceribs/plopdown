@@ -1,10 +1,11 @@
+import { PlopdownFileModule } from './plopdown-file.module';
 import { PlopdownFile, Cue } from './plopdown-file.model';
 import { Injectable } from '@angular/core';
 import * as Ajv from 'ajv';
 import validator from '../schema/plopdown-file.schema.js';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: PlopdownFileModule
 })
 export class PlopdownFileService {
   private readonly validator: Ajv.ValidateFunction;
