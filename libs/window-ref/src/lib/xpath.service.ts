@@ -1,8 +1,8 @@
-import { WindowRefService } from './window-ref.service';
 import { Injectable } from '@angular/core';
+import { WindowRefModule } from './window-ref.module';
 
 @Injectable({
-  providedIn: WindowRefService
+  providedIn: WindowRefModule
 })
 export class XPathService {
   constructor() {}

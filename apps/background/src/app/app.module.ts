@@ -1,3 +1,4 @@
+import { ExtStorageModule } from '@plopdown/ext-storage';
 import { BrowserRefModule } from '@plopdown/browser-ref';
 import { TracksModule } from '@plopdown/tracks';
 import { LoggerModule } from '@plopdown/logger';
@@ -8,6 +9,7 @@ import { NgModule, DoBootstrap, ApplicationRef } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MessagesModule } from '@plopdown/messages';
 import { VideoRefsModule } from '@plopdown/video-refs';
+import { PlopdownFileModule } from '@plopdown/plopdown-file';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +17,8 @@ import { VideoRefsModule } from '@plopdown/video-refs';
     BrowserModule,
     BrowserRefModule,
     HttpClientModule,
+    PlopdownFileModule,
+    ExtStorageModule,
     LoggerModule.forRoot({ appName: 'Background', color: 'red' }),
     MessagesModule,
     VideoRefsModule,

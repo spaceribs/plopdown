@@ -1,5 +1,5 @@
 import { Command } from '../messages.model';
-import { VideoElementRef } from 'libs/video-elem-refs/src';
+import type { VideoElementRef } from '@plopdown/video-elem-refs';
 
 export type BackgroundCheckAlive = Command<'BG_CHECK_ALIVE'>;
 export type BackgroundFindVideos = Command<'BG_FIND_VIDEOS'>;

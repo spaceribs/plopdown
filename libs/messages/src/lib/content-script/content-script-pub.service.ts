@@ -1,4 +1,4 @@
-import { VideoElementRef } from 'libs/video-elem-refs/src';
+import type { VideoElementRef } from '@plopdown/video-elem-refs';
 import { LoggerService } from '@plopdown/logger';
 import { ContentScriptCommand } from './content-script.model';
 import { Injectable } from '@angular/core';

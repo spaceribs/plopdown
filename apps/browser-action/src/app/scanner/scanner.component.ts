@@ -13,7 +13,7 @@ import { trigger, transition, useAnimation } from '@angular/animations';
 import { fadeOut, fadeIn } from 'ng-animate';
 import { RuntimeService } from '@plopdown/browser-ref';
 import { WindowRefService } from '@plopdown/window-ref';
-import { VideoElementRef } from 'libs/video-elem-refs/src';
+import type { VideoElementRef } from '@plopdown/video-elem-refs';
 
 enum ActionState {
   Loading = 'LOADING',

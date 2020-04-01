@@ -41,25 +41,6 @@ export class TracksService implements OnDestroy {
 
     this.tracks$ = merge(initial$, changed$).pipe(shareReplay(1));
 
-    const emptySub = this.tracks$
-      .pipe(
-        filter(refs => {
-          return refs == null;
-        }),
-        tap(tracks => {
-          logger.debug('Tracks Empty', tracks);
-        })
-      )
-      .subscribe({
-        next: () => {
-          this.setTracks([]);
-        },
-        error: err => {
-          logger.error(err);
-        }
-      });
-    this.subs.add(emptySub);
-
     const setTracksSub = this.setTracks$
       .pipe(
         concatMap(tracks => {

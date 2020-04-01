@@ -1,5 +1,4 @@
 import { WindowRefModule } from './window-ref.module';
-import { XPathService } from './xpath.service';
 
 import { WindowRefService } from './window-ref.service';
 import { Observable, Subject } from 'rxjs';
@@ -15,7 +14,7 @@ export class IFrameScanService {
   private iframes$: Observable<HTMLIFrameElement[]>;
   private scan$: Subject<void> = new Subject();
 
-  constructor(window: WindowRefService, xpathService: XPathService) {
+  constructor(window: WindowRefService) {
     this.document = window.getDocument();
     this.iframes$ = this.scan$.pipe(
       map(() => {

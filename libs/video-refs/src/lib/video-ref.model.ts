@@ -1,5 +1,5 @@
-import { Track } from '@plopdown/tracks';
-import { VideoElementRef } from 'libs/video-elem-refs/src';
+import type { Track } from '@plopdown/tracks';
+import type { VideoElementRef } from '@plopdown/video-elem-refs';
 
 export interface VideoRef {
   track?: Track['id'];

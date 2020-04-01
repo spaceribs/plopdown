@@ -8,11 +8,13 @@ import { MessagesModule } from '@plopdown/messages';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { VideoManagerComponent } from './video-manager/video-manager.component';
 import { ScannerComponent } from './scanner/scanner.component';
+import { ExtStorageModule } from '@plopdown/ext-storage';
 
 const appRoutes: Routes = [
   { path: '', component: ScannerComponent },
@@ -24,6 +26,8 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     BrowserRefModule,
+    ExtStorageModule,
+    FormsModule,
     LoggerModule.forRoot({ appName: 'BrowserAction', color: 'green' }),
     RouterModule.forRoot(appRoutes, {
       useHash: true,

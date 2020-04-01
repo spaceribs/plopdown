@@ -1,4 +1,4 @@
-import { VideoElementRef } from '@plopdown/video-elem-refs';
+import type { VideoElementRef } from '@plopdown/video-elem-refs';
 import {
   ContentScriptSubService,
   BackgroundPubService,
@@ -72,6 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.knownVideos$ = this.onContentScriptVideos$.pipe(
       scan((acc, msg) => {
+        console.log(acc, msg);
         msg.args.forEach(videoRef => {
           const exists = acc.find(item => {
             return (

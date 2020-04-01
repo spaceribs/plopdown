@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { VideoRefsService, VideoRef } from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
 import { tap } from 'rxjs/operators';
-import { VideoElementRef } from 'libs/video-elem-refs/src';
+import type { VideoElementRef } from '@plopdown/video-elem-refs';
 
 @Component({
   selector: 'plopdown-video-manager',

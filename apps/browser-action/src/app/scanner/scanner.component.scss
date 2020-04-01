@@ -15,6 +15,12 @@
     flex-direction: column;
     .hero-body {
       flex: 0 0 auto;
+      .select {
+        display: block;
+        select {
+          width: 100%;
+        }
+      }
     }
   }
 }
