@@ -1,0 +1,10 @@
+<div
+  class="elem-overlay"
+  *ngIf="styles$ | async as styles"
+  [@videoOutline]
+  [ngStyle]="styles.overlay"
+>
+  <div class="stage" [ngStyle]="styles.stage">
+    <plopdown-overlay-menu></plopdown-overlay-menu>
+  </div>
+</div>

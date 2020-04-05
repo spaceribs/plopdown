@@ -1,12 +1,62 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { LoggerService } from '@plopdown/logger';
+import { VideoOverlayComponent } from './../video-overlay/video-overlay.component';
+import { XPathService } from '@plopdown/window-ref';
+import {
+  Component,
+  OnInit,
+  Input,
+  Injector,
+  ApplicationRef,
+  EmbeddedViewRef,
+  ComponentRef,
+  OnDestroy,
+  ComponentFactoryResolver
+} from '@angular/core';
 
 @Component({
   selector: 'plopdown-video-attachment',
-  templateUrl: './video-attachment.component.html',
-  styleUrls: ['./video-attachment.component.scss']
+  template: ''
 })
-export class VideoAttachmentComponent implements OnInit {
-  constructor() {}
+export class VideoAttachmentComponent implements OnInit, OnDestroy {
+  private videoElem: HTMLVideoElement | null;
+  overlayComponentRef: ComponentRef<VideoOverlayComponent>;
+
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private xpathService: XPathService,
+    private logger: LoggerService,
+    private injector: Injector,
+    private appRef: ApplicationRef
+  ) {}
+
   @Input() public xpath: string;
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.videoElem = this.xpathService.getElement<HTMLVideoElement>(this.xpath);
+
+    if (this.videoElem == null) {
+      this.logger.warn('No video found matching xpath.', this.videoElem);
+      return;
+    }
+
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+      VideoOverlayComponent
+    );
+    const componentRef = componentFactory.create(this.injector);
+    this.appRef.attachView(componentRef.hostView);
+
+    const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
+      .rootNodes[0] as HTMLElement;
+    this.videoElem.offsetParent.append(domElem);
+
+    this.overlayComponentRef = componentRef;
+
+    componentRef.instance.videoElem = this.videoElem;
+    componentRef.changeDetectorRef.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.appRef.detachView(this.overlayComponentRef.hostView);
+    this.overlayComponentRef.destroy();
+  }
 }

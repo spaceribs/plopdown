@@ -27,7 +27,8 @@
       "@plopdown/window-ref": ["libs/window-ref/src/index.ts"],
       "@plopdown/browser-ref": ["libs/browser-ref/src/index.ts"],
       "@plopdown/ext-storage": ["libs/ext-storage/src/index.ts"],
-      "@plopdown/video-elem-refs": ["libs/video-elem-refs/src/index.ts"]
+      "@plopdown/video-elem-refs": ["libs/video-elem-refs/src/index.ts"],
+      "@plopdown/icon": ["libs/icon/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -68,6 +68,9 @@
     },
     "video-elem-refs": {
       "tags": []
+    },
+    "icon": {
+      "tags": []
     }
   }
 }

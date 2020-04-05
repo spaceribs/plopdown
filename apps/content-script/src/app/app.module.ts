@@ -1,3 +1,5 @@
+import { IconModule } from '@plopdown/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExtStorageModule } from '@plopdown/ext-storage';
 import { WindowRefModule } from '@plopdown/window-ref';
 import { VideoRefsModule } from '@plopdown/video-refs';
@@ -16,9 +18,18 @@ import { BrowserRefModule } from '@plopdown/browser-ref';
 import { VideoAttachmentComponent } from './video-attachment/video-attachment.component';
 import { VideoAttachmentsComponent } from './video-attachments/video-attachments.component';
 import { ContentScannerComponent } from './content-scanner/content-scanner.component';
+import { VideoOverlayComponent } from './video-overlay/video-overlay.component';
+import { OverlayMenuComponent } from './overlay-menu/overlay-menu.component';
 
 @NgModule({
-  declarations: [AppComponent, VideoAttachmentComponent, VideoAttachmentsComponent, ContentScannerComponent],
+  declarations: [
+    AppComponent,
+    VideoAttachmentComponent,
+    VideoAttachmentsComponent,
+    ContentScannerComponent,
+    VideoOverlayComponent,
+    OverlayMenuComponent
+  ],
   imports: [
     BrowserModule,
     ExtStorageModule,
@@ -29,7 +40,9 @@ import { ContentScannerComponent } from './content-scanner/content-scanner.compo
     LoggerModule.forRoot({
       appName: `ContentScript:"${document.title}"`,
       color: 'blue'
-    })
+    }),
+    BrowserAnimationsModule,
+    IconModule
   ]
 })
 export class AppModule implements DoBootstrap, OnDestroy {

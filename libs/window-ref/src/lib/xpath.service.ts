@@ -1,3 +1,4 @@
+import { WindowRefService } from './window-ref.service';
 import { Injectable } from '@angular/core';
 import { WindowRefModule } from './window-ref.module';
 
@@ -5,7 +6,11 @@ import { WindowRefModule } from './window-ref.module';
   providedIn: WindowRefModule
 })
 export class XPathService {
-  constructor() {}
+  private document: Document;
+
+  constructor(window: WindowRefService) {
+    this.document = window.getDocument();
+  }
 
   getXPath(node: Node): string | null {
     if (node.nodeName === 'HTML' || node.parentNode == null) {
@@ -31,5 +36,15 @@ export class XPathService {
         ix++;
       }
     }
+  }
+
+  getElement<E extends Node>(xpath: string): E {
+    return this.document.evaluate(
+      xpath,
+      this.document,
+      null,
+      XPathResult.FIRST_ORDERED_NODE_TYPE,
+      null
+    ).singleNodeValue as E;
   }
 }
