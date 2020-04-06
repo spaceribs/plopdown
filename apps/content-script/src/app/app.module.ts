@@ -1,3 +1,4 @@
+import { TracksModule } from '@plopdown/tracks';
 import { IconModule } from '@plopdown/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExtStorageModule } from '@plopdown/ext-storage';
@@ -20,6 +21,7 @@ import { VideoAttachmentsComponent } from './video-attachments/video-attachments
 import { ContentScannerComponent } from './content-scanner/content-scanner.component';
 import { VideoOverlayComponent } from './video-overlay/video-overlay.component';
 import { OverlayMenuComponent } from './overlay-menu/overlay-menu.component';
+import { PlopdownCuesModule } from '@plopdown/plopdown-cues';
 
 @NgModule({
   declarations: [
@@ -34,9 +36,11 @@ import { OverlayMenuComponent } from './overlay-menu/overlay-menu.component';
     BrowserModule,
     ExtStorageModule,
     VideoRefsModule,
+    TracksModule,
     WindowRefModule,
     BrowserRefModule,
     MessagesModule,
+    PlopdownCuesModule,
     LoggerModule.forRoot({
       appName: `ContentScript:"${document.title}"`,
       color: 'blue'

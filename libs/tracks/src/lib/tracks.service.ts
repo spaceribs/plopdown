@@ -68,4 +68,12 @@ export class TracksService implements OnDestroy {
   public getTracks(): Observable<Track[] | null> {
     return this.tracks$;
   }
+
+  public getTrack(id: Track['id']): Observable<Track | null> {
+    return this.tracks$.pipe(
+      map(tracks => {
+        return tracks.find(track => track.id === id);
+      })
+    );
+  }
 }

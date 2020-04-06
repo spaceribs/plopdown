@@ -13,8 +13,13 @@ import { LoggerService } from '@plopdown/logger';
 
 @Component({
   selector: 'plopdown-video-attachments',
-  templateUrl: './video-attachments.component.html',
-  styleUrls: ['./video-attachments.component.scss']
+  template: `
+    <plopdown-video-attachment
+      *ngFor="let videoRef of videoRefs"
+      [xpath]="videoRef.ref.xpath"
+      [trackId]="videoRef.track"
+    ></plopdown-video-attachment>
+  `
 })
 export class VideoAttachmentsComponent implements OnInit, OnDestroy {
   private videoRefs$: Observable<VideoRef[]>;

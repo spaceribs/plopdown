@@ -11,58 +11,111 @@ import {
 
 import { mdiClose, mdiTooltipEdit, mdiTooltipPlus } from '@mdi/js';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {
+  trigger,
+  transition,
+  sequence,
+  style,
+  animate
+} from '@angular/animations';
+import { LoadAssetService } from '../load-asset.service';
+import { map, tap, timeout } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'plopdown-overlay-menu',
   templateUrl: './overlay-menu.component.html',
   styleUrls: ['./overlay-menu.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('menuSlideout', [
+      transition(
+        'void => *',
+        sequence([
+          style({
+            width: '0'
+          }),
+          animate(
+            '0.2s ease-out',
+            style({
+              width: '*'
+            })
+          )
+        ])
+      ),
+      transition(
+        '* => void',
+        sequence([
+          style({
+            width: '*'
+          }),
+          animate(
+            '0.2s ease-out',
+            style({
+              width: '0'
+            })
+          )
+        ])
+      )
+    ])
+  ]
 })
 export class OverlayMenuComponent implements OnInit {
   public mdiClose = mdiClose;
   public mdiTooltipEdit = mdiTooltipEdit;
   public mdiTooltipPlus = mdiTooltipPlus;
 
-  public plopdownLogo: SafeUrl;
+  public plopdownLogo$: Observable<SafeUrl>;
 
   public slideoutShown = false;
   @Input() public tracks = 0;
   @Input() public editing = false;
   @Output() fullscreen: EventEmitter<void> = new EventEmitter();
+  @Output() create: EventEmitter<void> = new EventEmitter();
   @Output() remove: EventEmitter<void> = new EventEmitter();
   @Output() upload: EventEmitter<void> = new EventEmitter();
   @Output() addAnnotation: EventEmitter<void> = new EventEmitter();
   @Output() edit: EventEmitter<void> = new EventEmitter();
 
-  constructor(
-    runtime: RuntimeService,
-    sanitizer: DomSanitizer,
-    private cd: ChangeDetectorRef
-  ) {
-    this.plopdownLogo = sanitizer.bypassSecurityTrustUrl(
-      runtime.getURL('/icons/plopdown-logo.svg')
+  constructor(private cd: ChangeDetectorRef, loadAsset: LoadAssetService) {
+    this.plopdownLogo$ = loadAsset.asText('/icons/plopdown-logo.svg').pipe(
+      tap(() => {
+        setTimeout(() => {
+          this.cd.detectChanges();
+        }, 0);
+      })
     );
   }
 
   ngOnInit(): void {}
 
-  onFullscreen() {
+  onFullscreen(event: Event) {
+    event.preventDefault();
     this.fullscreen.emit();
   }
 
-  onRemovePlopdown() {
+  onCreatePlopdown(event: Event) {
+    event.preventDefault();
+    this.create.emit();
+  }
+
+  onRemovePlopdown(event: Event) {
+    event.preventDefault();
     this.remove.emit();
   }
 
-  onUploadPlopdown() {
+  onUploadPlopdown(event: Event) {
+    event.preventDefault();
     this.upload.emit();
   }
 
-  onAddAnnotation() {
+  onAddAnnotation(event: Event) {
+    event.preventDefault();
     this.addAnnotation.emit();
   }
 
-  onToggleEdit() {
+  onToggleEdit(event: Event) {
+    event.preventDefault();
     this.edit.emit();
   }
 

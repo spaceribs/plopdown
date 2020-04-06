@@ -1,3 +1,5 @@
+import { switchMap } from 'rxjs/operators';
+import { Track, TracksService } from '@plopdown/tracks';
 import { LoggerService } from '@plopdown/logger';
 import { VideoOverlayComponent } from './../video-overlay/video-overlay.component';
 import { XPathService } from '@plopdown/window-ref';
@@ -12,6 +14,8 @@ import {
   OnDestroy,
   ComponentFactoryResolver
 } from '@angular/core';
+import { VideoRef } from '@plopdown/video-refs';
+import { ReplaySubject, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'plopdown-video-attachment',
@@ -19,17 +23,23 @@ import {
 })
 export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private videoElem: HTMLVideoElement | null;
+  private trackId$: Subject<Track['id']> = new ReplaySubject(1);
+  private subs: Subscription = new Subscription();
   overlayComponentRef: ComponentRef<VideoOverlayComponent>;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private xpathService: XPathService,
+    private tracksService: TracksService,
     private logger: LoggerService,
     private injector: Injector,
     private appRef: ApplicationRef
   ) {}
 
   @Input() public xpath: string;
+  @Input() public set trackId(trackId: Track['id']) {
+    this.trackId$.next(trackId);
+  }
 
   ngOnInit(): void {
     this.videoElem = this.xpathService.getElement<HTMLVideoElement>(this.xpath);
@@ -38,6 +48,8 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
       this.logger.warn('No video found matching xpath.', this.videoElem);
       return;
     }
+
+    this.firefoxFix(this.videoElem);
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
       VideoOverlayComponent
@@ -53,10 +65,42 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
 
     componentRef.instance.videoElem = this.videoElem;
     componentRef.changeDetectorRef.detectChanges();
+
+    const trackSub = this.trackId$
+      .pipe(
+        switchMap(id => {
+          return this.tracksService.getTrack(id);
+        })
+      )
+      .subscribe({
+        next: track => {
+          if (track == null) {
+            this.logger.error('Could not find associated track.');
+          }
+          componentRef.instance.track = track;
+          componentRef.changeDetectorRef.detectChanges();
+        },
+        error: err => {
+          this.logger.error(err);
+        }
+      });
+    this.subs.add(trackSub);
   }
 
   ngOnDestroy(): void {
     this.appRef.detachView(this.overlayComponentRef.hostView);
     this.overlayComponentRef.destroy();
+    this.subs.unsubscribe();
+  }
+
+  /**
+   * Forces the browser to start and stop the video,
+   * rendering annotations.
+   *
+   * @param video - Video element to force load.
+   */
+  firefoxFix(video: HTMLVideoElement) {
+    video.play();
+    video.pause();
   }
 }

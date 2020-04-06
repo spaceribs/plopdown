@@ -1,0 +1,36 @@
+<div class="pd-icons" *ngIf="data.icons && data.icons.length">
+  <div
+    *ngFor="let icon of data.icons"
+    [ngStyle]="{
+      fontSize: icon.size + '%',
+      top: icon.top + '%',
+      left: icon.left + '%',
+      transform: 'rotate(' + icon.rotate + 'deg)'
+    }"
+    class="pd-icon"
+  >
+    {{ icon.emoji }}‍
+  </div>
+</div>
+<div class="desc">
+  <plopdown-html-content [html]="data.desc"></plopdown-html-content>
+</div>
+<nav class="edit-bar" *ngIf="editing">
+  <ul>
+    <li>
+      <a (click)="onRemove($event)" href="#">
+        delete-icon
+      </a>
+    </li>
+    <li>
+      <a (click)="onEdit($event)" href="#">
+        pencil-icon
+      </a>
+    </li>
+    <li class="move">
+      <a (mousedown)="onMoveStart()" href="#">
+        arrow-all-icon
+      </a>
+    </li>
+  </ul>
+</nav>

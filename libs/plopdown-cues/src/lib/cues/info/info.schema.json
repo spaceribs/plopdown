@@ -1,0 +1,28 @@
+{
+  "$id": "plopdown_info_schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Plopdown Info Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Information card displayed on the top left, usually at the beginning of a video.",
+  "required": ["type", "title", "authors"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "INFO"
+    },
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

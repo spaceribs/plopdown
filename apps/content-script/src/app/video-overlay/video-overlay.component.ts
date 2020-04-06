@@ -1,3 +1,5 @@
+import { LoggerService } from '@plopdown/logger';
+import { Track } from '@plopdown/tracks';
 import { bounceIn } from 'ng-animate';
 import {
   Observable,
@@ -13,7 +15,8 @@ import {
   Component,
   Input,
   ChangeDetectorRef,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   map,
@@ -21,22 +24,24 @@ import {
   debounceTime,
   mapTo,
   tap,
-  distinct
+  distinct,
+  shareReplay,
+  startWith
 } from 'rxjs/operators';
 import {
   trigger,
   transition,
   useAnimation,
   sequence,
-  group,
   style,
-  animate,
-  state
+  animate
 } from '@angular/animations';
+import { PlopdownCue } from '@plopdown/plopdown-cues';
 
 @Component({
   selector: 'plopdown-video-overlay',
   templateUrl: './video-overlay.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./video-overlay.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
@@ -44,9 +49,6 @@ import {
       transition(
         'void => *',
         sequence([
-          // useAnimation(fadeOut, {
-          //   params: { timing: 0.2 }
-          // }),
           style({
             'box-shadow': 'inset 0 0 0 3px lightgreen',
             'background-color': 'rgb(144, 238, 144, 0.2)'
@@ -69,6 +71,9 @@ import {
 export class VideoOverlayComponent {
   private manualReposition$: Subject<void> = new BehaviorSubject(null);
   private videoElem$: Subject<HTMLVideoElement> = new ReplaySubject(1);
+  private track$: Subject<Track> = new ReplaySubject(1);
+
+  public cues$: Observable<PlopdownCue[]>;
   public styles$: Observable<{ overlay: object; stage: object }>;
 
   @Input() public set videoElem(elem: HTMLVideoElement | null) {
@@ -77,7 +82,57 @@ export class VideoOverlayComponent {
     }
   }
 
-  constructor(cd: ChangeDetectorRef) {
+  @Input() public set track(track: Track) {
+    console.log(track);
+    if (track) {
+      this.track$.next(track);
+    }
+  }
+
+  constructor(cd: ChangeDetectorRef, private logger: LoggerService) {
+    const metadataTrack$ = combineLatest([this.videoElem$, this.track$]).pipe(
+      switchMap(([elem, track]) => {
+        return new Observable<TextTrack>(observer => {
+          console.log('yep', track);
+          const metadataTrack: TextTrack = elem.addTextTrack(
+            'metadata',
+            track.id,
+            track.language
+          );
+          try {
+            this.bindCues(metadataTrack, track);
+          } catch (err) {
+            console.error('nope', err);
+          }
+          metadataTrack.mode = 'showing';
+          observer.next(metadataTrack);
+
+          return () => {
+            metadataTrack.mode = 'disabled';
+          };
+        });
+      }),
+      shareReplay(1)
+    );
+
+    this.cues$ = metadataTrack$.pipe(
+      switchMap(track => {
+        return fromEvent(track, 'cuechange').pipe(
+          startWith(track),
+          mapTo(track.activeCues)
+        );
+      }),
+      map(cueList => {
+        return this.cueListToArray(cueList);
+      }),
+      shareReplay(1),
+      tap(cues => {
+        setTimeout(() => {
+          cd.detectChanges();
+        }, 0);
+      })
+    );
+
     const positionOverlay$ = this.videoElem$.pipe(
       switchMap(elem => {
         return merge([
@@ -160,11 +215,53 @@ export class VideoOverlayComponent {
         return { overlay, stage };
       }),
       tap(() =>
-        // TODO: had to force changes after tick.
         setTimeout(() => {
           cd.detectChanges();
         }, 0)
       )
     );
+  }
+
+  private bindCues(metadataTrack: TextTrack, storedTrack: Track) {
+    storedTrack.cues.forEach(cue => {
+      const trackCue = new VTTCue(
+        cue.startTime,
+        cue.endTime,
+        JSON.stringify(cue.data)
+      );
+      if (cue.id) {
+        trackCue.id = cue.id;
+      }
+      metadataTrack.addCue(trackCue);
+    });
+  }
+
+  private cueListToArray(cueList: TextTrackCueList): PlopdownCue[] {
+    const cues: PlopdownCue[] = [];
+
+    for (let index = 0; index < cueList.length; index++) {
+      const raw_cue = cueList[index];
+
+      let id = raw_cue.id;
+      if (raw_cue.id.length < 1) {
+        id = index.toString();
+      }
+
+      let data: null | PlopdownCue['data'] = null;
+      try {
+        data = JSON.parse(raw_cue.text);
+      } catch (err) {
+        this.logger.error('Could not parse Cue JSON', err);
+      }
+
+      cues.push({
+        startTime: raw_cue.startTime,
+        endTime: raw_cue.endTime,
+        id,
+        data
+      });
+    }
+
+    return cues;
   }
 }

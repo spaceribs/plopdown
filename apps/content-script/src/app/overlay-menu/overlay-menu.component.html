@@ -4,7 +4,7 @@
   (mouseleave)="onMouseLeave()"
 >
   <div class="pd-menu-container">
-    <ul class="pd-menu-list" *ngIf="slideoutShown">
+    <ul [@menuSlideout] class="pd-menu-list" *ngIf="slideoutShown">
       <li class="pd-menu-item">
         <a href="#" (click)="onCreatePlopdown($event)">
           <plopdown-icon [path]="mdiTooltipPlus"></plopdown-icon>
@@ -19,7 +19,7 @@
           <plopdown-icon [path]="mdiTooltipEdit"></plopdown-icon>
         </a>
       </li>
-      <li class="pd-menu-item" *ngIf="tracks > 0">
+      <li class="pd-menu-item">
         <a href="#" (click)="onRemovePlopdown($event)">
           <plopdown-icon [path]="mdiClose"></plopdown-icon>
         </a>
@@ -27,6 +27,6 @@
     </ul>
   </div>
   <span class="logo-container">
-    <img [src]="plopdownLogo" />
+    <img [src]="plopdownLogo$ | async" />
   </span>
 </div>

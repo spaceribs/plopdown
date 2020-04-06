@@ -10,7 +10,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "run-many": "nx run-many --target=build --projects=browser-action,content-script,options,background --parallel --maxParallel=4 --watch",
+    "start:all": "nx run-many --target=build --projects=browser-action,content-script,options,background --parallel --maxParallel=4 --watch",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
     "affected:apps": "nx affected:apps",
@@ -28,7 +28,8 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "json2ts": "json2ts"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +53,7 @@
     "ng-animate": "^0.3.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.4",
+    "sanitize-html": "^1.22.1",
     "webextension-polyfill": "^0.6.0",
     "zone.js": "^0.10.2"
   },
@@ -72,6 +74,7 @@
     "@types/fs-extra": "^8.1.0",
     "@types/jest": "24.9.1",
     "@types/node": "^8.9.5",
+    "@types/sanitize-html": "^1.22.0",
     "addons-linter": "^1.22.0",
     "codelyzer": "~5.0.1",
     "cypress": "^4.1.0",
@@ -80,6 +83,7 @@
     "fs-extra": "^8.1.0",
     "jest": "24.9.0",
     "jest-preset-angular": "8.0.0",
+    "json-schema-to-typescript": "^8.2.0",
     "prettier": "1.19.1",
     "raw-loader": "^4.0.0",
     "svg-inline-loader": "^0.8.2",

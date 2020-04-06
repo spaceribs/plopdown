@@ -1,0 +1,133 @@
+:host {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 4em;
+  font-family: monospace;
+  pointer-events: all;
+  min-height: 6em;
+}
+
+.plop-selected {
+  box-shadow: 0 0 0px 0.2em #64a4d6;
+}
+
+.menu-bubble {
+  position: absolute;
+  display: flex;
+  z-index: 20;
+  background: #000;
+  border-radius: 5px;
+  padding: 0.3rem;
+  margin-bottom: 0.5rem;
+  transform: translateX(-50%);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.menu-bubble-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-button {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  margin-right: 0.2rem;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.menu-button:last-child {
+  margin-right: 0;
+}
+
+.menu-button:hover {
+  background-color: hsla(0, 0%, 100%, 0.1);
+}
+
+.menu-button-active {
+  background-color: hsla(0, 0%, 100%, 0.2);
+}
+
+.desc {
+  color: #333;
+  background: #ddd;
+  border: 0.4em solid currentColor;
+  margin: 0;
+  padding: 0.5em 1em 0.5em 2em;
+  border-radius: 1em;
+}
+
+.pd-icons {
+  color: #333;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 3em;
+  background: #eee;
+  border-radius: 50%;
+  text-align: center;
+  width: 2em;
+  height: 2em;
+  overflow: hidden;
+  border: 0.15em solid currentColor;
+  box-sizing: border-box;
+}
+
+.pd-icon {
+  font-size: 1.5em;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  line-height: 1em;
+  width: 1em;
+  height: 1em;
+  margin-left: -0.5em;
+  margin-top: -0.5em;
+  text-align: center;
+}
+
+.edit-bar {
+  position: absolute;
+  top: -3em;
+  left: -0.2em;
+}
+
+.edit-bar svg {
+  display: block;
+}
+
+.edit-bar ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.edit-bar ul li {
+  margin-right: 0.2em;
+}
+
+.edit-bar ul li a {
+  display: block;
+  background: #64a4d6;
+  color: white;
+  border-radius: 50%;
+  padding: 0.2em;
+}
+
+.edit-bar .move a {
+  cursor: grab;
+}
+
+.edit-bar ul li a:hover {
+  background: #8abbe0;
+}

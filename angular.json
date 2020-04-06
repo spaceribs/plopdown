@@ -897,6 +897,38 @@
           "style": "scss"
         }
       }
+    },
+    "plopdown-cues": {
+      "projectType": "library",
+      "root": "libs/plopdown-cues",
+      "sourceRoot": "libs/plopdown-cues/src",
+      "prefix": "plopdown",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/plopdown-cues/tsconfig.lib.json",
+              "libs/plopdown-cues/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/plopdown-cues/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/plopdown-cues/jest.config.js",
+            "tsConfig": "libs/plopdown-cues/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/plopdown-cues/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
