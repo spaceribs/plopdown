@@ -13,7 +13,7 @@
       <li class="pd-menu-item">
         <a
           href="#"
-          [ngClass]="{ 'pd-menu-item-active': editing }"
+          [ngClass]="{ active: editModeEnabled$ | async }"
           (click)="onToggleEdit($event)"
         >
           <plopdown-icon [path]="mdiTooltipEdit"></plopdown-icon>

@@ -3,7 +3,6 @@ import { map } from 'rxjs/operators';
 import { Observable, Subject, BehaviorSubject, Subscription } from 'rxjs';
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   Input,
   ComponentFactoryResolver,
@@ -43,7 +42,10 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   @ViewChild('cueOutlet', { read: ViewContainerRef })
   public cueOutlet: ViewContainerRef;
 
-  public cueMap = new Set<PlopdownCue>();
+  public cueMap = new Map<
+    PlopdownCue['id'],
+    ComponentRef<PlopdownBaseComponent<PlopdownTemplate>>
+  >();
 
   @Input('cues')
   set cues(cues: PlopdownCue[]) {
@@ -80,14 +82,17 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     const cueSub = this.cueComponents$.subscribe({
       next: cues => {
-        // this.cueOutlet.clear();
-
+        // Add new cues
         cues.forEach(([componentFactory, cue]) => {
           if (componentFactory == null) {
             this.logger.error(
               `Could not find plopdown cue component matching "${cue.data.type}".`,
               cue
             );
+            return;
+          }
+
+          if (this.cueMap.has(cue.id)) {
             return;
           }
 
@@ -100,7 +105,19 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
           componentRef.instance.id = cue.id;
           componentRef.instance.data = cue.data;
 
+          this.cueMap.set(cue.id, componentRef);
+
           componentRef.changeDetectorRef.detectChanges();
+        });
+
+        // Remove old cues
+        this.cueMap.forEach((cueComponent, cueId) => {
+          const foundCue = cues.find(([_, cue]) => cue.id === cueId);
+
+          if (foundCue == null) {
+            cueComponent.destroy();
+            this.cueMap.delete(cueId);
+          }
         });
 
         this.cd.detectChanges();

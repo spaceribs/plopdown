@@ -6,7 +6,8 @@ import {
   Output,
   EventEmitter,
   Input,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 
 import { mdiClose, mdiTooltipEdit, mdiTooltipPlus } from '@mdi/js';
@@ -19,8 +20,9 @@ import {
   animate
 } from '@angular/animations';
 import { LoadAssetService } from '../load-asset.service';
-import { map, tap, timeout } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, tap, timeout, withLatestFrom } from 'rxjs/operators';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { EditModeService } from '@plopdown/plopdown-cues';
 
 @Component({
   selector: 'plopdown-overlay-menu',
@@ -60,24 +62,30 @@ import { Observable } from 'rxjs';
     ])
   ]
 })
-export class OverlayMenuComponent implements OnInit {
+export class OverlayMenuComponent implements OnInit, OnDestroy {
   public mdiClose = mdiClose;
   public mdiTooltipEdit = mdiTooltipEdit;
   public mdiTooltipPlus = mdiTooltipPlus;
 
   public plopdownLogo$: Observable<SafeUrl>;
+  public editModeEnabled$: Observable<boolean>;
+  public toggleEditMode$: Subject<void> = new Subject();
 
   public slideoutShown = false;
   @Input() public tracks = 0;
-  @Input() public editing = false;
   @Output() fullscreen: EventEmitter<void> = new EventEmitter();
   @Output() create: EventEmitter<void> = new EventEmitter();
   @Output() remove: EventEmitter<void> = new EventEmitter();
   @Output() upload: EventEmitter<void> = new EventEmitter();
   @Output() addAnnotation: EventEmitter<void> = new EventEmitter();
-  @Output() edit: EventEmitter<void> = new EventEmitter();
 
-  constructor(private cd: ChangeDetectorRef, loadAsset: LoadAssetService) {
+  private subs: Subscription = new Subscription();
+
+  constructor(
+    private cd: ChangeDetectorRef,
+    loadAsset: LoadAssetService,
+    private editModeService: EditModeService
+  ) {
     this.plopdownLogo$ = loadAsset.asText('/icons/plopdown-logo.svg').pipe(
       tap(() => {
         setTimeout(() => {
@@ -85,9 +93,26 @@ export class OverlayMenuComponent implements OnInit {
         }, 0);
       })
     );
+
+    this.editModeEnabled$ = editModeService.getEditModeEnabled();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const toggleEditSub = this.toggleEditMode$
+      .pipe(
+        withLatestFrom(this.editModeEnabled$),
+        map(([_, editing]) => editing)
+      )
+      .subscribe(editing => {
+        this.editModeService.setEditMode(!editing);
+        this.cd.detectChanges();
+      });
+    this.subs.add(toggleEditSub);
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   onFullscreen(event: Event) {
     event.preventDefault();
@@ -116,7 +141,7 @@ export class OverlayMenuComponent implements OnInit {
 
   onToggleEdit(event: Event) {
     event.preventDefault();
-    this.edit.emit();
+    this.toggleEditMode$.next();
   }
 
   onMouseEnter() {

@@ -39,31 +39,27 @@
 .pd-menu-item {
   flex: 0 0 auto;
   width: 3.5em;
-}
-
-.pd-menu-item a {
-  display: block;
-  padding: 0.8em;
-  color: inherit;
-}
-
-.pd-menu-item a:hover {
-  background-color: #666;
-}
-
-.pd-menu-item-active {
-  background-color: #5eb554;
+  a {
+    display: block;
+    padding: 0.8em;
+    color: inherit;
+    &:hover {
+      background-color: #666;
+    }
+    &.active {
+      background-color: #5eb554 !important;
+    }
+  }
 }
 
 .pd-menu-item span {
   display: block;
   line-height: 0;
-}
-
-.pd-menu-item span svg {
-  width: 2em;
-  height: 2em;
-  display: block;
+  svg {
+    width: 2em;
+    height: 2em;
+    display: block;
+  }
 }
 
 .logo-container {
