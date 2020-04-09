@@ -1,21 +1,15 @@
+import { EditModeService } from './../../edit-mode.service';
 import { PlopdownPlop } from './plop.model';
 import {
   Component,
   ChangeDetectionStrategy,
   HostBinding,
-  OnChanges,
-  SimpleChanges,
   AfterViewInit,
   ChangeDetectorRef
 } from '@angular/core';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
-import {
-  trigger,
-  transition,
-  sequence,
-  useAnimation
-} from '@angular/animations';
-import { fadeIn, fadeOut, rubberBand, zoomOut } from 'ng-animate';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { rubberBand, zoomOut } from 'ng-animate';
 
 @Component({
   selector: 'plopdown-plop',
@@ -48,8 +42,8 @@ export class PlopComponent extends PlopdownBaseComponent<PlopdownPlop>
   @HostBinding('style.left.%') left: number;
   @HostBinding('style.width.%') width: number;
 
-  constructor(private cd: ChangeDetectorRef) {
-    super();
+  constructor(private cd: ChangeDetectorRef, editMode: EditModeService) {
+    super(editMode);
   }
 
   ngAfterViewInit(): void {

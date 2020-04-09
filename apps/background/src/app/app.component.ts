@@ -72,7 +72,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.knownVideos$ = this.onContentScriptVideos$.pipe(
       scan((acc, msg) => {
-        console.log(acc, msg);
         msg.args.forEach(videoRef => {
           const exists = acc.find(item => {
             return (

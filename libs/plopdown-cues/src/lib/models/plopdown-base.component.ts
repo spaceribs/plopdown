@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { EditModeService } from './../edit-mode.service';
 import { Input } from '@angular/core';
 import { PlopdownCue } from './plopdown-cue.model';
 
@@ -7,5 +9,9 @@ export abstract class PlopdownBaseComponent<T extends PlopdownCue['data']> {
   @Input() public id?: PlopdownCue['id'];
   @Input() public data: T;
 
-  constructor() {}
+  public editModeEnabled$: Observable<boolean>;
+
+  constructor(editMode: EditModeService) {
+    this.editModeEnabled$ = editMode.getEditModeEnabled();
+  }
 }

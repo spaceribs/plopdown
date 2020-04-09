@@ -1,9 +1,8 @@
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
-import { PlopdownCuesModule } from './plopdown-cues.module';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: PlopdownCuesModule
+  providedIn: 'root'
 })
 export class EditModeService {
   private editModeEnabled$: Subject<boolean> = new BehaviorSubject(false);

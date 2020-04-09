@@ -52,6 +52,7 @@
     "document-register-element": "1.13.1",
     "lz-string": "^1.4.4",
     "ng-animate": "^0.3.4",
+    "ngx-schema-form": "^2.5.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.4",
     "sanitize-html": "^1.22.1",

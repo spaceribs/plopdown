@@ -83,7 +83,6 @@ export class VideoOverlayComponent {
   }
 
   @Input() public set track(track: Track) {
-    console.log(track);
     if (track) {
       this.track$.next(track);
     }
@@ -93,7 +92,6 @@ export class VideoOverlayComponent {
     const metadataTrack$ = combineLatest([this.videoElem$, this.track$]).pipe(
       switchMap(([elem, track]) => {
         return new Observable<TextTrack>(observer => {
-          console.log('yep', track);
           const metadataTrack: TextTrack = elem.addTextTrack(
             'metadata',
             track.id,

@@ -25,7 +25,6 @@ export class BackgroundSubService extends PortSubscriber<BackgroundCommand> {
     return super.filterCommand<BackgroundFindVideos>('BG_FIND_VIDEOS');
   }
   public getContentFound() {
-    console.log('getContentFound');
     return super.filterCommand<BackgroundVideoRefsFound>('BG_CONTENT_FOUND');
   }
 }

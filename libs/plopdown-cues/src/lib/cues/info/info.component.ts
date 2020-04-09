@@ -1,18 +1,11 @@
-import {
-  bounceIn,
-  fadeInDown,
-  fadeOutDown,
-  fadeOutUp,
-  fadeIn,
-  fadeOut
-} from 'ng-animate';
+import InfoSchema from './info.schema.json';
+import { EditModeService } from './../../edit-mode.service';
+import { fadeIn, fadeOut } from 'ng-animate';
 import {
   trigger,
   transition,
   sequence,
-  style,
-  useAnimation,
-  animate
+  useAnimation
 } from '@angular/animations';
 import { Component, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
@@ -45,8 +38,10 @@ import { PlopdownInfo } from './info.model';
   ]
 })
 export class InfoComponent extends PlopdownBaseComponent<PlopdownInfo> {
-  constructor() {
-    super();
+  public schema = InfoSchema;
+
+  constructor(editMode: EditModeService) {
+    super(editMode);
   }
 
   @HostBinding('@infoFade') animate;
