@@ -74,6 +74,13 @@
     },
     "plopdown-cues": {
       "tags": []
+    },
+    "website": {
+      "tags": []
+    },
+    "website-e2e": {
+      "tags": [],
+      "implicitDependencies": ["website"]
     }
   }
 }
