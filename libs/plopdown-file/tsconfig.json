@@ -5,5 +5,5 @@
     "allowSyntheticDefaultImports": true,
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts", "src/schema/plopdown-file.schema.js"]
+  "include": ["**/*.ts"]
 }

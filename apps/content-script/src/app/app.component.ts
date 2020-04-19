@@ -3,7 +3,8 @@ import { ContentScriptPubService } from '@plopdown/messages';
 import {
   Component,
   ChangeDetectionStrategy,
-  AfterViewInit
+  AfterViewInit,
+  ViewEncapsulation
 } from '@angular/core';
 
 @Component({
@@ -12,7 +13,6 @@ import {
     <plopdown-content-scanner></plopdown-content-scanner>
     <plopdown-video-attachments></plopdown-video-attachments>
   `,
-  styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements AfterViewInit {

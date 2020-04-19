@@ -1,18 +1,16 @@
+import { PlopdownFileV1Validator } from './../schema/plopdown-file-v1.validator';
 import { PlopdownFileModule } from './plopdown-file.module';
 import { PlopdownFile, Cue } from './plopdown-file.model';
 import { Injectable } from '@angular/core';
-import * as Ajv from 'ajv';
-import validator from '../schema/plopdown-file.schema.js';
 
 @Injectable({
   providedIn: PlopdownFileModule
 })
 export class PlopdownFileService {
-  private readonly validator: Ajv.ValidateFunction;
+  private readonly validator: PlopdownFileV1Validator;
 
   constructor() {
-    const ajv = new Ajv({ allErrors: true });
-    this.validator = validator;
+    this.validator = new PlopdownFileV1Validator();
   }
 
   public decode(rawFile: string): PlopdownFile {
@@ -23,15 +21,17 @@ export class PlopdownFileService {
     const parsedFile = this.convertWebVTT(rawFile);
 
     if (!this.isPlopdownFile(parsedFile)) {
-      throw this.validator.errors;
+      throw this.validator.getLastErrors();
     }
 
     return parsedFile;
   }
 
   public encode(file: PlopdownFile): string {
-    if (!this.validator(file)) {
-      throw this.validator.errors;
+    const fileValid = this.validator.validate(file);
+
+    if (fileValid !== true) {
+      throw this.validator.getLastErrors();
     }
 
     const headerString = this.convertToHeader(file.headers);
@@ -169,6 +169,7 @@ export class PlopdownFileService {
   }
 
   private isPlopdownFile(file: object): file is PlopdownFile {
-    return this.validator(file) as boolean;
+    const fileValid = this.validator.validate(file);
+    return fileValid as boolean;
   }
 }

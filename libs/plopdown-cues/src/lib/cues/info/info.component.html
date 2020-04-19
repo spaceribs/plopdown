@@ -10,4 +10,8 @@
   </ng-container>
 </h4>
 
-<sf-form [schema]="schema"></sf-form>
+<sf-form
+  [ngModel]="data"
+  (ngModelChange)="dataChange.emit($event)"
+  [schema]="schema"
+></sf-form>

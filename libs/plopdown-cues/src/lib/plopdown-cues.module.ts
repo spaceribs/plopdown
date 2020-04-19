@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfoComponent } from './cues/info/info.component';
@@ -11,7 +12,7 @@ import {
 } from 'ngx-schema-form';
 
 @NgModule({
-  imports: [CommonModule, SchemaFormModule.forRoot()],
+  imports: [CommonModule, FormsModule, SchemaFormModule.forRoot()],
   declarations: [
     InfoComponent,
     PlopComponent,

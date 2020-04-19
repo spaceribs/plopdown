@@ -14,7 +14,6 @@ import {
   OnDestroy,
   ComponentFactoryResolver
 } from '@angular/core';
-import { VideoRef } from '@plopdown/video-refs';
 import { ReplaySubject, Subject, Subscription } from 'rxjs';
 
 @Component({
@@ -90,6 +89,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.appRef.detachView(this.overlayComponentRef.hostView);
     this.overlayComponentRef.destroy();
+    this.overlayComponentRef.location.nativeElement.remove();
     this.subs.unsubscribe();
   }
 

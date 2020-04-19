@@ -1,0 +1,33 @@
+{
+  "id": "plop",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "plopdown_plop_schema",
+  "type": "object",
+  "description": "A simple styled annotation with an icon and some text.",
+  "additionalProperties": false,
+  "required": ["type", "top", "left", "width", "desc", "icons"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "PLOP"
+    },
+    "top": {
+      "$ref": "types/percentage.schema.json#percentage"
+    },
+    "left": {
+      "$ref": "types/percentage.schema.json#percentage"
+    },
+    "width": {
+      "$ref": "types/percentage.schema.json#percentage"
+    },
+    "desc": {
+      "type": "string"
+    },
+    "icons": {
+      "type": "array",
+      "items": {
+        "$ref": "types/icon.schema.json#icon"
+      }
+    }
+  }
+}

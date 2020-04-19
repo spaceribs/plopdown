@@ -1,6 +1,6 @@
 {
-  "$id": "plopdown_info_schema",
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "info",
+  "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Plopdown Info Schema",
   "type": "object",
   "additionalProperties": false,
@@ -9,16 +9,20 @@
   "properties": {
     "type": {
       "type": "string",
-      "const": "INFO"
+      "const": "INFO",
+      "widget": "hidden"
     },
     "title": {
+      "description": "Title",
       "type": "string"
     },
     "url": {
+      "description": "Website",
       "type": "string",
       "format": "uri"
     },
     "authors": {
+      "description": "Authors",
       "type": "array",
       "items": {
         "type": "string"

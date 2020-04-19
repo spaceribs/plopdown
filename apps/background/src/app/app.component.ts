@@ -24,7 +24,8 @@ import {
   first,
   tap,
   shareReplay,
-  scan
+  scan,
+  delay
 } from 'rxjs/operators';
 import { Track, TracksService } from '@plopdown/tracks';
 import { HttpClient } from '@angular/common/http';
@@ -188,13 +189,15 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private installContentScript() {
-    const runtime$ = this.tabs.executeScript({
-      file: 'content-script/runtime.js',
+    console.log('Should install..');
+
+    const zone$ = this.tabs.executeScript({
+      file: 'content-script/zone-js-dist-zone.js',
       allFrames: true
     });
 
-    const polyfills$ = this.tabs.executeScript({
-      file: 'content-script/polyfills.js',
+    const styles$ = this.tabs.executeScript({
+      file: 'content-script/styles.js',
       allFrames: true
     });
 
@@ -203,6 +206,6 @@ export class AppComponent implements OnInit, OnDestroy {
       allFrames: true
     });
 
-    return concat(runtime$, polyfills$, main$);
+    return concat(zone$, styles$, main$);
   }
 }

@@ -1,4 +1,4 @@
-import InfoSchema from './info.schema.json';
+import { InfoSchema } from '@plopdown/plopdown-file';
 import { EditModeService } from './../../edit-mode.service';
 import { fadeIn, fadeOut } from 'ng-animate';
 import {

@@ -89,7 +89,7 @@
         "serve": {
           "builder": "@plopdown/web-ext:run",
           "options": {
-            "startUrl": "http://localhost:4200/",
+            "startUrl": ["http://localhost:4200/"],
             "sourceDir": "dist/apps/plopdown-ext"
           }
         }
@@ -396,12 +396,15 @@
       "prefix": "plopdown",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./tools/webpack/content-script-webpack.config.js",
+              "replaceDuplicatePlugins": true
+            },
             "outputPath": "dist/apps/plopdown-ext/content-script",
             "index": "apps/content-script/src/index.html",
             "main": "apps/content-script/src/main.ts",
-            "polyfills": "apps/content-script/src/polyfills.ts",
             "tsConfig": "apps/content-script/tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -411,7 +414,7 @@
             "styles": ["apps/content-script/src/styles.scss"],
             "scripts": [],
             "vendorChunk": false,
-            "extractCss": true
+            "extractCss": false
           },
           "configurations": {
             "production": {
@@ -424,7 +427,7 @@
               "optimization": true,
               "outputHashing": "none",
               "sourceMap": false,
-              "extractCss": true,
+              "extractCss": false,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,

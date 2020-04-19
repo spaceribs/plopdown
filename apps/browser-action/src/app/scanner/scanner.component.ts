@@ -86,11 +86,11 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.state$ = combineLatest([this.tracks$, this.foundVideos$]).pipe(
       tap(content => this.logger.debug('State Updated', content)),
       map(([tracks, foundVideos]) => {
-        if (tracks.length < 1) {
+        if (tracks == null || tracks.length < 1) {
           return ActionState.NoTracks;
         }
 
-        if (foundVideos.length < 1) {
+        if (foundVideos == null || foundVideos?.length < 1) {
           return ActionState.NoVideos;
         }
 

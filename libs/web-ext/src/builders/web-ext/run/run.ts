@@ -35,6 +35,10 @@ export function runBuilder(
               throw new Error('No instances running the extension.');
             }
 
+            console.log(
+              'Debugger Port: ',
+              res.extensionRunners[0].runningInfo.debuggerPort
+            );
             observer.next({ success: true });
             res.extensionRunners[0].registerCleanup(() => {
               observer.complete();

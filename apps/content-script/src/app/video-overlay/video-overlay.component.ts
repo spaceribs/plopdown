@@ -8,8 +8,7 @@ import {
   combineLatest,
   BehaviorSubject,
   merge,
-  fromEvent,
-  animationFrameScheduler
+  fromEvent
 } from 'rxjs';
 import {
   Component,
@@ -21,7 +20,6 @@ import {
 import {
   map,
   switchMap,
-  debounceTime,
   mapTo,
   tap,
   distinct,
@@ -141,7 +139,7 @@ export class VideoOverlayComponent {
           fromEvent(elem, 'mousemove')
         ]).pipe(mapTo(elem));
       }),
-      debounceTime(200, animationFrameScheduler)
+      shareReplay(1)
     );
 
     const aspectRatio$ = positionOverlay$.pipe(
@@ -200,6 +198,7 @@ export class VideoOverlayComponent {
       letterboxedWidth$,
       letterboxedHeight$
     ]).pipe(
+      tap(console.log),
       map(([width, height]) => {
         return {
           'width.px': width,
@@ -218,6 +217,10 @@ export class VideoOverlayComponent {
         }, 0)
       )
     );
+  }
+
+  public updateCues(cues) {
+    console.log(cues);
   }
 
   private bindCues(metadataTrack: TextTrack, storedTrack: Track) {

@@ -1,5 +1,5 @@
 import { LoggerService } from '@plopdown/logger';
-import { map } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 import { Observable, Subject, BehaviorSubject, Subscription } from 'rxjs';
 import {
   Component,
@@ -13,7 +13,9 @@ import {
   ErrorHandler,
   ChangeDetectorRef,
   AfterViewInit,
-  ComponentRef
+  ComponentRef,
+  EventEmitter,
+  Output
 } from '@angular/core';
 import { PlopdownCue } from '../models/plopdown-cue.model';
 import {
@@ -36,6 +38,7 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   private cueComponents$: Observable<
     [PlopdownComponentFactory | null, PlopdownCue][]
   >;
+  private updateCue$: Subject<PlopdownCue> = new Subject();
 
   private subs: Subscription = new Subscription();
 
@@ -53,6 +56,9 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
       this.cues$.next(cues);
     }
   }
+
+  @Output()
+  public cuesChange: EventEmitter<PlopdownCue[]> = new EventEmitter();
 
   constructor(
     componentFactoryResolver: ComponentFactoryResolver,
@@ -80,6 +86,23 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    const updateCueSub = this.updateCue$
+      .pipe(
+        withLatestFrom(this.cues$),
+        map(([updatedCue, cues]) => {
+          const updatedCues = [...cues];
+          const index = updatedCues.findIndex(cue => {
+            return cue.id === updatedCue.id;
+          });
+          updatedCues[index] = updatedCue;
+          return updatedCues;
+        })
+      )
+      .subscribe(newCues => {
+        this.cuesChange.emit(newCues);
+      });
+    this.subs.add(updateCueSub);
+
     const cueSub = this.cueComponents$.subscribe({
       next: cues => {
         // Add new cues
@@ -104,6 +127,13 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
           componentRef.instance.endTime = cue.endTime;
           componentRef.instance.id = cue.id;
           componentRef.instance.data = cue.data;
+
+          const dataChangeSub = componentRef.instance.dataChange.subscribe(
+            data => {
+              this.dataChange(cue, data);
+            }
+          );
+          this.subs.add(dataChangeSub);
 
           this.cueMap.set(cue.id, componentRef);
 
@@ -132,5 +162,12 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  public dataChange(cue: PlopdownCue, data: PlopdownCue['data']) {
+    this.updateCue$.next({
+      ...cue,
+      data
+    });
   }
 }
