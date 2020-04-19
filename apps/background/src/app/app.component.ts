@@ -183,14 +183,12 @@ export class AppComponent implements OnInit, OnDestroy {
           return introTrack;
         }),
         map(track => {
-          return this.tracksService.setTracks([track]);
+          return this.tracksService.addTracks([track]);
         })
       );
   }
 
   private installContentScript() {
-    console.log('Should install..');
-
     const zone$ = this.tabs.executeScript({
       file: 'content-script/zone-js-dist-zone.js',
       allFrames: true

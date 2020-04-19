@@ -77,7 +77,6 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
             this.logger.error('Could not find associated track.');
           }
           componentRef.instance.track = track;
-          componentRef.changeDetectorRef.detectChanges();
         },
         error: err => {
           this.logger.error(err);

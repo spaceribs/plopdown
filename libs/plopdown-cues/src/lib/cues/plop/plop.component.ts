@@ -1,4 +1,4 @@
-import { EditModeService } from './../../edit-mode.service';
+import { EditModeService } from '../../../../../../apps/content-script/src/app/edit-mode.service';
 import { PlopdownPlop } from './plop.model';
 import {
   Component,
@@ -42,8 +42,8 @@ export class PlopComponent extends PlopdownBaseComponent<PlopdownPlop>
   @HostBinding('style.left.%') left: number;
   @HostBinding('style.width.%') width: number;
 
-  constructor(private cd: ChangeDetectorRef, editMode: EditModeService) {
-    super(editMode);
+  constructor(private cd: ChangeDetectorRef) {
+    super();
   }
 
   ngAfterViewInit(): void {
@@ -52,19 +52,5 @@ export class PlopComponent extends PlopdownBaseComponent<PlopdownPlop>
     this.width = this.data.width;
 
     this.cd.detectChanges();
-  }
-
-  public onMoveStart() {
-    console.log('move-start');
-  }
-
-  public onEdit(event: Event) {
-    event.preventDefault();
-    console.log('on-edit');
-  }
-
-  public onRemove(event: Event) {
-    event.preventDefault();
-    console.log('on-remove');
   }
 }

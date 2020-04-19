@@ -57,9 +57,6 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  @Output()
-  public cuesChange: EventEmitter<PlopdownCue[]> = new EventEmitter();
-
   constructor(
     componentFactoryResolver: ComponentFactoryResolver,
     private cd: ChangeDetectorRef,
@@ -86,23 +83,6 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    const updateCueSub = this.updateCue$
-      .pipe(
-        withLatestFrom(this.cues$),
-        map(([updatedCue, cues]) => {
-          const updatedCues = [...cues];
-          const index = updatedCues.findIndex(cue => {
-            return cue.id === updatedCue.id;
-          });
-          updatedCues[index] = updatedCue;
-          return updatedCues;
-        })
-      )
-      .subscribe(newCues => {
-        this.cuesChange.emit(newCues);
-      });
-    this.subs.add(updateCueSub);
-
     const cueSub = this.cueComponents$.subscribe({
       next: cues => {
         // Add new cues
@@ -127,13 +107,6 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
           componentRef.instance.endTime = cue.endTime;
           componentRef.instance.id = cue.id;
           componentRef.instance.data = cue.data;
-
-          const dataChangeSub = componentRef.instance.dataChange.subscribe(
-            data => {
-              this.dataChange(cue, data);
-            }
-          );
-          this.subs.add(dataChangeSub);
 
           this.cueMap.set(cue.id, componentRef);
 
@@ -162,12 +135,5 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
-  }
-
-  public dataChange(cue: PlopdownCue, data: PlopdownCue['data']) {
-    this.updateCue$.next({
-      ...cue,
-      data
-    });
   }
 }

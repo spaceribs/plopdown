@@ -198,7 +198,6 @@ export class VideoOverlayComponent {
       letterboxedWidth$,
       letterboxedHeight$
     ]).pipe(
-      tap(console.log),
       map(([width, height]) => {
         return {
           'width.px': width,
@@ -217,10 +216,6 @@ export class VideoOverlayComponent {
         }, 0)
       )
     );
-  }
-
-  public updateCues(cues) {
-    console.log(cues);
   }
 
   private bindCues(metadataTrack: TextTrack, storedTrack: Track) {

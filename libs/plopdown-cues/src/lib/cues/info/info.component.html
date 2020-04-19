@@ -5,13 +5,15 @@
 <h4>
   Annotated By:
   <span *ngIf="data.authors.length < 1">Anonymous</span>
-  <ng-container *ngFor="let author of data.authors">
-    <span>{{ author }}</span>
+  <ng-container *ngFor="let author of data.authors; let isLast = last">
+    <span>{{ author }}</span
+    >{{ isLast ? '' : ', ' }}
   </ng-container>
 </h4>
 
-<sf-form
-  [ngModel]="data"
-  (ngModelChange)="dataChange.emit($event)"
+<!-- <sf-form
+  (onChange)="onChange($event)"
+  [(ngModel)]="data"
   [schema]="schema"
 ></sf-form>
+<button (click)="saveData()">Save</button> -->

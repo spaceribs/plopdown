@@ -8,7 +8,8 @@ import {
   shareReplay,
   pluck,
   tap,
-  concatMap
+  concatMap,
+  withLatestFrom
 } from 'rxjs/operators';
 import { Observable, merge, Subscription, Subject } from 'rxjs';
 import { TracksModule } from './tracks.module';
@@ -20,7 +21,8 @@ const STORAGE_KEY = 'tracks';
 })
 export class TracksService implements OnDestroy {
   private tracks$: Observable<Track[] | null>;
-  private setTracks$: Subject<Track[]> = new Subject();
+  private addTracks$: Subject<Track[]> = new Subject();
+  private updateTrack$: Subject<Track> = new Subject();
   private subs: Subscription = new Subscription();
 
   constructor(
@@ -41,7 +43,7 @@ export class TracksService implements OnDestroy {
 
     this.tracks$ = merge(initial$, changed$).pipe(shareReplay(1));
 
-    const setTracksSub = this.setTracks$
+    const setTracksSub = this.addTracks$
       .pipe(
         concatMap(tracks => {
           return this.storage.set(ExtStorageAreaName.Local, {
@@ -55,18 +57,44 @@ export class TracksService implements OnDestroy {
         }
       });
     this.subs.add(setTracksSub);
+
+    const updateTrackSub = this.updateTrack$
+      .pipe(
+        withLatestFrom(this.tracks$),
+        concatMap(([updatedTrack, tracks]) => {
+          const trackIndex = tracks.findIndex(track => {
+            return track.id === updatedTrack.id;
+          });
+
+          tracks.splice(trackIndex, 1, updatedTrack);
+
+          return this.storage.set(ExtStorageAreaName.Local, {
+            [STORAGE_KEY]: tracks
+          });
+        })
+      )
+      .subscribe({
+        next: () => {
+          logger.debug('Track Updated');
+        }
+      });
+    this.subs.add(updateTrackSub);
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
-  public setTracks(tracks: Track[]) {
-    this.setTracks$.next(tracks);
+  public addTracks(tracks: Track[]) {
+    this.addTracks$.next(tracks);
   }
 
   public getTracks(): Observable<Track[] | null> {
     return this.tracks$;
+  }
+
+  public updateTrack(track: Track) {
+    this.updateTrack$.next(track);
   }
 
   public getTrack(id: Track['id']): Observable<Track | null> {
