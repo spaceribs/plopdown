@@ -8,7 +8,17 @@ import { RouterModule } from '@angular/router';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' })
+    RouterModule.forRoot(
+      [
+        {
+          path: '',
+          loadChildren: () =>
+            import('./home/home.module').then(m => m.HomeModule)
+        },
+        { path: '**', redirectTo: '' }
+      ],
+      { initialNavigation: 'enabled' }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
