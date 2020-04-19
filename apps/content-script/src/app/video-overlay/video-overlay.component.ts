@@ -35,6 +35,7 @@ import {
   animate
 } from '@angular/animations';
 import { PlopdownCue } from '@plopdown/plopdown-cues';
+import { EditModeService } from '../edit-mode.service';
 
 @Component({
   selector: 'plopdown-video-overlay',
@@ -73,6 +74,7 @@ export class VideoOverlayComponent {
 
   public cues$: Observable<PlopdownCue[]>;
   public styles$: Observable<{ overlay: object; stage: object }>;
+  public editMode$: Observable<boolean>;
 
   @Input() public set videoElem(elem: HTMLVideoElement | null) {
     if (elem) {
@@ -86,7 +88,12 @@ export class VideoOverlayComponent {
     }
   }
 
-  constructor(cd: ChangeDetectorRef, private logger: LoggerService) {
+  constructor(
+    cd: ChangeDetectorRef,
+    editMode: EditModeService,
+    private logger: LoggerService
+  ) {
+    this.editMode$ = editMode.getEditModeEnabled();
     const metadataTrack$ = combineLatest([this.videoElem$, this.track$]).pipe(
       switchMap(([elem, track]) => {
         return new Observable<TextTrack>(observer => {

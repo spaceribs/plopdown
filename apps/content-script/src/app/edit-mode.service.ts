@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class EditModeService {
-  private editModeEnabled$: Subject<boolean> = new BehaviorSubject(false);
+  private editModeEnabled$: Subject<boolean> = new BehaviorSubject(true);
 
   constructor() {}
 
