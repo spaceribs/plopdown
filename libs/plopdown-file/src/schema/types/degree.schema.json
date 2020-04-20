@@ -1,8 +1,0 @@
-{
-  "id": "degree",
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Degree",
-  "type": "number",
-  "minimum": 0,
-  "maximum": 360
-}

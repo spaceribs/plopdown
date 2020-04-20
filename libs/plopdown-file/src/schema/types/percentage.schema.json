@@ -1,8 +1,0 @@
-{
-  "id": "percentage",
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Percentage",
-  "type": "number",
-  "minimum": 0,
-  "maximum": 100
-}

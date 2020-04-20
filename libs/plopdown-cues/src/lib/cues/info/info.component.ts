@@ -1,4 +1,4 @@
-import { InfoSchema } from '@plopdown/plopdown-file';
+import { PlopdownSchema } from '@plopdown/plopdown-file';
 import { EditModeService } from '../../../../../../apps/content-script/src/app/edit-mode.service';
 import { fadeIn, fadeOut } from 'ng-animate';
 import {
@@ -38,7 +38,7 @@ import { PlopdownInfo } from './info.model';
   ]
 })
 export class InfoComponent extends PlopdownBaseComponent<PlopdownInfo> {
-  public schema = InfoSchema;
+  public schema = PlopdownSchema.definitions.info;
 
   @HostBinding('@infoFade') animate;
 }

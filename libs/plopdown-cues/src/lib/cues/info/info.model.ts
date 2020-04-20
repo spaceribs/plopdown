@@ -2,8 +2,10 @@ import {
   PlopdownBaseTemplate,
   PlopdownTemplateType
 } from '../../models/plopdown-base.model';
-import { PlopdownInfoSchema } from '@plopdown/plopdown-file';
 
-export interface PlopdownInfo extends PlopdownInfoSchema, PlopdownBaseTemplate {
+export interface PlopdownInfo extends PlopdownBaseTemplate {
   type: PlopdownTemplateType.Info;
+  title: string;
+  url?: string;
+  authors: string[];
 }

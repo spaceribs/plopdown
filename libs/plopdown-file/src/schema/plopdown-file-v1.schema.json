@@ -1,23 +1,114 @@
 {
-  "id": "plopdown-file-v1.schema.json",
+  "id": "plopdown-file",
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Plopdown File v1",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "headers",
-    "cues"
-  ],
+  "required": ["headers", "cues"],
+  "definitions": {
+    "percentage": {
+      "title": "Percentage",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "degree": {
+      "title": "Degree",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
+    },
+    "icon": {
+      "title": "Icon",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "top": {
+          "$ref": "#/default/definitions/percentage"
+        },
+        "left": {
+          "$ref": "#/default/definitions/percentage"
+        },
+        "size": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "rotate": {
+          "$ref": "#/default/definitions/degree"
+        },
+        "emoji": {
+          "type": "string"
+        }
+      }
+    },
+    "info": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Plopdown Info Schema",
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Information card displayed on the top left, usually at the beginning of a video.",
+      "required": ["type", "title", "authors"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "INFO",
+          "widget": "hidden"
+        },
+        "title": {
+          "description": "Title",
+          "type": "string"
+        },
+        "url": {
+          "description": "Website",
+          "type": "string",
+          "format": "uri"
+        },
+        "authors": {
+          "description": "Authors",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "plop": {
+      "title": "plopdown_plop_schema",
+      "type": "object",
+      "description": "A simple styled annotation with an icon and some text.",
+      "additionalProperties": false,
+      "required": ["type", "top", "left", "width", "desc", "icons"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "PLOP"
+        },
+        "top": {
+          "$ref": "#/default/definitions/percentage"
+        },
+        "left": {
+          "$ref": "#/default/definitions/percentage"
+        },
+        "width": {
+          "$ref": "#/default/definitions/percentage"
+        },
+        "desc": {
+          "type": "string"
+        },
+        "icons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/default/definitions/icon"
+          }
+        }
+      }
+    }
+  },
   "properties": {
     "headers": {
       "type": "object",
-      "required": [
-        "type",
-        "id",
-        "title",
-        "for",
-        "created"
-      ],
+      "required": ["type", "id", "title", "for", "created"],
       "additionalProperties": false,
       "properties": {
         "type": {
@@ -88,11 +179,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "startTime",
-          "endTime",
-          "data"
-        ],
+        "required": ["startTime", "endTime", "data"],
         "properties": {
           "id": {
             "type": "string"
@@ -106,10 +193,10 @@
           "data": {
             "oneOf": [
               {
-                "$ref": "cues/info.schema.json"
+                "$ref": "#/default/definitions/info"
               },
               {
-                "$ref": "cues/plop.schema.json"
+                "$ref": "#/default/definitions/plop"
               }
             ]
           }
