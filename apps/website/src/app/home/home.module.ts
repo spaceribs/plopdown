@@ -2,11 +2,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
+import {
+  PlopdownOverlayModule,
+  LoadAssetService
+} from '@plopdown/plopdown-overlay';
+import { HttpClientModule } from '@angular/common/http';
+import { PlopdownFileModule } from '@plopdown/plopdown-file';
+import { WebLoadAssetService } from './web-load-asset.service';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)]
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    PlopdownOverlayModule,
+    PlopdownFileModule,
+    RouterModule.forChild(routes)
+  ],
+  providers: [{ provide: LoadAssetService, useClass: WebLoadAssetService }]
 })
 export class HomeModule {}

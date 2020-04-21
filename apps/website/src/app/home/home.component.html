@@ -18,34 +18,71 @@
   </div>
 
   <div class="hero-body">
-    <div class="container has-text-centered">
-      <h2 class="title">
-        Plopdown - Coming Soon!
-      </h2>
-      <h3 class="subtitle">
-        Plopdown is an extension which allows you to annotate any web video. It
-        been tested and works on
-        <a href="https://www.youtube.com/" target="_blank" rel="noreferrer"
-          >Youtube</a
-        >,
-        <a href="https://amazon.com/primevideo" target="_blank" rel="noreferrer"
-          >Amazon Video</a
-        >,
-        <a
-          href="https://www.netflix.com/browse"
-          target="_blank"
-          rel="noreferrer"
-          >Netflix</a
-        >, and
-        <a href="https://vimeo.com/" target="_blank" rel="noreferrer">Vimeo</a>.
-        <br />
-        After creating your annotations, you can download and distribute them to
-        friends and followers by sending them a file or generating a
-        <code>plopdown://</code>
-        URL.
-        <br /><br />
-        It's currently in development and the alpha should be available soon!
-      </h3>
+    <div class="container">
+      <div class="columns">
+        <div class="column is-half is-desktop">
+          <video
+            #exampleVideo
+            class="is-block"
+            width="100%"
+            controls
+            src="/assets/minnie_the_moocher.mp4"
+          ></video>
+          <plopdown-video-overlay
+            *ngIf="track$ | async as track"
+            [videoElem]="exampleVideo"
+            [track]="track"
+          ></plopdown-video-overlay>
+        </div>
+
+        <div class="column is-half is-desktop">
+          <h2 class="title">
+            Plopdown
+          </h2>
+
+          <h3 class="subtitle">
+            The Video Annotating Web Extension
+          </h3>
+
+          <p>
+            Plopdown is an extension which allows you to annotate any web video.
+            It been tested and works on
+            <a href="https://www.youtube.com/" target="_blank" rel="noreferrer"
+              >Youtube</a
+            >,
+            <a
+              href="https://amazon.com/primevideo"
+              target="_blank"
+              rel="noreferrer"
+              >Amazon Video</a
+            >,
+            <a
+              href="https://www.netflix.com/browse"
+              target="_blank"
+              rel="noreferrer"
+              >Netflix</a
+            >, and
+            <a href="https://vimeo.com/" target="_blank" rel="noreferrer"
+              >Vimeo</a
+            >.
+            <br />
+            After creating your annotations, you can download and distribute
+            them to friends and followers by sending them a file or generating a
+            <code>plopdown://</code>
+            URL.
+            <br /><br />
+            It's currently in development and the alpha should be available
+            soon!
+          </p>
+
+          <p class="has-text-centered">
+            <br />
+            <button (click)="onPlopify()" class="button is-large is-success">
+              Plopify!
+            </button>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>

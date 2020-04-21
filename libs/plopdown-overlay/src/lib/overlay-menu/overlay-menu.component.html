@@ -1,0 +1,32 @@
+<div
+  class="pd-menu"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <div class="pd-menu-container">
+    <ul [@menuSlideout] class="pd-menu-list" *ngIf="slideoutShown">
+      <li class="pd-menu-item" *ngIf="false">
+        <a href="#" (click)="onCreatePlopdown($event)">
+          <plopdown-icon [path]="mdiTooltipPlus"></plopdown-icon>
+        </a>
+      </li>
+      <li class="pd-menu-item" *ngIf="false">
+        <a
+          href="#"
+          [ngClass]="{ active: editModeEnabled$ | async }"
+          (click)="onToggleEdit($event)"
+        >
+          <plopdown-icon [path]="mdiTooltipEdit"></plopdown-icon>
+        </a>
+      </li>
+      <li class="pd-menu-item">
+        <a href="#" (click)="onRemovePlopdown($event)">
+          <plopdown-icon [path]="mdiClose"></plopdown-icon>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <span class="logo-container">
+    <img [src]="plopdownLogo$ | async" />
+  </span>
+</div>
