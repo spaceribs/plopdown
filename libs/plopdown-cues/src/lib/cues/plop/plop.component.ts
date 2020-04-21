@@ -1,4 +1,3 @@
-import { EditModeService } from '../../../../../../apps/content-script/src/app/edit-mode.service';
 import { PlopdownPlop } from './plop.model';
 import {
   Component,

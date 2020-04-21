@@ -38,7 +38,6 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   private cueComponents$: Observable<
     [PlopdownComponentFactory | null, PlopdownCue][]
   >;
-  private updateCue$: Subject<PlopdownCue> = new Subject();
 
   private subs: Subscription = new Subscription();
 
@@ -50,7 +49,7 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
     ComponentRef<PlopdownBaseComponent<PlopdownTemplate>>
   >();
 
-  @Input('cues')
+  @Input()
   set cues(cues: PlopdownCue[]) {
     if (cues != null) {
       this.cues$.next(cues);
@@ -63,6 +62,7 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
     private errorHandler: ErrorHandler,
     private logger: LoggerService
   ) {
+    console.log('yep');
     this.cueComponents$ = this.cues$.pipe(
       map(rawCues => {
         return rawCues.map(cue => {

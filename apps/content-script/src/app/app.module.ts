@@ -16,22 +16,11 @@ import { AppComponent } from './app.component';
 import { LoggerModule } from '@plopdown/logger';
 import { MessagesModule } from '@plopdown/messages';
 import { BrowserRefModule } from '@plopdown/browser-ref';
-import { VideoAttachmentComponent } from './video-attachment/video-attachment.component';
-import { VideoAttachmentsComponent } from './video-attachments/video-attachments.component';
 import { ContentScannerComponent } from './content-scanner/content-scanner.component';
-import { VideoOverlayComponent } from './video-overlay/video-overlay.component';
-import { OverlayMenuComponent } from './overlay-menu/overlay-menu.component';
-import { PlopdownCuesModule } from '@plopdown/plopdown-cues';
+import { PlopdownOverlayModule } from '@plopdown/plopdown-overlay';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    VideoAttachmentComponent,
-    VideoAttachmentsComponent,
-    ContentScannerComponent,
-    VideoOverlayComponent,
-    OverlayMenuComponent
-  ],
+  declarations: [AppComponent, ContentScannerComponent],
   imports: [
     BrowserModule,
     ExtStorageModule,
@@ -40,7 +29,7 @@ import { PlopdownCuesModule } from '@plopdown/plopdown-cues';
     WindowRefModule,
     BrowserRefModule,
     MessagesModule,
-    PlopdownCuesModule,
+    PlopdownOverlayModule,
     LoggerModule.forRoot({
       appName: `ContentScript:"${document.title}"`,
       color: 'blue'

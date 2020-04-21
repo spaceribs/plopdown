@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   padding-left: 4em;
-  font-family: monospace;
+  font-family: sans-serif;
   pointer-events: all;
   min-height: 6em;
 }
@@ -18,7 +18,7 @@
   display: flex;
   z-index: 20;
   background: #000;
-  border-radius: 5px;
+  border-radius: 0.1em;
   padding: 0.3rem;
   margin-bottom: 0.5rem;
   transform: translateX(-50%);
@@ -59,6 +59,7 @@
 
 .desc {
   color: #333;
+  font-size: 1.2em;
   background: #ddd;
   border: 0.4em solid currentColor;
   margin: 0;
@@ -93,41 +94,4 @@
   margin-left: -0.5em;
   margin-top: -0.5em;
   text-align: center;
-}
-
-.edit-bar {
-  position: absolute;
-  top: -3em;
-  left: -0.2em;
-}
-
-.edit-bar svg {
-  display: block;
-}
-
-.edit-bar ul {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.edit-bar ul li {
-  margin-right: 0.2em;
-}
-
-.edit-bar ul li a {
-  display: block;
-  background: #64a4d6;
-  color: white;
-  border-radius: 50%;
-  padding: 0.2em;
-}
-
-.edit-bar .move a {
-  cursor: grab;
-}
-
-.edit-bar ul li a:hover {
-  background: #8abbe0;
 }
