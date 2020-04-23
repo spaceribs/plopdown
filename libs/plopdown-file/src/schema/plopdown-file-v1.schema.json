@@ -9,13 +9,13 @@
     "percentage": {
       "title": "Percentage",
       "type": "number",
-      "minimum": 0,
-      "maximum": 100
+      "minimum": -100,
+      "maximum": 200
     },
     "degree": {
       "title": "Degree",
       "type": "number",
-      "minimum": 0,
+      "minimum": -360,
       "maximum": 360
     },
     "icon": {
@@ -161,12 +161,12 @@
         "path": {
           "description": "The absolute path to the associated video.",
           "type": "string",
-          "format": "uri-reference"
+          "format": "uri"
         },
         "search": {
           "description": "The search query of the video this track is associated with.",
           "type": "string",
-          "format": "uri-reference"
+          "format": "uri"
         },
         "xpath": {
           "description": "The XPath of the video this track is associated with.",

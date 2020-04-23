@@ -15,6 +15,12 @@ export class PlopdownFileV1Validator {
 
   constructor() {
     this.validator = new ZSchema({});
+
+    ZSchema.registerFormat('uuid', function(str) {
+      const UUIDregex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+      return UUIDregex.test(str);
+    });
+
     const schemaValid = this.validator.validateSchema(PlopdownFileV1Schema);
 
     if (schemaValid !== true) {
