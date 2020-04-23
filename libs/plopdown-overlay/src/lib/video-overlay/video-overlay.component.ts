@@ -144,14 +144,15 @@ export class VideoOverlayComponent {
 
     const positionOverlay$ = this.videoElem$.pipe(
       switchMap(elem => {
-        return merge([
+        return merge(
           this.manualReposition$.asObservable(),
           fromEvent(elem, 'play'),
           fromEvent(elem, 'load'),
           fromEvent(elem, 'resize'),
           fromEvent(elem, 'mousemove')
-        ]).pipe(mapTo(elem));
+        ).pipe(map(() => elem));
       }),
+      tap(console.log),
       shareReplay(1)
     );
 

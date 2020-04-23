@@ -54,9 +54,11 @@
     "lz-string": "^1.4.4",
     "ng-animate": "^0.3.4",
     "ngx-schema-form": "^2.5.2",
+    "plyr": "^3.5.10",
     "reflect-metadata": "^0.1.13",
     "rxjs": "6.5.5",
     "sanitize-html": "^1.23.0",
+    "videogular2": "^7.0.1",
     "webextension-polyfill": "^0.6.0",
     "z-schema": "^4.2.2",
     "zone.js": "file:prebuild_modules/zone.js"

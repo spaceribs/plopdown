@@ -26,17 +26,10 @@
             class="is-block"
             width="100%"
             controls
+            playsinline
             controlslist="nofullscreen"
             src="/assets/minnie_the_moocher.mp4"
           ></video>
-          <ng-container *ngIf="overlayShown">
-            <plopdown-video-overlay
-              *ngIf="track$ | async as track"
-              [videoElem]="exampleVideo"
-              [track]="track"
-              (remove)="removeOverlay()"
-            ></plopdown-video-overlay>
-          </ng-container>
         </div>
 
         <div class="column is-half is-desktop">
@@ -78,19 +71,7 @@
           </p>
           <p>
             It's currently in development and the alpha should be available
-            soon! In the meantime you can try it out by clicking the button
-            below:
-          </p>
-
-          <p class="has-text-centered">
-            <br />
-            <button
-              [disabled]="overlayShown"
-              (click)="onPlopify()"
-              class="button is-large is-success"
-            >
-              Plop It!
-            </button>
+            soon! In the meantime you can try it out by playing the video.
           </p>
         </div>
       </div>

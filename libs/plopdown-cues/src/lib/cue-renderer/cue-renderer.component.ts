@@ -1,5 +1,5 @@
 import { LoggerService } from '@plopdown/logger';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable, Subject, BehaviorSubject, Subscription } from 'rxjs';
 import {
   Component,
@@ -14,8 +14,7 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
   ComponentRef,
-  EventEmitter,
-  Output
+  HostBinding
 } from '@angular/core';
 import { PlopdownCue } from '../models/plopdown-cue.model';
 import {
@@ -40,6 +39,8 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   >;
 
   private subs: Subscription = new Subscription();
+
+  @HostBinding('attr.aria-live') public ariaLive = 'assertive';
 
   @ViewChild('cueOutlet', { read: ViewContainerRef })
   public cueOutlet: ViewContainerRef;

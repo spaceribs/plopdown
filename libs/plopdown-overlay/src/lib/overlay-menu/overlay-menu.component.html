@@ -1,9 +1,13 @@
 <div
+  title="Plopdown Menu"
   class="pd-menu"
+  tabindex="0"
+  (focus)="onMouseEnter()"
+  (blur)="onMouseLeave()"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
 >
-  <div class="pd-menu-container">
+  <nav class="pd-menu-container">
     <ul [@menuSlideout] class="pd-menu-list" *ngIf="slideoutShown">
       <li class="pd-menu-item" *ngIf="false">
         <a href="#" (click)="onCreatePlopdown($event)">
@@ -20,13 +24,13 @@
         </a>
       </li>
       <li class="pd-menu-item">
-        <a href="#" (click)="onRemovePlopdown($event)">
+        <a href="#" title="Remove Plopdown" (click)="onRemovePlopdown($event)">
           <plopdown-icon [path]="mdiClose"></plopdown-icon>
         </a>
       </li>
     </ul>
-  </div>
+  </nav>
   <span class="logo-container">
-    <img [src]="plopdownLogo$ | async" />
+    <img alt="Menu Button" [src]="plopdownLogo$ | async" />
   </span>
 </div>
