@@ -3,11 +3,9 @@ import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {
   Component,
-  OnInit,
   Input,
   SecurityContext,
-  ChangeDetectorRef,
-  ViewEncapsulation
+  ChangeDetectorRef
 } from '@angular/core';
 import * as SanitizeHTML from 'sanitize-html';
 import { map, tap } from 'rxjs/operators';
