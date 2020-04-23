@@ -126,7 +126,9 @@ export class VideoOverlayComponent {
       switchMap(track => {
         return fromEvent(track, 'cuechange').pipe(
           startWith(track),
-          mapTo(track.activeCues)
+          map(() => {
+            return track.activeCues;
+          })
         );
       }),
       map(cueList => {
