@@ -26,13 +26,17 @@
             class="is-block"
             width="100%"
             controls
+            controlslist="nofullscreen"
             src="/assets/minnie_the_moocher.mp4"
           ></video>
-          <plopdown-video-overlay
-            *ngIf="track$ | async as track"
-            [videoElem]="exampleVideo"
-            [track]="track"
-          ></plopdown-video-overlay>
+          <ng-container *ngIf="overlayShown">
+            <plopdown-video-overlay
+              *ngIf="track$ | async as track"
+              [videoElem]="exampleVideo"
+              [track]="track"
+              (remove)="removeOverlay()"
+            ></plopdown-video-overlay>
+          </ng-container>
         </div>
 
         <div class="column is-half is-desktop">
@@ -77,8 +81,12 @@
 
           <p class="has-text-centered">
             <br />
-            <button (click)="onPlopify()" class="button is-large is-success">
-              Plopify!
+            <button
+              [disabled]="overlayShown"
+              (click)="onPlopify()"
+              class="button is-large is-success"
+            >
+              Plop It!
             </button>
           </p>
         </div>

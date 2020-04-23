@@ -12,6 +12,8 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   public readonly track$: Observable<Track>;
+  public overlayShown = false;
+
   @ViewChild('exampleVideo') exampleVideo: ElementRef<HTMLVideoElement>;
 
   constructor(http: HttpClient, fileService: PlopdownFileService) {
@@ -38,5 +40,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onPlopify() {}
+  public removeOverlay() {
+    this.overlayShown = false;
+  }
+
+  public onPlopify() {
+    this.overlayShown = true;
+  }
 }

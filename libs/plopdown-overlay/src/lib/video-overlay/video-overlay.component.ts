@@ -15,7 +15,9 @@ import {
   Input,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import {
   map,
@@ -75,6 +77,8 @@ export class VideoOverlayComponent {
   public cues$: Observable<PlopdownCue[]>;
   public styles$: Observable<{ overlay: object; stage: object }>;
   public editMode$: Observable<boolean>;
+
+  @Output() public remove: EventEmitter<void> = new EventEmitter();
 
   @Input() public set videoElem(elem: HTMLVideoElement | null) {
     if (elem) {
@@ -223,6 +227,10 @@ export class VideoOverlayComponent {
         }, 0)
       )
     );
+  }
+
+  public removeOverlay() {
+    this.remove.emit();
   }
 
   private bindCues(metadataTrack: TextTrack, storedTrack: Track) {

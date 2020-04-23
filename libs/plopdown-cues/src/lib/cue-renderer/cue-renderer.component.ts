@@ -62,7 +62,6 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
     private errorHandler: ErrorHandler,
     private logger: LoggerService
   ) {
-    console.log('yep');
     this.cueComponents$ = this.cues$.pipe(
       map(rawCues => {
         return rawCues.map(cue => {
