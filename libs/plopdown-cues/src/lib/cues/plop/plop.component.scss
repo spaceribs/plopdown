@@ -84,7 +84,9 @@
 }
 
 .pd-icon {
-  font-size: 1.5em;
+  font-family: monospace;
+  -webkit-font-kerning: none;
+  font-kerning: none;
   top: 50%;
   left: 50%;
   position: absolute;
@@ -92,6 +94,6 @@
   width: 1em;
   height: 1em;
   margin-left: -0.5em;
-  margin-top: -0.5em;
+  margin-top: -0.45em;
   text-align: center;
 }

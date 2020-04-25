@@ -10,12 +10,13 @@ import {
   Injector,
   ApplicationRef,
   EmbeddedViewRef,
-  OnDestroy
+  OnDestroy,
+  ComponentRef
 } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom, first } from 'rxjs/operators';
 import { PlopdownFile, PlopdownFileService } from '@plopdown/plopdown-file';
 import { Track } from '@plopdown/tracks';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, Subject } from 'rxjs';
 import Plyr from 'plyr';
 
 @Component({
@@ -25,11 +26,15 @@ import Plyr from 'plyr';
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
   public readonly track$: Observable<Track>;
-  public overlayShown = false;
   public subs: Subscription = new Subscription();
+  public currentDate: Date;
 
   @ViewChild('exampleVideo') exampleVideo: ElementRef<HTMLVideoElement>;
   public plyr: Plyr;
+
+  private initTrack$: Subject<void> = new Subject();
+  private removeTrack$: Subject<void> = new Subject();
+  private overlayComponent$: Observable<ComponentRef<VideoOverlayComponent>>;
 
   constructor(
     http: HttpClient,
@@ -38,6 +43,12 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     private appRef: ApplicationRef,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {
+    this.currentDate = new Date();
+
+    const overlayFactory = this.componentFactoryResolver.resolveComponentFactory(
+      VideoOverlayComponent
+    );
+
     this.track$ = http
       .get('/assets/minnie_facts.vtt', {
         responseType: 'text'
@@ -57,6 +68,44 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
           return track;
         })
       );
+
+    this.overlayComponent$ = this.initTrack$.pipe(
+      switchMap(() => {
+        return this.track$;
+      }),
+      map(track => {
+        const componentRef = overlayFactory.create(this.injector);
+        this.appRef.attachView(componentRef.hostView);
+
+        componentRef.instance.videoElem = this.exampleVideo.nativeElement;
+        componentRef.instance.track = track;
+        const removeSub = componentRef.instance.remove.subscribe(() => {
+          this.removeTrack$.next();
+        });
+        this.subs.add(removeSub);
+        componentRef.changeDetectorRef.detectChanges();
+
+        return componentRef;
+      })
+    );
+
+    const attachOverlaySub = this.overlayComponent$.subscribe(componentRef => {
+      const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
+        .rootNodes[0] as HTMLElement;
+      this.exampleVideo.nativeElement.parentNode.appendChild(domElem);
+    });
+    this.subs.add(attachOverlaySub);
+
+    const detachOverlaySub = this.removeTrack$
+      .pipe(switchMap(() => this.overlayComponent$.pipe(first())))
+      .subscribe(componentRef => {
+        console.log(componentRef);
+        const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
+          .rootNodes[0] as HTMLElement;
+        domElem.remove();
+        componentRef.destroy();
+      });
+    this.subs.add(detachOverlaySub);
   }
 
   ngOnDestroy(): void {
@@ -65,33 +114,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.plyr = new Plyr(this.exampleVideo.nativeElement);
-
-    const overlayFactory = this.componentFactoryResolver.resolveComponentFactory(
-      VideoOverlayComponent
-    );
-
-    const tracksSub = this.track$.subscribe(track => {
-      const componentRef = overlayFactory.create(this.injector);
-      this.appRef.attachView(componentRef.hostView);
-
-      const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
-        .rootNodes[0] as HTMLElement;
-
-      this.exampleVideo.nativeElement.parentNode.appendChild(domElem);
-
-      componentRef.instance.videoElem = this.exampleVideo.nativeElement;
-      componentRef.instance.track = track;
-
-      componentRef.changeDetectorRef.detectChanges();
-    });
-    this.subs.add(tracksSub);
-  }
-
-  public removeOverlay() {
-    this.overlayShown = false;
-  }
-
-  public onPlopify() {
-    this.overlayShown = true;
+    this.initTrack$.next();
   }
 }

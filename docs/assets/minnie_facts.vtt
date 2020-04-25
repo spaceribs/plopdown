@@ -22,8 +22,65 @@ info
     "authors": ["spaceribs"]
 }
 
+Intro1
+00:00:04.000 --> 00:00:10.000
+{
+    "type": "PLOP",
+    "top": 18,
+    "left": 16,
+    "width": 50,
+    "desc": "<p>Welcome to Plopdown! This is one of a growing list of cue types which can appear during a video</p>",
+    "icons": [
+        {
+            "top": 70,
+            "left": 51,
+            "size": 200,
+            "rotate": 0,
+            "emoji": "🎉"
+        }
+    ]
+}
+
+Intro2
+00:00:10.000 --> 00:00:16.000
+{
+    "type": "PLOP",
+    "top": 21,
+    "left": 54,
+    "width": 40,
+    "desc": "<p>When plopdown is installed on a video, a hover menu appears in the top right with options.</p>",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 140,
+            "rotate": 0,
+            "emoji": "⚙️"
+        }
+    ]
+}
+
+Intro3
+00:00:16.000 --> 00:00:20.000
+{
+    "type": "PLOP",
+    "top": 38,
+    "left": 6,
+    "width": 50,
+    "desc": "<p>Now enjoy the rest of the video to sample some of Plopdown's capabilities!</p>",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 130,
+            "rotate": 20,
+            "emoji": "🎟"
+        }
+    ]
+}
+
 1
-00:00:45.000 --> 00:00:53.000
+00:00:53.000 --> 00:01:00.000
 {
     "type": "PLOP",
     "top": 76,
@@ -49,7 +106,7 @@ info
 }
 
 2
-00:00:04.000 --> 00:00:12.000
+00:00:28.000 --> 00:00:32.000
 {
     "type": "PLOP",
     "top": 38,
@@ -68,7 +125,7 @@ info
 }
 
 3
-00:00:12.000 --> 00:00:16.000
+00:00:32.000 --> 00:00:38.000
 {
     "type": "PLOP",
     "top": 77,
@@ -94,7 +151,7 @@ info
 }
 
 4
-00:00:16.000 --> 00:00:22.000
+00:00:38.000 --> 00:00:45.000
 {
     "type": "PLOP",
     "top": 76,
@@ -200,14 +257,14 @@ info
     "desc": "<p>Bimbo completely disappears after the <a href=\"https://en.wikipedia.org/wiki/Motion_Picture_Production_Code\">Hays Codes in 1933</a>.</p>",
     "icons": [
         {
-            "top": 54,
+            "top": 50,
             "left": 50,
             "size": 150,
             "rotate": 0,
             "emoji": "🐶‍"
         },
         {
-            "top": 58,
+            "top": 50,
             "left": 50,
             "size": 130,
             "rotate": 0,
@@ -226,14 +283,7 @@ info
     "desc": "<p><a href=\"https://bettyboop.fandom.com/wiki/Bimbo\" target=\"_blank\">\"an anthropomorphic dog with a human love interest was considered too risqué during the time.\"</a></p>",
     "icons": [
         {
-            "top": 60,
-            "left": 50,
-            "size": 130,
-            "rotate": 0,
-            "emoji": "❤️‍"
-        },
-        {
-            "top": 60,
+            "top": 50,
             "left": 50,
             "size": 130,
             "rotate": 20,
@@ -252,7 +302,7 @@ info
     "desc": "<p>Boop's father is named \"Otto\", this is his only appearance in any known Betty Boop cartoon.</p>",
     "icons": [
         {
-            "top": 60,
+            "top": 50,
             "left": 50,
             "size": 150,
             "rotate": 0,
@@ -262,7 +312,7 @@ info
 }
 
 11
-00:01:16.000 --> 00:01:18.000
+00:01:16.000 --> 00:01:20.000
 {
     "type": "PLOP",
     "top": 75,
@@ -271,14 +321,14 @@ info
     "desc": "<p>Her mother is unnamed and uncredited.</p>",
     "icons": [
         {
-            "top": 60,
+            "top": 50,
             "left": 50,
             "size": 150,
             "rotate": 0,
             "emoji": "👵‍"
         },
         {
-            "top": 60,
+            "top": 50,
             "left": 50,
             "size": 150,
             "rotate": 0,
@@ -297,18 +347,18 @@ info
     "desc": "<p>German/Austrian immigrants faced large-scale anti-german sentiments during and after WW1.</p>",
     "icons": [
         {
-            "top": 60,
+            "top": 50,
             "left": 50,
-            "size": 150,
+            "size": 170,
             "rotate": 0,
             "emoji": "🇩🇪‍"
         },
         {
-            "top": 60,
+            "top": 50,
             "left": 50,
-            "size": 180,
+            "size": 100,
             "rotate": 0,
-            "emoji": "🚫"
+            "emoji": "😠"
         }
     ]
 }
@@ -349,7 +399,7 @@ info
     "desc": "<p>Betty Boop's character was based on Helen Kane without her permission.</p>",
     "icons": [
         {
-            "top": 60,
+            "top": 50,
             "left": 50,
             "size": 160,
             "rotate": 0,
@@ -413,7 +463,7 @@ info
     "desc": "<p>She subsequently lost the case.</p>",
     "icons": [
         {
-            "top": 60,
+            "top": 50,
             "left": 50,
             "size": 150,
             "rotate": 0,
@@ -522,7 +572,7 @@ info
     "desc": "<p>This animation was created through <a href=\"https://en.wikipedia.org/wiki/Rotoscope\" target=\"_blank\">rotoscoping</a> the previously seen footage of Cab Calloway dancing.</p>",
     "icons": [
         {
-            "top": 60,
+            "top": 50,
             "left": 50,
             "size": 150,
             "rotate": 0,
@@ -574,7 +624,7 @@ info
     "desc": "<p>The rotoscope patent expired 2 years after this cartoon was released.</p>",
     "icons": [
         {
-            "top": 60,
+            "top": 50,
             "left": 50,
             "size": 120,
             "rotate": 0,
@@ -645,7 +695,7 @@ info
     "desc": "<p>148 people were <a href=\"https://deathpenaltyusa.org/usa1/date/1932.htm\" target=\"_blank\">sentenced to death</a> in 1932.</p>",
     "icons": [
         {
-            "top": 60,
+            "top": 50,
             "left": 50,
             "size": 130,
             "rotate": 0,
@@ -700,6 +750,51 @@ info
 }
 
 30
+00:06:40.000 --> 00:06:46.000
+{
+    "type": "PLOP",
+    "top": 70,
+    "left": 10,
+    "width": 58,
+    "desc": "<p>These kinds of psychedelics mostly disappeared after the implementation of the Hays Codes</p>",
+    "icons": [
+        {
+            "top": 54,
+            "left": 50,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "🤯‍"
+        }
+    ]
+}
+
+31
+00:06:46.000 --> 00:06:54.000
+{
+    "type": "PLOP",
+    "top": 60,
+    "left": 50,
+    "width": 46,
+    "desc": "<p>Betty Boop herself changes from a sex symbol to a <a href=\"https://www.youtube.com/watch?v=eSxzenLlr68\" target=\"_blank\">much more modest \"career gal\"</a> by the end of the 1930s</p>",
+    "icons": [
+        {
+            "top": 50,
+            "left": 20,
+            "size": 120,
+            "rotate": 0,
+            "emoji": "💃"
+        },
+        {
+            "top": 50,
+            "left": 80,
+            "size": 120,
+            "rotate": 0,
+            "emoji": "👩‍💼"
+        }
+    ]
+}
+
+32
 00:07:11.000 --> 00:07:18.000
 {
     "type": "PLOP",
@@ -718,7 +813,7 @@ info
     ]
 }
 
-31
+33
 00:07:36.000 --> 00:07:40.000
 {
     "type": "PLOP",

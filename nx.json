@@ -14,10 +14,6 @@
     "web-ext": {
       "tags": []
     },
-    "web-ext-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web-ext"]
-    },
     "plopdown-ext": {
       "tags": [],
       "implicitDependencies": [
@@ -77,10 +73,6 @@
     },
     "website": {
       "tags": []
-    },
-    "website-e2e": {
-      "tags": [],
-      "implicitDependencies": ["website"]
     },
     "plopdown-overlay": {
       "tags": []

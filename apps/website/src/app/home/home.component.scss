@@ -8,3 +8,13 @@ a {
 p {
   margin: 20px 0;
 }
+
+.info-footer {
+  font-size: 12px;
+  a {
+    color: white;
+    &:hover {
+      color: #5594f9;
+    }
+  }
+}

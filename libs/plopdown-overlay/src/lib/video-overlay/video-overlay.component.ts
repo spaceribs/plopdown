@@ -26,7 +26,9 @@ import {
   tap,
   distinct,
   shareReplay,
-  startWith
+  startWith,
+  catchError,
+  distinctUntilChanged
 } from 'rxjs/operators';
 import {
   trigger,
@@ -152,7 +154,6 @@ export class VideoOverlayComponent {
           fromEvent(elem, 'mousemove')
         ).pipe(map(() => elem));
       }),
-      tap(console.log),
       shareReplay(1)
     );
 
@@ -173,7 +174,7 @@ export class VideoOverlayComponent {
         }
         return elem.offsetHeight * aspectRatio;
       }),
-      distinct()
+      distinctUntilChanged()
     );
 
     const letterboxedHeight$ = combineLatest([
@@ -186,14 +187,14 @@ export class VideoOverlayComponent {
         }
         return elem.offsetHeight;
       }),
-      distinct()
+      distinctUntilChanged()
     );
 
     const fontSize$ = positionOverlay$.pipe(
       map(elem => {
         return elem.offsetHeight / 44;
       }),
-      distinct()
+      distinctUntilChanged()
     );
 
     const overlayStyle$ = combineLatest([positionOverlay$, fontSize$]).pipe(
@@ -227,7 +228,7 @@ export class VideoOverlayComponent {
       tap(() =>
         setTimeout(() => {
           cd.detectChanges();
-        }, 0)
+        }, 10)
       )
     );
   }
