@@ -1,8 +1,7 @@
-import { VideoOverlayComponent } from './../../../../../libs/plopdown-overlay/src/lib/video-overlay/video-overlay.component';
+import { VideoOverlayComponent } from '@plopdown/plopdown-overlay';
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
-  OnInit,
   ViewChild,
   ElementRef,
   AfterViewInit,
@@ -13,7 +12,7 @@ import {
   OnDestroy,
   ComponentRef
 } from '@angular/core';
-import { map, switchMap, withLatestFrom, first } from 'rxjs/operators';
+import { map, switchMap, first, shareReplay } from 'rxjs/operators';
 import { PlopdownFile, PlopdownFileService } from '@plopdown/plopdown-file';
 import { Track } from '@plopdown/tracks';
 import { Observable, Subscription, Subject } from 'rxjs';
@@ -26,6 +25,9 @@ import Plyr from 'plyr';
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
   public readonly track$: Observable<Track>;
+  public readonly overlayComponent$: Observable<
+    ComponentRef<VideoOverlayComponent>
+  >;
   public subs: Subscription = new Subscription();
   public currentDate: Date;
 
@@ -34,7 +36,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   private initTrack$: Subject<void> = new Subject();
   private removeTrack$: Subject<void> = new Subject();
-  private overlayComponent$: Observable<ComponentRef<VideoOverlayComponent>>;
 
   constructor(
     http: HttpClient,
@@ -86,7 +87,8 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         componentRef.changeDetectorRef.detectChanges();
 
         return componentRef;
-      })
+      }),
+      shareReplay(1)
     );
 
     const attachOverlaySub = this.overlayComponent$.subscribe(componentRef => {
@@ -114,6 +116,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.plyr = new Plyr(this.exampleVideo.nativeElement);
+    this.initTrack();
+  }
+
+  public initTrack() {
     this.initTrack$.next();
   }
 }

@@ -82,6 +82,15 @@
             It's currently in development and the alpha should be available
             soon! In the meantime you can try it out by playing the video.
           </p>
+          <p *ngIf="overlayComponent$ | async as component">
+            <button
+              class="button is-success is-large"
+              (click)="initTrack()"
+              *ngIf="component.hostView.destroyed"
+            >
+              Reattach Plopdown
+            </button>
+          </p>
         </div>
       </div>
     </div>
