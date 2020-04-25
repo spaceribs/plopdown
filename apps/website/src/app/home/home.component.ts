@@ -101,7 +101,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     const detachOverlaySub = this.removeTrack$
       .pipe(switchMap(() => this.overlayComponent$.pipe(first())))
       .subscribe(componentRef => {
-        console.log(componentRef);
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
           .rootNodes[0] as HTMLElement;
         domElem.remove();
