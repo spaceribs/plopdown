@@ -1,4 +1,4 @@
-<section class="panel" *ngIf="videoRefs$ | async as videoRefs">
+<section class="panel" *ngIf="tracks$ | async as tracks">
   <div class="panel-block">
     <table class="table is-fullwidth">
       <thead>
@@ -8,15 +8,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngIf="videoRefs.length < 1">
+        <tr *ngIf="tracks.length < 1">
           <td class="has-text-centered" colspan="2">
-            <p>No Video References Initialized</p>
+            <p>No Tracks Added</p>
           </td>
         </tr>
-        <tr *ngFor="let videoRef of videoRefs">
-          <td>{{ getVideoTitle(videoRef.ref) }}</td>
+        <tr *ngFor="let track of tracks">
+          <td>{{ track.title }}</td>
           <td class="has-text-right">
-            <a (click)="onRemoveVideo(videoRef)">
+            <a (click)="onRemoveTrack(track)">
               <span class="icon">
                 <i class="mdi mdi-trash-can-outline"></i>
               </span>
@@ -30,9 +30,9 @@
     <a
       href="#"
       class="button is-fullwidth"
-      (click)="openExtensionsPage('/options.html/#/videos')"
+      (click)="openExtensionsPage('/options.html/#/tracks')"
     >
-      Manage All Videos
+      Add/Edit Tracks
     </a>
   </div>
 </section>

@@ -15,14 +15,21 @@ import { RouterModule, Routes } from '@angular/router';
 import { VideoManagerComponent } from './video-manager/video-manager.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { ExtStorageModule } from '@plopdown/ext-storage';
+import { TrackManagerComponent } from './track-manager/track-manager.component';
 
 const appRoutes: Routes = [
   { path: '', component: ScannerComponent },
-  { path: 'videos', component: VideoManagerComponent }
+  { path: 'videos', component: VideoManagerComponent },
+  { path: 'tracks', component: TrackManagerComponent }
 ];
 
 @NgModule({
-  declarations: [AppComponent, VideoManagerComponent, ScannerComponent],
+  declarations: [
+    AppComponent,
+    VideoManagerComponent,
+    TrackManagerComponent,
+    ScannerComponent
+  ],
   imports: [
     BrowserModule,
     BrowserRefModule,

@@ -18,9 +18,8 @@ export class VideoManagerComponent {
   constructor(
     private runtime: RuntimeService,
     private window: WindowRefService,
-    private permissions: PermissionsService,
     logger: LoggerService,
-    vrefs: VideoRefsService
+    private vrefs: VideoRefsService
   ) {
     this.videoRefs$ = vrefs.getVideoRefs().pipe(
       tap(refs => {
@@ -35,7 +34,7 @@ export class VideoManagerComponent {
   }
 
   public onRemoveVideo(videoRef: VideoRef) {
-    // return this.videoRefsService.removeVideoRef(videoRef);
+    return this.vrefs.removeVideoRef(videoRef);
   }
 
   public getVideoTitle(videoRef: VideoElementRef) {

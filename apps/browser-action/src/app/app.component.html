@@ -1,8 +1,24 @@
 <div>
   <div class="tabs is-marginless">
     <ul>
-      <li routerLinkActive="is-active"><a routerLink="/">Scan</a></li>
-      <li routerLinkActive="is-active"><a routerLink="/videos">Videos</a></li>
+      <li
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a routerLink="/">Scan</a>
+      </li>
+      <li
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a routerLink="/videos">Videos</a>
+      </li>
+      <li
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a routerLink="/tracks">Tracks</a>
+      </li>
     </ul>
   </div>
   <router-outlet></router-outlet>

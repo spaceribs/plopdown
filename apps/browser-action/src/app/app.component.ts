@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { BrowserActionPubService } from '@plopdown/messages';
 
 @Component({
   selector: 'plopdown-browser-action',
@@ -7,5 +6,5 @@ import { BrowserActionPubService } from '@plopdown/messages';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private baPub: BrowserActionPubService) {}
+  constructor() {}
 }

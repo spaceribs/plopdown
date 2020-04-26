@@ -69,18 +69,16 @@
           </button>
         </div>
         <div class="field">
-          <div class="columns">
-            <div class="column select is-success is-expanded is-outlined">
-              <select [(ngModel)]="selectedVideo" placeholder="Select Video...">
-                <option [ngValue]="null">Choose a Video...</option>
-                <option
-                  *ngFor="let foundVideo of foundVideos"
-                  [ngValue]="foundVideo"
-                >
-                  {{ getVideoTitle(foundVideo) }}
-                </option>
-              </select>
-            </div>
+          <div class="select is-success is-expanded is-outlined">
+            <select [(ngModel)]="selectedVideo" placeholder="Select Video...">
+              <option [ngValue]="null">Choose a Video...</option>
+              <option
+                *ngFor="let foundVideo of foundVideos"
+                [ngValue]="foundVideo"
+              >
+                {{ getVideoTitle(foundVideo) }}
+              </option>
+            </select>
           </div>
         </div>
         <div class="field" *ngIf="selectedVideo">

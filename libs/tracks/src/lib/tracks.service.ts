@@ -21,6 +21,7 @@ const STORAGE_KEY = 'tracks';
 })
 export class TracksService implements OnDestroy {
   private tracks$: Observable<Track[] | null>;
+  private removeTrack$: Subject<Track> = new Subject();
   private addTracks$: Subject<Track[]> = new Subject();
   private updateTrack$: Subject<Track> = new Subject();
   private subs: Subscription = new Subscription();
@@ -79,6 +80,28 @@ export class TracksService implements OnDestroy {
         }
       });
     this.subs.add(updateTrackSub);
+
+    const removeTrackSub = this.removeTrack$
+      .pipe(
+        withLatestFrom(this.tracks$),
+        concatMap(([removedTrack, tracks]) => {
+          const trackIndex = tracks.findIndex(track => {
+            return track.id === removedTrack.id;
+          });
+
+          tracks.splice(trackIndex, 1);
+
+          return this.storage.set(ExtStorageAreaName.Local, {
+            [STORAGE_KEY]: tracks
+          });
+        })
+      )
+      .subscribe({
+        next: () => {
+          logger.debug('Track Removed');
+        }
+      });
+    this.subs.add(removeTrackSub);
   }
 
   ngOnDestroy(): void {
@@ -95,6 +118,10 @@ export class TracksService implements OnDestroy {
 
   public updateTrack(track: Track) {
     this.updateTrack$.next(track);
+  }
+
+  public removeTrack(track: Track) {
+    this.removeTrack$.next(track);
   }
 
   public getTrack(id: Track['id']): Observable<Track | null> {
