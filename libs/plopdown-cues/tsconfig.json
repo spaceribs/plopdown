@@ -3,9 +3,5 @@
   "compilerOptions": {
     "types": ["node", "jest"]
   },
-  "include": [
-    "**/*.ts",
-    "../plopdown-file/src/schema/cues/plop.schema.d.ts",
-    "../plopdown-file/src/schema/cues/info.schema.d.ts"
-  ]
+  "include": ["**/*.ts"]
 }

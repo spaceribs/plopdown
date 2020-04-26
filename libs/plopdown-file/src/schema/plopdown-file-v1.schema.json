@@ -73,6 +73,29 @@
         }
       }
     },
+    "audio": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Plopdown Audio Schema",
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Audio overlay on top of video track",
+      "required": ["type", "title", "url"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "AUDIO"
+        },
+        "title": {
+          "description": "Audio Title",
+          "type": "string"
+        },
+        "url": {
+          "description": "URL to the audio file",
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
     "plop": {
       "title": "plopdown_plop_schema",
       "type": "object",

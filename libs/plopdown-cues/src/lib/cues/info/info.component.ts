@@ -1,4 +1,3 @@
-import { PlopdownSchema } from '@plopdown/plopdown-file';
 import { fadeIn, fadeOut } from 'ng-animate';
 import {
   trigger,
@@ -37,7 +36,5 @@ import { PlopdownInfo } from './info.model';
   ]
 })
 export class InfoComponent extends PlopdownBaseComponent<PlopdownInfo> {
-  public schema = PlopdownSchema.definitions.info;
-
   @HostBinding('@infoFade') animate;
 }

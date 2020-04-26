@@ -38,7 +38,7 @@ import {
   style,
   animate
 } from '@angular/animations';
-import { PlopdownCue } from '@plopdown/plopdown-cues';
+import { Cue } from '@plopdown/plopdown-cues';
 import { EditModeService } from '../edit-mode.service';
 
 @Component({
@@ -76,7 +76,7 @@ export class VideoOverlayComponent {
   private videoElem$: Subject<HTMLVideoElement> = new ReplaySubject(1);
   private track$: Subject<Track> = new ReplaySubject(1);
 
-  public cues$: Observable<PlopdownCue[]>;
+  public cues$: Observable<Cue[]>;
   public styles$: Observable<{ overlay: object; stage: object }>;
   public editMode$: Observable<boolean>;
 
@@ -251,8 +251,8 @@ export class VideoOverlayComponent {
     });
   }
 
-  private cueListToArray(cueList: TextTrackCueList): PlopdownCue[] {
-    const cues: PlopdownCue[] = [];
+  private cueListToArray(cueList: TextTrackCueList): Cue[] {
+    const cues: Cue[] = [];
 
     for (let index = 0; index < cueList.length; index++) {
       const raw_cue = cueList[index];
@@ -262,7 +262,7 @@ export class VideoOverlayComponent {
         id = index.toString();
       }
 
-      let data: null | PlopdownCue['data'] = null;
+      let data: null | Cue['data'] = null;
       try {
         data = JSON.parse(raw_cue.text);
       } catch (err) {

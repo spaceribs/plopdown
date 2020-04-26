@@ -11,6 +11,7 @@ import {
   WidgetRegistry,
   DefaultWidgetRegistry
 } from 'ngx-schema-form';
+import { AudioComponent } from './cues/audio/audio.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, SchemaFormModule.forRoot()],
@@ -19,7 +20,8 @@ import {
     PlopComponent,
     CueRendererComponent,
     CueEditorComponent,
-    HtmlContentComponent
+    HtmlContentComponent,
+    AudioComponent
   ],
   exports: [CueRendererComponent],
   providers: [{ provide: WidgetRegistry, useClass: DefaultWidgetRegistry }]

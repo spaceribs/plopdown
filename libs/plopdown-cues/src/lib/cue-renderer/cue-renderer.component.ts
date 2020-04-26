@@ -16,7 +16,7 @@ import {
   ComponentRef,
   HostBinding
 } from '@angular/core';
-import { PlopdownCue } from '../models/plopdown-cue.model';
+import { Cue } from '../models/plopdown-cue.model';
 import {
   PLOPDOWN_TEMPLATES,
   PlopdownTemplate
@@ -33,10 +33,8 @@ type PlopdownComponentFactory = ComponentFactory<
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CueRendererComponent implements AfterViewInit, OnDestroy {
-  private cues$: Subject<PlopdownCue[]> = new BehaviorSubject([]);
-  private cueComponents$: Observable<
-    [PlopdownComponentFactory | null, PlopdownCue][]
-  >;
+  private cues$: Subject<Cue[]> = new BehaviorSubject([]);
+  private cueComponents$: Observable<[PlopdownComponentFactory | null, Cue][]>;
 
   private subs: Subscription = new Subscription();
 
@@ -46,12 +44,12 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   public cueOutlet: ViewContainerRef;
 
   public cueMap = new Map<
-    PlopdownCue['id'],
+    Cue['id'],
     ComponentRef<PlopdownBaseComponent<PlopdownTemplate>>
   >();
 
   @Input()
-  set cues(cues: PlopdownCue[]) {
+  set cues(cues: Cue[]) {
     if (cues != null) {
       this.cues$.next(cues);
     }

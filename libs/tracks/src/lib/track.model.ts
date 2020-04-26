@@ -1,4 +1,4 @@
-import { Cue } from './cue.model';
+import { Cue } from '@plopdown/plopdown-cues';
 
 export interface Track {
   id: string;

@@ -1,7 +1,8 @@
 import { PlopdownFileV1Validator } from './../schema/plopdown-file-v1.validator';
 import { PlopdownFileModule } from './plopdown-file.module';
-import { PlopdownFile, Cue } from './plopdown-file.model';
+import { PlopdownFile } from './plopdown-file.model';
 import { Injectable } from '@angular/core';
+import { Cue } from '@plopdown/plopdown-cues';
 
 @Injectable({
   providedIn: PlopdownFileModule

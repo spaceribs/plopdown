@@ -19,6 +19,7 @@
   z-index: 20;
   background: #000;
   border-radius: 0.1em;
+  background-clip: padding-box;
   padding: 0.3rem;
   margin-bottom: 0.5rem;
   transform: translateX(-50%);
@@ -58,7 +59,7 @@
 }
 
 .desc {
-  color: #333;
+  color: #111;
   font-size: 1.2em;
   background: #ddd;
   border: 0.4em solid currentColor;
@@ -68,7 +69,8 @@
 }
 
 .pd-icons {
-  color: #333;
+  color: #111;
+  background-clip: padding-box;
   position: absolute;
   top: 0;
   left: 0;
