@@ -15,6 +15,10 @@ export class WindowRefService {
     return this.window.document;
   }
 
+  public getIndexedDB() {
+    return this.window.indexedDB;
+  }
+
   public open(
     path: string,
     target?: string,

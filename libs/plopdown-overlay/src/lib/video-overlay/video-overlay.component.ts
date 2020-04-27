@@ -1,3 +1,4 @@
+import { TRACK_TOKEN, VIDEO_ELEM_TOKEN } from '@plopdown/tokens';
 import { LoggerService } from '@plopdown/logger';
 import { Track } from '@plopdown/tracks';
 import { bounceIn } from 'ng-animate';
@@ -8,7 +9,8 @@ import {
   combineLatest,
   BehaviorSubject,
   merge,
-  fromEvent
+  fromEvent,
+  of
 } from 'rxjs';
 import {
   Component,
@@ -17,7 +19,8 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   Output,
-  EventEmitter
+  EventEmitter,
+  Inject
 } from '@angular/core';
 import {
   map,
@@ -27,7 +30,6 @@ import {
   distinct,
   shareReplay,
   startWith,
-  catchError,
   distinctUntilChanged
 } from 'rxjs/operators';
 import {
@@ -39,7 +41,6 @@ import {
   animate
 } from '@angular/animations';
 import { Cue } from '@plopdown/plopdown-cues';
-import { EditModeService } from '../edit-mode.service';
 
 @Component({
   selector: 'plopdown-video-overlay',
@@ -73,8 +74,6 @@ import { EditModeService } from '../edit-mode.service';
 })
 export class VideoOverlayComponent {
   private manualReposition$: Subject<void> = new BehaviorSubject(null);
-  private videoElem$: Subject<HTMLVideoElement> = new ReplaySubject(1);
-  private track$: Subject<Track> = new ReplaySubject(1);
 
   public cues$: Observable<Cue[]>;
   public styles$: Observable<{ overlay: object; stage: object }>;
@@ -82,25 +81,13 @@ export class VideoOverlayComponent {
 
   @Output() public remove: EventEmitter<void> = new EventEmitter();
 
-  @Input() public set videoElem(elem: HTMLVideoElement | null) {
-    if (elem) {
-      this.videoElem$.next(elem);
-    }
-  }
-
-  @Input() public set track(track: Track) {
-    if (track) {
-      this.track$.next(track);
-    }
-  }
-
   constructor(
     cd: ChangeDetectorRef,
-    editMode: EditModeService,
-    private logger: LoggerService
+    private logger: LoggerService,
+    @Inject(VIDEO_ELEM_TOKEN) videoElem: HTMLVideoElement,
+    @Inject(TRACK_TOKEN) plopTrack: Track
   ) {
-    this.editMode$ = editMode.getEditModeEnabled();
-    const metadataTrack$ = combineLatest([this.videoElem$, this.track$]).pipe(
+    const metadataTrack$ = combineLatest([of(videoElem), of(plopTrack)]).pipe(
       switchMap(([elem, track]) => {
         return new Observable<TextTrack>(observer => {
           const metadataTrack: TextTrack = elem.addTextTrack(
@@ -137,14 +124,14 @@ export class VideoOverlayComponent {
         return this.cueListToArray(cueList);
       }),
       shareReplay(1),
-      tap(cues => {
+      tap(_ => {
         setTimeout(() => {
           cd.detectChanges();
         }, 0);
       })
     );
 
-    const positionOverlay$ = this.videoElem$.pipe(
+    const positionOverlay$ = of(videoElem).pipe(
       switchMap(elem => {
         return merge(
           this.manualReposition$.asObservable(),

@@ -15,6 +15,7 @@ import {
   ComponentFactoryResolver
 } from '@angular/core';
 import { ReplaySubject, Subject, Subscription } from 'rxjs';
+import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
 
 @Component({
   selector: 'plopdown-video-attachment',
@@ -53,17 +54,6 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
       VideoOverlayComponent
     );
-    const componentRef = componentFactory.create(this.injector);
-    this.appRef.attachView(componentRef.hostView);
-
-    const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
-      .rootNodes[0] as HTMLElement;
-    this.videoElem.offsetParent.append(domElem);
-
-    this.overlayComponentRef = componentRef;
-
-    componentRef.instance.videoElem = this.videoElem;
-    componentRef.changeDetectorRef.detectChanges();
 
     const trackSub = this.trackId$
       .pipe(
@@ -76,7 +66,24 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
           if (track == null) {
             this.logger.error('Could not find associated track.');
           }
-          componentRef.instance.track = track;
+
+          const componentInjector = Injector.create({
+            providers: [
+              { provide: VIDEO_ELEM_TOKEN, useValue: this.videoElem },
+              { provide: TRACK_TOKEN, useValue: track }
+            ]
+          });
+
+          const componentRef = componentFactory.create(componentInjector);
+          this.appRef.attachView(componentRef.hostView);
+
+          const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
+            .rootNodes[0] as HTMLElement;
+          this.videoElem.offsetParent.append(domElem);
+
+          this.overlayComponentRef = componentRef;
+
+          componentRef.changeDetectorRef.detectChanges();
         },
         error: err => {
           this.logger.error(err);

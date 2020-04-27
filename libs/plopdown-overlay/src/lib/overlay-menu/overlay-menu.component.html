@@ -14,15 +14,6 @@
           <plopdown-icon [path]="mdiTooltipPlus"></plopdown-icon>
         </a>
       </li>
-      <li class="pd-menu-item" *ngIf="false">
-        <a
-          href="#"
-          [ngClass]="{ active: editModeEnabled$ | async }"
-          (click)="onToggleEdit($event)"
-        >
-          <plopdown-icon [path]="mdiTooltipEdit"></plopdown-icon>
-        </a>
-      </li>
       <li class="pd-menu-item">
         <a href="#" title="Remove Plopdown" (click)="onRemovePlopdown($event)">
           <plopdown-icon [path]="mdiClose"></plopdown-icon>

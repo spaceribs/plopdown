@@ -1045,6 +1045,38 @@
           "style": "scss"
         }
       }
+    },
+    "tokens": {
+      "projectType": "library",
+      "root": "libs/tokens",
+      "sourceRoot": "libs/tokens/src",
+      "prefix": "plopdown",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/tokens/tsconfig.lib.json",
+              "libs/tokens/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/tokens/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tokens/jest.config.js",
+            "tsConfig": "libs/tokens/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/tokens/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

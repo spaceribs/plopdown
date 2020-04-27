@@ -30,7 +30,8 @@
       "@plopdown/video-elem-refs": ["libs/video-elem-refs/src/index.ts"],
       "@plopdown/icon": ["libs/icon/src/index.ts"],
       "@plopdown/plopdown-cues": ["libs/plopdown-cues/src/index.ts"],
-      "@plopdown/plopdown-overlay": ["libs/plopdown-overlay/src/index.ts"]
+      "@plopdown/plopdown-overlay": ["libs/plopdown-overlay/src/index.ts"],
+      "@plopdown/tokens": ["libs/tokens/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

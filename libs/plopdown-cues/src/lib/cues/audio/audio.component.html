@@ -1,6 +1,6 @@
 <audio
-  title="Audio Sample"
-  controls
-  #audioSample
+  title="{{ data.title }}"
+  (loadstart)="audioLoaded()"
+  #audioElem
   src="/assets/classics.mp3"
 ></audio>

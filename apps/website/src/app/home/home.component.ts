@@ -17,6 +17,7 @@ import { PlopdownFile, PlopdownFileService } from '@plopdown/plopdown-file';
 import { Track } from '@plopdown/tracks';
 import { Observable, Subscription, Subject } from 'rxjs';
 import Plyr from 'plyr';
+import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
 
 @Component({
   selector: 'plopdown-home',
@@ -40,7 +41,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   constructor(
     http: HttpClient,
     fileService: PlopdownFileService,
-    private injector: Injector,
     private appRef: ApplicationRef,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {
@@ -75,11 +75,21 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         return this.track$;
       }),
       map(track => {
-        const componentRef = overlayFactory.create(this.injector);
+        const componentInjector = Injector.create({
+          providers: [
+            {
+              provide: VIDEO_ELEM_TOKEN,
+              useValue: this.exampleVideo.nativeElement
+            },
+            {
+              provide: TRACK_TOKEN,
+              useValue: track
+            }
+          ]
+        });
+        const componentRef = overlayFactory.create(componentInjector);
         this.appRef.attachView(componentRef.hostView);
 
-        componentRef.instance.videoElem = this.exampleVideo.nativeElement;
-        componentRef.instance.track = track;
         const removeSub = componentRef.instance.remove.subscribe(() => {
           this.removeTrack$.next();
         });

@@ -20,7 +20,6 @@ import {
 } from '@angular/animations';
 import { map, tap, withLatestFrom } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { EditModeService } from '../edit-mode.service';
 import { LoadAssetService } from '../load-asset.service';
 
 @Component({
@@ -65,13 +64,12 @@ import { LoadAssetService } from '../load-asset.service';
     ])
   ]
 })
-export class OverlayMenuComponent implements OnInit, OnDestroy {
+export class OverlayMenuComponent implements OnDestroy {
   public mdiClose = mdiClose;
   public mdiTooltipEdit = mdiTooltipEdit;
   public mdiTooltipPlus = mdiTooltipPlus;
 
   public plopdownLogo$: Observable<SafeUrl>;
-  public editModeEnabled$: Observable<boolean>;
   public toggleEditMode$: Subject<void> = new Subject();
 
   public slideoutShown = false;
@@ -84,11 +82,7 @@ export class OverlayMenuComponent implements OnInit, OnDestroy {
 
   private subs: Subscription = new Subscription();
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    loadAsset: LoadAssetService,
-    private editModeService: EditModeService
-  ) {
+  constructor(private cd: ChangeDetectorRef, loadAsset: LoadAssetService) {
     this.plopdownLogo$ = loadAsset.asText('/icons/plopdown-logo.svg').pipe(
       tap(() => {
         setTimeout(() => {
@@ -96,21 +90,6 @@ export class OverlayMenuComponent implements OnInit, OnDestroy {
         }, 0);
       })
     );
-
-    this.editModeEnabled$ = editModeService.getEditModeEnabled();
-  }
-
-  ngOnInit(): void {
-    const toggleEditSub = this.toggleEditMode$
-      .pipe(
-        withLatestFrom(this.editModeEnabled$),
-        map(([_, editing]) => editing)
-      )
-      .subscribe(editing => {
-        this.editModeService.setEditMode(!editing);
-        this.cd.detectChanges();
-      });
-    this.subs.add(toggleEditSub);
   }
 
   ngOnDestroy(): void {

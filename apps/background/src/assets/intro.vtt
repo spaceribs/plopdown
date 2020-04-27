@@ -23,6 +23,14 @@ info
 }
 
 1
+00:00:00.999 --> 00:00:10.000
+{
+    "type": "AUDIO",
+    "title": "Test Audio",
+    "url": "/assets/classics.mp3"
+}
+
+1
 00:00:01.000 --> 00:00:04.000
 {
     "type": "PLOP",
