@@ -207,7 +207,7 @@
   "properties": {
     "headers": {
       "type": "object",
-      "required": ["type", "id", "title", "for", "created"],
+      "required": ["type", "title", "for", "created"],
       "additionalProperties": false,
       "properties": {
         "type": {
