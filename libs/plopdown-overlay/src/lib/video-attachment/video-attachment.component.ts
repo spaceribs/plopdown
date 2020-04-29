@@ -1,5 +1,5 @@
 import { switchMap } from 'rxjs/operators';
-import { Track, TracksService } from '@plopdown/tracks';
+import { Track, TracksService, SavedTrack } from '@plopdown/tracks';
 import { LoggerService } from '@plopdown/logger';
 import { VideoOverlayComponent } from './../video-overlay/video-overlay.component';
 import { XPathService } from '@plopdown/window-ref';
@@ -23,7 +23,7 @@ import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
 })
 export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private videoElem: HTMLVideoElement | null;
-  private trackId$: Subject<Track['id']> = new ReplaySubject(1);
+  private trackId$: Subject<SavedTrack['_id']> = new ReplaySubject(1);
   private subs: Subscription = new Subscription();
   overlayComponentRef: ComponentRef<VideoOverlayComponent>;
 
@@ -32,12 +32,11 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     private xpathService: XPathService,
     private tracksService: TracksService,
     private logger: LoggerService,
-    private injector: Injector,
     private appRef: ApplicationRef
   ) {}
 
   @Input() public xpath: string;
-  @Input() public set trackId(trackId: Track['id']) {
+  @Input() public set trackId(trackId: SavedTrack['_id']) {
     this.trackId$.next(trackId);
   }
 

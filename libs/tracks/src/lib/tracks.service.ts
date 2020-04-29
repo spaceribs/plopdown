@@ -1,7 +1,7 @@
 import { LoggerService } from '@plopdown/logger';
 import { ExtStorageService, ExtStorageAreaName } from '@plopdown/ext-storage';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Track } from './track.model';
+import { Track, SavedTrack } from './track.model';
 import {
   map,
   filter,
@@ -9,10 +9,12 @@ import {
   pluck,
   tap,
   concatMap,
-  withLatestFrom
+  withLatestFrom,
+  switchMap
 } from 'rxjs/operators';
-import { Observable, merge, Subscription, Subject } from 'rxjs';
+import { Observable, merge, Subscription, Subject, from } from 'rxjs';
 import { TracksModule } from './tracks.module';
+import PouchDB from 'pouchdb';
 
 const STORAGE_KEY = 'tracks';
 
@@ -20,85 +22,121 @@ const STORAGE_KEY = 'tracks';
   providedIn: TracksModule
 })
 export class TracksService implements OnDestroy {
-  private tracks$: Observable<Track[] | null>;
-  private removeTrack$: Subject<Track> = new Subject();
-  private addTracks$: Subject<Track[]> = new Subject();
-  private updateTrack$: Subject<Track> = new Subject();
+  private removeTrack$: Subject<SavedTrack> = new Subject();
+  private addTrack$: Subject<Track> = new Subject();
+  private updateTrack$: Subject<SavedTrack> = new Subject();
+  private db$: Observable<PouchDB.Database<Track>>;
+  private tracks$: Observable<SavedTrack[]>;
   private subs: Subscription = new Subscription();
 
-  constructor(
-    private storage: ExtStorageService,
-    private logger: LoggerService
-  ) {
-    const changed$ = storage.getOnChanged().pipe(
-      filter(([_, area]) => area === ExtStorageAreaName.Local),
-      map(([changes]) => changes),
-      filter(changes => changes[STORAGE_KEY] != null),
-      map(changes => changes[STORAGE_KEY].newValue)
-    );
+  constructor(private logger: LoggerService) {
+    this.db$ = new Observable<PouchDB.Database<Track>>(observer => {
+      const db = new PouchDB<Track>(STORAGE_KEY);
 
-    const initial$ = storage.get(ExtStorageAreaName.Local, [STORAGE_KEY]).pipe(
-      tap(initial => this.logger.debug('Initial Tracks', initial)),
-      pluck(STORAGE_KEY)
-    );
+      observer.next(db);
 
-    this.tracks$ = merge(initial$, changed$).pipe(shareReplay(1));
+      return () => {
+        db.close();
+      };
+    }).pipe(shareReplay(1));
 
-    const setTracksSub = this.addTracks$
+    const changes$ = this.db$
       .pipe(
-        concatMap(tracks => {
-          return this.storage.set(ExtStorageAreaName.Local, {
-            [STORAGE_KEY]: tracks
-          });
+        concatMap(db => {
+          return new Observable<PouchDB.Core.ChangesResponseChange<Track>>(
+            observer => {
+              const changes = db.changes({
+                live: true,
+                since: 'now',
+                include_docs: true
+              });
+
+              changes.on('change', change => {
+                observer.next(change);
+              });
+
+              changes.on('complete', () => {
+                observer.complete();
+              });
+
+              changes.on('error', err => {
+                observer.error(err);
+              });
+
+              return () => {
+                changes.cancel();
+              };
+            }
+          ).pipe(
+            switchMap(() => {
+              return db.allDocs<Track>({ include_docs: true });
+            }),
+            map(res => {
+              return res.rows.map(row => row.doc);
+            })
+          );
+        })
+      )
+      .pipe(shareReplay(1));
+
+    const initial$ = this.db$.pipe(
+      switchMap(db => {
+        return from(
+          db.allDocs<Track>({ include_docs: true })
+        );
+      }),
+      map(res => {
+        return res.rows.map(row => row.doc);
+      })
+    );
+
+    this.tracks$ = merge(initial$, changes$).pipe(shareReplay(1));
+
+    const setTracksSub = this.addTrack$
+      .pipe(
+        withLatestFrom(this.db$),
+        concatMap(([track, db]) => {
+          return from(db.post(track));
         })
       )
       .subscribe({
-        next: () => {
-          logger.debug('Tracks Set');
+        next: info => {
+          console.log(info);
+          logger.debug('Track Set');
         }
       });
     this.subs.add(setTracksSub);
 
     const updateTrackSub = this.updateTrack$
       .pipe(
-        withLatestFrom(this.tracks$),
-        concatMap(([updatedTrack, tracks]) => {
-          const trackIndex = tracks.findIndex(track => {
-            return track.id === updatedTrack.id;
-          });
-
-          tracks.splice(trackIndex, 1, updatedTrack);
-
-          return this.storage.set(ExtStorageAreaName.Local, {
-            [STORAGE_KEY]: tracks
-          });
+        withLatestFrom(this.db$),
+        concatMap(([track, db]) => {
+          return from(db.put(track));
         })
       )
       .subscribe({
-        next: () => {
-          logger.debug('Track Updated');
+        next: info => {
+          logger.debug('Track Updated', info);
+        },
+        error: err => {
+          logger.error(err);
         }
       });
     this.subs.add(updateTrackSub);
 
     const removeTrackSub = this.removeTrack$
       .pipe(
-        withLatestFrom(this.tracks$),
-        concatMap(([removedTrack, tracks]) => {
-          const trackIndex = tracks.findIndex(track => {
-            return track.id === removedTrack.id;
-          });
-
-          tracks.splice(trackIndex, 1);
-
-          return this.storage.set(ExtStorageAreaName.Local, {
-            [STORAGE_KEY]: tracks
-          });
+        withLatestFrom(this.db$),
+        concatMap(([track, db]) => {
+          return from(db.remove(track));
         })
       )
       .subscribe({
-        next: () => {
-          logger.debug('Track Removed');
+        next: info => {
+          logger.debug('Track Removed', info);
+        },
+        error: err => {
+          logger.error(err);
         }
       });
     this.subs.add(removeTrackSub);
@@ -108,26 +146,31 @@ export class TracksService implements OnDestroy {
     this.subs.unsubscribe();
   }
 
-  public addTracks(tracks: Track[]) {
-    this.addTracks$.next(tracks);
+  public addTrack(track: Track) {
+    this.addTrack$.next(track);
   }
 
-  public getTracks(): Observable<Track[] | null> {
-    return this.tracks$;
-  }
-
-  public updateTrack(track: Track) {
+  public updateTrack(track: SavedTrack) {
     this.updateTrack$.next(track);
   }
 
-  public removeTrack(track: Track) {
+  public removeTrack(track: SavedTrack) {
     this.removeTrack$.next(track);
   }
 
-  public getTrack(id: Track['id']): Observable<Track | null> {
-    return this.tracks$.pipe(
-      map(tracks => {
-        return tracks.find(track => track.id === id);
+  public getTracks(): Observable<SavedTrack[]> {
+    return this.tracks$;
+  }
+
+  public getTrack(id: SavedTrack['_id']): Observable<Track | null> {
+    return this.db$.pipe(
+      switchMap(db => {
+        return from(
+          db.get(id, {
+            attachments: true,
+            binary: true
+          })
+        );
       })
     );
   }

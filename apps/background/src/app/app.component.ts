@@ -6,7 +6,7 @@ import {
   ContentScriptCommand,
   ContentScriptReady,
   BrowserActionQueryVideoRefs,
-  ContentScriptIFramesFound
+  ContentScriptIFramesFound,
 } from '@plopdown/messages';
 import { LoggerService } from '@plopdown/logger';
 import { PlopdownFileService, PlopdownFile } from '@plopdown/plopdown-file';
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private bgPub: BackgroundPubService,
     csSub: ContentScriptSubService,
-    baSub: BrowserActionSubService
+    baSub: BrowserActionSubService,
   ) {
     this.onNewInstall$ = runtime.getOnInstalled().pipe(
       filter(details => details.reason === 'install'),
@@ -173,7 +173,6 @@ export class AppComponent implements OnInit, OnDestroy {
           const file: PlopdownFile = this.fileService.decode(raw);
 
           const introTrack: Track = {
-            id: file.headers.id,
             title: file.headers.title,
             for: file.headers.for,
             created: file.headers.created,
@@ -183,7 +182,7 @@ export class AppComponent implements OnInit, OnDestroy {
           return introTrack;
         }),
         map(track => {
-          return this.tracksService.addTracks([track]);
+          return this.tracksService.addTrack(track);
         })
       );
   }

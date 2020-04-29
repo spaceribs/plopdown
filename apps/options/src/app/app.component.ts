@@ -1,4 +1,4 @@
-import { ExtStorageService, ExtStorageAreaName } from '@plopdown/ext-storage';
+import * as uuid from 'uuid';
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,15 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'options';
 
-  constructor(extStorage: ExtStorageService) {
-    const blob = {
-      test: new Blob([JSON.stringify({ test: true }, null, 2)], {
-        type: 'application/json'
-      })
-    };
-
-    extStorage.set(ExtStorageAreaName.Local, blob);
-  }
+  constructor() {}
 
   requestPermissions(event: Event) {
     event.preventDefault();
@@ -31,7 +23,7 @@ export class AppComponent {
       .catch(err => console.log(err));
   }
 
-  fileSelected(event) {
-    console.log(event);
+  fileSelected(inputEvent: InputEvent) {
+    const file = (inputEvent.target as any).files[0] as File;
   }
 }

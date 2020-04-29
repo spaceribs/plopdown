@@ -1,6 +1,6 @@
 import { TRACK_TOKEN, VIDEO_ELEM_TOKEN } from '@plopdown/tokens';
 import { LoggerService } from '@plopdown/logger';
-import { Track } from '@plopdown/tracks';
+import { Track, SavedTrack } from '@plopdown/tracks';
 import { bounceIn } from 'ng-animate';
 import {
   Observable,
@@ -85,14 +85,14 @@ export class VideoOverlayComponent {
     cd: ChangeDetectorRef,
     private logger: LoggerService,
     @Inject(VIDEO_ELEM_TOKEN) videoElem: HTMLVideoElement,
-    @Inject(TRACK_TOKEN) plopTrack: Track
+    @Inject(TRACK_TOKEN) plopTrack: SavedTrack
   ) {
     const metadataTrack$ = combineLatest([of(videoElem), of(plopTrack)]).pipe(
       switchMap(([elem, track]) => {
         return new Observable<TextTrack>(observer => {
           const metadataTrack: TextTrack = elem.addTextTrack(
             'metadata',
-            track.id,
+            track._id,
             track.language
           );
           try {

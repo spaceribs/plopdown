@@ -1,7 +1,6 @@
 import { Cue } from '@plopdown/plopdown-cues';
 
 export interface Track {
-  id: string;
   title: string;
   for: string;
   language?: string;
@@ -11,4 +10,9 @@ export interface Track {
   created: string;
   updated?: string;
   cues: Cue[];
+}
+
+export interface SavedTrack extends Track {
+  _id: string;
+  _rev: string;
 }

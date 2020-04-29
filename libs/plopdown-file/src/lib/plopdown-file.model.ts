@@ -4,7 +4,6 @@ import type { VideoElementRef } from '@plopdown/video-elem-refs';
 export interface PlopdownFile {
   headers: {
     type: 'plopdown_v1';
-    id: Track['id'];
     title: Track['title'];
     for: Track['for'];
     created: Track['created'];

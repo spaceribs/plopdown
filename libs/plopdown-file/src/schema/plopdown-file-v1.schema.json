@@ -12,6 +12,10 @@
       "minimum": -100,
       "maximum": 200
     },
+    "milliseconds": {
+      "title": "Milliseconds",
+      "type": "integer"
+    },
     "degree": {
       "title": "Degree",
       "type": "number",
@@ -93,6 +97,78 @@
           "description": "URL to the audio file",
           "type": "string",
           "format": "uri"
+        },
+        "edits": {
+          "description": "Edits to perform on the audio",
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "description": "Skip a section of the audio",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "SKIP"
+                  },
+                  "start": {
+                    "$ref": "#/default/definitions/milliseconds"
+                  },
+                  "end": {
+                    "$ref": "#/default/definitions/milliseconds"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "description": "Pause the video but continue playing audio",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "STILL"
+                  },
+                  "start": {
+                    "$ref": "#/default/definitions/milliseconds"
+                  },
+                  "duration": {
+                    "$ref": "#/default/definitions/milliseconds"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "description": "Pause the audio but continue playing video",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "PAUSE"
+                  },
+                  "start": {
+                    "$ref": "#/default/definitions/milliseconds"
+                  },
+                  "duration": {
+                    "$ref": "#/default/definitions/milliseconds"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "description": "Adjust the volume of the video or the audio",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "VOLUME"
+                  },
+                  "video": {
+                    "$ref": "#/default/definitions/percentage"
+                  },
+                  "audio": {
+                    "$ref": "#/default/definitions/percentage"
+                  }
+                }
+              }
+            ]
+          }
         }
       }
     },
@@ -138,12 +214,6 @@
           "type": "string",
           "const": "plopdown_v1",
           "description": "The filetype and version number."
-        },
-        "id": {
-          "description": "The unique ID of the track. Needs to be in uuid_v4 format.",
-          "type": "string",
-          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
-          "format": "uuid"
         },
         "title": {
           "type": "string",
@@ -208,10 +278,10 @@
             "type": "string"
           },
           "startTime": {
-            "type": "number"
+            "$ref": "#/default/definitions/milliseconds"
           },
           "endTime": {
-            "type": "number"
+            "$ref": "#/default/definitions/milliseconds"
           },
           "data": {
             "oneOf": [

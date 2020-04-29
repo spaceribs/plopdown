@@ -3,8 +3,7 @@ import { ContentScriptPubService } from '@plopdown/messages';
 import {
   Component,
   ChangeDetectionStrategy,
-  AfterViewInit,
-  ViewEncapsulation
+  AfterViewInit
 } from '@angular/core';
 
 @Component({

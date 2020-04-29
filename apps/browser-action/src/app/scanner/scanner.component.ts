@@ -4,7 +4,7 @@ import {
   BackgroundSubService,
   BackgroundCheckAlive
 } from '@plopdown/messages';
-import { Track, TracksService } from '@plopdown/tracks';
+import { Track, TracksService, SavedTrack } from '@plopdown/tracks';
 import { VideoRef, VideoRefsService } from '@plopdown/video-refs';
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Observable, Subscription, combineLatest } from 'rxjs';
@@ -48,14 +48,14 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public state$: Observable<ActionState>;
   public videoRefs$: Observable<VideoRef[]>;
-  public tracks$: Observable<Track[]>;
+  public tracks$: Observable<SavedTrack[]>;
   public foundVideos$: Observable<VideoElementRef[]>;
   public foundIFrames$: Observable<string[]>;
   public updatingVideoRefs$: Observable<boolean>;
 
   private subs: Subscription = new Subscription();
   public selectedVideo: VideoElementRef;
-  public selectedTrack: Track;
+  public selectedTrack: SavedTrack;
   public checkedAlive$: Observable<BackgroundCheckAlive>;
 
   constructor(
@@ -127,7 +127,7 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   public onSelectTrack() {
     const newRef: VideoRef = {
       ref: this.selectedVideo,
-      track: this.selectedTrack.id
+      track: this.selectedTrack._id
     };
 
     this.videoRefsService.addVideoRef(newRef);

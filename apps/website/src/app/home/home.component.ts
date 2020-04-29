@@ -59,7 +59,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
           const file: PlopdownFile = fileService.decode(raw);
 
           const track: Track = {
-            id: file.headers.id,
             title: file.headers.title,
             for: file.headers.for,
             created: file.headers.created,
