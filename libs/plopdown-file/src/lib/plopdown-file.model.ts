@@ -1,5 +1,5 @@
 import type { Track } from '@plopdown/tracks';
-import type { VideoElementRef } from '@plopdown/video-elem-refs';
+import { VideoRef } from '@plopdown/video-refs';
 
 export interface PlopdownFile {
   headers: {
@@ -11,10 +11,10 @@ export interface PlopdownFile {
     url?: Track['url'];
     license?: Track['license'];
     authors?: Track['authors'];
-    origin?: VideoElementRef['frameOrigin'];
-    path?: VideoElementRef['framePath'];
-    search?: VideoElementRef['frameSearch'];
-    xpath?: VideoElementRef['xpath'];
+    origin?: VideoRef['frameOrigin'];
+    path?: VideoRef['framePath'];
+    search?: VideoRef['frameSearch'];
+    xpath?: VideoRef['xpath'];
   };
   cues: Track['cues'];
 }

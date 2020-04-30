@@ -1,4 +1,8 @@
-import type { VideoElementRef } from '@plopdown/video-elem-refs';
+import {
+  VideoRef,
+  VideoRefsService,
+  SavedVideoRef
+} from '@plopdown/video-refs';
 import {
   ContentScriptSubService,
   BackgroundPubService,
@@ -7,6 +11,7 @@ import {
   ContentScriptReady,
   BrowserActionQueryVideoRefs,
   ContentScriptIFramesFound,
+  ContentScriptTrackRequested
 } from '@plopdown/messages';
 import { LoggerService } from '@plopdown/logger';
 import { PlopdownFileService, PlopdownFile } from '@plopdown/plopdown-file';
@@ -16,7 +21,13 @@ import {
   OnInstalledDetails,
   TabsService
 } from '@plopdown/browser-ref';
-import { Subscription, Observable, concat, combineLatest } from 'rxjs';
+import {
+  Subscription,
+  Observable,
+  concat,
+  combineLatest,
+  forkJoin
+} from 'rxjs';
 import {
   filter,
   switchMap,
@@ -25,7 +36,7 @@ import {
   tap,
   shareReplay,
   scan,
-  delay
+  concatAll
 } from 'rxjs/operators';
 import { Track, TracksService } from '@plopdown/tracks';
 import { HttpClient } from '@angular/common/http';
@@ -45,20 +56,22 @@ export class AppComponent implements OnInit, OnDestroy {
   private onContentScriptVideos$: Observable<ContentScriptCommand>;
   private onContentScriptIFrames$: Observable<ContentScriptIFramesFound>;
   private onContentScriptReady$: Observable<ContentScriptReady>;
-  private knownVideos$: Observable<VideoElementRef[]>;
+  private knownVideos$: Observable<VideoRef[]>;
   private knownIFrames$: Observable<string[]>;
+  private onContentScriptTrackReq$: Observable<ContentScriptTrackRequested>;
 
   constructor(
     private errorHandler: ErrorHandler,
     private logger: LoggerService,
     private fileService: PlopdownFileService,
     private tracksService: TracksService,
+    private videoRefsService: VideoRefsService,
     private runtime: RuntimeService,
     private tabs: TabsService,
     private http: HttpClient,
     private bgPub: BackgroundPubService,
     csSub: ContentScriptSubService,
-    baSub: BrowserActionSubService,
+    baSub: BrowserActionSubService
   ) {
     this.onNewInstall$ = runtime.getOnInstalled().pipe(
       filter(details => details.reason === 'install'),
@@ -70,6 +83,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.onContentScriptReady$ = csSub.onReady();
     this.onContentScriptVideos$ = csSub.onVideosFound();
     this.onContentScriptIFrames$ = csSub.onIFramesFound();
+    this.onContentScriptTrackReq$ = csSub.onTrackRequested();
 
     this.knownVideos$ = this.onContentScriptVideos$.pipe(
       scan((acc, msg) => {
@@ -87,7 +101,7 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         return acc;
-      }, [] as VideoElementRef[]),
+      }, [] as VideoRef[]),
       shareReplay(1)
     );
 
@@ -140,9 +154,13 @@ export class AppComponent implements OnInit, OnDestroy {
         .subscribe({
           next: () => {
             this.logger.debug('Content Scripts Installed');
-            this.bgPub.findVideos();
+            setTimeout(() => {
+              this.bgPub.findVideos();
+            }, 100);
           },
-          error: err => this.errorHandler.handleError(err)
+          error: err => {
+            this.errorHandler.handleError(err);
+          }
         });
       this.subs.add(installContentScriptSub);
     }
@@ -159,6 +177,56 @@ export class AppComponent implements OnInit, OnDestroy {
       });
       this.subs.add(contentFoundSub);
     }
+
+    VideoRefsFound: {
+      this.knownVideos$
+        .pipe(
+          switchMap(videoRefs => {
+            return forkJoin(
+              videoRefs.map(videoRef => {
+                return this.videoRefsService.findVideoRefs(videoRef);
+              })
+            );
+          }),
+          map<any, SavedVideoRef[]>(results =>
+            results.reduce((memo, result) => memo.concat(result), [])
+          )
+        )
+        .subscribe({
+          next: next => {
+            console.log('found', next);
+            this.bgPub.videoRefsFound(next);
+          },
+          error: err => {
+            this.logger.error(err);
+          }
+        });
+    }
+
+    // TrackRequested: {
+    //   const trackReqSub = this.onContentScriptTrackReq$
+    //     .pipe(map(req => req.args))
+    //     .subscribe({
+    //       next: ([track]) => {
+    //         console.log('yep', track);
+
+    //         const aFileParts = ['<a id="a"><b id="b">hey!</b></a>']; // an array consisting of a single DOMString
+    //         const oMyBlob = new Blob(aFileParts, { type: 'text/html' }); // the blob
+
+    //         this.bgPub.trackFound({
+    //           _id: 'test',
+    //           _rev: 'test',
+    //           title: 'test',
+    //           for: 'test',
+    //           created: 'test',
+    //           cues: [],
+    //           test: oMyBlob
+    //         } as SavedTrack);
+    //       },
+    //       error: err => this.errorHandler.handleError(err)
+    //     });
+    //   this.subs.add(trackReqSub);
+    // }
   }
 
   ngOnDestroy(): void {
@@ -193,6 +261,11 @@ export class AppComponent implements OnInit, OnDestroy {
       allFrames: true
     });
 
+    const polyfills$ = this.tabs.executeScript({
+      file: 'content-script/polyfills.js',
+      allFrames: true
+    });
+
     const styles$ = this.tabs.executeScript({
       file: 'content-script/styles.js',
       allFrames: true
@@ -203,6 +276,6 @@ export class AppComponent implements OnInit, OnDestroy {
       allFrames: true
     });
 
-    return concat(zone$, styles$, main$);
+    return concat(zone$, polyfills$, styles$, main$);
   }
 }

@@ -4,8 +4,10 @@ import { Injectable } from '@angular/core';
 import {
   BackgroundCommand,
   BackgroundFindVideos,
-  BackgroundVideoRefsFound,
-  BackgroundCheckAlive
+  BackgroundContentFound,
+  BackgroundCheckAlive,
+  BackgroundTrackFound,
+  BackgroundVideoRefFound
 } from './background.model';
 import { PortSubscriber } from '../subscriber.abstract';
 import { MessagesModule } from '../messages.module';
@@ -25,6 +27,12 @@ export class BackgroundSubService extends PortSubscriber<BackgroundCommand> {
     return super.filterCommand<BackgroundFindVideos>('BG_FIND_VIDEOS');
   }
   public getContentFound() {
-    return super.filterCommand<BackgroundVideoRefsFound>('BG_CONTENT_FOUND');
+    return super.filterCommand<BackgroundContentFound>('BG_CONTENT_FOUND');
+  }
+  public getTrackFound() {
+    return super.filterCommand<BackgroundTrackFound>('BG_TRACK_FOUND');
+  }
+  public getVideoRefsFound() {
+    return super.filterCommand<BackgroundVideoRefFound>('BG_VIDEO_REFS_FOUND');
   }
 }

@@ -1,149 +1,208 @@
 import { LoggerService } from '@plopdown/logger';
-import { ExtStorageService, ExtStorageAreaName } from '@plopdown/ext-storage';
-import { Observable, merge, Subject, Subscription, of } from 'rxjs';
+import { Observable, merge, Subject, Subscription, from } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import { VideoRef } from './video-ref.model';
+import { VideoRef, SavedVideoRef } from './video-ref.model';
 import {
-  filter,
-  pluck,
   shareReplay,
   map,
   withLatestFrom,
-  mapTo,
-  tap,
-  concatMap
+  concatMap,
+  switchMap,
+  first
 } from 'rxjs/operators';
 import { VideoRefsModule } from './video-refs.module';
+import { Track } from '@plopdown/tracks';
 
+import PouchDB from 'pouchdb';
+import PouchDBFind from 'pouchdb-find';
+
+PouchDB.plugin(PouchDBFind);
 const STORAGE_KEY = 'videoRefs';
 
 @Injectable({
   providedIn: VideoRefsModule
 })
 export class VideoRefsService implements OnDestroy {
-  private updating$: Observable<boolean>;
+  private db$: Observable<PouchDB.Database<VideoRef>>;
   private videoRefs$: Observable<VideoRef[]>;
-  private setVideoRefs$: Subject<VideoRef[]> = new Subject();
   private addVideoRef$: Subject<VideoRef> = new Subject();
-  private removeVideoRef$: Subject<VideoRef> = new Subject();
+  private updateVideoRef$: Subject<VideoRef> = new Subject();
+  private removeVideoRef$: Subject<SavedVideoRef> = new Subject();
   private subs: Subscription = new Subscription();
 
-  constructor(
-    private storage: ExtStorageService,
-    private logger: LoggerService
-  ) {
-    this.initChangeListeners();
-    this.initUpdateListeners();
+  constructor(private logger: LoggerService) {
+    this.db$ = new Observable<PouchDB.Database<VideoRef>>(observer => {
+      const db = new PouchDB<VideoRef>(STORAGE_KEY);
 
-    const emptySub = this.videoRefs$
+      observer.next(db);
+
+      return () => {
+        db.close();
+      };
+    }).pipe(shareReplay(1));
+
+    const changes$ = this.db$
       .pipe(
-        filter(refs => {
-          return refs == null;
-        }),
-        tap(refs => {
-          logger.debug('videoRefs empty', refs);
+        concatMap(db => {
+          return new Observable<PouchDB.Core.ChangesResponseChange<VideoRef>>(
+            observer => {
+              const changes = db.changes({
+                live: true,
+                since: 'now',
+                include_docs: true
+              });
+
+              changes.on('change', change => {
+                observer.next(change);
+              });
+
+              changes.on('complete', () => {
+                observer.complete();
+              });
+
+              changes.on('error', err => {
+                observer.error(err);
+              });
+
+              return () => {
+                changes.cancel();
+              };
+            }
+          ).pipe(
+            switchMap(() => {
+              return db.allDocs<VideoRef>({ include_docs: true });
+            }),
+            map(res => {
+              return res.rows.map(row => row.doc);
+            })
+          );
+        })
+      )
+      .pipe(shareReplay(1));
+
+    const initial$ = this.db$.pipe(
+      switchMap(db => {
+        return from(
+          db.allDocs<Track>({ include_docs: true })
+        );
+      }),
+      map(res => {
+        return res.rows.map(row => row.doc);
+      })
+    );
+
+    this.videoRefs$ = merge(initial$, changes$).pipe(shareReplay(1));
+
+    this.db$
+      .pipe(
+        switchMap(db => {
+          return from(
+            db.createIndex({
+              index: {
+                fields: ['frameOrigin', 'framePath', 'frameSearch']
+              }
+            })
+          );
         })
       )
       .subscribe({
-        next: () => {
-          this.setVideoRefs([]);
+        next: info => {
+          logger.debug('VideoRef Indexed', info);
         },
         error: err => {
           logger.error(err);
         }
       });
 
-    this.subs.add(emptySub);
+    const setVideoRefSub = this.addVideoRef$
+      .pipe(
+        withLatestFrom(this.db$),
+        concatMap(([videoRef, db]) => {
+          return from(db.post(videoRef));
+        })
+      )
+      .subscribe({
+        next: info => {
+          logger.debug('VideoRef Set', info);
+        }
+      });
+    this.subs.add(setVideoRefSub);
+
+    const updateVideoRefSub = this.updateVideoRef$
+      .pipe(
+        withLatestFrom(this.db$),
+        concatMap(([videoRef, db]) => {
+          return from(db.put(videoRef));
+        })
+      )
+      .subscribe({
+        next: info => {
+          logger.debug('VideoRef Updated', info);
+        },
+        error: err => {
+          logger.error(err);
+        }
+      });
+    this.subs.add(updateVideoRefSub);
+
+    const removeVideoRefSub = this.removeVideoRef$
+      .pipe(
+        withLatestFrom(this.db$),
+        concatMap(([videoRef, db]) => {
+          return from(db.remove(videoRef));
+        })
+      )
+      .subscribe({
+        next: info => {
+          logger.debug('Track Removed', info);
+        },
+        error: err => {
+          logger.error(err);
+        }
+      });
+    this.subs.add(removeVideoRefSub);
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
-  private initChangeListeners() {
-    const storageChanged$ = this.storage.getOnChanged().pipe(
-      tap(change => {
-        this.logger.debug('Change Detected', change);
-      }),
-      filter(([_, area]) => area === ExtStorageAreaName.Local),
-      map(([changes]) => changes),
-      filter(changes => changes[STORAGE_KEY] != null),
-      map(changes => changes[STORAGE_KEY].newValue),
-      tap(change => {
-        this.logger.debug('Changed VideoRefs', change);
-      })
-    );
-
-    const storageInitial$ = this.storage
-      .get(ExtStorageAreaName.Local, STORAGE_KEY)
-      .pipe(pluck(STORAGE_KEY));
-
-    this.videoRefs$ = merge(storageInitial$, storageChanged$).pipe(
-      shareReplay(1)
-    );
-  }
-
-  private initUpdateListeners() {
-    const addVideoRefs$ = this.addVideoRef$.pipe(
-      withLatestFrom(this.videoRefs$),
-      map(([ref, videoRefs]) => {
-        return [...videoRefs, ref];
-      })
-    );
-
-    const removeVideoRefs$ = this.removeVideoRef$.pipe(
-      withLatestFrom(this.videoRefs$),
-      map(([ref, videoRefs]) => {
-        return videoRefs.filter(item => {
-          return item !== ref;
-        });
-      })
-    );
-
-    const storageUpdates$ = merge(
-      addVideoRefs$,
-      removeVideoRefs$,
-      this.setVideoRefs$
-    );
-
-    const storageUpdated$ = storageUpdates$.pipe(
-      concatMap(newRefs => {
-        return this.storage.set(ExtStorageAreaName.Local, {
-          [STORAGE_KEY]: newRefs
-        });
-      })
-    );
-
-    this.updating$ = merge(
-      storageUpdates$.pipe(mapTo(true)),
-      storageUpdated$.pipe(mapTo(false))
-    );
-
-    const updateSub = this.updating$.subscribe({
-      next: updated => {
-        this.logger.debug(updated ? 'Updating videoRefs' : 'VideoRefs updated');
-      }
-    });
-    this.subs.add(updateSub);
-  }
-
   public getVideoRefs(): Observable<VideoRef[]> {
     return this.videoRefs$;
   }
 
-  public getUpdating(): Observable<boolean> {
-    return this.updating$;
-  }
-
-  public setVideoRefs(videoRefs: VideoRef[]) {
-    this.setVideoRefs$.next(videoRefs);
+  public updateVideoRef(videoRef: VideoRef) {
+    this.updateVideoRef$.next(videoRef);
   }
 
   public addVideoRef(videoRef: VideoRef) {
     this.addVideoRef$.next(videoRef);
   }
 
-  public removeVideoRef(videoRef: VideoRef) {
+  public removeVideoRef(videoRef: SavedVideoRef) {
     this.removeVideoRef$.next(videoRef);
+  }
+
+  public findVideoRefs(videoRef: VideoRef) {
+    return this.db$.pipe(
+      switchMap(db => {
+        return from(
+          db.find({
+            selector: {
+              frameOrigin: videoRef.frameOrigin,
+              framePath: videoRef.framePath,
+              frameSearch: videoRef.frameSearch
+            }
+          })
+        );
+      }),
+      map(res => {
+        if (res.warning) {
+          this.logger.warn('PouchDB Find', res.warning);
+        }
+        return res.docs;
+      }),
+      first()
+    );
   }
 }

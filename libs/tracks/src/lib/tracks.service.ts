@@ -1,13 +1,9 @@
 import { LoggerService } from '@plopdown/logger';
-import { ExtStorageService, ExtStorageAreaName } from '@plopdown/ext-storage';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Track, SavedTrack } from './track.model';
 import {
   map,
-  filter,
   shareReplay,
-  pluck,
-  tap,
   concatMap,
   withLatestFrom,
   switchMap
@@ -29,7 +25,7 @@ export class TracksService implements OnDestroy {
   private tracks$: Observable<SavedTrack[]>;
   private subs: Subscription = new Subscription();
 
-  constructor(private logger: LoggerService) {
+  constructor(logger: LoggerService) {
     this.db$ = new Observable<PouchDB.Database<Track>>(observer => {
       const db = new PouchDB<Track>(STORAGE_KEY);
 

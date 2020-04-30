@@ -1,5 +1,4 @@
-import { switchMap } from 'rxjs/operators';
-import { Track, TracksService, SavedTrack } from '@plopdown/tracks';
+import { SavedTrack } from '@plopdown/tracks';
 import { LoggerService } from '@plopdown/logger';
 import { VideoOverlayComponent } from './../video-overlay/video-overlay.component';
 import { XPathService } from '@plopdown/window-ref';
@@ -14,7 +13,7 @@ import {
   OnDestroy,
   ComponentFactoryResolver
 } from '@angular/core';
-import { ReplaySubject, Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
 
 @Component({
@@ -23,22 +22,18 @@ import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
 })
 export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private videoElem: HTMLVideoElement | null;
-  private trackId$: Subject<SavedTrack['_id']> = new ReplaySubject(1);
   private subs: Subscription = new Subscription();
   overlayComponentRef: ComponentRef<VideoOverlayComponent>;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private xpathService: XPathService,
-    private tracksService: TracksService,
     private logger: LoggerService,
     private appRef: ApplicationRef
   ) {}
 
   @Input() public xpath: string;
-  @Input() public set trackId(trackId: SavedTrack['_id']) {
-    this.trackId$.next(trackId);
-  }
+  @Input() public track: SavedTrack;
 
   ngOnInit(): void {
     this.videoElem = this.xpathService.getElement<HTMLVideoElement>(this.xpath);
@@ -54,41 +49,27 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
       VideoOverlayComponent
     );
 
-    const trackSub = this.trackId$
-      .pipe(
-        switchMap(id => {
-          return this.tracksService.getTrack(id);
-        })
-      )
-      .subscribe({
-        next: track => {
-          if (track == null) {
-            this.logger.error('Could not find associated track.');
-          }
+    if (this.track == null) {
+      this.logger.error('Could not find associated track.');
+    }
 
-          const componentInjector = Injector.create({
-            providers: [
-              { provide: VIDEO_ELEM_TOKEN, useValue: this.videoElem },
-              { provide: TRACK_TOKEN, useValue: track }
-            ]
-          });
+    const componentInjector = Injector.create({
+      providers: [
+        { provide: VIDEO_ELEM_TOKEN, useValue: this.videoElem },
+        { provide: TRACK_TOKEN, useValue: this.track }
+      ]
+    });
 
-          const componentRef = componentFactory.create(componentInjector);
-          this.appRef.attachView(componentRef.hostView);
+    const componentRef = componentFactory.create(componentInjector);
+    this.appRef.attachView(componentRef.hostView);
 
-          const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
-            .rootNodes[0] as HTMLElement;
-          this.videoElem.offsetParent.append(domElem);
+    const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
+      .rootNodes[0] as HTMLElement;
+    this.videoElem.offsetParent.append(domElem);
 
-          this.overlayComponentRef = componentRef;
+    this.overlayComponentRef = componentRef;
 
-          componentRef.changeDetectorRef.detectChanges();
-        },
-        error: err => {
-          this.logger.error(err);
-        }
-      });
-    this.subs.add(trackSub);
+    componentRef.changeDetectorRef.detectChanges();
   }
 
   ngOnDestroy(): void {

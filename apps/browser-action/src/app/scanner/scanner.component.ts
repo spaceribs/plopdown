@@ -4,7 +4,7 @@ import {
   BackgroundSubService,
   BackgroundCheckAlive
 } from '@plopdown/messages';
-import { Track, TracksService, SavedTrack } from '@plopdown/tracks';
+import { TracksService, SavedTrack } from '@plopdown/tracks';
 import { VideoRef, VideoRefsService } from '@plopdown/video-refs';
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Observable, Subscription, combineLatest } from 'rxjs';
@@ -13,7 +13,6 @@ import { trigger, transition, useAnimation } from '@angular/animations';
 import { fadeOut, fadeIn } from 'ng-animate';
 import { RuntimeService } from '@plopdown/browser-ref';
 import { WindowRefService } from '@plopdown/window-ref';
-import type { VideoElementRef } from '@plopdown/video-elem-refs';
 
 enum ActionState {
   Loading = 'LOADING',
@@ -49,12 +48,11 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   public state$: Observable<ActionState>;
   public videoRefs$: Observable<VideoRef[]>;
   public tracks$: Observable<SavedTrack[]>;
-  public foundVideos$: Observable<VideoElementRef[]>;
+  public foundVideos$: Observable<VideoRef[]>;
   public foundIFrames$: Observable<string[]>;
-  public updatingVideoRefs$: Observable<boolean>;
 
   private subs: Subscription = new Subscription();
-  public selectedVideo: VideoElementRef;
+  public selectedVideo: VideoRef;
   public selectedTrack: SavedTrack;
   public checkedAlive$: Observable<BackgroundCheckAlive>;
 
@@ -69,7 +67,6 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {
     this.videoRefs$ = videoRefsService.getVideoRefs();
     this.tracks$ = tracksService.getTracks();
-    this.updatingVideoRefs$ = videoRefsService.getUpdating();
 
     this.checkedAlive$ = bgSub.getCheckAlive();
     const foundContent$ = bgSub.getContentFound().pipe(
@@ -126,8 +123,8 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public onSelectTrack() {
     const newRef: VideoRef = {
-      ref: this.selectedVideo,
-      track: this.selectedTrack._id
+      ...this.selectedVideo,
+      trackId: this.selectedTrack._id
     };
 
     this.videoRefsService.addVideoRef(newRef);
@@ -138,7 +135,7 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.window.open(extUrl);
   }
 
-  public getVideoTitle(videoRef: VideoElementRef) {
+  public getVideoTitle(videoRef: VideoRef) {
     if (videoRef.title) {
       return `${videoRef.title}`;
     } else {

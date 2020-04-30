@@ -1,11 +1,14 @@
 import { Observable } from 'rxjs';
 import { WindowRefService } from '@plopdown/window-ref';
-import { RuntimeService, PermissionsService } from '@plopdown/browser-ref';
+import { RuntimeService } from '@plopdown/browser-ref';
 import { Component } from '@angular/core';
-import { VideoRefsService, VideoRef } from '@plopdown/video-refs';
+import {
+  VideoRefsService,
+  VideoRef,
+  SavedVideoRef
+} from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
 import { tap } from 'rxjs/operators';
-import type { VideoElementRef } from '@plopdown/video-elem-refs';
 
 @Component({
   selector: 'plopdown-video-manager',
@@ -33,11 +36,11 @@ export class VideoManagerComponent {
     this.window.open(extUrl);
   }
 
-  public onRemoveVideo(videoRef: VideoRef) {
+  public onRemoveVideo(videoRef: SavedVideoRef) {
     return this.vrefs.removeVideoRef(videoRef);
   }
 
-  public getVideoTitle(videoRef: VideoElementRef) {
+  public getVideoTitle(videoRef: VideoRef) {
     if (videoRef.title) {
       return `${videoRef.title}`;
     } else {

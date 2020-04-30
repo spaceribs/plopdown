@@ -31,15 +31,14 @@ export abstract class PortPublisher<C extends object> implements OnDestroy {
           }
 
           return messages.sendMessage(message);
-        }),
-        tap(() => logger.debug('Command Published'))
+        })
       )
       .subscribe({
-        next: err => {
-          logger.debug('Messages Published', err);
+        next: cmd => {
+          logger.debug('Command Published', cmd);
         },
         error: err => {
-          logger.error('Messages Pipeline Broken', err);
+          logger.error('Command Pipeline Broken', err);
         }
       });
     this.subs.add(commandsSub);
