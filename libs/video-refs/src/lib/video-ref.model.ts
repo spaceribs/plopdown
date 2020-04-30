@@ -1,7 +1,17 @@
-import type { Track, SavedTrack } from '@plopdown/tracks';
-import type { VideoElementRef } from '@plopdown/video-elem-refs';
+import type { SavedTrack } from '@plopdown/tracks';
 
 export interface VideoRef {
-  track?: SavedTrack['_id'];
-  ref: VideoElementRef;
+  xpath: string;
+  title: string;
+  frameTitle: string;
+  frameOrigin: string;
+  framePath: string;
+  frameSearch: string;
+  trackId?: SavedTrack['_id'];
+}
+
+export interface SavedVideoRef extends VideoRef {
+  _id: string;
+  _rev: string;
+  track: SavedTrack;
 }

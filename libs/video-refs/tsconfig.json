@@ -3,8 +3,5 @@
   "compilerOptions": {
     "types": ["firefox-webext-browser", "jest"]
   },
-  "include": [
-    "**/*.ts",
-    "../video-elem-refs/src/lib/video-element-ref.model.ts"
-  ]
+  "include": ["**/*.ts"]
 }

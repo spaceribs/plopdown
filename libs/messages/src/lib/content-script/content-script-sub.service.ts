@@ -3,7 +3,8 @@ import {
   ContentScriptCommand,
   ContentScriptReady,
   ContentScriptVideosFound,
-  ContentScriptIFramesFound
+  ContentScriptIFramesFound,
+  ContentScriptTrackRequested
 } from './content-script.model';
 import { Injectable } from '@angular/core';
 import { PortSubscriber } from '../subscriber.abstract';
@@ -31,5 +32,11 @@ export class ContentScriptSubService extends PortSubscriber<
 
   public onIFramesFound() {
     return this.filterCommand<ContentScriptIFramesFound>('CS_IFRAMES_FOUND');
+  }
+
+  public onTrackRequested() {
+    return this.filterCommand<ContentScriptTrackRequested>(
+      'CS_TRACK_REQUESTED'
+    );
   }
 }

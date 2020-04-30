@@ -1,4 +1,4 @@
-import { Track } from '@plopdown/tracks';
+import { SavedTrack } from '@plopdown/tracks';
 import { InjectionToken } from '@angular/core';
 
-export const TRACK_TOKEN = new InjectionToken<Track>('Plopdown Track');
+export const TRACK_TOKEN = new InjectionToken<SavedTrack>('Plopdown Track');

@@ -388,6 +388,7 @@
             "outputPath": "dist/apps/plopdown-ext/content-script",
             "index": "apps/content-script/src/index.html",
             "main": "apps/content-script/src/main.ts",
+            "polyfills": "apps/content-script/src/polyfills.ts",
             "tsConfig": "apps/content-script/tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -811,38 +812,6 @@
             "tsConfig": "libs/ext-storage/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/ext-storage/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "video-elem-refs": {
-      "projectType": "library",
-      "root": "libs/video-elem-refs",
-      "sourceRoot": "libs/video-elem-refs/src",
-      "prefix": "plopdown",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/video-elem-refs/tsconfig.lib.json",
-              "libs/video-elem-refs/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/video-elem-refs/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/video-elem-refs/jest.config.js",
-            "tsConfig": "libs/video-elem-refs/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/video-elem-refs/src/test-setup.ts"
           }
         }
       },

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Observable, Subscription, combineLatest } from 'rxjs';
-import { VideoElementRef } from '@plopdown/video-elem-refs';
 import {
   BackgroundFindVideos,
   ContentScriptPubService,
-  BackgroundSubService
+  BackgroundSubService,
+  BackgroundTrackFound
 } from '@plopdown/messages';
 import { map } from 'rxjs/operators';
 import {
@@ -13,17 +13,19 @@ import {
   XPathService
 } from '@plopdown/window-ref';
 import { LoggerService } from '@plopdown/logger';
+import { VideoRef } from '@plopdown/video-refs';
 
 @Component({
   selector: 'plopdown-content-scanner',
   template: '',
   styleUrls: ['./content-scanner.component.scss']
 })
-export class ContentScannerComponent implements OnInit {
-  private foundVideos$: Observable<VideoElementRef[]>;
+export class ContentScannerComponent implements OnInit, AfterViewInit {
+  private foundVideos$: Observable<VideoRef[]>;
   private iframeOrigins$: Observable<string[]>;
   private subs: Subscription = new Subscription();
   private onBackgroundFindVideos$: Observable<BackgroundFindVideos>;
+  private onBackgroundTrackFound$: Observable<BackgroundTrackFound>;
 
   constructor(
     private videoScanner: VideoScanService,
@@ -34,6 +36,7 @@ export class ContentScannerComponent implements OnInit {
     xpathService: XPathService
   ) {
     this.onBackgroundFindVideos$ = bgSub.getFindVideos();
+    this.onBackgroundTrackFound$ = bgSub.getTrackFound();
 
     const videoElems$ = videoScanner.getVideoElems();
     const iframeElems$ = iframeScanner.getIFrameElems();
@@ -50,7 +53,7 @@ export class ContentScannerComponent implements OnInit {
             frameOrigin: document.location.origin,
             framePath: document.location.pathname,
             frameSearch: document.location.search
-          } as VideoElementRef;
+          } as VideoRef;
         });
       })
     );
@@ -58,6 +61,10 @@ export class ContentScannerComponent implements OnInit {
     this.iframeOrigins$ = iframeElems$.pipe(
       map(elems => elems.map(elem => elem.src))
     );
+  }
+
+  ngAfterViewInit(): void {
+    this.csPub.ready();
   }
 
   ngOnInit(): void {
@@ -79,6 +86,13 @@ export class ContentScannerComponent implements OnInit {
       }
     });
     this.subs.add(scanSub);
+
+    const trackSub = this.onBackgroundTrackFound$
+      .pipe(map(res => res.args))
+      .subscribe(([track]) => {
+        console.log(track);
+      });
+    this.subs.add(trackSub);
   }
 
   public scan() {
