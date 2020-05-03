@@ -85,9 +85,11 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.appRef.detachView(this.overlayComponentRef.hostView);
-    this.overlayComponentRef.destroy();
-    this.overlayComponentRef.location.nativeElement.remove();
+    if (this.overlayComponentRef) {
+      this.appRef.detachView(this.overlayComponentRef.hostView);
+      this.overlayComponentRef.destroy();
+      this.overlayComponentRef.location.nativeElement.remove();
+    }
     this.subs.unsubscribe();
   }
 
