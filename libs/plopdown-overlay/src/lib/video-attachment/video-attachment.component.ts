@@ -14,7 +14,11 @@ import {
   ComponentFactoryResolver
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
+import {
+  VIDEO_ELEM_TOKEN,
+  TRACK_TOKEN,
+  TRACK_FILES_TOKEN
+} from '@plopdown/tokens';
 
 @Component({
   selector: 'plopdown-video-attachment',
@@ -23,6 +27,7 @@ import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
 export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private videoElem: HTMLVideoElement | null;
   private subs: Subscription = new Subscription();
+  private files: Map<string, string>;
   overlayComponentRef: ComponentRef<VideoOverlayComponent>;
 
   constructor(
@@ -53,10 +58,17 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
       this.logger.error('Could not find associated track.');
     }
 
+    if (this.track._attachments) {
+      this.logger.debug('Mapping Files', this.track._attachments);
+      this.files = this.createFileLookup(this.track._attachments);
+      this.logger.debug('Files Mapped', this.files);
+    }
+
     const componentInjector = Injector.create({
       providers: [
         { provide: VIDEO_ELEM_TOKEN, useValue: this.videoElem },
-        { provide: TRACK_TOKEN, useValue: this.track }
+        { provide: TRACK_TOKEN, useValue: this.track },
+        { provide: TRACK_FILES_TOKEN, useValue: this.files }
       ]
     });
 
@@ -88,5 +100,16 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   firefoxFix(video: HTMLVideoElement) {
     video.play();
     video.pause();
+  }
+
+  private createFileLookup(
+    attachments: PouchDB.Core.Attachments
+  ): Map<string, string> {
+    return Object.keys(attachments).reduce((memo, filename) => {
+      const attachment = attachments[filename] as PouchDB.Core.FullAttachment;
+      const blobUrl = URL.createObjectURL(attachment.data);
+      memo.set(filename, blobUrl);
+      return memo;
+    }, new Map<string, string>());
   }
 }

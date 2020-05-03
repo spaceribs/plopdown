@@ -26,7 +26,8 @@ import {
   Observable,
   concat,
   combineLatest,
-  forkJoin
+  forkJoin,
+  pipe
 } from 'rxjs';
 import {
   filter,
@@ -179,28 +180,42 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     VideoRefsFound: {
-      this.knownVideos$
-        .pipe(
-          switchMap(videoRefs => {
-            return forkJoin(
-              videoRefs.map(videoRef => {
-                return this.videoRefsService.findVideoRefs(videoRef);
+      const foundVideoRefs$ = this.knownVideos$.pipe(
+        switchMap(videoRefs => {
+          return forkJoin(
+            videoRefs.map(videoRef => {
+              return this.videoRefsService.findVideoRefs(videoRef);
+            })
+          );
+        }),
+        map<any, SavedVideoRef[]>(results =>
+          results.reduce((memo, result) => memo.concat(result), [])
+        )
+      );
+
+      const foundRefsAndTrack$ = foundVideoRefs$.pipe(
+        switchMap(videoRefs => {
+          const refs$ = videoRefs.map(videoRef => {
+            return this.tracksService.getTrack(videoRef.trackId).pipe(
+              map(track => {
+                videoRef.track = track;
+                return videoRef;
               })
             );
-          }),
-          map<any, SavedVideoRef[]>(results =>
-            results.reduce((memo, result) => memo.concat(result), [])
-          )
-        )
-        .subscribe({
-          next: next => {
-            console.log('found', next);
-            this.bgPub.videoRefsFound(next);
-          },
-          error: err => {
-            this.logger.error(err);
-          }
-        });
+          });
+          return forkJoin(refs$);
+        })
+      );
+
+      const foundVideoRefsSub = foundRefsAndTrack$.subscribe({
+        next: next => {
+          this.bgPub.videoRefsFound(next);
+        },
+        error: err => {
+          this.logger.error(err);
+        }
+      });
+      this.subs.add(foundVideoRefsSub);
     }
 
     // TrackRequested: {
@@ -234,7 +249,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private addIntroTrack(): Observable<void> {
-    return this.http
+    const getTrack$ = this.http
       .get('/background/assets/intro.vtt', { responseType: 'text' })
       .pipe(
         map(raw => {
@@ -248,11 +263,22 @@ export class AppComponent implements OnInit, OnDestroy {
           };
 
           return introTrack;
-        }),
-        map(track => {
-          return this.tracksService.addTrack(track);
         })
       );
+
+    const getFile$ = this.http.get('/background/assets/classics.mp3', {
+      responseType: 'blob'
+    });
+
+    return forkJoin([getTrack$, getFile$]).pipe(
+      map(([track, blob]) => {
+        const file = new File([blob], 'classics.mp3', {
+          type: 'audio/mpeg'
+        });
+
+        return this.tracksService.addTrack(track, [file]);
+      })
+    );
   }
 
   private installContentScript() {

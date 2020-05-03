@@ -6,16 +6,16 @@ import { SavedVideoRef } from '@plopdown/video-refs';
   selector: 'plopdown-video-attachments',
   template: `
     <plopdown-video-attachment
-      *ngFor="let videoRef of videoRefs"
-      [xpath]="videoRef.ref.xpath"
-      [track]="videoRef.track"
+      *ngFor="let videoRef of videoRefs | keyvalue"
+      [xpath]="videoRef.value.xpath"
+      [track]="videoRef.value.track"
     ></plopdown-video-attachment>
   `
 })
 export class VideoAttachmentsComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
 
-  @Input() public videoRefs: SavedVideoRef[];
+  @Input() public videoRefs: Map<SavedVideoRef['_id'], SavedVideoRef>;
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();

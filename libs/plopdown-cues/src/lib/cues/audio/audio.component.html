@@ -2,5 +2,5 @@
   title="{{ data.title }}"
   (loadstart)="audioLoaded()"
   #audioElem
-  src="/assets/classics.mp3"
+  [src]="audioUrl"
 ></audio>
