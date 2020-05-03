@@ -1,10 +1,32 @@
 :host {
-  display: block;
   position: absolute;
-  top: 0;
-  left: 0;
-  padding-left: 4em;
+  top: 5%;
+  left: 5%;
+  transition: opacity 0.2s;
+  opacity: 0.2;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.audio-indicator {
   font-family: sans-serif;
   pointer-events: all;
-  min-height: 6em;
+  width: 4em;
+  height: 4em;
+  .progress-ring {
+    width: 4em;
+    height: 4em;
+    transition: stroke-dashoffset 0.35s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+}
+
+plopdown-icon {
+  color: white;
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
 }

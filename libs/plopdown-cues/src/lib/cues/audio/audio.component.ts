@@ -12,7 +12,14 @@ import {
 import { PlopdownAudio } from './audio.model';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
 import { Observable, Subscription, fromEvent, merge, of } from 'rxjs';
-import { map, distinctUntilChanged, filter, mapTo } from 'rxjs/operators';
+import { mdiVolumeHigh, mdiVolumeOff, mdiAlert } from '@mdi/js';
+import {
+  map,
+  distinctUntilChanged,
+  filter,
+  mapTo,
+  shareReplay
+} from 'rxjs/operators';
 
 @Component({
   selector: 'plopdown-audio',
@@ -23,6 +30,11 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   implements AfterViewInit, OnDestroy {
   @ViewChild('audioElem') audioElem: ElementRef<HTMLAudioElement>;
   public audioUrl: SafeUrl;
+  public audioMuted = false;
+  public mdiVolumeHigh = mdiVolumeHigh;
+  public mdiVolumeOff = mdiVolumeOff;
+  public mdiAlert = mdiAlert;
+  public progressStyle$: Observable<object>;
 
   private videoNotPlaying$: Observable<void>;
   private videoPlaying$: Observable<void>;
@@ -30,6 +42,7 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   private syncOffset$: Observable<number>;
 
   private audioPlaying$: Observable<void>;
+  private audioTimeUpdate$: Observable<Event>;
   private audioStopped$: Observable<void>;
   private audioStalled$: Observable<void>;
 
@@ -61,6 +74,25 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
       isPlaying,
       fromEvent(this.videoElem, 'playing')
     ).pipe(mapTo(null));
+
+    this.audioTimeUpdate$ = fromEvent(
+      this.audioElem.nativeElement,
+      'timeupdate'
+    ).pipe(shareReplay(1));
+
+    this.progressStyle$ = this.audioTimeUpdate$.pipe(
+      map(event => {
+        const currentTime = (event.target as HTMLAudioElement).currentTime;
+        const duration = (event.target as HTMLAudioElement).duration;
+        const radius = 45;
+        const circumference = radius * 2 * Math.PI;
+        const completed = currentTime / duration;
+
+        return {
+          'stroke-dasharray': `${circumference * completed}% ${circumference}%`
+        };
+      })
+    );
 
     this.timeUpdate$ = merge(
       fromEvent(this.audioElem.nativeElement, 'timeupdate'),
@@ -106,13 +138,14 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
     this.subs.unsubscribe();
   }
 
-  toggleMute() {
-    const muted = !this.audioElem.nativeElement.muted;
+  toggleMute(event: Event) {
+    event.preventDefault();
+    const muted = !this.audioMuted;
     this.audioElem.nativeElement.muted = muted;
+    this.audioMuted = muted;
   }
 
   audioLoaded() {
-    console.log('loaded');
     this.videoElem.play();
   }
 
@@ -128,7 +161,6 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
     const result = this.trackFiles.get(filename);
     if (result == null) {
       this.logger.error('Could not find filename', filename);
-      return '';
     }
     return this.sanitizer.bypassSecurityTrustUrl(result);
   }

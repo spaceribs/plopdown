@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   Output,
   EventEmitter,
@@ -18,7 +17,7 @@ import {
   style,
   animate
 } from '@angular/animations';
-import { map, tap, withLatestFrom } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { LoadAssetService } from '../load-asset.service';
 
