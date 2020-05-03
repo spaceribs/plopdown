@@ -1,3 +1,4 @@
+import { IconModule } from '@plopdown/icon';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,7 +15,7 @@ import {
 import { AudioComponent } from './cues/audio/audio.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, SchemaFormModule.forRoot()],
+  imports: [CommonModule, FormsModule, SchemaFormModule.forRoot(), IconModule],
   declarations: [
     InfoComponent,
     PlopComponent,
