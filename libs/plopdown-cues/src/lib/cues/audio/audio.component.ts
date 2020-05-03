@@ -1,4 +1,6 @@
-import { VIDEO_ELEM_TOKEN } from '@plopdown/tokens';
+import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
+import { LoggerService } from '@plopdown/logger';
+import { VIDEO_ELEM_TOKEN, TRACK_FILES_TOKEN } from '@plopdown/tokens';
 import {
   Component,
   Inject,
@@ -9,15 +11,8 @@ import {
 } from '@angular/core';
 import { PlopdownAudio } from './audio.model';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
-import {
-  Observable,
-  Subscription,
-  combineLatest,
-  fromEvent,
-  merge,
-  of
-} from 'rxjs';
-import { map, tap, distinctUntilChanged, filter, mapTo } from 'rxjs/operators';
+import { Observable, Subscription, fromEvent, merge, of } from 'rxjs';
+import { map, distinctUntilChanged, filter, mapTo } from 'rxjs/operators';
 
 @Component({
   selector: 'plopdown-audio',
@@ -27,6 +22,7 @@ import { map, tap, distinctUntilChanged, filter, mapTo } from 'rxjs/operators';
 export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   implements AfterViewInit, OnDestroy {
   @ViewChild('audioElem') audioElem: ElementRef<HTMLAudioElement>;
+  public audioUrl: SafeUrl;
 
   private videoNotPlaying$: Observable<void>;
   private videoPlaying$: Observable<void>;
@@ -39,7 +35,12 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
 
   private subs: Subscription = new Subscription();
 
-  constructor(@Inject(VIDEO_ELEM_TOKEN) private videoElem: HTMLVideoElement) {
+  constructor(
+    private logger: LoggerService,
+    private sanitizer: DomSanitizer,
+    @Inject(VIDEO_ELEM_TOKEN) private videoElem: HTMLVideoElement,
+    @Inject(TRACK_FILES_TOKEN) private trackFiles: Map<string, string>
+  ) {
     super();
   }
 
@@ -97,6 +98,8 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
       this.playAudio();
     });
     this.subs.add(playSub);
+
+    this.audioUrl = this.getFile(this.data.url);
   }
 
   ngOnDestroy(): void {
@@ -119,5 +122,14 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
 
   pauseAudio() {
     this.audioElem.nativeElement.pause();
+  }
+
+  getFile(filename): SafeUrl {
+    const result = this.trackFiles.get(filename);
+    if (result == null) {
+      this.logger.error('Could not find filename', filename);
+      return '';
+    }
+    return this.sanitizer.bypassSecurityTrustUrl(result);
   }
 }

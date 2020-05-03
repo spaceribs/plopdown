@@ -6,9 +6,11 @@ import {
   shareReplay,
   concatMap,
   withLatestFrom,
-  switchMap
+  switchMap,
+  first,
+  tap
 } from 'rxjs/operators';
-import { Observable, merge, Subscription, Subject, from } from 'rxjs';
+import { Observable, merge, Subscription, Subject, from, forkJoin } from 'rxjs';
 import { TracksModule } from './tracks.module';
 import PouchDB from 'pouchdb';
 
@@ -19,7 +21,7 @@ const STORAGE_KEY = 'tracks';
 })
 export class TracksService implements OnDestroy {
   private removeTrack$: Subject<SavedTrack> = new Subject();
-  private addTrack$: Subject<Track> = new Subject();
+  private addTrack$: Subject<[Track, File[]]> = new Subject();
   private updateTrack$: Subject<SavedTrack> = new Subject();
   private db$: Observable<PouchDB.Database<Track>>;
   private tracks$: Observable<SavedTrack[]>;
@@ -91,14 +93,29 @@ export class TracksService implements OnDestroy {
     const setTracksSub = this.addTrack$
       .pipe(
         withLatestFrom(this.db$),
-        concatMap(([track, db]) => {
-          return from(db.post(track));
+        concatMap(([[track, files], db]) => {
+          return from(db.post(track)).pipe(
+            switchMap(info => {
+              const attachments$ = files.map(file => {
+                return from(
+                  db.putAttachment(
+                    info.id,
+                    file.name,
+                    info.rev,
+                    file as any,
+                    file.type
+                  )
+                ).pipe(first());
+              });
+
+              return forkJoin(attachments$);
+            })
+          );
         })
       )
       .subscribe({
         next: info => {
-          console.log(info);
-          logger.debug('Track Set');
+          logger.debug('Track Set', info);
         }
       });
     this.subs.add(setTracksSub);
@@ -142,8 +159,8 @@ export class TracksService implements OnDestroy {
     this.subs.unsubscribe();
   }
 
-  public addTrack(track: Track) {
-    this.addTrack$.next(track);
+  public addTrack(track: Track, files: File[]) {
+    this.addTrack$.next([track, files]);
   }
 
   public updateTrack(track: SavedTrack) {
@@ -158,7 +175,7 @@ export class TracksService implements OnDestroy {
     return this.tracks$;
   }
 
-  public getTrack(id: SavedTrack['_id']): Observable<Track | null> {
+  public getTrack(id: SavedTrack['_id']): Observable<SavedTrack | null> {
     return this.db$.pipe(
       switchMap(db => {
         return from(
@@ -167,7 +184,8 @@ export class TracksService implements OnDestroy {
             binary: true
           })
         );
-      })
+      }),
+      first()
     );
   }
 }

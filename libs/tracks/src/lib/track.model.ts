@@ -1,3 +1,4 @@
+import PouchDB from 'pouchdb';
 import { Cue } from '@plopdown/plopdown-cues';
 
 export interface Track {
@@ -13,6 +14,7 @@ export interface Track {
 }
 
 export interface SavedTrack extends Track {
-  _id: string;
-  _rev: string;
+  _id: PouchDB.Core.DocumentId;
+  _rev: PouchDB.Core.RevisionId;
+  _attachments?: PouchDB.Core.Attachments;
 }
