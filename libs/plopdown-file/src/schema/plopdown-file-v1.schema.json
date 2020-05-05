@@ -83,11 +83,17 @@
       "type": "object",
       "additionalProperties": false,
       "description": "Audio overlay on top of video track",
-      "required": ["type", "title", "url"],
+      "required": ["type", "top", "left", "title", "url"],
       "properties": {
         "type": {
           "type": "string",
           "const": "AUDIO"
+        },
+        "top": {
+          "$ref": "#/default/definitions/percentage"
+        },
+        "left": {
+          "$ref": "#/default/definitions/percentage"
         },
         "title": {
           "description": "Audio Title",
@@ -99,7 +105,7 @@
           "format": "uri"
         },
         "edits": {
-          "description": "Edits to perform on the audio",
+          "description": "Transformations to apply between the audio and the video.",
           "type": "array",
           "items": {
             "oneOf": [
@@ -111,10 +117,10 @@
                     "type": "string",
                     "const": "SKIP"
                   },
-                  "start": {
+                  "startTime": {
                     "$ref": "#/default/definitions/milliseconds"
                   },
-                  "end": {
+                  "endTime": {
                     "$ref": "#/default/definitions/milliseconds"
                   }
                 }
@@ -127,7 +133,7 @@
                     "type": "string",
                     "const": "STILL"
                   },
-                  "start": {
+                  "startTime": {
                     "$ref": "#/default/definitions/milliseconds"
                   },
                   "duration": {
@@ -143,7 +149,7 @@
                     "type": "string",
                     "const": "PAUSE"
                   },
-                  "start": {
+                  "startTime": {
                     "$ref": "#/default/definitions/milliseconds"
                   },
                   "duration": {

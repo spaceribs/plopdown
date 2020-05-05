@@ -98,7 +98,7 @@ export class VideoOverlayComponent {
           try {
             this.bindCues(metadataTrack, track);
           } catch (err) {
-            console.error('nope', err);
+            observer.error(err);
           }
           metadataTrack.mode = 'showing';
           observer.next(metadataTrack);

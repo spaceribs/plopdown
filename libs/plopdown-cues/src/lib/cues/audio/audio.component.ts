@@ -7,18 +7,21 @@ import {
   ViewChild,
   ElementRef,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  HostBinding
 } from '@angular/core';
 import { PlopdownAudio } from './audio.model';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
-import { Observable, Subscription, fromEvent, merge, of } from 'rxjs';
+import { Observable, Subscription, fromEvent, merge, of, EMPTY } from 'rxjs';
 import { mdiVolumeHigh, mdiVolumeOff, mdiAlert } from '@mdi/js';
 import {
   map,
   distinctUntilChanged,
   filter,
   mapTo,
-  shareReplay
+  shareReplay,
+  switchMap,
+  tap
 } from 'rxjs/operators';
 
 @Component({
@@ -28,7 +31,6 @@ import {
 })
 export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   implements AfterViewInit, OnDestroy {
-  @ViewChild('audioElem') audioElem: ElementRef<HTMLAudioElement>;
   public audioUrl: SafeUrl;
   public audioMuted = false;
   public mdiVolumeHigh = mdiVolumeHigh;
@@ -48,6 +50,10 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
 
   private subs: Subscription = new Subscription();
 
+  @ViewChild('audioElem') audioElem: ElementRef<HTMLAudioElement>;
+  @HostBinding('style.top.%') top: number;
+  @HostBinding('style.left.%') left: number;
+
   constructor(
     private logger: LoggerService,
     private sanitizer: DomSanitizer,
@@ -58,6 +64,9 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   }
 
   ngAfterViewInit(): void {
+    this.top = this.data.top;
+    this.left = this.data.left;
+
     this.videoElem.pause();
 
     this.videoNotPlaying$ = merge(
