@@ -1,7 +1,86 @@
-<a href="#" class="button is-expanded" (click)="requestPermissions($event)">
-  Add Perms
-</a>
+<section class="hero is-dark">
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://plopdown.video" target="_blank">
+            <img
+              width="30"
+              height="30"
+              src="assets/plopdown-logo.svg"
+              alt="Plopdown"
+            />&nbsp;&nbsp;
+            <h1 class="title is-4">Plopdown</h1>
+          </a>
+          <a class="navbar-item" href="https://plopdown.video" target="_blank">
+            Website
+          </a>
+          <a
+            class="navbar-item"
+            href="https://github.com/spaceribs/plopdown"
+            target="_blank"
+          >
+            Github
+          </a>
+          <span class="navbar-burger burger" (click)="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div class="navbar-menu" [ngClass]="{ 'is-active': showMenu }">
+          <div class="navbar-end">
+            <a
+              [routerLink]="['home']"
+              routerLinkActive="is-active"
+              class="navbar-item"
+            >
+              Setup
+            </a>
+            <a class="navbar-item">
+              Videos
+            </a>
+            <a class="navbar-item">
+              Tracks
+            </a>
+            <a class="navbar-item">
+              Settings
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
 
-<input type="file" (change)="fileSelected($event)" />
+  <!-- Hero content: will be in the middle -->
+  <!-- <div class="hero-body">
+    <div *ngIf="isRouteActive(['home'])" class="container has-text-centered">
+      <p class="title">Home</p>
+      <p class="subtitle">Introduction and Getting Started</p>
+    </div>
+  </div> -->
+
+  <!-- Hero footer: will stick at the bottom -->
+  <!-- <div class="hero-foot">
+    <plopdown-subnav></plopdown-subnav>
+  </div> -->
+</section>
 
 <router-outlet></router-outlet>
+
+<section class="section">
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <a href="http://madewithloveinbaltimore.org">
+          Made with &hearts; in Baltimore
+        </a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="https://keybase.io/spaceribs">
+          Spaceribs &copy;{{ currentDate | date: 'y' }}
+        </a>
+      </p>
+    </div>
+  </footer>
+</section>

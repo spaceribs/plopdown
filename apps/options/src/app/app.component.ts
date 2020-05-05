@@ -1,4 +1,7 @@
+import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { RouteData } from './route-data.model';
 
 @Component({
   selector: 'plopdown-root',
@@ -7,22 +10,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'options';
+  showMenu = false;
+  currentDate = new Date();
+  routeData$: Observable<RouteData>;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
-  requestPermissions(event: Event) {
-    event.preventDefault();
-    browser.permissions
-      .request({
-        origins: ['https://www.youtube.com/embed/7MNS2dPfm0g']
-      })
-      .then(allowed => {
-        console.log(allowed);
-      })
-      .catch(err => console.log(err));
+  isRouteActive(routePath: string[]) {
+    const route = this.router.createUrlTree(routePath);
+    return this.router.isActive(route, false);
   }
 
-  fileSelected(inputEvent: InputEvent) {
-    const file = (inputEvent.target as any).files[0] as File;
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
   }
 }
