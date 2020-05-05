@@ -192,7 +192,7 @@
             "main": "apps/browser-action/src/main.ts",
             "polyfills": "apps/browser-action/src/polyfills.ts",
             "tsConfig": "apps/browser-action/tsconfig.app.json",
-            "baseHref": "/browser-action/",
+            "baseHref": "/browser-action/index.html",
             "aot": true,
             "assets": [
               "apps/browser-action/src/favicon.ico",
@@ -290,7 +290,7 @@
             "polyfills": "apps/options/src/polyfills.ts",
             "tsConfig": "apps/options/tsconfig.app.json",
             "aot": true,
-            "baseHref": "/options/",
+            "baseHref": "/options/index.html",
             "assets": [
               "apps/options/src/favicon.ico",
               "apps/options/src/assets"
