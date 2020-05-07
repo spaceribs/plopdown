@@ -1,0 +1,56 @@
+<section class="section">
+  <div class="container">
+    <h2 class="title">Video References</h2>
+    <h3 class="subtitle">
+      The videos you've scanned across the web.
+    </h3>
+
+    <div class="tile is-ancestor">
+      <div class="tile is-child">
+        <ng-container *ngIf="videoRefs$ | async as videoRefs">
+          <div class="table-container" *ngIf="videoRefs.length; else empty">
+            <table
+              class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth"
+            >
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>URL</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let videoRef of videoRefs">
+                  <td>{{ videoRef.title || videoRef.frameTitle }}</td>
+                  <td>
+                    <a
+                      rel="noopener"
+                      target="_blank"
+                      [href]="getVideoLink(videoRef)"
+                      >{{ getVideoLink(videoRef) }}</a
+                    >
+                  </td>
+                  <td>
+                    <div class="field has-addons">
+                      <p class="control">
+                        <button class="button is-primary">Edit</button>
+                      </p>
+                      <p class="control">
+                        <button class="button is-danger">Delete</button>
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ng-template #empty>
+            <div class="notification is-light is-block">
+              <p>You haven't scanned any content.</p>
+            </div>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>

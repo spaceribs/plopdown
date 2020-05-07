@@ -92,7 +92,8 @@ export class AppComponent implements OnInit, OnDestroy {
           const exists = acc.find(item => {
             return (
               item.frameOrigin === videoRef.frameOrigin &&
-              videoRef.xpath === item.xpath
+              videoRef.xpath === item.xpath &&
+              videoRef.duration === item.duration
             );
           });
 

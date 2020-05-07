@@ -8,6 +8,7 @@ import { SavedVideoRef } from '@plopdown/video-refs';
     <plopdown-video-attachment
       *ngFor="let videoRef of videoRefs | keyvalue"
       [xpath]="videoRef.value.xpath"
+      [duration]="videoRef.value.duration"
       [track]="videoRef.value.track"
     ></plopdown-video-attachment>
   `

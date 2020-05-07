@@ -3,7 +3,6 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { WindowRefModule } from './window-ref.module';
-import { XPathService } from './xpath.service';
 import { WindowRefService } from './window-ref.service';
 
 @Injectable({
@@ -15,7 +14,7 @@ export class VideoScanService {
   private videoElems$: Observable<HTMLVideoElement[]>;
   private scan$: Subject<void> = new Subject();
 
-  constructor(window: WindowRefService, xpathService: XPathService) {
+  constructor(window: WindowRefService) {
     this.document = window.getDocument();
     this.videoElems$ = this.scan$.pipe(
       map(() => {
