@@ -3,6 +3,7 @@ import type { SavedTrack } from '@plopdown/tracks';
 export interface VideoRef {
   xpath: string;
   title: string;
+  duration: number;
   frameTitle: string;
   frameOrigin: string;
   framePath: string;

@@ -49,6 +49,7 @@ export class ContentScannerComponent implements OnInit, AfterViewInit {
           return {
             xpath,
             title: elem.title,
+            duration: elem.duration,
             frameTitle: document.title,
             frameOrigin: document.location.origin,
             framePath: document.location.pathname,
@@ -86,13 +87,6 @@ export class ContentScannerComponent implements OnInit, AfterViewInit {
       }
     });
     this.subs.add(scanSub);
-
-    const trackSub = this.onBackgroundTrackFound$
-      .pipe(map(res => res.args))
-      .subscribe(([track]) => {
-        console.log(track);
-      });
-    this.subs.add(trackSub);
   }
 
   public scan() {

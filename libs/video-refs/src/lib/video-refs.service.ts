@@ -87,7 +87,9 @@ export class VideoRefsService implements OnDestroy {
         );
       }),
       map(res => {
-        return res.rows.map(row => row.doc);
+        return res.rows
+          .map(row => row.doc)
+          .filter(row => row['language'] !== 'query');
       })
     );
 

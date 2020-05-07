@@ -1,4 +1,4 @@
-import { SavedVideoRef } from './../../../../libs/video-refs/src/lib/video-ref.model';
+import { SavedVideoRef } from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
 import {
   ContentScriptPubService,
@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { map, scan } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { VideoRef } from '@plopdown/video-refs';
 
 @Component({
   selector: 'plopdown-cs',

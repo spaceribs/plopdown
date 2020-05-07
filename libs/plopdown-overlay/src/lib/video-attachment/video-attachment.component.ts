@@ -13,12 +13,13 @@ import {
   OnDestroy,
   ComponentFactoryResolver
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, fromEvent } from 'rxjs';
 import {
   VIDEO_ELEM_TOKEN,
   TRACK_TOKEN,
   TRACK_FILES_TOKEN
 } from '@plopdown/tokens';
+import { first, map, filter, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'plopdown-video-attachment',
@@ -38,6 +39,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   ) {}
 
   @Input() public xpath: string;
+  @Input() public duration: number;
   @Input() public track: SavedTrack;
 
   ngOnInit(): void {
@@ -49,6 +51,26 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     }
 
     this.firefoxFix(this.videoElem);
+
+    const waitUntilLoadedSub = fromEvent(this.videoElem, 'onloadedmetadata')
+      .pipe(
+        map(() => {
+          return this.videoElem.duration;
+        }),
+        startWith(this.videoElem.duration),
+        filter(duration => !isNaN(duration))
+      )
+      .subscribe(() => {
+        this.bindAttachment();
+      });
+    this.subs.add(waitUntilLoadedSub);
+  }
+
+  private bindAttachment() {
+    if (this.videoElem.duration !== this.duration) {
+      this.logger.error('Duration of video did not match.');
+      return;
+    }
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
       VideoOverlayComponent

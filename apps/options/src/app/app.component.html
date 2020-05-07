@@ -38,13 +38,25 @@
             >
               Setup
             </a>
-            <a class="navbar-item">
+            <a
+              [routerLink]="['videos']"
+              routerLinkActive="is-active"
+              class="navbar-item"
+            >
               Videos
             </a>
-            <a class="navbar-item">
+            <a
+              [routerLink]="['tracks']"
+              routerLinkActive="is-active"
+              class="navbar-item"
+            >
               Tracks
             </a>
-            <a class="navbar-item">
+            <a
+              [routerLink]="['settings']"
+              routerLinkActive="is-active"
+              class="navbar-item"
+            >
               Settings
             </a>
           </div>
