@@ -128,6 +128,7 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     };
 
     this.videoRefsService.addVideoRef(newRef);
+    this.baPub.queryVideoRefs();
   }
 
   public openExtensionsPage(route: string) {

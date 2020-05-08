@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -12,6 +13,7 @@ import { VideosComponent } from './videos/videos.component';
 import { TracksComponent } from './tracks/tracks.component';
 import { SettingsComponent } from './settings/settings.component';
 import { VideoRefsModule } from '@plopdown/video-refs';
+import { VideoEditorComponent } from './videos/video-editor/video-editor.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,15 @@ import { VideoRefsModule } from '@plopdown/video-refs';
     SubnavComponent,
     VideosComponent,
     TracksComponent,
-    SettingsComponent
+    SettingsComponent,
+    VideoEditorComponent
   ],
   imports: [
     BrowserModule,
     BrowserRefModule,
     VideoRefsModule,
+    FormsModule,
+    ReactiveFormsModule,
     LoggerModule.forRoot({ appName: 'Options', color: 'orange' }),
     RouterModule.forRoot(
       [

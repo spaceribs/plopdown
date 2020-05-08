@@ -1,0 +1,119 @@
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Video Ref Editor</p>
+    </header>
+    <section class="modal-card-body">
+      <form class="section" [formGroup]="videoRefForm">
+        <fieldset>
+          <div class="field">
+            <label class="label">Track</label>
+            <div class="control">
+              <div class="select">
+                <select>
+                  <option>None</option>
+                  <option>With options</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <hr />
+        <fieldset>
+          <div class="field">
+            <label class="label">Video Title</label>
+            <div class="control">
+              <input
+                formControlName="title"
+                class="input is-danger"
+                type="email"
+                placeholder="Email input"
+                value="hello@"
+              />
+            </div>
+            <p class="help is-danger">This email is invalid</p>
+          </div>
+
+          <div class="field">
+            <label class="label">Frame Title</label>
+            <div class="control">
+              <input
+                formControlName="frameTitle"
+                class="input is-danger"
+                type="email"
+                placeholder="Email input"
+                value="hello@"
+              />
+            </div>
+            <p class="help is-danger">This email is invalid</p>
+          </div>
+        </fieldset>
+        <hr />
+        <fieldset>
+          <label class="label">Frame Matcher</label>
+          <div class="field has-addons">
+            <div class="control">
+              <input
+                formControlName="frameOrigin"
+                class="input is-danger"
+                type="text"
+                placeholder="https://example.com"
+                value="hello@"
+              />
+            </div>
+            <div class="control">
+              <input
+                formControlName="framePath"
+                class="input is-danger"
+                type="text"
+                placeholder="/example/path"
+                value="hello@"
+              />
+            </div>
+            <div class="control">
+              <input
+                formControlName="xpath"
+                class="input is-danger"
+                type="text"
+                placeholder="?example=true"
+                value="hello@"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">XPath Matcher</label>
+            <div class="control">
+              <input
+                formControlName="xpath"
+                class="input is-danger"
+                type="email"
+                placeholder="Email input"
+                value="hello@"
+              />
+            </div>
+            <p class="help is-danger">This email is invalid</p>
+          </div>
+
+          <div class="field">
+            <label class="label">Duration Matcher</label>
+            <div class="control">
+              <input
+                formControlName="duration"
+                class="input is-danger"
+                type="number"
+                min="0"
+              />
+            </div>
+            <p class="help is-danger">This email is invalid</p>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button">Cancel</button>
+      <button class="button is-primary is-pulled-right">Save changes</button>
+    </footer>
+  </div>
+</div>
