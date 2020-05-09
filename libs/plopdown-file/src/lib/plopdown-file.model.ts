@@ -10,6 +10,7 @@ export interface PlopdownFile {
     updated?: Track['updated'];
     thumbnail?: Track['thumbnail'];
     url?: Track['url'];
+    language?: Track['language'];
     license?: Track['license'];
     authors?: Track['authors'];
     origin?: VideoRef['frameOrigin'];
@@ -17,5 +18,6 @@ export interface PlopdownFile {
     search?: VideoRef['frameSearch'];
     xpath?: VideoRef['xpath'];
   };
+  files: string[];
   cues: Track['cues'];
 }

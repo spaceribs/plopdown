@@ -126,9 +126,9 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     video.pause();
   }
 
-  private createFileLookup(
-    attachments: PouchDB.Core.Attachments
-  ): Map<string, string> {
+  private createFileLookup(attachments: {
+    [key: string]: PouchDB.Core.FullAttachment;
+  }): Map<string, string> {
     return Object.keys(attachments).reduce((memo, filename) => {
       const attachment = attachments[filename] as PouchDB.Core.FullAttachment;
       const blobUrl = URL.createObjectURL(attachment.data);

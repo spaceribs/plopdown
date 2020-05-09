@@ -2,7 +2,7 @@ import { PlopdownFileV1Validator } from './../schema/plopdown-file-v1.validator'
 import { PlopdownFileModule } from './plopdown-file.module';
 import { PlopdownFile } from './plopdown-file.model';
 import { Injectable } from '@angular/core';
-import { Cue } from '@plopdown/plopdown-cues';
+import { Cue, PlopdownTemplateType } from '@plopdown/plopdown-cues';
 
 @Injectable({
   providedIn: PlopdownFileModule
@@ -24,6 +24,8 @@ export class PlopdownFileService {
     if (!this.isPlopdownFile(parsedFile)) {
       throw this.validator.getLastErrors();
     }
+
+    parsedFile.files = this.getFiles(parsedFile);
 
     return parsedFile;
   }
@@ -169,6 +171,22 @@ export class PlopdownFileService {
 
       return memo;
     }, [] as Cue[]);
+  }
+
+  private getFiles(file: PlopdownFile) {
+    const files = [];
+
+    if (file.headers.thumbnail != null) {
+      files.push(file.headers.thumbnail);
+    }
+
+    file.cues.forEach(cue => {
+      if (cue.data.type === PlopdownTemplateType.Audio) {
+        files.push(cue.data.url);
+      }
+    });
+
+    return files;
   }
 
   private isPlopdownFile(file: object): file is PlopdownFile {

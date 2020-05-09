@@ -1,5 +1,5 @@
 import { VideoRef } from '@plopdown/video-refs';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './video-editor.component.html',
   styleUrls: ['./video-editor.component.scss']
 })
-export class VideoEditorComponent implements OnInit {
+export class VideoEditorComponent {
   public videoRefForm: FormGroup;
   @Output() cancel: EventEmitter<void> = new EventEmitter();
   @Output() save: EventEmitter<VideoRef> = new EventEmitter();
@@ -48,6 +48,4 @@ export class VideoEditorComponent implements OnInit {
       this.save.emit(this.videoRefForm.value);
     }
   }
-
-  ngOnInit(): void {}
 }

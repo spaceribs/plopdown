@@ -26,6 +26,8 @@
         </div>
       </div>
 
+      <hr />
+
       <div class="tile is-parent">
         <div class="tile is-child">
           <div
@@ -54,6 +56,31 @@
                   <div class="card-content">
                     <p class="title is-4">{{ track.title }}</p>
                     <p class="subtitle is-6">For {{ track.for }}</p>
+                    <div class="buttons">
+                      <button
+                        type="button"
+                        class="button is-small"
+                        (click)="editTrack(track)"
+                      >
+                        <plopdown-icon [path]="mdiPencil"></plopdown-icon>
+                        <span>Edit</span>
+                      </button>
+                      <button
+                        *ngIf="track._attachments as files"
+                        class="button is-small"
+                        (click)="manageFiles(track)"
+                      >
+                        <plopdown-icon [path]="mdiFileMultiple"></plopdown-icon>
+                        <span>{{ getCount(files) }} Files</span>
+                      </button>
+                      <button
+                        class="button is-small"
+                        (click)="removeTrack(track)"
+                      >
+                        <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
+                        <span>Remove</span>
+                      </button>
+                    </div>
                   </div>
                 </article>
               </div>
@@ -64,3 +91,23 @@
     </div>
   </div>
 </section>
+
+<plopdown-track-editor
+  *ngIf="showEditor"
+  [track]="editingTrack"
+  (save)="addOrUpdateTrack($event)"
+  (cancel)="closeEdit()"
+></plopdown-track-editor>
+
+<plopdown-file-manager
+  *ngIf="showFileManager"
+  [attachments]="editingTrack._attachments"
+  (save)="updateFiles($event)"
+  (cancel)="closeEdit()"
+></plopdown-file-manager>
+
+<plopdown-file-importer
+  *ngIf="showTrackUploader"
+  (save)="addOrUpdateTrack($event)"
+  (cancel)="closeEdit()"
+></plopdown-file-importer>

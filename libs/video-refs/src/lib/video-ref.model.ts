@@ -19,7 +19,7 @@ export interface VideoRef {
 export interface SavedVideoRef extends VideoRef {
   _id: string;
   _rev: string;
-  track: SavedTrack;
+  track?: SavedTrack;
 }
 
 export interface VideoRefServiceStatus {

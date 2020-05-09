@@ -3,6 +3,7 @@ import { TracksService, SavedTrack } from '@plopdown/tracks';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TrackRef } from '@plopdown/video-refs';
+import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'plopdown-track-selector',
@@ -23,7 +24,11 @@ export class TrackSelectorComponent implements OnInit {
     }
   }
 
-  constructor(fb: FormBuilder, tracksService: TracksService) {
+  constructor(
+    fb: FormBuilder,
+    tracksService: TracksService,
+    private sanitizer: DomSanitizer
+  ) {
     this.tracks$ = tracksService.getTracks();
 
     this.trackSelectorForm = fb.group({
@@ -53,6 +58,13 @@ export class TrackSelectorComponent implements OnInit {
     if (this.trackSelectorForm.valid) {
       this.save.emit(this.trackSelectorForm.value);
     }
+  }
+
+  getAttachment(track: SavedTrack, filename: string): SafeUrl {
+    const attachment = track._attachments[filename];
+    console.log(attachment);
+    const url = URL.createObjectURL(attachment.data);
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
   ngOnInit(): void {}

@@ -10,10 +10,9 @@
     </header>
     <section class="modal-card-body">
       <div class="tile is-ancestor">
-        <div class="tile is-parent is-6">
+        <div class="tile is-parent is-6" *ngFor="let track of tracks$ | async">
           <article
             class="tile is-child card"
-            *ngFor="let track of tracks$ | async"
             tabindex="0"
             [ngClass]="{
               'is-active':
@@ -24,7 +23,7 @@
             <div class="card-image">
               <figure class="image is-4by3">
                 <img
-                  src="https://bulma.io/images/placeholders/1280x960.png"
+                  [src]="getAttachment(track, track.thumbnail)"
                   alt="Placeholder image"
                 />
               </figure>

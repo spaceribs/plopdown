@@ -45,7 +45,7 @@ export class VideosComponent implements OnInit {
   constructor(
     private videoRefsService: VideoRefsService,
     private logger: LoggerService,
-    private widowRef: WindowRefService
+    private windowRef: WindowRefService
   ) {
     this.videoRefs$ = this.videoRefsService.getVideoRefs();
     this.loadingVideoRefs$ = this.videoRefsService.getLoading();
@@ -103,7 +103,7 @@ export class VideosComponent implements OnInit {
     const removeVideoRefSub = this.videoRefsService.resetVideoRefs().subscribe({
       next: res => {
         this.logger.debug('Reset all Video References', res);
-        this.widowRef.reload();
+        this.windowRef.reload();
       },
       error: err => {
         this.logger.error('Error Resetting Video References.', err);
