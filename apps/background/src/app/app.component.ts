@@ -196,7 +196,7 @@ export class AppComponent implements OnInit, OnDestroy {
         switchMap(videoRefs => {
           const refs$ = videoRefs.map(videoRef => {
             return this.tracksService.getTrack(videoRef.track._id).pipe(
-              map(track => {
+              map<any, SavedVideoRef>(track => {
                 videoRef.track = track;
                 return videoRef;
               })
@@ -234,6 +234,9 @@ export class AppComponent implements OnInit, OnDestroy {
             for: file.headers.for,
             created: file.headers.created,
             thumbnail: file.headers.thumbnail,
+            authors: file.headers.authors,
+            language: file.headers.language,
+            license: file.headers.license,
             cues: file.cues
           };
 

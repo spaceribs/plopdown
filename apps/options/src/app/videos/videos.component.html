@@ -69,7 +69,7 @@
                         rel="noopener"
                         target="_blank"
                         *ngIf="videoRef.track"
-                        [routerLink]="['/tracks', videoRef.track._id]"
+                        [routerLink]="['/tracks']"
                         >{{ videoRef.track.title }}</a
                       >
                       <span *ngIf="!videoRef.track">No Track Selected</span>

@@ -17,5 +17,5 @@ export interface Track {
 export interface SavedTrack extends Track {
   _id: PouchDB.Core.DocumentId;
   _rev: PouchDB.Core.RevisionId;
-  _attachments?: PouchDB.Core.FullAttachment;
+  _attachments?: { [key: string]: PouchDB.Core.FullAttachment };
 }
