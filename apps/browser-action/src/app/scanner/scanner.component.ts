@@ -50,8 +50,10 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   public tracks$: Observable<SavedTrack[]>;
   public foundVideos$: Observable<VideoRef[]>;
   public foundIFrames$: Observable<string[]>;
+  public loadingVideoRefs$: Observable<boolean>;
 
   private subs: Subscription = new Subscription();
+
   public selectedVideo: VideoRef;
   public selectedTrack: SavedTrack;
   public checkedAlive$: Observable<BackgroundCheckAlive>;
@@ -111,6 +113,7 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
       this.logger.debug('State Updated', state);
     });
     this.subs.add(stateSub);
+    this.loadingVideoRefs$ = this.videoRefsService.getLoading();
   }
 
   ngAfterViewInit(): void {
@@ -124,11 +127,22 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   public onSelectTrack() {
     const newRef: VideoRef = {
       ...this.selectedVideo,
-      trackId: this.selectedTrack._id
+      track: {
+        _id: this.selectedTrack._id,
+        title: this.selectedTrack.title
+      }
     };
 
-    this.videoRefsService.addVideoRef(newRef);
-    this.baPub.queryVideoRefs();
+    const addVideoRefSub = this.videoRefsService.addVideoRef(newRef).subscribe({
+      next: res => {
+        this.logger.debug('Added Video Ref', res);
+        this.baPub.queryVideoRefs();
+      },
+      error: err => {
+        this.logger.error('Failed to add Video Ref', err);
+      }
+    });
+    this.subs.add(addVideoRefSub);
   }
 
   public openExtensionsPage(route: string) {

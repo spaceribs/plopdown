@@ -8,6 +8,7 @@ export interface Track {
   authors?: string[];
   license?: string;
   url?: string;
+  thumbnail?: string;
   created: string;
   updated?: string;
   cues: Cue[];
@@ -16,5 +17,5 @@ export interface Track {
 export interface SavedTrack extends Track {
   _id: PouchDB.Core.DocumentId;
   _rev: PouchDB.Core.RevisionId;
-  _attachments?: PouchDB.Core.Attachments;
+  _attachments?: PouchDB.Core.FullAttachment;
 }

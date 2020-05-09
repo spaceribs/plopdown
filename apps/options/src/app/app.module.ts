@@ -1,3 +1,5 @@
+import { TracksModule } from '@plopdown/tracks';
+import { IconModule } from '@plopdown/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -14,6 +16,8 @@ import { TracksComponent } from './tracks/tracks.component';
 import { SettingsComponent } from './settings/settings.component';
 import { VideoRefsModule } from '@plopdown/video-refs';
 import { VideoEditorComponent } from './videos/video-editor/video-editor.component';
+import { TrackSelectorComponent } from './videos/track-selector/track-selector.component';
+import { WindowRefModule } from '@plopdown/window-ref';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import { VideoEditorComponent } from './videos/video-editor/video-editor.compone
     VideosComponent,
     TracksComponent,
     SettingsComponent,
-    VideoEditorComponent
+    VideoEditorComponent,
+    TrackSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +36,9 @@ import { VideoEditorComponent } from './videos/video-editor/video-editor.compone
     VideoRefsModule,
     FormsModule,
     ReactiveFormsModule,
+    IconModule,
+    TracksModule,
+    WindowRefModule,
     LoggerModule.forRoot({ appName: 'Options', color: 'orange' }),
     RouterModule.forRoot(
       [

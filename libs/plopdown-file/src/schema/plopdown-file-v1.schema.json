@@ -252,6 +252,10 @@
           "type": "string",
           "format": "date-time"
         },
+        "thumbnail": {
+          "description": "An image associated with this track.",
+          "type": "string"
+        },
         "origin": {
           "description": "The location of the video to combine this file with.",
           "type": "string",

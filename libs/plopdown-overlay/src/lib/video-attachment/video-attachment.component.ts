@@ -13,13 +13,13 @@ import {
   OnDestroy,
   ComponentFactoryResolver
 } from '@angular/core';
-import { Subscription, Observable, fromEvent } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import {
   VIDEO_ELEM_TOKEN,
   TRACK_TOKEN,
   TRACK_FILES_TOKEN
 } from '@plopdown/tokens';
-import { first, map, filter, startWith } from 'rxjs/operators';
+import { map, filter, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'plopdown-video-attachment',

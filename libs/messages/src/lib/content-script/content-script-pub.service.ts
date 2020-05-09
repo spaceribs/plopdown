@@ -29,8 +29,4 @@ export class ContentScriptPubService extends PortPublisher<
   public iframesFound(iframeUrls: string[]) {
     this.command$.next({ command: 'CS_IFRAMES_FOUND', args: iframeUrls });
   }
-
-  public requestTrack(trackId: SavedTrack['_id']) {
-    this.command$.next({ command: 'CS_TRACK_REQUESTED', args: [trackId] });
-  }
 }

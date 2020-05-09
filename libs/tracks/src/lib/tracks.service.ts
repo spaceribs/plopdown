@@ -20,9 +20,6 @@ const STORAGE_KEY = 'tracks';
   providedIn: TracksModule
 })
 export class TracksService implements OnDestroy {
-  private removeTrack$: Subject<SavedTrack> = new Subject();
-  private addTrack$: Subject<[Track, File[]]> = new Subject();
-  private updateTrack$: Subject<SavedTrack> = new Subject();
   private db$: Observable<PouchDB.Database<Track>>;
   private tracks$: Observable<SavedTrack[]>;
   private subs: Subscription = new Subscription();
@@ -67,7 +64,11 @@ export class TracksService implements OnDestroy {
             }
           ).pipe(
             switchMap(() => {
-              return db.allDocs<Track>({ include_docs: true });
+              return db.allDocs<Track>({
+                include_docs: true,
+                attachments: true,
+                binary: true
+              });
             }),
             map(res => {
               return res.rows.map(row => row.doc);
@@ -80,7 +81,11 @@ export class TracksService implements OnDestroy {
     const initial$ = this.db$.pipe(
       switchMap(db => {
         return from(
-          db.allDocs<Track>({ include_docs: true })
+          db.allDocs<Track>({
+            include_docs: true,
+            attachments: true,
+            binary: true
+          })
         );
       }),
       map(res => {
@@ -89,86 +94,50 @@ export class TracksService implements OnDestroy {
     );
 
     this.tracks$ = merge(initial$, changes$).pipe(shareReplay(1));
-
-    const setTracksSub = this.addTrack$
-      .pipe(
-        withLatestFrom(this.db$),
-        concatMap(([[track, files], db]) => {
-          return from(db.post(track)).pipe(
-            switchMap(info => {
-              const attachments$ = files.map(file => {
-                return from(
-                  db.putAttachment(
-                    info.id,
-                    file.name,
-                    info.rev,
-                    file as any,
-                    file.type
-                  )
-                ).pipe(first());
-              });
-
-              return forkJoin(attachments$);
-            })
-          );
-        })
-      )
-      .subscribe({
-        next: info => {
-          logger.debug('Track Set', info);
-        }
-      });
-    this.subs.add(setTracksSub);
-
-    const updateTrackSub = this.updateTrack$
-      .pipe(
-        withLatestFrom(this.db$),
-        concatMap(([track, db]) => {
-          return from(db.put(track));
-        })
-      )
-      .subscribe({
-        next: info => {
-          logger.debug('Track Updated', info);
-        },
-        error: err => {
-          logger.error(err);
-        }
-      });
-    this.subs.add(updateTrackSub);
-
-    const removeTrackSub = this.removeTrack$
-      .pipe(
-        withLatestFrom(this.db$),
-        concatMap(([track, db]) => {
-          return from(db.remove(track));
-        })
-      )
-      .subscribe({
-        next: info => {
-          logger.debug('Track Removed', info);
-        },
-        error: err => {
-          logger.error(err);
-        }
-      });
-    this.subs.add(removeTrackSub);
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
-  public addTrack(track: Track, files: File[]) {
-    this.addTrack$.next([track, files]);
+  public addTrack(track: PouchDB.Core.PostDocument<Track>) {
+    return this.db$.pipe(
+      switchMap(db => {
+        return from(db.post(track));
+      }),
+      first()
+    );
+  }
+
+  public attachTrackFile(
+    trackId: SavedTrack['_id'],
+    trackRev: SavedTrack['_rev'],
+    file: File
+  ) {
+    return this.db$.pipe(
+      switchMap(db => {
+        return from(
+          db.putAttachment(trackId, file.name, trackRev, file as any, file.type)
+        );
+      }),
+      first()
+    );
   }
 
   public updateTrack(track: SavedTrack) {
-    this.updateTrack$.next(track);
+    return this.db$.pipe(
+      switchMap(db => {
+        return from(db.put(track));
+      })
+    );
   }
 
   public removeTrack(track: SavedTrack) {
-    this.removeTrack$.next(track);
+    return this.db$.pipe(
+      switchMap(db => {
+        return from(db.remove(track));
+      })
+    );
   }
 
   public getTracks(): Observable<SavedTrack[]> {

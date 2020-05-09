@@ -8,6 +8,7 @@ export interface PlopdownFile {
     for: Track['for'];
     created: Track['created'];
     updated?: Track['updated'];
+    thumbnail?: Track['thumbnail'];
     url?: Track['url'];
     license?: Track['license'];
     authors?: Track['authors'];
