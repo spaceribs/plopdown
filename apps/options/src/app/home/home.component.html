@@ -17,7 +17,10 @@
         </div>
         <div class="tile">
           <div class="tile is-parent is-vertical">
-            <article class="tile is-child notification is-primary">
+            <article
+              class="tile is-child notification is-primary"
+              [routerLink]="['/tracks']"
+            >
               <h2 class="title">Add a Plopdown Track</h2>
               <h3 class="subtitle">
                 Upload, paste a URL, or make one yourself
@@ -30,7 +33,10 @@
             </article>
           </div>
           <div class="tile is-parent is-vertical">
-            <article class="tile is-child notification is-success">
+            <article
+              class="tile is-child notification is-success"
+              [routerLink]="['/videos']"
+            >
               <h2 class="title">Find a Matching Video</h2>
               <h3 class="subtitle">Any hosting website will do!</h3>
               <div class="content">
