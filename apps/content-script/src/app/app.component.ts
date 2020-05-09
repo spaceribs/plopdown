@@ -43,6 +43,5 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.logger.debug('Content script ready');
-    this.csPub.requestTrack('test');
   }
 }

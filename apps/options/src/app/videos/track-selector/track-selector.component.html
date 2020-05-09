@@ -1,0 +1,59 @@
+<div class="modal is-active">
+  <div class="modal-background" (click)="onCancel()"></div>
+  <form
+    class="modal-card"
+    [formGroup]="trackSelectorForm"
+    (submit)="onSave($event)"
+  >
+    <header class="modal-card-head">
+      <p class="modal-card-title">Track Selector</p>
+    </header>
+    <section class="modal-card-body">
+      <div class="tile is-ancestor">
+        <div class="tile is-parent is-6">
+          <article
+            class="tile is-child card"
+            *ngFor="let track of tracks$ | async"
+            tabindex="0"
+            [ngClass]="{
+              'is-active':
+                track['_id'] === trackSelectorForm.controls['_id'].value
+            }"
+            (click)="onSelectTrack(track)"
+          >
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img
+                  src="https://bulma.io/images/placeholders/1280x960.png"
+                  alt="Placeholder image"
+                />
+              </figure>
+            </div>
+            <div class="card-content">
+              <p class="title is-4">{{ track.title }}</p>
+              <p class="subtitle is-6">For {{ track.for }}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot buttons is-right">
+      <button
+        type="button"
+        (click)="onReset($event)"
+        [disabled]="trackSelectorForm.invalid"
+        class="button is-danger"
+      >
+        Remove
+      </button>
+      <button type="button" class="button" (click)="onCancel()">Cancel</button>
+      <button
+        type="submit"
+        [disabled]="trackSelectorForm.invalid"
+        class="button is-primary is-pulled-right"
+      >
+        Set Track
+      </button>
+    </footer>
+  </form>
+</div>

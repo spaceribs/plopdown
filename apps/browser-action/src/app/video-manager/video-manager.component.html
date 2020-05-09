@@ -1,36 +1,42 @@
 <section class="panel" *ngIf="videoRefs$ | async as videoRefs">
   <div class="panel-block">
-    <table class="table is-fullwidth">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th class="has-text-right">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngIf="videoRefs.length < 1">
-          <td class="has-text-centered" colspan="2">
-            <p>No Video References Initialized</p>
-          </td>
-        </tr>
-        <tr *ngFor="let videoRef of videoRefs">
-          <td>{{ getVideoTitle(videoRef.ref) }}</td>
-          <td class="has-text-right">
-            <a (click)="onRemoveVideo(videoRef)">
-              <span class="icon">
-                <i class="mdi mdi-trash-can-outline"></i>
-              </span>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div
+      class="loading"
+      *ngIf="loadingVideoRefs$ | async as loading; else videoList"
+    >
+      Loading...
+    </div>
+    <ng-template #videoList>
+      <table class="table is-narrow is-fullwidth">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th class="has-text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="videoRefs.length < 1">
+            <td class="has-text-centered" colspan="2">
+              <p>No Video References Initialized</p>
+            </td>
+          </tr>
+          <tr *ngFor="let videoRef of videoRefs">
+            <td>{{ getVideoTitle(videoRef) }}</td>
+            <td class="has-text-right">
+              <button class="button is-small" (click)="onRemoveVideo(videoRef)">
+                <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
   </div>
   <div class="panel-block">
     <a
       href="#"
       class="button is-fullwidth"
-      (click)="openExtensionsPage('/options.html/#/videos')"
+      (click)="openExtensionsPage('/options/index.html#/videos')"
     >
       Manage All Videos
     </a>

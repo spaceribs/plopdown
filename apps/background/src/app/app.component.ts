@@ -10,8 +10,7 @@ import {
   ContentScriptCommand,
   ContentScriptReady,
   BrowserActionQueryVideoRefs,
-  ContentScriptIFramesFound,
-  ContentScriptTrackRequested
+  ContentScriptIFramesFound
 } from '@plopdown/messages';
 import { LoggerService } from '@plopdown/logger';
 import { PlopdownFileService, PlopdownFile } from '@plopdown/plopdown-file';
@@ -37,7 +36,8 @@ import {
   tap,
   shareReplay,
   scan,
-  concatAll
+  concatAll,
+  withLatestFrom
 } from 'rxjs/operators';
 import { Track, TracksService } from '@plopdown/tracks';
 import { HttpClient } from '@angular/common/http';
@@ -59,7 +59,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private onContentScriptReady$: Observable<ContentScriptReady>;
   private knownVideos$: Observable<VideoRef[]>;
   private knownIFrames$: Observable<string[]>;
-  private onContentScriptTrackReq$: Observable<ContentScriptTrackRequested>;
 
   constructor(
     private errorHandler: ErrorHandler,
@@ -84,7 +83,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.onContentScriptReady$ = csSub.onReady();
     this.onContentScriptVideos$ = csSub.onVideosFound();
     this.onContentScriptIFrames$ = csSub.onIFramesFound();
-    this.onContentScriptTrackReq$ = csSub.onTrackRequested();
 
     this.knownVideos$ = this.onContentScriptVideos$.pipe(
       scan((acc, msg) => {
@@ -197,7 +195,7 @@ export class AppComponent implements OnInit, OnDestroy {
       const foundRefsAndTrack$ = foundVideoRefs$.pipe(
         switchMap(videoRefs => {
           const refs$ = videoRefs.map(videoRef => {
-            return this.tracksService.getTrack(videoRef.trackId).pipe(
+            return this.tracksService.getTrack(videoRef.track._id).pipe(
               map(track => {
                 videoRef.track = track;
                 return videoRef;
@@ -218,38 +216,13 @@ export class AppComponent implements OnInit, OnDestroy {
       });
       this.subs.add(foundVideoRefsSub);
     }
-
-    // TrackRequested: {
-    //   const trackReqSub = this.onContentScriptTrackReq$
-    //     .pipe(map(req => req.args))
-    //     .subscribe({
-    //       next: ([track]) => {
-    //         console.log('yep', track);
-
-    //         const aFileParts = ['<a id="a"><b id="b">hey!</b></a>']; // an array consisting of a single DOMString
-    //         const oMyBlob = new Blob(aFileParts, { type: 'text/html' }); // the blob
-
-    //         this.bgPub.trackFound({
-    //           _id: 'test',
-    //           _rev: 'test',
-    //           title: 'test',
-    //           for: 'test',
-    //           created: 'test',
-    //           cues: [],
-    //           test: oMyBlob
-    //         } as SavedTrack);
-    //       },
-    //       error: err => this.errorHandler.handleError(err)
-    //     });
-    //   this.subs.add(trackReqSub);
-    // }
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
-  private addIntroTrack(): Observable<void> {
+  private addIntroTrack() {
     const getTrack$ = this.http
       .get('/background/assets/intro.vtt', { responseType: 'text' })
       .pipe(
@@ -260,6 +233,7 @@ export class AppComponent implements OnInit, OnDestroy {
             title: file.headers.title,
             for: file.headers.for,
             created: file.headers.created,
+            thumbnail: file.headers.thumbnail,
             cues: file.cues
           };
 
@@ -267,17 +241,47 @@ export class AppComponent implements OnInit, OnDestroy {
         })
       );
 
-    const getFile$ = this.http.get('/background/assets/classics.mp3', {
-      responseType: 'blob'
-    });
+    const getSound$ = this.http
+      .get('/background/assets/classics.mp3', {
+        responseType: 'blob'
+      })
+      .pipe(
+        map(blob => {
+          return new File([blob], 'classics.mp3', {
+            type: blob.type
+          });
+        }),
+        first()
+      );
 
-    return forkJoin([getTrack$, getFile$]).pipe(
-      map(([track, blob]) => {
-        const file = new File([blob], 'classics.mp3', {
-          type: 'audio/mpeg'
+    const getThumbnail$ = this.http
+      .get('/background/assets/thumbnail.png', {
+        responseType: 'blob'
+      })
+      .pipe(
+        map(blob => {
+          return new File([blob], 'thumbnail.png', {
+            type: blob.type
+          });
+        }),
+        first()
+      );
+
+    return forkJoin([getTrack$, getSound$, getThumbnail$]).pipe(
+      switchMap(([track, sound, thumbnail]) => {
+        return this.tracksService.addTrack({
+          ...track,
+          _attachments: {
+            'classics.mp3': {
+              content_type: sound.type,
+              data: sound
+            },
+            'thumbnail.png': {
+              content_type: thumbnail.type,
+              data: thumbnail
+            }
+          }
         });
-
-        return this.tracksService.addTrack(track, [file]);
       })
     );
   }

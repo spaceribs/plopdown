@@ -27,4 +27,12 @@ export class WindowRefService {
   ) {
     return this.window.open(path, target, features, replace);
   }
+
+  reload() {
+    this.window.location.reload();
+  }
+
+  public close() {
+    return this.window.close();
+  }
 }

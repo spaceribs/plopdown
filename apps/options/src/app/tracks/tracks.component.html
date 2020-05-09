@@ -1,1 +1,66 @@
-<p>tracks works!</p>
+<section class="section">
+  <div class="container">
+    <div class="tile is-ancestor is-vertical">
+      <div class="tile is-parent">
+        <div class="tile is-child">
+          <h2 class="title">Tracks</h2>
+          <h3 class="subtitle">
+            Annotations built for Plopdown
+          </h3>
+        </div>
+        <div class="tile is-child">
+          <div class="buttons is-right">
+            <button class="button is-primary" (click)="refreshTracks()">
+              <plopdown-icon [path]="mdiRefresh"></plopdown-icon>
+              <span>Refresh</span>
+            </button>
+            <button class="button is-success" (click)="uploadTrack()">
+              <plopdown-icon [path]="mdiUpload"></plopdown-icon>
+              <span>Upload Track</span>
+            </button>
+            <button class="button is-danger" (click)="resetTracks()">
+              <plopdown-icon [path]="mdiAlertCircle"></plopdown-icon>
+              <span>{{ confirmReset ? 'Are you sure?' : 'Reset All' }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tile is-parent">
+        <div class="tile is-child">
+          <div
+            class="notification is-light is-block has-text-centered"
+            *ngIf="loadingTracks$ | async; else loaded"
+          >
+            <p>Loading...</p>
+          </div>
+          <ng-template #loaded>
+            <div class="columns is-multiline" *ngIf="tracks$ | async as tracks">
+              <div class="column is-full" *ngIf="tracks.length < 1">
+                <div class="notification is-light is-block has-text-centered">
+                  <p>You haven't added any tracks.</p>
+                </div>
+              </div>
+              <div class="column is-one-third" *ngFor="let track of tracks">
+                <article class="card">
+                  <div class="card-image">
+                    <figure class="image is-4by3">
+                      <img
+                        [src]="getAttachment(track, track.thumbnail)"
+                        alt="Placeholder image"
+                      />
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <p class="title is-4">{{ track.title }}</p>
+                    <p class="subtitle is-6">For {{ track.for }}</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

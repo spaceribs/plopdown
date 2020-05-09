@@ -1,3 +1,4 @@
+import { IconModule } from './../../../../libs/icon/src/lib/icon.module';
 import { WindowRefModule } from '@plopdown/window-ref';
 import { VideoRefsModule } from '@plopdown/video-refs';
 import { LoggerModule } from '@plopdown/logger';
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     BrowserRefModule,
     ExtStorageModule,
     FormsModule,
+    IconModule,
     LoggerModule.forRoot({ appName: 'BrowserAction', color: 'green' }),
     RouterModule.forRoot(appRoutes, {
       useHash: true,

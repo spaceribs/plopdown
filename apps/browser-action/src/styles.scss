@@ -1,16 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @charset "utf-8";
-
-$mdi-filename: 'materialdesignicons';
-$mdi-font-path: '~@mdi/font/fonts';
-@import '~@mdi/font/scss/materialdesignicons.scss';
-
 // @import '~bulma/bulma.sass';
 
 // Import only what you need from Bulma
 @import '~bulma/sass/utilities/_all.sass';
 @import '~bulma/sass/base/_all.sass';
 
+@import '~bulma/sass/elements/icon.sass';
 @import '~bulma/sass/elements/button.sass';
 @import '~bulma/sass/elements/container.sass';
 @import '~bulma/sass/elements/title.sass';
