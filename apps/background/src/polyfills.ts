@@ -62,3 +62,6 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 import browser from 'webextension-polyfill';
+if (window['browser'] == null) {
+  window['browser'] = browser;
+}

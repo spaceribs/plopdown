@@ -64,3 +64,6 @@
  * APPLICATION IMPORTS
  */
 import browser from 'webextension-polyfill';
+if (window['browser'] == null) {
+  window['browser'] = browser;
+}
