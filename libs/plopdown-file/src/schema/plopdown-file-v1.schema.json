@@ -22,6 +22,20 @@
       "minimum": -360,
       "maximum": 360
     },
+    "footnote": {
+      "title": "Footnote",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
     "icon": {
       "title": "Icon",
       "type": "object",
@@ -200,6 +214,12 @@
         },
         "desc": {
           "type": "string"
+        },
+        "footnotes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/default/definitions/footnote"
+          }
         },
         "icons": {
           "type": "array",

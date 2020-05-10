@@ -11,11 +11,17 @@ interface Icon {
   emoji: string;
 }
 
+interface Footnote {
+  title: string;
+  url: string;
+}
+
 export interface PlopdownPlop extends PlopdownBaseTemplate {
   type: PlopdownTemplateType.Plop;
   top: number;
   left: number;
   width: number;
   desc: string;
+  footnotes?: Footnote[];
   icons: Icon[];
 }

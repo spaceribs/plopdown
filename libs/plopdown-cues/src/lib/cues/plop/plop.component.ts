@@ -4,7 +4,8 @@ import {
   ChangeDetectionStrategy,
   HostBinding,
   AfterViewInit,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  HostListener
 } from '@angular/core';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
 import { trigger, transition, useAnimation } from '@angular/animations';
@@ -40,6 +41,11 @@ export class PlopComponent extends PlopdownBaseComponent<PlopdownPlop>
   @HostBinding('style.top.%') top: number;
   @HostBinding('style.left.%') left: number;
   @HostBinding('style.width.%') width: number;
+
+  @HostListener('click', ['$event'])
+  preventBubbling(event: Event) {
+    event.stopPropagation();
+  }
 
   constructor(private cd: ChangeDetectorRef) {
     super();
