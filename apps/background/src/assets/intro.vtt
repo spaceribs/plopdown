@@ -49,7 +49,7 @@ info
     "top": 15,
     "left": 10,
     "width": 40,
-    "desc": "<p><b>Nice!</b> you've initialized your first plopdown track.</p>",
+    "desc": "Nice! you've initialized your first plopdown track.",
     "icons": [
         {
             "top": 48,
@@ -75,7 +75,7 @@ info
     "top": 45,
     "left": 20,
     "width": 40,
-    "desc": "<p>This is a basic annotation. It always includes an icon an a formatted message.</p>",
+    "desc": "This is a basic annotation. It always includes an icon and a message.",
     "icons": [
         {
             "top": 73,
@@ -101,7 +101,7 @@ info
     "top": 25,
     "left": 40,
     "width": 40,
-    "desc": "<p>The menu icon in the top left corner allows you to make changes to this track.</p>",
+    "desc": "The menu icon in the top left corner allows you to make changes to this track.",
     "icons": [
         {
             "top": 64,

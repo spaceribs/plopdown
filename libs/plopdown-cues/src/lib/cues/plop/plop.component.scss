@@ -68,6 +68,12 @@
   border-radius: 1em;
 }
 
+.footnotes,
+.footnote {
+  list-style: none;
+  display: inline;
+}
+
 .pd-icons {
   color: #111;
   background-clip: padding-box;

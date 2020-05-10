@@ -28,7 +28,7 @@ Intro1
     "top": 18,
     "left": 16,
     "width": 50,
-    "desc": "<p>Welcome to Plopdown! This is one of a growing list of cue types which can appear during a video</p>",
+    "desc": "Welcome to Plopdown! This is one of a growing list of cue types which can appear during a video",
     "icons": [
         {
             "top": 70,
@@ -47,7 +47,7 @@ Intro2
     "top": 21,
     "left": 54,
     "width": 40,
-    "desc": "<p>When plopdown is installed on a video, a hover menu appears in the top right with options.</p>",
+    "desc": "When plopdown is installed on a video, a hover menu appears in the top right with options.",
     "icons": [
         {
             "top": 50,
@@ -66,7 +66,7 @@ Intro3
     "top": 38,
     "left": 6,
     "width": 50,
-    "desc": "<p>Now enjoy the rest of the video to sample some of Plopdown's capabilities!</p>",
+    "desc": "Now enjoy the rest of the video to sample some of Plopdown's capabilities!",
     "icons": [
         {
             "top": 50,
@@ -85,7 +85,7 @@ Intro3
     "top": 76,
     "left": 6,
     "width": 42,
-    "desc": "<p>This is the first known filming of a Cab Calloway performance.</p>",
+    "desc": "This is the first known filming of a Cab Calloway performance.",
     "icons": [
         {
             "top": 48,
@@ -111,7 +111,7 @@ Intro3
     "top": 38,
     "left": 6,
     "width": 50,
-    "desc": "<p>\"Minnie the Moocher\" came out in 1932, the third year of the Great Depression.</p>",
+    "desc": "\"Minnie the Moocher\" came out in 1932, the third year of the Great Depression.",
     "icons": [
         {
             "top": 70,
@@ -130,7 +130,7 @@ Intro3
     "top": 77,
     "left": 54,
     "width": 38,
-    "desc": "<p>Unemployment at the time was <b>~33%</b></p>",
+    "desc": "Unemployment at the time was ~33%",
     "icons": [
         {
             "top": 48,
@@ -156,7 +156,8 @@ Intro3
     "top": 76,
     "left": 7,
     "width": 49,
-    "desc": "<p>This was also released during the <a href=\"https://en.wikipedia.org/wiki/Dust_Bowl\" target=\"_blank\">dust bowl</a> which ravaged the southern midwest.</p>",
+    "desc": "This was also released during the dust bowl which ravaged the southern midwest.",
+    "footnotes": [{ "title": "Wikipedia - Dust Bowl", "url": "https://en.wikipedia.org/wiki/Dust_Bowl" }],
     "icons": [
         {
             "top": 43,
@@ -182,7 +183,7 @@ Intro3
     "top": 23,
     "left": 60,
     "width": 36,
-    "desc": "<p>Bimbo made his first appearance two years previous to this cartoon.</p>",
+    "desc": "Bimbo made his first appearance two years previous to this cartoon.",
     "icons": [
         {
             "top": 54,
@@ -201,7 +202,7 @@ Intro3
     "top": 23,
     "left": 60,
     "width": 36,
-    "desc": "<p>He was quickly eclipsed by Betty Boop's popularity.</p>",
+    "desc": "He was quickly eclipsed by Betty Boop's popularity.",
     "icons": [
         {
             "top": 55,
@@ -227,7 +228,7 @@ Intro3
     "top": 15,
     "left": 10,
     "width": 40,
-    "desc": "<p>Here, he's relegated to a side-kick.</p>",
+    "desc": "Here, he's relegated to a side-kick.",
     "icons": [
         {
             "top": 29,
@@ -253,7 +254,8 @@ Intro3
     "top": 70,
     "left": 54,
     "width": 40,
-    "desc": "<p>Bimbo completely disappears after the <a href=\"https://en.wikipedia.org/wiki/Motion_Picture_Production_Code\">Hays Codes in 1933</a>.</p>",
+    "desc": "Bimbo completely disappears after the Hays Codes in 1933.",
+    "footnotes": [{ "title": "Wikipedia - Motion Picture Production Code", "url": "https://en.wikipedia.org/wiki/Motion_Picture_Production_Code" }],
     "icons": [
         {
             "top": 50,
@@ -279,7 +281,8 @@ Intro3
     "top": 70,
     "left": 54,
     "width": 40,
-    "desc": "<p><a href=\"https://bettyboop.fandom.com/wiki/Bimbo\" target=\"_blank\">\"an anthropomorphic dog with a human love interest was considered too risqué during the time.\"</a></p>",
+    "desc": "\"an anthropomorphic dog with a human love interest was considered too risqué during the time.\"",
+    "footnotes": [{ "title": "Betty Boop Wiki - Bimbo", "url": "https://bettyboop.fandom.com/wiki/Bimbo" }],
     "icons": [
         {
             "top": 50,
@@ -298,7 +301,7 @@ Intro3
     "top": 75,
     "left": 10,
     "width": 58,
-    "desc": "<p>Boop's father is named \"Otto\", this is his only appearance in any known Betty Boop cartoon.</p>",
+    "desc": "Boop's father is named \"Otto\", this is his only appearance in any known Betty Boop cartoon.",
     "icons": [
         {
             "top": 50,
@@ -317,7 +320,7 @@ Intro3
     "top": 75,
     "left": 10,
     "width": 40,
-    "desc": "<p>Her mother is unnamed and uncredited.</p>",
+    "desc": "Her mother is unnamed and uncredited.",
     "icons": [
         {
             "top": 50,
@@ -343,7 +346,7 @@ Intro3
     "top": 73,
     "left": 7,
     "width": 50,
-    "desc": "<p>German/Austrian immigrants faced large-scale anti-german sentiments during and after WW1.</p>",
+    "desc": "German/Austrian immigrants faced large-scale anti-german sentiments during and after WW1.",
     "icons": [
         {
             "top": 50,
@@ -369,7 +372,7 @@ Intro3
     "top": 9,
     "left": 6,
     "width": 36,
-    "desc": "<p>The Fleischer brothers themselves were the children of Austrian Jewish immigrants.</p>",
+    "desc": "The Fleischer brothers themselves were the children of Austrian Jewish immigrants.",
     "icons": [
         {
             "top": 48,
@@ -395,7 +398,7 @@ Intro3
     "top": 76,
     "left": 52,
     "width": 42,
-    "desc": "<p>Betty Boop's character was based on Helen Kane without her permission.</p>",
+    "desc": "Betty Boop's character was based on Helen Kane without her permission.",
     "icons": [
         {
             "top": 50,
@@ -414,7 +417,7 @@ Intro3
     "top": 75,
     "left": 47,
     "width": 47,
-    "desc": "<p>The same year this cartoon came out, Helen sued Fleischer Studios for copying her style and likeness.</p>",
+    "desc": "The same year this cartoon came out, Helen sued Fleischer Studios for copying her style and likeness.",
     "icons": [
         {
             "top": 63,
@@ -433,7 +436,8 @@ Intro3
     "top": 78,
     "left": 35,
     "width": 60,
-    "desc": "<p>The defence provided audio evidence that she actually stole \"boop-boop-a-doop\" from <a href=\"https://pictorial.jezebel.com/betty-boops-messy-disputed-backstory-1762247611\" target=\"_blank\">a black singer named Baby Esther in 1928</a>.</p>",
+    "desc": "The defence provided audio evidence that she actually stole \"boop-boop-a-doop\" from a black singer named Baby Esther in 1928.",
+    "footnotes": [{ "title": "Jezebel - Betty Boop's Messy, Disputed Backstory", "url": "https://pictorial.jezebel.com/betty-boops-messy-disputed-backstory-1762247611" }],
     "icons": [
         {
             "top": 48,
@@ -459,7 +463,7 @@ Intro3
     "top": 75,
     "left": 50,
     "width": 33,
-    "desc": "<p>She subsequently lost the case.</p>",
+    "desc": "She subsequently lost the case.",
     "icons": [
         {
             "top": 50,
@@ -478,7 +482,8 @@ Intro3
     "top": 71,
     "left": 51,
     "width": 43,
-    "desc": "<p>A cameo of KoKo the Clown from The Fleischer brothers' experimental series <a href=\"https://en.wikipedia.org/wiki/Out_of_the_Inkwell\" target=\"_blank\">Out of the Inkwell</a></p>",
+    "desc": "A cameo of KoKo the Clown from The Fleischer brothers' experimental series \"Out of the Inkwell\"",
+    "footnotes": [{ "title": "Wikipedia - Out of the Inkwell", "url": "https://en.wikipedia.org/wiki/Out_of_the_Inkwell" }],
     "icons": [
         {
             "top": 59,
@@ -497,7 +502,8 @@ Intro3
     "top": 25,
     "left": 57,
     "width": 30,
-    "desc": "<p>Betty is voiced by <a href=\"https://en.wikipedia.org/wiki/Mae_Questel\" target=\"_blank\">Mae Questal</a></p>",
+    "desc": "Betty is voiced by Mae Questal",
+    "footnotes": [{ "title": "Wikipedia - Mae Questel", "url": "https://en.wikipedia.org/wiki/Mae_Questel" }],
     "icons": [
         {
             "top": 72,
@@ -516,7 +522,7 @@ Intro3
     "top": 6,
     "left": 5,
     "width": 40,
-    "desc": "<p>She also voiced another Fleischer classic, Olive Oyl in Popeye.</p>",
+    "desc": "She also voiced another Fleischer classic, Olive Oyl in Popeye.",
     "icons": [
         {
             "top": 63,
@@ -542,7 +548,8 @@ Intro3
     "top": 6,
     "left": 5,
     "width": 40,
-    "desc": "<p>As an actress, she later appeared as Aunt Bethany in <a href=\"https://www.youtube.com/watch?v=90eEVC50smY\" target=\"_blank\">National Lampoon's Christmas Vacation</a>.</p>",
+    "desc": "As an actress, she later appeared as Aunt Bethany in National Lampoon's Christmas Vacation.",
+    "footnotes": [{ "title": "Youtube - Aunt Bethany", "url": "https://www.youtube.com/watch?v=90eEVC50smY" }],
     "icons": [
         {
             "top": 78,
@@ -568,7 +575,8 @@ Intro3
     "top": 50,
     "left": 60,
     "width": 33,
-    "desc": "<p>This animation was created through <a href=\"https://en.wikipedia.org/wiki/Rotoscope\" target=\"_blank\">rotoscoping</a> the previously seen footage of Cab Calloway dancing.</p>",
+    "desc": "This animation was created through rotoscoping the previously seen footage of Cab Calloway dancing.",
+    "footnotes": [{ "title": "Wikipedia - Rotoscope", "url": "https://en.wikipedia.org/wiki/Rotoscope" }],
     "icons": [
         {
             "top": 50,
@@ -594,7 +602,8 @@ Intro3
     "top": 74,
     "left": 59,
     "width": 33,
-    "desc": "<p>Fleischer Studios had a <a href=\"https://www.fleischerstudios.com/rotoscope.html\" target=\"_blank\">patent</a> on the rotoscope.</p>",
+    "desc": "Fleischer Studios had a patent on the rotoscope.",
+    "footnotes": [{ "title": "Fleischer Studios - Rotoscope", "url": "https://www.fleischerstudios.com/rotoscope.html" }],
     "icons": [
         {
             "top": 48,
@@ -620,7 +629,7 @@ Intro3
     "top": 25,
     "left": 58,
     "width": 36,
-    "desc": "<p>The rotoscope patent expired 2 years after this cartoon was released.</p>",
+    "desc": "The rotoscope patent expired 2 years after this cartoon was released.",
     "icons": [
         {
             "top": 50,
@@ -639,7 +648,7 @@ Intro3
     "top": 20,
     "left": 5,
     "width": 38,
-    "desc": "<p>5 years later in 1937, Walt Disney Studios uses the same rotoscope system for \"Snow White\".</p>",
+    "desc": "5 years later in 1937, Walt Disney Studios uses the same rotoscope system for \"Snow White\".",
     "icons": [
         {
             "top": 48,
@@ -665,7 +674,7 @@ Intro3
     "top": 73,
     "left": 6,
     "width": 45,
-    "desc": "<p><b>Lyric Translation:</b> Minnie got together with a cocaine addict and he showed her how to smoke opium.</p>",
+    "desc": "Lyric Translation: Minnie got together with a cocaine addict and he showed her how to smoke opium.",
     "icons": [
         {
             "top": 48,
@@ -691,7 +700,8 @@ Intro3
     "top": 64,
     "left": 52,
     "width": 40,
-    "desc": "<p>148 people were <a href=\"https://deathpenaltyusa.org/usa1/date/1932.htm\" target=\"_blank\">sentenced to death</a> in 1932.</p>",
+    "desc": "148 people were sentenced to death in 1932.",
+    "footnotes": [{ "title": "US Executions - 1932", "url": "https://deathpenaltyusa.org/usa1/date/1932.htm" }],
     "icons": [
         {
             "top": 50,
@@ -710,7 +720,8 @@ Intro3
     "top": 76,
     "left": 52,
     "width": 33,
-    "desc": "<p>106 were put to the electric chair.</p>",
+    "desc": "106 were put to the electric chair.",
+    "footnotes": [{ "title": "US Executions - 1932", "url": "https://deathpenaltyusa.org/usa1/date/1932.htm" }],
     "icons": [
         {
             "top": 75,
@@ -736,7 +747,8 @@ Intro3
     "top": 80,
     "left": 50,
     "width": 38,
-    "desc": "<p>54% were African American.</p>",
+    "desc": "54% were African American",
+    "footnotes": [{ "title": "US Executions - 1932", "url": "https://deathpenaltyusa.org/usa1/date/1932.htm" }],
     "icons": [
         {
             "top": 68,
@@ -755,7 +767,7 @@ Intro3
     "top": 70,
     "left": 10,
     "width": 58,
-    "desc": "<p>These kinds of psychedelics mostly disappeared after the implementation of the Hays Codes</p>",
+    "desc": "These kinds of psychedelics mostly disappeared after the implementation of the Hays Codes",
     "icons": [
         {
             "top": 54,
@@ -774,7 +786,8 @@ Intro3
     "top": 60,
     "left": 50,
     "width": 46,
-    "desc": "<p>Betty Boop herself changes from a sex symbol to a <a href=\"https://www.youtube.com/watch?v=eSxzenLlr68\" target=\"_blank\">much more modest \"career gal\"</a> by the end of the 1930s</p>",
+    "desc": "Betty Boop herself changes from a sex symbol to a much more modest \"career gal\" by the end of the 1930s",
+    "footnotes": [{ "title": "Youtube - Sally Swing (1938)", "url": "https://www.youtube.com/watch?v=eSxzenLlr68" }],
     "icons": [
         {
             "top": 50,
@@ -800,7 +813,8 @@ Intro3
     "top": 71,
     "left": 53,
     "width": 40,
-    "desc": "<p>This song is the last portion of <a href=\"https://www.youtube.com/watch?v=siKYU0eGnvc\" target=\"_blank\">Vine Street Drag</a>.</p>",
+    "desc": "This song is the last portion of Vine Street Drag.",
+    "footnotes": [{ "title": "Youtube - Vine Street Drag", "url": "https://www.youtube.com/watch?v=siKYU0eGnvc" }],
     "icons": [
         {
             "top": 58,
@@ -819,7 +833,7 @@ Intro3
     "top": 77,
     "left": 13,
     "width": 34,
-    "desc": "<p>Thanks for watching!</p>",
+    "desc": "Thanks for watching!",
     "icons": [
         {
             "top": 62,

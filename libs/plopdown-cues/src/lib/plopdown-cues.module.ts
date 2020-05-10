@@ -6,7 +6,6 @@ import { InfoComponent } from './cues/info/info.component';
 import { PlopComponent } from './cues/plop/plop.component';
 import { CueRendererComponent } from './cue-renderer/cue-renderer.component';
 import { CueEditorComponent } from './cue-editor/cue-editor.component';
-import { HtmlContentComponent } from './html-content/html-content.component';
 import {
   SchemaFormModule,
   WidgetRegistry,
@@ -22,7 +21,6 @@ import { AudioEditsComponent } from './cues/audio/audio-edits/audio-edits.compon
     PlopComponent,
     CueRendererComponent,
     CueEditorComponent,
-    HtmlContentComponent,
     AudioComponent,
     AudioEditsComponent
   ],

@@ -13,5 +13,16 @@
   </div>
 </div>
 <div class="desc">
-  <plopdown-html-content [html]="data.desc"></plopdown-html-content>
+  {{ data.desc }}
+  <ul class="footnotes" *ngIf="data.footnotes">
+    <li class="footnote" *ngFor="let footnote of data.footnotes; let i = index">
+      <a
+        [title]="footnote.title"
+        [href]="footnote.url"
+        rel="noopener noreferrer"
+        target="_blank"
+        >[{{ i + 1 }}]</a
+      >
+    </li>
+  </ul>
 </div>
