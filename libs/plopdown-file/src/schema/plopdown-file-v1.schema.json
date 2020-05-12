@@ -14,7 +14,7 @@
     },
     "milliseconds": {
       "title": "Milliseconds",
-      "type": "integer"
+      "type": "number"
     },
     "degree": {
       "title": "Degree",
@@ -249,6 +249,10 @@
           "description": "The title of the video this track is for.",
           "type": "string"
         },
+        "language": {
+          "description": "The language and locality of the annotations.",
+          "type": "string"
+        },
         "url": {
           "description": "The URL of the platform.",
           "type": "string",
@@ -320,6 +324,9 @@
               },
               {
                 "$ref": "#/default/definitions/plop"
+              },
+              {
+                "$ref": "#/default/definitions/audio"
               }
             ]
           }

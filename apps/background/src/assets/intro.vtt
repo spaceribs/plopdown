@@ -30,16 +30,7 @@ info
     "top": 10,
     "left": 20,
     "title": "Test Audio",
-    "url": "classics.mp3",
-    "edits": [
-        {
-            "type": "VOLUME",
-            "startTime": 1000,
-            "endTime": 10000,
-            "audio": 50,
-            "video": 50
-        }
-    ]
+    "url": "classics.mp3"
 }
 
 1
