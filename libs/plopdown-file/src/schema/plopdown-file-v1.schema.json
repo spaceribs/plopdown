@@ -12,8 +12,8 @@
       "minimum": -100,
       "maximum": 200
     },
-    "milliseconds": {
-      "title": "Milliseconds",
+    "seconds": {
+      "title": "Seconds",
       "type": "number"
     },
     "degree": {
@@ -132,10 +132,10 @@
                     "const": "SKIP"
                   },
                   "startTime": {
-                    "$ref": "#/default/definitions/milliseconds"
+                    "$ref": "#/default/definitions/seconds"
                   },
                   "endTime": {
-                    "$ref": "#/default/definitions/milliseconds"
+                    "$ref": "#/default/definitions/seconds"
                   }
                 }
               },
@@ -148,10 +148,10 @@
                     "const": "STILL"
                   },
                   "startTime": {
-                    "$ref": "#/default/definitions/milliseconds"
+                    "$ref": "#/default/definitions/seconds"
                   },
                   "duration": {
-                    "$ref": "#/default/definitions/milliseconds"
+                    "$ref": "#/default/definitions/seconds"
                   }
                 }
               },
@@ -164,10 +164,10 @@
                     "const": "PAUSE"
                   },
                   "startTime": {
-                    "$ref": "#/default/definitions/milliseconds"
+                    "$ref": "#/default/definitions/seconds"
                   },
                   "duration": {
-                    "$ref": "#/default/definitions/milliseconds"
+                    "$ref": "#/default/definitions/seconds"
                   }
                 }
               },
@@ -312,10 +312,10 @@
             "type": "string"
           },
           "startTime": {
-            "$ref": "#/default/definitions/milliseconds"
+            "$ref": "#/default/definitions/seconds"
           },
           "endTime": {
-            "$ref": "#/default/definitions/milliseconds"
+            "$ref": "#/default/definitions/seconds"
           },
           "data": {
             "oneOf": [

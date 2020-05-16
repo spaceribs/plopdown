@@ -1,7 +1,7 @@
 import { SavedTrack } from '@plopdown/tracks';
 import { LoggerService } from '@plopdown/logger';
 import { VideoOverlayComponent } from './../video-overlay/video-overlay.component';
-import { XPathService } from '@plopdown/window-ref';
+import { XPathService, WindowRefService } from '@plopdown/window-ref';
 import {
   Component,
   OnInit,
@@ -34,6 +34,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private xpathService: XPathService,
+    private windowRef: WindowRefService,
     private logger: LoggerService,
     private appRef: ApplicationRef
   ) {}
@@ -131,7 +132,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   }): Map<string, string> {
     return Object.keys(attachments).reduce((memo, filename) => {
       const attachment = attachments[filename] as PouchDB.Core.FullAttachment;
-      const blobUrl = URL.createObjectURL(attachment.data);
+      const blobUrl = this.windowRef.getURL().createObjectURL(attachment.data);
       memo.set(filename, blobUrl);
       return memo;
     }, new Map<string, string>());

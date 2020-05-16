@@ -11,6 +11,10 @@ export class WindowRefService {
     this.window = window;
   }
 
+  public getURL() {
+    return this.window.URL;
+  }
+
   public getDocument() {
     return this.window.document;
   }

@@ -65,7 +65,7 @@ export class TracksComponent implements OnInit {
 
   getAttachment(track: SavedTrack, filename: string): SafeUrl {
     const attachment = track._attachments[filename];
-    const url = URL.createObjectURL(attachment.data);
+    const url = this.windowRef.getURL().createObjectURL(attachment.data);
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
