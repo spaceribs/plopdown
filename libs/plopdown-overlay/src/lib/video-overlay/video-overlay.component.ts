@@ -5,7 +5,6 @@ import { bounceIn } from 'ng-animate';
 import {
   Observable,
   Subject,
-  ReplaySubject,
   combineLatest,
   BehaviorSubject,
   merge,
@@ -14,7 +13,6 @@ import {
 } from 'rxjs';
 import {
   Component,
-  Input,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   ViewEncapsulation,
@@ -25,9 +23,7 @@ import {
 import {
   map,
   switchMap,
-  mapTo,
   tap,
-  distinct,
   shareReplay,
   startWith,
   distinctUntilChanged
@@ -141,14 +137,14 @@ export class VideoOverlayComponent {
           fromEvent(elem, 'mousemove')
         ).pipe(map(() => elem));
       }),
+      tap(console.log),
       shareReplay(1)
     );
 
     const aspectRatio$ = positionOverlay$.pipe(
       map(elem => {
         return elem.videoWidth / elem.videoHeight;
-      }),
-      distinct()
+      })
     );
 
     const letterboxedWidth$ = combineLatest([
@@ -160,8 +156,7 @@ export class VideoOverlayComponent {
           return elem.offsetWidth;
         }
         return elem.offsetHeight * aspectRatio;
-      }),
-      distinctUntilChanged()
+      })
     );
 
     const letterboxedHeight$ = combineLatest([
@@ -173,15 +168,13 @@ export class VideoOverlayComponent {
           return elem.offsetWidth / aspectRatio;
         }
         return elem.offsetHeight;
-      }),
-      distinctUntilChanged()
+      })
     );
 
     const fontSize$ = positionOverlay$.pipe(
       map(elem => {
         return elem.offsetHeight / 44;
-      }),
-      distinctUntilChanged()
+      })
     );
 
     const overlayStyle$ = combineLatest([positionOverlay$, fontSize$]).pipe(
