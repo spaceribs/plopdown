@@ -1,3 +1,4 @@
+import { WindowRefService } from '@plopdown/window-ref';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { switchMap, map } from 'rxjs/operators';
 import { RuntimeService } from '@plopdown/browser-ref';
@@ -10,6 +11,7 @@ import { Observable, from } from 'rxjs';
 export class LoadAssetService {
   constructor(
     private runtime: RuntimeService,
+    private windowRef: WindowRefService,
     private domSanitizer: DomSanitizer
   ) {}
 
@@ -20,7 +22,7 @@ export class LoadAssetService {
       }),
       map(blob => {
         return this.domSanitizer.bypassSecurityTrustUrl(
-          URL.createObjectURL(blob)
+          this.windowRef.getURL().createObjectURL(blob)
         );
       })
     );

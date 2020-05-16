@@ -6,12 +6,6 @@
   hidden="true"
 ></video>
 
-<plopdown-audio-edits
-  *ngIf="data.edits"
-  [edits]="data.edits"
-  [audioElem]="audioElem"
-></plopdown-audio-edits>
-
 <div class="audio-indicator" *ngIf="audioElem">
   <svg class="progress-ring" viewbox="0 0 120 120">
     <circle

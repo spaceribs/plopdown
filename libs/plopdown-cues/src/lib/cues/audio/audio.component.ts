@@ -1,3 +1,5 @@
+import { EditSkipService } from './audio-edits/edit-skip.service';
+import { AudioEditsService } from './audio-edits/audio-edits.service';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { LoggerService } from '@plopdown/logger';
 import { VIDEO_ELEM_TOKEN, TRACK_FILES_TOKEN } from '@plopdown/tokens';
@@ -12,7 +14,7 @@ import {
 } from '@angular/core';
 import { PlopdownAudio } from './audio.model';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
-import { Observable, Subscription, fromEvent, merge, of, EMPTY } from 'rxjs';
+import { Observable, Subscription, fromEvent, merge, of } from 'rxjs';
 import { mdiVolumeHigh, mdiVolumeOff, mdiAlert } from '@mdi/js';
 import {
   map,
@@ -20,14 +22,14 @@ import {
   filter,
   mapTo,
   shareReplay,
-  switchMap,
-  tap
+  withLatestFrom
 } from 'rxjs/operators';
 
 @Component({
   selector: 'plopdown-audio',
   templateUrl: './audio.component.html',
-  styleUrls: ['./audio.component.scss']
+  styleUrls: ['./audio.component.scss'],
+  providers: [AudioEditsService, EditSkipService]
 })
 export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   implements AfterViewInit, OnDestroy {
@@ -40,7 +42,7 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
 
   private videoNotPlaying$: Observable<void>;
   private videoPlaying$: Observable<void>;
-  private timeUpdate$: Observable<[number, number]>;
+  public timeUpdate$: Observable<[number, number]>;
   private syncOffset$: Observable<number>;
 
   private audioPlaying$: Observable<void>;
@@ -48,15 +50,20 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   private audioStopped$: Observable<void>;
   private audioStalled$: Observable<void>;
 
+  private editTime$: Observable<number>;
+
   private subs: Subscription = new Subscription();
 
   @ViewChild('audioElem') audioElem: ElementRef<HTMLAudioElement>;
   @HostBinding('style.top.%') top: number;
   @HostBinding('style.left.%') left: number;
+  skipOffset$: Observable<number>;
 
   constructor(
     private logger: LoggerService,
     private sanitizer: DomSanitizer,
+    private audioEdits: AudioEditsService,
+    private editSkip: EditSkipService,
     @Inject(VIDEO_ELEM_TOKEN) private videoElem: HTMLVideoElement,
     @Inject(TRACK_FILES_TOKEN) private trackFiles: Map<string, string>
   ) {
@@ -103,13 +110,20 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
       })
     );
 
+    if (this.data.edits && this.data.edits.length > 0) {
+      this.audioEdits.setAudioElem(this.audioElem.nativeElement);
+      this.audioEdits.setEdits(this.data.edits);
+      this.skipOffset$ = this.editSkip.getOffset().pipe(shareReplay(1));
+    }
+
     this.timeUpdate$ = merge(
       fromEvent(this.audioElem.nativeElement, 'timeupdate'),
       fromEvent(this.videoElem, 'timeupdate')
     ).pipe(
-      map(_ => {
+      withLatestFrom(this.skipOffset$),
+      map(([_, skipOffset]) => {
         return [
-          this.audioElem.nativeElement.currentTime,
+          this.audioElem.nativeElement.currentTime - skipOffset,
           this.videoElem.currentTime
         ];
       })

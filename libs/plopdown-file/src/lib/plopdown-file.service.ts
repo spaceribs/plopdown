@@ -88,8 +88,6 @@ export class PlopdownFileService {
     const headers = this.getHeaders(firstBlock);
     const cues = this.getCues(blocks);
 
-    console.log(headers);
-
     return { headers, cues };
   }
 
