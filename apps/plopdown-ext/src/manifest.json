@@ -1,14 +1,12 @@
 {
   "manifest_version": 2,
   "name": "__MSG_extName__",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage_url": "https://plopdown.video",
   "description": "Show annotations on top of any html5 web video.",
   "default_locale": "en",
   "permissions": ["activeTab", "storage", "unlimitedStorage"],
   "optional_permissions": ["https://*/*", "http://*/*"],
-  // TODO: Remove this once development is complete.
-  // "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';",
   "icons": {
     "16": "icons/16.png",
     "48": "icons/48.png",

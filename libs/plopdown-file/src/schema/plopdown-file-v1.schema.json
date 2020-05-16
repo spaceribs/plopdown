@@ -61,7 +61,6 @@
       }
     },
     "info": {
-      "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Plopdown Info Schema",
       "type": "object",
       "additionalProperties": false,
@@ -92,7 +91,6 @@
       }
     },
     "audio": {
-      "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Plopdown Audio Schema",
       "type": "object",
       "additionalProperties": false,
@@ -126,6 +124,7 @@
               {
                 "type": "object",
                 "description": "Skip a section of the audio",
+                "required": ["type", "startTime", "endTime"],
                 "properties": {
                   "type": {
                     "type": "string",
@@ -142,6 +141,7 @@
               {
                 "type": "object",
                 "description": "Pause the video but continue playing audio",
+                "required": ["type", "startTime", "duration"],
                 "properties": {
                   "type": {
                     "type": "string",
@@ -158,6 +158,7 @@
               {
                 "type": "object",
                 "description": "Pause the audio but continue playing video",
+                "required": ["type", "startTime", "duration"],
                 "properties": {
                   "type": {
                     "type": "string",
@@ -174,6 +175,7 @@
               {
                 "type": "object",
                 "description": "Adjust the volume of the video or the audio",
+                "required": ["type", "video", "audio"],
                 "properties": {
                   "type": {
                     "type": "string",
