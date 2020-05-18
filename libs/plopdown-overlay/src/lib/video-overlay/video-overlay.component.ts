@@ -137,7 +137,6 @@ export class VideoOverlayComponent {
           fromEvent(elem, 'mousemove')
         ).pipe(map(() => elem));
       }),
-      tap(console.log),
       shareReplay(1)
     );
 

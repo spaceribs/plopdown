@@ -4,14 +4,18 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { LoggerModule } from '@plopdown/logger';
+import { LoggerModule, LogConsoleService } from '@plopdown/logger';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    LoggerModule.forRoot({ appName: 'Website', color: 'magenta' }),
+    LoggerModule.forRoot({
+      appName: 'Website',
+      color: 'magenta',
+      providers: [LogConsoleService]
+    }),
     RouterModule.forRoot(
       [
         {

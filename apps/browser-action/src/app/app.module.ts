@@ -1,10 +1,15 @@
-import { IconModule } from './../../../../libs/icon/src/lib/icon.module';
+import { IconModule } from '@plopdown/icon';
 import { WindowRefModule } from '@plopdown/window-ref';
 import { VideoRefsModule } from '@plopdown/video-refs';
-import { LoggerModule } from '@plopdown/logger';
+import {
+  LoggerModule,
+  LogConsoleService,
+  LogStorageService
+} from '@plopdown/logger';
 import { TracksModule } from '@plopdown/tracks';
 import { BrowserRefModule } from '@plopdown/browser-ref';
 import { MessagesModule } from '@plopdown/messages';
+import { ExtStorageModule } from '@plopdown/ext-storage';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +20,6 @@ import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { VideoManagerComponent } from './video-manager/video-manager.component';
 import { ScannerComponent } from './scanner/scanner.component';
-import { ExtStorageModule } from '@plopdown/ext-storage';
 import { TrackManagerComponent } from './track-manager/track-manager.component';
 
 const appRoutes: Routes = [
@@ -37,7 +41,11 @@ const appRoutes: Routes = [
     ExtStorageModule,
     FormsModule,
     IconModule,
-    LoggerModule.forRoot({ appName: 'BrowserAction', color: 'green' }),
+    LoggerModule.forRoot({
+      appName: 'BrowserAction',
+      color: 'green',
+      providers: [LogConsoleService, LogStorageService]
+    }),
     RouterModule.forRoot(appRoutes, {
       useHash: true,
       initialNavigation: 'enabled'

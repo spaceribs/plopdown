@@ -13,7 +13,11 @@ import {
 } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { LoggerModule } from '@plopdown/logger';
+import {
+  LoggerModule,
+  LogConsoleService,
+  LogStorageService
+} from '@plopdown/logger';
 import { MessagesModule } from '@plopdown/messages';
 import { BrowserRefModule } from '@plopdown/browser-ref';
 import { ContentScannerComponent } from './content-scanner/content-scanner.component';
@@ -32,7 +36,8 @@ import { PlopdownOverlayModule } from '@plopdown/plopdown-overlay';
     PlopdownOverlayModule,
     LoggerModule.forRoot({
       appName: `ContentScript:"${document.title}"`,
-      color: 'blue'
+      color: 'blue',
+      providers: [LogConsoleService, LogStorageService]
     }),
     BrowserAnimationsModule,
     IconModule

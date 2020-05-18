@@ -48,7 +48,9 @@ export class ExtStorageService {
   public get(
     area: ExtStorageAreaName,
     keys: string | string[]
-  ): Observable<object> {
+  ): Observable<{
+    [key: string]: any;
+  }> {
     return from(this.storage[area].get(keys));
   }
 

@@ -1,0 +1,13 @@
+.table {
+  font-family: monospace;
+  .nowrap {
+    white-space: nowrap;
+  }
+  .prewrap {
+    white-space: pre;
+    overflow: auto;
+    display: block;
+    max-width: 400px;
+    max-height: 300px;
+  }
+}

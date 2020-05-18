@@ -1,14 +1,11 @@
 {
   "folders": [
-	{
-		"path": "."
-	},
-	{
-		"path": "../plopdown-video"
-	}
-],
-"settings": {
-	"editor.tabSize": 2,
-	"editor.detectIndentation": false
-}
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false
+  }
 }

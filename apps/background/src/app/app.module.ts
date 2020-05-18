@@ -1,7 +1,8 @@
+import { LogStorageService } from './../../../../libs/logger/src/lib/log-providers/log-storage.service';
 import { ExtStorageModule } from '@plopdown/ext-storage';
 import { BrowserRefModule } from '@plopdown/browser-ref';
 import { TracksModule } from '@plopdown/tracks';
-import { LoggerModule } from '@plopdown/logger';
+import { LoggerModule, LogConsoleService } from '@plopdown/logger';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, DoBootstrap, ApplicationRef } from '@angular/core';
@@ -19,7 +20,11 @@ import { PlopdownFileModule } from '@plopdown/plopdown-file';
     HttpClientModule,
     PlopdownFileModule,
     ExtStorageModule,
-    LoggerModule.forRoot({ appName: 'Background', color: 'red' }),
+    LoggerModule.forRoot({
+      appName: 'Background',
+      color: 'red',
+      providers: [LogConsoleService, LogStorageService]
+    }),
     MessagesModule,
     VideoRefsModule,
     TracksModule

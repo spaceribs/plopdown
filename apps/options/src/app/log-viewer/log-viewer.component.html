@@ -1,0 +1,92 @@
+<section class="section">
+  <div class="container">
+    <div class="tile is-ancestor is-vertical">
+      <div class="tile is-parent">
+        <div class="tile is-child">
+          <h2 class="title">Debug Logs</h2>
+          <h3 class="subtitle">
+            For advanced users and developers
+          </h3>
+        </div>
+        <div class="tile is-child">
+          <div class="buttons is-right">
+            <button class="button is-primary" (click)="refreshLogs()">
+              <plopdown-icon [path]="mdiRefresh"></plopdown-icon>
+              <span>Refresh</span>
+            </button>
+            <a
+              class="button is-success"
+              [href]="logsDownload$ | async"
+              download="logs.json"
+            >
+              <plopdown-icon [path]="mdiDownload"></plopdown-icon>
+              <span>Download</span>
+            </a>
+            <button class="button is-danger" (click)="resetLogs()">
+              <plopdown-icon [path]="mdiAlertCircle"></plopdown-icon>
+              <span>{{ confirmReset ? 'Are you sure?' : 'Reset All' }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="tile is-parent">
+        <div class="tile is-child" *ngIf="loadingLogs$ | async; else loaded">
+          <div class="notification is-light is-block has-text-centered">
+            <p>Loading...</p>
+          </div>
+        </div>
+        <ng-template #loaded>
+          <div class="tile is-child container" *ngIf="logs$ | async as logs">
+            <div class="table-container" *ngIf="logs.length; else empty">
+              <table class="table is-striped is-fullwidth is-narrow">
+                <thead>
+                  <tr>
+                    <th>Datetime</th>
+                    <th>Source</th>
+                    <th>Level</th>
+                    <th>Message</th>
+                    <th>Data 1</th>
+                    <th>Data 2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let log of logs">
+                    <td class="nowrap">
+                      {{ log[0] | date: 'short' }}
+                    </td>
+                    <td class="nowrap">
+                      {{ log[1] }}
+                    </td>
+                    <td class="nowrap">
+                      {{ log[2] }}
+                    </td>
+                    <td>
+                      <span class="prewrap">{{
+                        formatData(log[3]) | json
+                      }}</span>
+                    </td>
+                    <td>
+                      <span class="prewrap">{{
+                        formatData(log[4]) | json
+                      }}</span>
+                    </td>
+                    <td>
+                      <span class="prewrap">{{
+                        formatData(log[5]) | json
+                      }}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <ng-template #empty>
+              <div class="notification is-light is-block has-text-centered">
+                <p>There are no logs.</p>
+              </div>
+            </ng-template>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</section>
