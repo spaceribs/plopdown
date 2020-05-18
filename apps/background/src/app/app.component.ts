@@ -26,7 +26,8 @@ import {
   concat,
   combineLatest,
   forkJoin,
-  pipe
+  pipe,
+  of
 } from 'rxjs';
 import {
   filter,
@@ -37,7 +38,9 @@ import {
   shareReplay,
   scan,
   concatAll,
-  withLatestFrom
+  withLatestFrom,
+  catchError,
+  mapTo
 } from 'rxjs/operators';
 import { Track, TracksService } from '@plopdown/tracks';
 import { HttpClient } from '@angular/common/http';
@@ -142,27 +145,48 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     InstallContentScript: {
-      const installContentScriptSub = this.onBrowserActionQueryVideoRefs$
-        .pipe(
-          switchMap(() => {
-            return this.installContentScript();
-          }),
-          switchMap(() => {
-            return this.onContentScriptReady$;
-          })
-        )
-        .subscribe({
-          next: () => {
-            this.logger.debug('Content Scripts Installed');
-            setTimeout(() => {
-              this.bgPub.findVideos();
-            }, 100);
-          },
-          error: err => {
-            this.errorHandler.handleError(err);
-          }
-        });
-      this.subs.add(installContentScriptSub);
+      const installContentScript$: Observable<null | Error> = this.onBrowserActionQueryVideoRefs$.pipe(
+        switchMap(() => {
+          return this.installContentScript().pipe(
+            mapTo(null),
+            catchError(err => of(err))
+          );
+        })
+      );
+
+      const contentScriptReady$ = installContentScript$.pipe(
+        filter(res => !(res instanceof Error)),
+        switchMap(() => {
+          return this.onContentScriptReady$;
+        })
+      );
+
+      const contentScriptError$ = installContentScript$.pipe(
+        filter(res => res instanceof Error)
+      );
+
+      const contentScriptReadySub = contentScriptReady$.subscribe({
+        next: () => {
+          this.logger.debug('Content Scripts Installed');
+          setTimeout(() => {
+            this.bgPub.findVideos();
+          }, 100);
+        },
+        error: err => {
+          this.errorHandler.handleError(err);
+        }
+      });
+      this.subs.add(contentScriptReadySub);
+
+      const contentScriptErrorSub = contentScriptError$.subscribe({
+        next: res => {
+          this.logger.warn(res);
+        },
+        error: err => {
+          this.errorHandler.handleError(err);
+        }
+      });
+      this.subs.add(contentScriptErrorSub);
     }
 
     VideosFound: {

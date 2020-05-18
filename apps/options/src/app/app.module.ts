@@ -8,7 +8,11 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { BrowserRefModule } from '@plopdown/browser-ref';
-import { LoggerModule } from '@plopdown/logger';
+import {
+  LoggerModule,
+  LogConsoleService,
+  LogStorageService
+} from '@plopdown/logger';
 import { HomeComponent } from './home/home.component';
 import { SubnavComponent } from './subnav/subnav.component';
 import { RouteData } from './route-data.model';
@@ -22,6 +26,7 @@ import { WindowRefModule } from '@plopdown/window-ref';
 import { TrackEditorComponent } from './tracks/track-editor/track-editor.component';
 import { FileManagerComponent } from './tracks/file-manager/file-manager/file-manager.component';
 import { FileImporterComponent } from './tracks/file-importer/file-importer.component';
+import { LogViewerComponent } from './log-viewer/log-viewer.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,8 @@ import { FileImporterComponent } from './tracks/file-importer/file-importer.comp
     TrackSelectorComponent,
     TrackEditorComponent,
     FileManagerComponent,
-    FileImporterComponent
+    FileImporterComponent,
+    LogViewerComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +53,11 @@ import { FileImporterComponent } from './tracks/file-importer/file-importer.comp
     TracksModule,
     WindowRefModule,
     PlopdownFileModule,
-    LoggerModule.forRoot({ appName: 'Options', color: 'orange' }),
+    LoggerModule.forRoot({
+      appName: 'Options',
+      color: 'orange',
+      providers: [LogConsoleService, LogStorageService]
+    }),
     RouterModule.forRoot(
       [
         {
@@ -65,6 +75,10 @@ import { FileImporterComponent } from './tracks/file-importer/file-importer.comp
         {
           path: 'settings',
           component: SettingsComponent
+        },
+        {
+          path: 'logs',
+          component: LogViewerComponent
         },
         {
           path: '**',

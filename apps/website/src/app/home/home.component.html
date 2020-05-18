@@ -78,18 +78,23 @@
             <code>plopdown://</code>
             URL.
           </p>
-          <p>
-            It's currently in development and the alpha should be available
-            soon! In the meantime you can try it out by playing the video.
-          </p>
           <p *ngIf="overlayComponent$ | async as component">
-            <button
-              class="button is-success is-large"
-              (click)="initTrack()"
-              *ngIf="component.hostView.destroyed"
-            >
-              Reattach Plopdown
-            </button>
+            <span class="buttons">
+              <button
+                class="button is-success is-medium"
+                (click)="initTrack()"
+                *ngIf="component.hostView.destroyed"
+              >
+                Reattach Example
+              </button>
+              <a
+                class="button is-primary is-medium"
+                target="_blank"
+                href="https://addons.mozilla.org/en-US/firefox/addon/plopdown-video/"
+              >
+                + Add Plopdown for Firefox
+              </a>
+            </span>
           </p>
         </div>
       </div>

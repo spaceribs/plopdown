@@ -50,6 +50,13 @@
           <span>Tracks</span>
         </a>
         <a
+          [routerLink]="['logs']"
+          routerLinkActive="is-active"
+          class="navbar-item"
+        >
+          <span>Logs</span>
+        </a>
+        <a
           *ngIf="false"
           [routerLink]="['settings']"
           routerLinkActive="is-active"

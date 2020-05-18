@@ -1,45 +1,59 @@
+import { LoggerConfig } from './logger.model';
+import { LogProvider } from './log-providers/log-provider.model';
+import { LoggerModule } from './logger.module';
 import { LoggerConfigService } from './logger.config';
-import { Injectable, Inject, isDevMode } from '@angular/core';
+import { Type } from '@angular/core';
+import { Injectable, Inject, isDevMode, Injector } from '@angular/core';
 
-@Injectable()
-export class LoggerService {
+@Injectable({
+  providedIn: LoggerModule
+})
+export class LoggerService implements LogProvider {
   private devMode: boolean;
-  private appName: string;
-  private css: string;
+  private providers: LogProvider[];
 
-  constructor(@Inject(LoggerConfigService) config) {
-    this.devMode = isDevMode();
-    this.css = `color: ${config.color}; font-weight: bold;`;
-    this.appName = `%c[${config.appName}]`;
+  constructor(
+    @Inject(LoggerConfigService) config: LoggerConfig,
+    private injector: Injector
+  ) {
+    this.providers = config.providers.map(provider => {
+      return this.injector.get<LogProvider>(provider);
+    });
 
     if (this.devMode) {
-      this.info('Logger service in dev mode.');
+      this.info('Logger started in dev mode.');
     } else {
-      this.info('Logger service in prod mode.');
+      this.info('Logger started in prod mode.');
     }
   }
 
   debug(message?: any, ...optionalParams: any[]): void {
-    if (this.devMode) {
-      console.debug(`${this.appName}`, this.css, message, ...optionalParams);
-    }
+    this.providers.forEach(provider => {
+      provider.debug(message, ...optionalParams);
+    });
   }
 
-  log(message?: any, ...optionalParams: any[]) {
-    if (this.devMode) {
-      console.log(this.appName, this.css, message, ...optionalParams);
-    }
+  log(message?: any, ...optionalParams: any[]): void {
+    this.providers.forEach(provider => {
+      provider.log(message, ...optionalParams);
+    });
   }
 
-  error(message?: any, ...optionalParams: any[]) {
-    console.error(this.appName, this.css, message, ...optionalParams);
+  error(message?: any, ...optionalParams: any[]): void {
+    this.providers.forEach(provider => {
+      provider.error(message, ...optionalParams);
+    });
   }
 
-  info(message?: any, ...optionalParams: any[]) {
-    console.info(this.appName, this.css, message, ...optionalParams);
+  info(message?: any, ...optionalParams: any[]): void {
+    this.providers.forEach(provider => {
+      provider.info(message, ...optionalParams);
+    });
   }
 
-  warn(message?: any, ...optionalParams: any[]) {
-    console.warn(this.appName, this.css, message, ...optionalParams);
+  warn(message?: any, ...optionalParams: any[]): void {
+    this.providers.forEach(provider => {
+      provider.warn(message, ...optionalParams);
+    });
   }
 }
