@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  padding: 30px 0;
+  font-size: 12px;
+  a {
+    color: white;
+    &:hover {
+      color: #5594f9;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<article class="box content" *ngFor="let post of postRoutes">
+  <h3 class="title">
+    <a [routerLink]="post.data.attributes.slug">{{
+      post.data.attributes.title
+    }}</a>
+  </h3>
+  <p class="subtitle meta">
+    By {{ post.data.attributes.author }} -
+    <time [attr.datetime]="post.data.attributes.created">{{
+      post.data.attributes.created | date
+    }}</time>
+  </p>
+  <p>
+    {{ post.data.attributes.excerpt }}...
+    <a [routerLink]="post.data.attributes.slug">Read More</a>
+  </p>
+</article>

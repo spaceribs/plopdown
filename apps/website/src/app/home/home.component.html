@@ -1,30 +1,6 @@
 <section class="hero is-dark is-fullheight">
   <div class="hero-head">
-    <nav class="navbar">
-      <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item">
-            <img
-              width="30"
-              height="30"
-              src="/assets/plopdown-logo.svg"
-              alt="Plopdown"
-            />&nbsp;&nbsp;
-            <h1 class="title is-4">Plopdown</h1>
-          </a>
-          <a class="navbar-item">
-            <iframe
-              sandbox="allow-popups allow-scripts"
-              src="https://ghbtns.com/github-btn.html?user=spaceribs&repo=plopdown&type=star&count=true&size=large"
-              frameborder="0"
-              scrolling="0"
-              width="160px"
-              height="30px"
-            ></iframe>
-          </a>
-        </div>
-      </div>
-    </nav>
+    <plopdown-site-nav></plopdown-site-nav>
   </div>
 
   <div class="hero-body">
@@ -42,7 +18,7 @@
           ></video>
         </div>
 
-        <div class="column is-half is-desktop">
+        <div class="column is-half is-desktop content">
           <h2 class="title">
             Plopdown
           </h2>
@@ -100,15 +76,6 @@
       </div>
     </div>
   </div>
-  <div class="info-footer has-text-centered">
-    <p>
-      <a href="http://madewithloveinbaltimore.org">
-        Made with &hearts; in Baltimore
-      </a>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <a href="https://keybase.io/spaceribs">
-        Spaceribs &copy;{{ currentDate | date: 'y' }}
-      </a>
-    </p>
-  </div>
+
+  <plopdown-site-footer></plopdown-site-footer>
 </section>

@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["firefox-webext-browser"]
+    "types": ["firefox-webext-browser", "webpack-env"]
   },
   "files": ["src/main.ts", "src/polyfills.ts"]
 }
