@@ -1,8 +1,33 @@
+@charset "utf-8";
 /* You can add global styles to this file, and also import other style files */
 
-@import '~bulma/bulma.sass';
-@import '~plyr/src/sass/plyr.scss';
+$body-background-color: #363636;
+$scheme-main: #444;
+$text: #eee;
+$strong-color: #eee;
+$content-heading-color: #eee;
+$text-light: #aaa;
+$body-color: #eee;
+$link: #46c3ff;
+$link-hover: #00ffdc;
+$menu-item-color: #46c3ff;
 
-html {
-  background-color: #363636;
-}
+/*! bulma.io v0.8.2 | MIT License | github.com/jgthms/bulma */
+@import '~bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/base/_all.sass';
+
+@import '~bulma/sass/elements/icon.sass';
+@import '~bulma/sass/elements/button.sass';
+@import '~bulma/sass/elements/container.sass';
+@import '~bulma/sass/elements/title.sass';
+@import '~bulma/sass/elements/box.sass';
+@import '~bulma/sass/elements/content.sass';
+@import '~bulma/sass/form/_all.sass';
+@import '~bulma/sass/grid/_all.sass';
+@import '~bulma/sass/components/navbar.sass';
+@import '~bulma/sass/components/tabs.sass';
+@import '~bulma/sass/components/menu.sass';
+@import '~bulma/sass/layout/hero.sass';
+@import '~bulma/sass/layout/section.sass';
+
+@import '~plyr/src/sass/plyr.scss';

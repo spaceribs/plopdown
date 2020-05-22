@@ -1,0 +1,40 @@
+<plopdown-site-nav></plopdown-site-nav>
+<div class="container">
+  <section class="hero is-dark has-text-centered">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Plopdown Dev Blog
+        </h1>
+        <h2 class="subtitle">
+          Any releases and announcements for Plopdown
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <div class="columns">
+    <div class="column is-three-quarters">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="column">
+      <aside class="menu">
+        <ng-container *ngFor="let dateArchive of dateArchives">
+          <p class="menu-label">
+            {{ dateArchive.date | date: 'MMMM - y' }}
+          </p>
+          <ul class="menu-list">
+            <li *ngFor="let post of dateArchive.posts">
+              <a
+                routerLinkActive="is-active"
+                [routerLink]="post.data.attributes.slug"
+                >{{ post.data.attributes.title }}</a
+              >
+            </li>
+          </ul>
+        </ng-container>
+      </aside>
+    </div>
+  </div>
+</div>
+<plopdown-site-footer></plopdown-site-footer>

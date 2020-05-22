@@ -1,0 +1,22 @@
+<article class="box content">
+  <section class="section">
+    <h1 class="title">
+      <a [routerLink]="routeData.attributes.slug">{{
+        routeData.attributes.title
+      }}</a>
+    </h1>
+    <p class="subtitle meta">
+      By {{ routeData.attributes.author }} -
+      <time [attr.datetime]="routeData.attributes.created">{{
+        routeData.attributes.created | date
+      }}</time>
+    </p>
+    <hr />
+    <div [innerHTML]="routeContent"></div>
+  </section>
+</article>
+<footer class="footer">
+  <a class="button is-inverted is-dark" [routerLink]="['/blog']"
+    >Back to Index</a
+  >
+</footer>

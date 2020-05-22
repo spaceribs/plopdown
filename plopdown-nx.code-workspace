@@ -6,6 +6,12 @@
   ],
   "settings": {
     "editor.tabSize": 2,
-    "editor.detectIndentation": false
+    "editor.detectIndentation": false,
+    "cSpell.words": [
+      "Hulu",
+      "Plopdown",
+      "Spaceribs",
+      "timecode"
+    ]
   }
 }

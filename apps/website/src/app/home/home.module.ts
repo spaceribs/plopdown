@@ -1,3 +1,5 @@
+import { SiteFooterModule } from './../site-footer/site-footer.module';
+import { SiteNavModule } from './../site-nav/site-nav.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -19,6 +21,8 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     HttpClientModule,
     PlopdownOverlayModule,
     PlopdownFileModule,
+    SiteNavModule,
+    SiteFooterModule,
     RouterModule.forChild(routes)
   ],
   providers: [{ provide: LoadAssetService, useClass: WebLoadAssetService }]

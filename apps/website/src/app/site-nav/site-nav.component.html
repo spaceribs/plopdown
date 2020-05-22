@@ -1,0 +1,44 @@
+<nav class="navbar is-dark">
+  <div class="container">
+    <div class="navbar-brand">
+      <a [routerLink]="['/']" class="navbar-item">
+        <img
+          width="30"
+          height="30"
+          src="/assets/plopdown-logo.svg"
+          alt="Plopdown"
+        />&nbsp;&nbsp;
+        <h1 class="title is-4">Plopdown</h1>
+      </a>
+      <a class="navbar-item">
+        <iframe
+          sandbox="allow-popups allow-scripts"
+          src="https://ghbtns.com/github-btn.html?user=spaceribs&repo=plopdown&type=star&count=true&size=large"
+          frameborder="0"
+          scrolling="0"
+          width="160px"
+          height="30px"
+        ></iframe>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <a
+          class="navbar-item"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLink]="['/']"
+        >
+          Home
+        </a>
+        <a
+          class="navbar-item"
+          routerLinkActive="is-active"
+          [routerLink]="['/blog']"
+        >
+          Dev Blog
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
