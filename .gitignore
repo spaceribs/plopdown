@@ -6,7 +6,6 @@
 /out-tsc
 
 # dependencies
-/prebuild_modules
 /node_modules
 
 # IDEs and editors

@@ -64,7 +64,7 @@
     "videogular2": "^7.0.1",
     "webextension-polyfill": "^0.6.0",
     "z-schema": "^4.2.2",
-    "zone.js": "file:prebuild_modules/zone.js"
+    "zone.js": "^0.9.1"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^9.1.0",
