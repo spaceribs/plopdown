@@ -20,6 +20,8 @@ This project is currently in alpha.
 | [browser-action](apps/browser-action)   | extension      | Activate extension and select videos for attaching tracks                 |
 | [background](apps/background)           | extension      | Install and Listen to content scripts and forward to browser action popup |
 | [options](apps/options)                 | extension      | Configure global options and manage permissions                           |
+| [devtool](apps/devtool)                 | extension      | The app for showing the devtool (currently disabled)                      |
+| [devtool-panels](apps/devtool)          | extension      | The panels app underlying the devtool                                     |
 | [plopdown-ext](apps/plopdown-ext)       | extension      | Manifest.json and static assets for the extension                         |
 | [testing-sandbox](apps/testing-sandbox) | experiments    | Test out different kinds of video elements and embeds                     |
 
@@ -30,13 +32,15 @@ Please refer to <https://nx.dev/angular/cli/overview> for a complete guide in de
 To start the extension in development mode, run the following commands in different terminals:
 
 ```bash
-$ npm run start:all
+$ npm run start:ext
 
 >  NX  Running target build for projects:
 
   - browser-action
   - content-script
   - background
+  - devtool
+  - devtool-panels
   - options
 
   With flags:
@@ -44,7 +48,7 @@ $ npm run start:all
 ```
 
 ```bash
-$ npm run start
+$ npm run start:ext-browser
 
 Running web extension from /.../plopdown-nx/dist/apps/plopdown-ext
 Use --verbose or open Tools > Web Developer > Browser Console to see logging
@@ -60,7 +64,7 @@ This will create a temporary Firefox instance and rebuild any components you edi
 Build all applications using the following command
 
 ```bash
-$ npm run affected:build -- --all --prod
+$ npm run build:ext
 
 ...
 
