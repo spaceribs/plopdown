@@ -20,7 +20,9 @@
         "background",
         "browser-action",
         "options",
-        "content-script"
+        "content-script",
+        "devtool",
+        "devtool-panels"
       ]
     },
     "background": {
@@ -75,6 +77,15 @@
       "tags": []
     },
     "tokens": {
+      "tags": []
+    },
+    "devtool": {
+      "tags": []
+    },
+    "devtool-panels": {
+      "tags": []
+    },
+    "devtools-ref": {
       "tags": []
     }
   }

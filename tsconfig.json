@@ -13,25 +13,60 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@plopdown/plopdown-file": ["libs/plopdown-file/src/index.ts"],
-      "@plopdown/messages": ["libs/messages/src/index.ts"],
-      "@plopdown/video-refs": ["libs/video-refs/src/index.ts"],
-      "@plopdown/tracks": ["libs/tracks/src/index.ts"],
-      "@plopdown/logger": ["libs/logger/src/index.ts"],
-      "@plopdown/window-ref": ["libs/window-ref/src/index.ts"],
-      "@plopdown/browser-ref": ["libs/browser-ref/src/index.ts"],
-      "@plopdown/ext-storage": ["libs/ext-storage/src/index.ts"],
-      "@plopdown/icon": ["libs/icon/src/index.ts"],
-      "@plopdown/plopdown-cues": ["libs/plopdown-cues/src/index.ts"],
-      "@plopdown/plopdown-overlay": ["libs/plopdown-overlay/src/index.ts"],
-      "@plopdown/tokens": ["libs/tokens/src/index.ts"]
+      "@plopdown/plopdown-file": [
+        "libs/plopdown-file/src/index.ts"
+      ],
+      "@plopdown/messages": [
+        "libs/messages/src/index.ts"
+      ],
+      "@plopdown/video-refs": [
+        "libs/video-refs/src/index.ts"
+      ],
+      "@plopdown/tracks": [
+        "libs/tracks/src/index.ts"
+      ],
+      "@plopdown/logger": [
+        "libs/logger/src/index.ts"
+      ],
+      "@plopdown/window-ref": [
+        "libs/window-ref/src/index.ts"
+      ],
+      "@plopdown/browser-ref": [
+        "libs/browser-ref/src/index.ts"
+      ],
+      "@plopdown/ext-storage": [
+        "libs/ext-storage/src/index.ts"
+      ],
+      "@plopdown/icon": [
+        "libs/icon/src/index.ts"
+      ],
+      "@plopdown/plopdown-cues": [
+        "libs/plopdown-cues/src/index.ts"
+      ],
+      "@plopdown/plopdown-overlay": [
+        "libs/plopdown-overlay/src/index.ts"
+      ],
+      "@plopdown/tokens": [
+        "libs/tokens/src/index.ts"
+      ],
+      "@plopdown/devtools-ref": [
+        "libs/devtools-ref/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

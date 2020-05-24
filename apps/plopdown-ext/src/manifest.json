@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "__MSG_extName__",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage_url": "https://plopdown.video",
   "description": "Show annotations on top of any html5 web video.",
   "default_locale": "en",
@@ -23,6 +23,8 @@
     "page": "options/index.html",
     "open_in_tab": true
   },
+  // Devtools disabled until fully developed:
+  // "devtools_page": "devtool/index.html",
   "browser_action": {
     "default_popup": "browser-action/index.html",
     "default_title": "__MSG_extName__",

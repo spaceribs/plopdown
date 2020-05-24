@@ -176,4 +176,4 @@ this project across the finish line in no particular order:
 - **Sam Small** - For always making me strive towards a mix of perfection and delivery.
 - **[Maura Brewer](https://vimeo.com/user2470144)** - My sister, giving me crucial
   feedback so she can use Plopdown in her own video work.
-- My Parents - For listening and supporting my creative rantings and ravings.
+- **My Parents** - For listening and supporting my creative rantings and ravings.
