@@ -26,7 +26,6 @@ import {
   concat,
   combineLatest,
   forkJoin,
-  pipe,
   of
 } from 'rxjs';
 import {
@@ -37,10 +36,9 @@ import {
   tap,
   shareReplay,
   scan,
-  concatAll,
-  withLatestFrom,
   catchError,
-  mapTo
+  mapTo,
+  share
 } from 'rxjs/operators';
 import { Track, TracksService } from '@plopdown/tracks';
 import { HttpClient } from '@angular/common/http';
@@ -151,7 +149,8 @@ export class AppComponent implements OnInit, OnDestroy {
             mapTo(null),
             catchError(err => of(err))
           );
-        })
+        }),
+        share()
       );
 
       const contentScriptReady$ = installContentScript$.pipe(

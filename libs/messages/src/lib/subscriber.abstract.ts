@@ -20,7 +20,7 @@ export abstract class PortSubscriber<C extends Command> {
       filter(msg => msg.command === command),
       map(msg => msg as T),
       tap(msg => {
-        this.logger.debug('Command recieved', msg);
+        this.logger.debug('Command received', msg);
       })
     );
   }

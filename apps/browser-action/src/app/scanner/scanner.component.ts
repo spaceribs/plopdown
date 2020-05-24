@@ -1,3 +1,4 @@
+import { mdiRadar } from '@mdi/js';
 import { LoggerService } from '@plopdown/logger';
 import {
   BrowserActionPubService,
@@ -7,8 +8,8 @@ import {
 import { TracksService, SavedTrack } from '@plopdown/tracks';
 import { VideoRef, VideoRefsService } from '@plopdown/video-refs';
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { Observable, Subscription, combineLatest } from 'rxjs';
-import { map, startWith, tap, shareReplay } from 'rxjs/operators';
+import { Observable, Subscription, combineLatest, Subject } from 'rxjs';
+import { map, startWith, tap, shareReplay, debounceTime } from 'rxjs/operators';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { fadeOut, fadeIn } from 'ng-animate';
 import { RuntimeService } from '@plopdown/browser-ref';
@@ -44,6 +45,7 @@ enum ActionState {
 })
 export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   public ActionState = ActionState;
+  public mdiRadar = mdiRadar;
 
   public state$: Observable<ActionState>;
   public videoRefs$: Observable<VideoRef[]>;
@@ -51,6 +53,7 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   public foundVideos$: Observable<VideoRef[]>;
   public foundIFrames$: Observable<string[]>;
   public loadingVideoRefs$: Observable<boolean>;
+  public onQueryVideoRefs$: Subject<void> = new Subject();
 
   private subs: Subscription = new Subscription();
 
@@ -113,6 +116,14 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
       this.logger.debug('State Updated', state);
     });
     this.subs.add(stateSub);
+
+    const queryVideoRefsSub = this.onQueryVideoRefs$
+      .pipe(debounceTime(200))
+      .subscribe(() => {
+        this.baPub.queryVideoRefs();
+      });
+    this.subs.add(queryVideoRefsSub);
+
     this.loadingVideoRefs$ = this.videoRefsService.getLoading();
   }
 
@@ -136,7 +147,7 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     const addVideoRefSub = this.videoRefsService.addVideoRef(newRef).subscribe({
       next: res => {
         this.logger.debug('Added Video Ref', res);
-        this.baPub.queryVideoRefs();
+        this.queryVideoRefs();
       },
       error: err => {
         this.logger.error('Failed to add Video Ref', err);
@@ -159,6 +170,6 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public queryVideoRefs() {
-    this.baPub.queryVideoRefs();
+    this.onQueryVideoRefs$.next();
   }
 }
