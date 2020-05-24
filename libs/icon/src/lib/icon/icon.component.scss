@@ -1,7 +1,20 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 :host {
   display: inline;
 }
 
 path {
   fill: currentColor;
+}
+
+.spin {
+  animation: spin 3s infinite ease-out;
 }

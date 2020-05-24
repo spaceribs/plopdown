@@ -18,7 +18,9 @@ export class VideoScanService {
     this.document = window.getDocument();
     this.videoElems$ = this.scan$.pipe(
       map(() => {
-        return this.document.querySelectorAll('video');
+        return this.document.querySelectorAll<HTMLVideoElement>(
+          'video:not([plopdown-ignore])'
+        );
       }),
       map(domElems => {
         const videos: HTMLVideoElement[] = [];

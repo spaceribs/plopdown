@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SavedVideoRef } from '@plopdown/video-refs';
 
@@ -13,7 +13,7 @@ import { SavedVideoRef } from '@plopdown/video-refs';
     ></plopdown-video-attachment>
   `
 })
-export class VideoAttachmentsComponent implements OnInit, OnDestroy {
+export class VideoAttachmentsComponent implements OnDestroy {
   private subs: Subscription = new Subscription();
 
   @Input() public videoRefs: Map<SavedVideoRef['_id'], SavedVideoRef>;
@@ -21,6 +21,4 @@ export class VideoAttachmentsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
-
-  ngOnInit(): void {}
 }

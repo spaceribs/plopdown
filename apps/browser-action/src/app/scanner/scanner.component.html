@@ -2,9 +2,7 @@
   <div *ngSwitchCase="ActionState.Loading" [@fadeInOut] class="hero is-dark">
     <div class="hero-body">
       <div class="container">
-        <span class="icon">
-          <i class="mdi mdi-36px mdi-radar mdi-spin"></i>
-        </span>
+        <plopdown-icon [spin]="true" [path]="mdiRadar"></plopdown-icon>
         <h1 class="title">Scanning...</h1>
         <h2 class="subtitle">Looking for Videos</h2>
       </div>
@@ -23,7 +21,7 @@
         </h2>
         <button
           class="button is-dark is-inverted is-outlined"
-          (click)="openExtensionsPage('/options.html#/tracks')"
+          (click)="openExtensionsPage('/options/index.html#/tracks')"
         >
           Add Tracks
         </button>

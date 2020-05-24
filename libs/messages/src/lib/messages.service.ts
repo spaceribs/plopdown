@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { MessagesModule } from './messages.module';
 import { Source } from './messages.model';
-import { filter, tap, mapTo, catchError } from 'rxjs/operators';
+import { filter, mapTo, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: MessagesModule

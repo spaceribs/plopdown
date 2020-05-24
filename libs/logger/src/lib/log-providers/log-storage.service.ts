@@ -20,7 +20,6 @@ export class LogStorageService implements LogProvider, OnDestroy {
     const appendedLogs$ = this.appendLog$.pipe(
       concatMap(log => {
         const logRow = [new Date().toISOString(), log[0], log[1], ...log[2]];
-        console.log(logRow);
         return this.getLogs().pipe(
           map(logs => {
             logs.unshift(logRow);

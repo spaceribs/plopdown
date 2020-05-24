@@ -3,6 +3,13 @@
   overflow: hidden;
   background: #333;
   height: 400px;
+  plopdown-icon {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    color: lightgreen;
+  }
   .hero {
     position: absolute;
     top: 0;

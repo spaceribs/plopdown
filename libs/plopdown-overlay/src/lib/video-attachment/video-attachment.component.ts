@@ -19,7 +19,7 @@ import {
   TRACK_TOKEN,
   TRACK_FILES_TOKEN
 } from '@plopdown/tokens';
-import { map, filter, startWith } from 'rxjs/operators';
+import { map, filter, startWith, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'plopdown-video-attachment',
@@ -29,7 +29,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private videoElem: HTMLVideoElement | null;
   private subs: Subscription = new Subscription();
   private files: Map<string, string>;
-  overlayComponentRef: ComponentRef<VideoOverlayComponent>;
+  private overlayComponentRef: ComponentRef<VideoOverlayComponent>;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -59,9 +59,11 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
           return this.videoElem.duration;
         }),
         startWith(this.videoElem.duration),
-        filter(duration => !isNaN(duration))
+        filter(duration => !isNaN(duration)),
+        distinctUntilChanged()
       )
-      .subscribe(() => {
+      .subscribe(duration => {
+        console.log(duration);
         this.bindAttachment();
       });
     this.subs.add(waitUntilLoadedSub);
@@ -105,6 +107,11 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     this.overlayComponentRef = componentRef;
 
     componentRef.changeDetectorRef.detectChanges();
+
+    const removeSub = this.overlayComponentRef.instance.remove.subscribe(() => {
+      this.ngOnDestroy();
+    });
+    this.subs.add(removeSub);
   }
 
   ngOnDestroy(): void {
