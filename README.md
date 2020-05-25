@@ -25,6 +25,27 @@ This project is currently in alpha.
 | [plopdown-ext](apps/plopdown-ext)       | extension      | Manifest.json and static assets for the extension                         |
 | [testing-sandbox](apps/testing-sandbox) | experiments    | Test out different kinds of video elements and embeds                     |
 
+## Setup
+
+Install packages:
+
+```bash
+$ npm install
+
+added 3116 packages from 1258 contributors and audited 3397 packages in 849.968s
+```
+
+Build the web-ext nx plugin:
+
+```bash
+$ npm run build web-ext
+
+Compiling TypeScript files for library web-ext...
+Done compiling TypeScript files for library web-ext
+Copying asset files...
+Done copying asset files.
+```
+
 ## Development
 
 Please refer to <https://nx.dev/angular/cli/overview> for a complete guide in developing and deploying this monorepo.

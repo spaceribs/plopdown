@@ -10,7 +10,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "build:ext": "nx run-many --target=build --projects=browser-action,content-script,options,background,devtool,devtool-panels,plopdown-ext --parallel --maxParallel=7 --prod",
+    "build:ext": "nx run-many --target=build --projects=browser-action,content-script,options,background,devtool,devtool-panels,plopdown-ext --parallel --prod",
     "start:ext": "nx run-many --target=build --projects=browser-action,content-script,options,background,devtool,devtool-panels --parallel --maxParallel=6 --watch",
     "start:ext-browser": "npm run start",
     "lint": "nx workspace-lint && ng lint",
