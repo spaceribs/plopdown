@@ -33,6 +33,17 @@ import {
 })
 export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   implements AfterViewInit, OnDestroy {
+  constructor(
+    private logger: LoggerService,
+    private sanitizer: DomSanitizer,
+    private audioEdits: AudioEditsService,
+    private editSkip: EditSkipService,
+    @Inject(VIDEO_ELEM_TOKEN) private videoElem: HTMLVideoElement,
+    @Inject(TRACK_FILES_TOKEN) private trackFiles: Map<string, string>
+  ) {
+    super();
+  }
+  public color = '#ffc09f';
   public audioUrl: SafeUrl;
   public audioMuted = false;
   public mdiVolumeHigh = mdiVolumeHigh;
@@ -58,17 +69,6 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   @HostBinding('style.top.%') top: number;
   @HostBinding('style.left.%') left: number;
   skipOffset$: Observable<number>;
-
-  constructor(
-    private logger: LoggerService,
-    private sanitizer: DomSanitizer,
-    private audioEdits: AudioEditsService,
-    private editSkip: EditSkipService,
-    @Inject(VIDEO_ELEM_TOKEN) private videoElem: HTMLVideoElement,
-    @Inject(TRACK_FILES_TOKEN) private trackFiles: Map<string, string>
-  ) {
-    super();
-  }
 
   ngAfterViewInit(): void {
     this.top = this.data.top;
@@ -186,5 +186,9 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
       this.logger.error('Could not find filename', filename);
     }
     return this.sanitizer.bypassSecurityTrustUrl(result);
+  }
+
+  textPreview(data = this.data): string {
+    return `Audio - ${data.title}`;
   }
 }

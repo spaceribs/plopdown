@@ -18,7 +18,8 @@ import {
   ViewEncapsulation,
   Output,
   EventEmitter,
-  Inject
+  Inject,
+  ElementRef
 } from '@angular/core';
 import {
   map,
@@ -26,7 +27,9 @@ import {
   tap,
   shareReplay,
   startWith,
-  distinctUntilChanged
+  mapTo,
+  debounceTime,
+  throttleTime
 } from 'rxjs/operators';
 import {
   trigger,
@@ -75,14 +78,23 @@ export class VideoOverlayComponent {
   public styles$: Observable<{ overlay: object; stage: object }>;
   public editMode$: Observable<boolean>;
 
+  private mouseMove$: Observable<Event>;
+  public showTimeline$: Observable<boolean>;
+
   @Output() public remove: EventEmitter<void> = new EventEmitter();
 
   constructor(
     cd: ChangeDetectorRef,
     private logger: LoggerService,
-    @Inject(VIDEO_ELEM_TOKEN) videoElem: HTMLVideoElement,
-    @Inject(TRACK_TOKEN) plopTrack: SavedTrack
+    elemRef: ElementRef,
+    @Inject(VIDEO_ELEM_TOKEN) public videoElem: HTMLVideoElement,
+    @Inject(TRACK_TOKEN) public plopTrack: SavedTrack
   ) {
+    this.mouseMove$ = merge(
+      fromEvent(elemRef.nativeElement, 'mousemove'),
+      fromEvent(videoElem, 'mousemove')
+    );
+
     const metadataTrack$ = combineLatest([of(videoElem), of(plopTrack)]).pipe(
       switchMap(([elem, track]) => {
         return new Observable<TextTrack>(observer => {
@@ -119,12 +131,12 @@ export class VideoOverlayComponent {
       map(cueList => {
         return this.cueListToArray(cueList);
       }),
-      shareReplay(1),
       tap(_ => {
         setTimeout(() => {
           cd.detectChanges();
         }, 0);
-      })
+      }),
+      shareReplay(1)
     );
 
     const positionOverlay$ = of(videoElem).pipe(
@@ -210,6 +222,17 @@ export class VideoOverlayComponent {
         }, 10)
       )
     );
+
+    this.showTimeline$ = this.mouseMove$.pipe(
+      throttleTime(1000),
+      switchMap(() => {
+        return this.mouseMove$.pipe(
+          debounceTime(5000),
+          mapTo(false),
+          startWith(true)
+        );
+      })
+    );
   }
 
   public removeOverlay() {
@@ -257,5 +280,9 @@ export class VideoOverlayComponent {
     }
 
     return cues;
+  }
+
+  public goToTime(time: number) {
+    this.videoElem.currentTime = time;
   }
 }

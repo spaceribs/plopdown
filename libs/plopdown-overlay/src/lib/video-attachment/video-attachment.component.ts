@@ -63,7 +63,6 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
         distinctUntilChanged()
       )
       .subscribe(duration => {
-        console.log(duration);
         this.bindAttachment();
       });
     this.subs.add(waitUntilLoadedSub);

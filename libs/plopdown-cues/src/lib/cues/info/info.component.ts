@@ -36,5 +36,11 @@ import { PlopdownInfo } from './info.model';
   ]
 })
 export class InfoComponent extends PlopdownBaseComponent<PlopdownInfo> {
+  public color = '#79addc';
+
   @HostBinding('@infoFade') animate;
+
+  textPreview(data = this.data): string {
+    return `[i] ${data.title}`;
+  }
 }
