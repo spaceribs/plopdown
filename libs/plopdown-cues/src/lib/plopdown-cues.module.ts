@@ -22,7 +22,7 @@ import { AudioComponent } from './cues/audio/audio.component';
     CueEditorComponent,
     AudioComponent
   ],
-  exports: [CueRendererComponent],
+  exports: [CueRendererComponent, InfoComponent, PlopComponent, AudioComponent],
   providers: [{ provide: WidgetRegistry, useClass: DefaultWidgetRegistry }]
 })
 export class PlopdownCuesModule {}

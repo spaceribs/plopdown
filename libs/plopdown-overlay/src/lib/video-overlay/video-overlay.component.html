@@ -7,5 +7,12 @@
   <div class="stage" [ngStyle]="styles.stage">
     <plopdown-overlay-menu (remove)="removeOverlay()"></plopdown-overlay-menu>
     <plopdown-cue-renderer [cues]="cues$ | async"></plopdown-cue-renderer>
+    <plopdown-cue-timeline
+      *ngIf="showTimeline$ | async"
+      [videoElem]="videoElem"
+      [track]="plopTrack"
+      [activeCues]="cues$ | async"
+      (goTo)="goToTime($event)"
+    ></plopdown-cue-timeline>
   </div>
 </div>

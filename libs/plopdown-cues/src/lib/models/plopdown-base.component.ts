@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { Input, HostBinding } from '@angular/core';
 import { Cue } from './plopdown-cue.model';
 
@@ -10,5 +9,7 @@ export abstract class PlopdownBaseComponent<T extends Cue['data']> {
 
   @HostBinding('attr.aria-atomic') public ariaAtomic = true;
 
-  public editModeEnabled$: Observable<boolean>;
+  abstract color: string;
+
+  abstract textPreview(data: T): string;
 }

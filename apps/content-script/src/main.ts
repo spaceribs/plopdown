@@ -16,17 +16,9 @@ if (oldModule != null) {
   oldModule.destroy();
 }
 
-if (window['Zone']) {
-  bootstrap();
-} else {
-  import('zone.js/dist/zone').then(() => bootstrap());
-}
-
-function bootstrap() {
-  platformBrowserDynamic()
-    .bootstrapModule(AppModule)
-    .then(module => {
-      document[CONTENT_SCRIPT_NAME] = module;
-    })
-    .catch(err => console.error(err));
-}
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .then(module => {
+    document[CONTENT_SCRIPT_NAME] = module;
+  })
+  .catch(err => console.error(err));
