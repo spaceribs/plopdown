@@ -1,5 +1,5 @@
-import { PlopdownAudio } from './../cues/audio/audio.model';
-import { AudioComponent } from './../cues/audio/audio.component';
+import { PlopdownAudio } from '../cues/audio/audio.model';
+import { AudioComponent } from '../cues/audio/audio.component';
 import { PlopComponent } from '../cues/plop/plop.component';
 import { InfoComponent } from '../cues/info/info.component';
 import { PlopdownPlop } from '../cues/plop/plop.model';
