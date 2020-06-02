@@ -1,0 +1,54 @@
+<svg
+  class="shape"
+  preserveAspectRatio="none"
+  [title]="data.title.text"
+  [style.top.%]="data.top"
+  [style.left.%]="data.left"
+  [attr.width]="data.width + '%'"
+  [attr.height]="data.height + '%'"
+  [attr.viewBox]="data.viewBox"
+>
+  <g
+    *ngFor="let element of data.elements"
+    [ngSwitch]="element.element"
+    [style.opacity]="element.opacity"
+    [style.stroke]="element.stroke?.color"
+    [style.strokeOpacity]="element.stroke?.opacity"
+    [style.strokeWidth.%]="element.stroke?.width"
+    [style.strokeLinecap]="element.stroke?.linecap"
+    [style.strokeLinejoin]="element.stroke?.linejoin"
+    [attr.stroke-dasharray]="element.stroke?.dasharray"
+    [attr.stroke-dashoffset]="element.stroke?.dashoffset"
+    [style.fill]="element.fill?.color"
+    [style.fillOpacity]="element.fill?.opacity"
+    [style.fillRule]="element.fill?.rule"
+    [style.transform]="element.transform"
+    [style.transformOrigin]="element.transformOrigin"
+  >
+    <ellipse
+      *ngSwitchCase="'ellipse'"
+      [attr.cx]="element['cx']"
+      [attr.cy]="element['cy']"
+      [attr.rx]="element['rx']"
+      [attr.ry]="element['ry']"
+    ></ellipse>
+    <rect
+      *ngSwitchCase="'rect'"
+      [attr.x]="element['x']"
+      [attr.y]="element['y']"
+      [attr.width]="element['width']"
+      [attr.height]="element['height']"
+      [attr.rx]="element['rx']"
+      [attr.ry]="element['ry']"
+    ></rect>
+    <path *ngSwitchCase="'path'" [attr.d]="element['d']"></path>
+    <polygon
+      *ngSwitchCase="'polygon'"
+      [attr.points]="element['points']"
+    ></polygon>
+    <polyline
+      *ngSwitchCase="'polyline'"
+      [attr.points]="element['points']"
+    ></polyline>
+  </g>
+</svg>

@@ -5,6 +5,13 @@ export interface TrackRef {
   title: SavedTrack['title'];
 }
 
+/**
+ * A reference to the location and attributes of a video
+ * in which a plopdown is associated.
+ *
+ * @export
+ * @interface VideoRef
+ */
 export interface VideoRef {
   xpath: string;
   title: string;

@@ -13,6 +13,7 @@
       "Spaceribs",
       "timecode",
       "webext"
-    ]
+    ],
+    "deno.enable": false
   }
 }

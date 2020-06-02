@@ -18,7 +18,7 @@ if (oldModule != null) {
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
-  .then(module => {
+  .then((module) => {
     document[CONTENT_SCRIPT_NAME] = module;
   })
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));

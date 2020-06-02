@@ -1,27 +1,35 @@
 import {
+  Percentage,
+  Degree,
+  Emoji,
+  Title,
+  ExternalLink,
+  Description,
+} from './../../models/plopdown-primitives.model';
+import {
   PlopdownBaseTemplate,
-  PlopdownTemplateType
+  PlopdownTemplateType,
 } from '../../models/plopdown-base.model';
 
 interface Icon {
-  top: number;
-  left: number;
-  size: number;
-  rotate: number;
-  emoji: string;
+  top: Percentage;
+  left: Percentage;
+  size: Percentage;
+  rotate: Degree;
+  emoji: Emoji;
 }
 
 interface Footnote {
-  title: string;
-  url: string;
+  title: Title;
+  url: ExternalLink;
 }
 
 export interface PlopdownPlop extends PlopdownBaseTemplate {
   type: PlopdownTemplateType.Plop;
-  top: number;
-  left: number;
-  width: number;
-  desc: string;
+  top: Percentage;
+  left: Percentage;
+  width: Percentage;
+  desc: Description;
   footnotes?: Footnote[];
   icons: Icon[];
 }

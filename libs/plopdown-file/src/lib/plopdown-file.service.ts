@@ -1,11 +1,11 @@
-import { PlopdownFileV1Validator } from './../schema/plopdown-file-v1.validator';
+import { PlopdownFileV1Validator } from './plopdown-file.validator';
 import { PlopdownFileModule } from './plopdown-file.module';
 import { PlopdownFile } from './plopdown-file.model';
 import { Injectable } from '@angular/core';
 import { Cue, PlopdownTemplateType } from '@plopdown/plopdown-cues';
 
 @Injectable({
-  providedIn: PlopdownFileModule
+  providedIn: PlopdownFileModule,
 })
 export class PlopdownFileService {
   private readonly validator: PlopdownFileV1Validator;
@@ -62,7 +62,7 @@ export class PlopdownFileService {
   }
 
   private convertToCues(cues: Cue[]): string {
-    const cueStrings = cues.map(cue => {
+    const cueStrings = cues.map((cue) => {
       let cueString = '';
       const startString = this.convertToISOTime(cue.startTime);
       const endString = this.convertToISOTime(cue.endTime);
@@ -178,7 +178,7 @@ export class PlopdownFileService {
       files.push(file.headers.thumbnail);
     }
 
-    file.cues.forEach(cue => {
+    file.cues.forEach((cue) => {
       if (cue.data.type === PlopdownTemplateType.Audio) {
         files.push(cue.data.url);
       }

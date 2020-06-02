@@ -1,11 +1,16 @@
 import {
+  Title,
+  ExternalLink,
+  Author,
+} from './../../models/plopdown-primitives.model';
+import {
   PlopdownBaseTemplate,
-  PlopdownTemplateType
+  PlopdownTemplateType,
 } from '../../models/plopdown-base.model';
 
 export interface PlopdownInfo extends PlopdownBaseTemplate {
   type: PlopdownTemplateType.Info;
-  title: string;
-  url?: string;
-  authors: string[];
+  title: Title;
+  url?: ExternalLink;
+  authors: Author[];
 }
