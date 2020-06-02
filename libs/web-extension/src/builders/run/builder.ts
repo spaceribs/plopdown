@@ -1,7 +1,7 @@
 import {
   BuilderContext,
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import { Observable, of, bindCallback, from } from 'rxjs';
 import { switchMap, mapTo, map } from 'rxjs/operators';
@@ -17,20 +17,20 @@ export function runBuilder(
   context: BuilderContext
 ): Observable<BuilderOutput> {
   return of(options).pipe(
-    switchMap(opt => {
+    switchMap((opt) => {
       return from(
         webExt.cmd.run(
           {
             ...opt,
-            sourceDir: resolve(opt.sourceDir)
+            sourceDir: resolve(opt.sourceDir),
           },
           {
-            shouldExitProgram: false
+            shouldExitProgram: false,
           }
         )
       ).pipe(
         switchMap((res: any) => {
-          return new Observable(observer => {
+          return new Observable((observer) => {
             if (res.extensionRunners && res.extensionRunners.length <= 0) {
               throw new Error('No instances running the extension.');
             }

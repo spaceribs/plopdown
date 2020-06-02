@@ -11,9 +11,6 @@
     "nx.json": "*"
   },
   "projects": {
-    "web-ext": {
-      "tags": []
-    },
     "plopdown-ext": {
       "tags": [],
       "implicitDependencies": [
@@ -87,6 +84,13 @@
     },
     "devtools-ref": {
       "tags": []
+    },
+    "web-extension": {
+      "tags": []
+    },
+    "web-extension-e2e": {
+      "tags": [],
+      "implicitDependencies": ["web-extension"]
     }
   }
 }

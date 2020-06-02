@@ -5,12 +5,16 @@ import { join } from 'path';
 
 import { WebExtSchematicSchema } from './schema';
 
-describe('web-ext schematic', () => {
+describe('web-extension schematic', () => {
   let appTree: Tree;
-  const options: WebExtSchematicSchema = { name: 'test' };
+  const options: WebExtSchematicSchema = {
+    name: 'test',
+    home: 'test',
+    desc: 'test',
+  };
 
   const testRunner = new SchematicTestRunner(
-    '@plopdown/web-ext',
+    '@plopdown/web-extension',
     join(__dirname, '../../../collection.json')
   );
 
