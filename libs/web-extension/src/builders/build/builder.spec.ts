@@ -1,13 +1,13 @@
+import { WebExtBuilderSchema } from './schema.d';
 import { Architect } from '@angular-devkit/architect';
 import { TestingArchitectHost } from '@angular-devkit/architect/testing';
 import { schema } from '@angular-devkit/core';
 import { join } from 'path';
-import { WebExtBuilderSchema } from './schema';
 
 const options: WebExtBuilderSchema = {
   artifactsDir: 'test/artifactsDir',
   destinationDir: 'test/destinationDir',
-  sourceDir: 'test/sourceDir'
+  sourceDir: 'test/sourceDir',
 };
 
 describe('Command Runner Builder', () => {
@@ -29,7 +29,7 @@ describe('Command Runner Builder', () => {
   it('can run', async () => {
     // A "run" can have multiple outputs, and contains progress information.
     const run = await architect.scheduleBuilder(
-      '@plopdown/web-ext:build',
+      '@plopdown/web-extension:build',
       options
     );
     // The "result" member (of type BuilderOutput) is the next output.

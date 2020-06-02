@@ -5,7 +5,7 @@ import {
   mergeWith,
   move,
   Rule,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addProjectToNxJsonInTree,
@@ -14,7 +14,7 @@ import {
   projectRootDir,
   ProjectType,
   toFileName,
-  updateWorkspace
+  updateWorkspace,
 } from '@nrwl/workspace';
 import { WebExtSchematicSchema } from './schema';
 
@@ -42,7 +42,7 @@ function normalizeOptions(options: WebExtSchematicSchema): NormalizedSchema {
   const projectDesc = options.desc;
   const projectRoot = `${projectRootDir(projectType)}/${projectDirectory}`;
   const parsedTags = options.tags
-    ? options.tags.split(',').map(s => s.trim())
+    ? options.tags.split(',').map((s) => s.trim())
     : [];
 
   return {
@@ -52,7 +52,7 @@ function normalizeOptions(options: WebExtSchematicSchema): NormalizedSchema {
     projectDesc,
     projectRoot,
     projectDirectory,
-    parsedTags
+    parsedTags,
   };
 }
 
@@ -62,32 +62,32 @@ function addFiles(options: NormalizedSchema): Rule {
       applyTemplates({
         ...options,
         ...names(options.name),
-        offsetFromRoot: offsetFromRoot(options.projectRoot)
+        offsetFromRoot: offsetFromRoot(options.projectRoot),
       }),
-      move(options.projectRoot)
+      move(options.projectRoot),
     ])
   );
 }
 
-export default function(options: WebExtSchematicSchema): Rule {
+export default function (options: WebExtSchematicSchema): Rule {
   const normalizedOptions = normalizeOptions(options);
   return chain([
-    updateWorkspace(workspace => {
+    updateWorkspace((workspace) => {
       workspace.projects
         .add({
           name: normalizedOptions.projectName,
           root: normalizedOptions.projectRoot,
           sourceRoot: `${normalizedOptions.projectRoot}/src`,
-          projectType
+          projectType,
         })
         .targets.add({
           name: 'build',
-          builder: '@plopdown/web-ext:build'
+          builder: '@plopdown/web-extension:build',
         });
     }),
     addProjectToNxJsonInTree(normalizedOptions.projectName, {
-      tags: normalizedOptions.parsedTags
+      tags: normalizedOptions.parsedTags,
     }),
-    addFiles(normalizedOptions)
+    addFiles(normalizedOptions),
   ]);
 }

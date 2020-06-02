@@ -1,0 +1,12 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "name": "web-extension",
+  "version": "0.0.1",
+  "schematics": {
+    "web-extension": {
+      "factory": "./src/schematics/web-extension/schematic",
+      "schema": "./src/schematics/web-extension/schema.json",
+      "description": "web-extension schematic"
+    }
+  }
+}

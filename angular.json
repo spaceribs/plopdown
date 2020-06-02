@@ -1,69 +1,13 @@
 {
   "version": 1,
   "projects": {
-    "web-ext": {
-      "root": "libs/web-ext",
-      "sourceRoot": "libs/web-ext/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/web-ext/tsconfig.lib.json",
-              "libs/web-ext/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/web-ext/**"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/web-ext/jest.config.js",
-            "tsConfig": "libs/web-ext/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "options": {
-            "outputPath": "dist/libs/web-ext",
-            "tsConfig": "libs/web-ext/tsconfig.lib.json",
-            "packageJson": "libs/web-ext/package.json",
-            "main": "libs/web-ext/src/index.ts",
-            "assets": [
-              "libs/web-ext/*.md",
-              {
-                "input": "./libs/web-ext/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/web-ext",
-                "glob": "collection.json",
-                "output": "."
-              },
-              {
-                "input": "./libs/web-ext",
-                "glob": "builders.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
     "plopdown-ext": {
       "projectType": "application",
       "root": "apps/plopdown-ext",
       "sourceRoot": "apps/plopdown-ext/src",
       "architect": {
         "build": {
-          "builder": "@plopdown/web-ext:build",
+          "builder": "@plopdown/web-extension:build",
           "options": {
             "destinationDir": "dist/apps/plopdown-ext",
             "artifactsDir": "dist/extensions",
@@ -73,11 +17,9 @@
           }
         },
         "serve": {
-          "builder": "@plopdown/web-ext:run",
+          "builder": "@plopdown/web-extension:run",
           "options": {
-            "startUrl": [
-              "http://localhost:4200/"
-            ],
+            "startUrl": ["http://localhost:4200/"],
             "sourceDir": "dist/apps/plopdown-ext"
           }
         }
@@ -103,9 +45,7 @@
             "polyfills": "apps/background/src/polyfills.ts",
             "tsConfig": "apps/background/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/background/src/assets"
-            ],
+            "assets": ["apps/background/src/assets"],
             "styles": [],
             "scripts": [],
             "vendorChunk": false,
@@ -166,10 +106,7 @@
               "apps/background/tsconfig.app.json",
               "apps/background/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/background/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/background/**"]
           }
         },
         "test": {
@@ -208,9 +145,7 @@
               "apps/browser-action/src/favicon.ico",
               "apps/browser-action/src/assets"
             ],
-            "styles": [
-              "apps/browser-action/src/styles.scss"
-            ],
+            "styles": ["apps/browser-action/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -268,10 +203,7 @@
               "apps/browser-action/tsconfig.app.json",
               "apps/browser-action/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/browser-action/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/browser-action/**"]
           }
         },
         "test": {
@@ -310,9 +242,7 @@
               "apps/options/src/favicon.ico",
               "apps/options/src/assets"
             ],
-            "styles": [
-              "apps/options/src/styles.scss"
-            ],
+            "styles": ["apps/options/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -370,10 +300,7 @@
               "apps/options/tsconfig.app.json",
               "apps/options/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/options/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/options/**"]
           }
         },
         "test": {
@@ -415,9 +342,7 @@
               "apps/content-script/src/favicon.ico",
               "apps/content-script/src/assets"
             ],
-            "styles": [
-              "apps/content-script/src/styles.scss"
-            ],
+            "styles": ["apps/content-script/src/styles.scss"],
             "scripts": [],
             "vendorChunk": false,
             "extractCss": false
@@ -476,10 +401,7 @@
               "apps/content-script/tsconfig.app.json",
               "apps/content-script/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/content-script/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/content-script/**"]
           }
         },
         "test": {
@@ -517,9 +439,7 @@
               "apps/testing-sandbox/src/favicon.ico",
               "apps/testing-sandbox/src/assets"
             ],
-            "styles": [
-              "apps/testing-sandbox/src/styles.scss"
-            ],
+            "styles": ["apps/testing-sandbox/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -577,10 +497,7 @@
               "apps/testing-sandbox/tsconfig.app.json",
               "apps/testing-sandbox/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/testing-sandbox/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/testing-sandbox/**"]
           }
         },
         "test": {
@@ -607,10 +524,7 @@
               "libs/plopdown-file/tsconfig.lib.json",
               "libs/plopdown-file/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/plopdown-file/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/plopdown-file/**"]
           }
         },
         "test": {
@@ -642,10 +556,7 @@
               "libs/messages/tsconfig.lib.json",
               "libs/messages/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/messages/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/messages/**"]
           }
         },
         "test": {
@@ -677,10 +588,7 @@
               "libs/video-refs/tsconfig.lib.json",
               "libs/video-refs/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/video-refs/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/video-refs/**"]
           }
         },
         "test": {
@@ -712,10 +620,7 @@
               "libs/tracks/tsconfig.lib.json",
               "libs/tracks/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/tracks/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/tracks/**"]
           }
         },
         "test": {
@@ -747,10 +652,7 @@
               "libs/logger/tsconfig.lib.json",
               "libs/logger/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/logger/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/logger/**"]
           }
         },
         "test": {
@@ -782,10 +684,7 @@
               "libs/window-ref/tsconfig.lib.json",
               "libs/window-ref/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/window-ref/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/window-ref/**"]
           }
         },
         "test": {
@@ -817,10 +716,7 @@
               "libs/browser-ref/tsconfig.lib.json",
               "libs/browser-ref/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/browser-ref/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/browser-ref/**"]
           }
         },
         "test": {
@@ -852,10 +748,7 @@
               "libs/ext-storage/tsconfig.lib.json",
               "libs/ext-storage/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ext-storage/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/ext-storage/**"]
           }
         },
         "test": {
@@ -887,10 +780,7 @@
               "libs/icon/tsconfig.lib.json",
               "libs/icon/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/icon/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/icon/**"]
           }
         },
         "test": {
@@ -922,10 +812,7 @@
               "libs/plopdown-cues/tsconfig.lib.json",
               "libs/plopdown-cues/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/plopdown-cues/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/plopdown-cues/**"]
           }
         },
         "test": {
@@ -970,9 +857,7 @@
               "apps/website/src/404.html",
               "apps/website/src/CNAME"
             ],
-            "styles": [
-              "apps/website/src/styles.scss"
-            ],
+            "styles": ["apps/website/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -1030,10 +915,7 @@
               "apps/website/tsconfig.app.json",
               "apps/website/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/website/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/website/**"]
           }
         },
         "test": {
@@ -1060,10 +942,7 @@
               "libs/plopdown-overlay/tsconfig.lib.json",
               "libs/plopdown-overlay/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/plopdown-overlay/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/plopdown-overlay/**"]
           }
         },
         "test": {
@@ -1095,10 +974,7 @@
               "libs/tokens/tsconfig.lib.json",
               "libs/tokens/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/tokens/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/tokens/**"]
           }
         },
         "test": {
@@ -1141,9 +1017,7 @@
               "apps/devtool/src/favicon.ico",
               "apps/devtool/src/assets"
             ],
-            "styles": [
-              "apps/devtool/src/styles.scss"
-            ],
+            "styles": ["apps/devtool/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -1201,10 +1075,7 @@
               "apps/devtool/tsconfig.app.json",
               "apps/devtool/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/devtool/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/devtool/**"]
           }
         },
         "test": {
@@ -1242,9 +1113,7 @@
               "apps/devtool-panels/src/favicon.ico",
               "apps/devtool-panels/src/assets"
             ],
-            "styles": [
-              "apps/devtool-panels/src/styles.scss"
-            ],
+            "styles": ["apps/devtool-panels/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -1302,10 +1171,7 @@
               "apps/devtool-panels/tsconfig.app.json",
               "apps/devtool-panels/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/devtool-panels/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/devtool-panels/**"]
           }
         },
         "test": {
@@ -1332,10 +1198,7 @@
               "libs/devtools-ref/tsconfig.lib.json",
               "libs/devtools-ref/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/devtools-ref/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/devtools-ref/**"]
           }
         },
         "test": {
@@ -1351,6 +1214,76 @@
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
+        }
+      }
+    },
+    "web-extension": {
+      "root": "libs/web-extension",
+      "sourceRoot": "libs/web-extension/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web-extension/tsconfig.lib.json",
+              "libs/web-extension/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/web-extension/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web-extension/jest.config.js",
+            "tsConfig": "libs/web-extension/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/web-extension",
+            "tsConfig": "libs/web-extension/tsconfig.lib.json",
+            "packageJson": "libs/web-extension/package.json",
+            "main": "libs/web-extension/src/index.ts",
+            "assets": [
+              "libs/web-extension/*.md",
+              {
+                "input": "./libs/web-extension/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/web-extension",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/web-extension",
+                "glob": "builders.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "web-extension-e2e": {
+      "projectType": "application",
+      "root": "apps/web-extension-e2e",
+      "sourceRoot": "apps/web-extension-e2e/src",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "web-extension:build",
+            "npmPackageName": "@plopdown/web-extension",
+            "pluginOutputPath": "dist/libs/web-extension",
+            "jestConfig": "apps/web-extension-e2e/jest.config.js",
+            "tsSpecConfig": "apps/web-extension-e2e/tsconfig.spec.json"
+          }
         }
       }
     }
