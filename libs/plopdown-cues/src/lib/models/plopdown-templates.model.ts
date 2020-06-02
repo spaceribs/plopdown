@@ -8,13 +8,20 @@ import { PlopdownInfo } from '../cues/info/info.model';
 import { PlopdownTemplateType } from './plopdown-base.model';
 import { PlopdownBaseComponent } from './plopdown-base.component';
 import { Type } from '@angular/core';
+import { PlopdownShape } from '../cues/shape/shape.model';
+import { ShapeComponent } from '../cues/shape/shape.component';
 
-export type PlopdownTemplate = PlopdownInfo | PlopdownPlop | PlopdownAudio;
+export type PlopdownTemplate =
+  | PlopdownInfo
+  | PlopdownPlop
+  | PlopdownAudio
+  | PlopdownShape;
 
 export const PLOPDOWN_TEMPLATES: {
   [key in PlopdownTemplateType]: Type<PlopdownBaseComponent<PlopdownTemplate>>;
 } = {
   [PlopdownTemplateType.Info]: InfoComponent,
   [PlopdownTemplateType.Plop]: PlopComponent,
-  [PlopdownTemplateType.Audio]: AudioComponent
+  [PlopdownTemplateType.Audio]: AudioComponent,
+  [PlopdownTemplateType.Shape]: ShapeComponent
 };

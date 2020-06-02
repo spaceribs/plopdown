@@ -11,6 +11,7 @@ import {
   DefaultWidgetRegistry,
 } from 'ngx-schema-form';
 import { AudioComponent } from './cues/audio/audio.component';
+import { ShapeComponent } from './cues/shape/shape.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, SchemaFormModule.forRoot(), IconModule],
@@ -18,9 +19,16 @@ import { AudioComponent } from './cues/audio/audio.component';
     CueRendererComponent,
     InfoComponent,
     PlopComponent,
-    AudioComponent,
+    ShapeComponent,
+    AudioComponent
   ],
-  exports: [CueRendererComponent, InfoComponent, PlopComponent, AudioComponent],
-  providers: [{ provide: WidgetRegistry, useClass: DefaultWidgetRegistry }],
+  exports: [
+    CueRendererComponent,
+    InfoComponent,
+    PlopComponent,
+    ShapeComponent,
+    AudioComponent
+  ],
+  providers: [{ provide: WidgetRegistry, useClass: DefaultWidgetRegistry }]
 })
 export class PlopdownCuesModule {}

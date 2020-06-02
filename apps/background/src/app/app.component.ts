@@ -1,7 +1,7 @@
 import {
   VideoRef,
   VideoRefsService,
-  SavedVideoRef
+  SavedVideoRef,
 } from '@plopdown/video-refs';
 import {
   ContentScriptSubService,
@@ -10,7 +10,7 @@ import {
   ContentScriptCommand,
   ContentScriptReady,
   BrowserActionQueryVideoRefs,
-  ContentScriptIFramesFound
+  ContentScriptIFramesFound,
 } from '@plopdown/messages';
 import { LoggerService } from '@plopdown/logger';
 import { PlopdownFileService, PlopdownFile } from '@plopdown/plopdown-file';
@@ -18,7 +18,7 @@ import { Component, OnDestroy, OnInit, ErrorHandler } from '@angular/core';
 import {
   RuntimeService,
   OnInstalledDetails,
-  TabsService
+  TabsService,
 } from '@plopdown/browser-ref';
 import {
   Subscription,
@@ -26,7 +26,7 @@ import {
   concat,
   combineLatest,
   forkJoin,
-  of
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -38,14 +38,14 @@ import {
   scan,
   catchError,
   mapTo,
-  share
+  share,
 } from 'rxjs/operators';
 import { Track, TracksService } from '@plopdown/tracks';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   template: 'plopdown-background',
-  selector: 'plopdown-background'
+  selector: 'plopdown-background',
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
@@ -75,7 +75,7 @@ export class AppComponent implements OnInit, OnDestroy {
     baSub: BrowserActionSubService
   ) {
     this.onNewInstall$ = runtime.getOnInstalled().pipe(
-      filter(details => details.reason === 'install'),
+      filter((details) => details.reason === 'install'),
       first()
     );
 
@@ -87,8 +87,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.knownVideos$ = this.onContentScriptVideos$.pipe(
       scan((acc, msg) => {
-        msg.args.forEach(videoRef => {
-          const exists = acc.find(item => {
+        msg.args.forEach((videoRef) => {
+          const exists = acc.find((item) => {
             return (
               item.frameOrigin === videoRef.frameOrigin &&
               videoRef.xpath === item.xpath &&
@@ -108,7 +108,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.knownIFrames$ = this.onContentScriptIFrames$.pipe(
       scan((acc, msg) => {
-        msg.args.forEach(iframe => {
+        msg.args.forEach((iframe) => {
           if (!acc.includes(iframe)) {
             acc.push(iframe);
           }
@@ -135,9 +135,9 @@ export class AppComponent implements OnInit, OnDestroy {
           next: () => {
             this.runtime.openOptionsPage();
           },
-          error: err => {
+          error: (err) => {
             this.errorHandler.handleError(err);
-          }
+          },
         });
       this.subs.add(newInstallSub);
     }
@@ -147,21 +147,21 @@ export class AppComponent implements OnInit, OnDestroy {
         switchMap(() => {
           return this.installContentScript().pipe(
             mapTo(null),
-            catchError(err => of(err))
+            catchError((err) => of(err))
           );
         }),
         share()
       );
 
       const contentScriptReady$ = installContentScript$.pipe(
-        filter(res => !(res instanceof Error)),
+        filter((res) => !(res instanceof Error)),
         switchMap(() => {
           return this.onContentScriptReady$;
         })
       );
 
       const contentScriptError$ = installContentScript$.pipe(
-        filter(res => res instanceof Error)
+        filter((res) => res instanceof Error)
       );
 
       const contentScriptReadySub = contentScriptReady$.subscribe({
@@ -171,19 +171,19 @@ export class AppComponent implements OnInit, OnDestroy {
             this.bgPub.findVideos();
           }, 100);
         },
-        error: err => {
+        error: (err) => {
           this.errorHandler.handleError(err);
-        }
+        },
       });
       this.subs.add(contentScriptReadySub);
 
       const contentScriptErrorSub = contentScriptError$.subscribe({
-        next: res => {
+        next: (res) => {
           this.logger.warn(res);
         },
-        error: err => {
+        error: (err) => {
           this.errorHandler.handleError(err);
-        }
+        },
       });
       this.subs.add(contentScriptErrorSub);
     }
@@ -191,35 +191,35 @@ export class AppComponent implements OnInit, OnDestroy {
     VideosFound: {
       const contentFoundSub = combineLatest([
         this.knownVideos$,
-        this.knownIFrames$
+        this.knownIFrames$,
       ]).subscribe({
         next: ([videoRefs, iframes]) => {
           this.bgPub.contentFound(videoRefs, iframes);
         },
-        error: err => this.errorHandler.handleError(err)
+        error: (err) => this.errorHandler.handleError(err),
       });
       this.subs.add(contentFoundSub);
     }
 
     VideoRefsFound: {
       const foundVideoRefs$ = this.knownVideos$.pipe(
-        switchMap(videoRefs => {
+        switchMap((videoRefs) => {
           return forkJoin(
-            videoRefs.map(videoRef => {
+            videoRefs.map((videoRef) => {
               return this.videoRefsService.findVideoRefs(videoRef);
             })
           );
         }),
-        map<any, SavedVideoRef[]>(results =>
+        map<any, SavedVideoRef[]>((results) =>
           results.reduce((memo, result) => memo.concat(result), [])
         )
       );
 
       const foundRefsAndTrack$ = foundVideoRefs$.pipe(
-        switchMap(videoRefs => {
-          const refs$ = videoRefs.map(videoRef => {
+        switchMap((videoRefs) => {
+          const refs$ = videoRefs.map((videoRef) => {
             return this.tracksService.getTrack(videoRef.track._id).pipe(
-              map<any, SavedVideoRef>(track => {
+              map<any, SavedVideoRef>((track) => {
                 videoRef.track = track;
                 return videoRef;
               })
@@ -230,12 +230,12 @@ export class AppComponent implements OnInit, OnDestroy {
       );
 
       const foundVideoRefsSub = foundRefsAndTrack$.subscribe({
-        next: next => {
+        next: (next) => {
           this.bgPub.videoRefsFound(next);
         },
-        error: err => {
+        error: (err) => {
           this.logger.error(err);
-        }
+        },
       });
       this.subs.add(foundVideoRefsSub);
     }
@@ -249,7 +249,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const getTrack$ = this.http
       .get('/background/assets/intro.vtt', { responseType: 'text' })
       .pipe(
-        map(raw => {
+        map((raw) => {
           const file: PlopdownFile = this.fileService.decode(raw);
 
           const introTrack: Track = {
@@ -260,7 +260,7 @@ export class AppComponent implements OnInit, OnDestroy {
             authors: file.headers.authors,
             language: file.headers.language,
             license: file.headers.license,
-            cues: file.cues
+            cues: file.cues,
           };
 
           return introTrack;
@@ -269,12 +269,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const getSound$ = this.http
       .get('/background/assets/classics.mp3', {
-        responseType: 'blob'
+        responseType: 'blob',
       })
       .pipe(
-        map(blob => {
+        map((blob) => {
           return new File([blob], 'classics.mp3', {
-            type: blob.type
+            type: blob.type,
           });
         }),
         first()
@@ -282,12 +282,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const getThumbnail$ = this.http
       .get('/background/assets/thumbnail.png', {
-        responseType: 'blob'
+        responseType: 'blob',
       })
       .pipe(
-        map(blob => {
+        map((blob) => {
           return new File([blob], 'thumbnail.png', {
-            type: blob.type
+            type: blob.type,
           });
         }),
         first()
@@ -300,39 +300,34 @@ export class AppComponent implements OnInit, OnDestroy {
           _attachments: {
             'classics.mp3': {
               content_type: sound.type,
-              data: sound
+              data: sound,
             },
             'thumbnail.png': {
               content_type: thumbnail.type,
-              data: thumbnail
-            }
-          }
+              data: thumbnail,
+            },
+          },
         });
       })
     );
   }
 
   private installContentScript() {
-    const zone$ = this.tabs.executeScript({
-      file: 'content-script/zone-js-dist-zone.js',
-      allFrames: true
-    });
-
     const polyfills$ = this.tabs.executeScript({
       file: 'content-script/polyfills.js',
-      allFrames: true
+      allFrames: true,
     });
 
     const styles$ = this.tabs.executeScript({
       file: 'content-script/styles.js',
-      allFrames: true
+      allFrames: true,
     });
 
     const main$ = this.tabs.executeScript({
       file: 'content-script/main.js',
-      allFrames: true
+      allFrames: true,
     });
 
-    return concat(zone$, polyfills$, styles$, main$);
+    return concat(polyfills$, styles$, main$);
   }
 }
