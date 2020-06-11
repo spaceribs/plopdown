@@ -35,7 +35,7 @@ import { rubberBand, zoomOut } from 'ng-animate';
   ],
 })
 export class PlopComponent extends PlopdownBaseComponent<PlopdownPlop>
-  implements OnChanges {
+  implements OnChanges, AfterViewInit {
   public color = '#b2e7c1';
   @HostBinding('@plopIn') public animate: boolean;
   @HostBinding('style.top.%') top: number;
@@ -55,6 +55,16 @@ export class PlopComponent extends PlopdownBaseComponent<PlopdownPlop>
     this.top = this.data.top;
     this.left = this.data.left;
     this.width = this.data.width;
+  }
+
+  ngAfterViewInit(): void {
+    if (this.data) {
+      this.top = this.data.top;
+      this.left = this.data.left;
+      this.width = this.data.width;
+
+      this.cd.detectChanges();
+    }
   }
 
   textPreview(data = this.data): string {
