@@ -823,6 +823,36 @@
             "passWithNoTests": true,
             "setupFile": "libs/plopdown-cues/src/test-setup.ts"
           }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/plopdown-cues/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "outputPath": "docs/storybook/plopdown-cues",
+            "config": {
+              "configFolder": "libs/plopdown-cues/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
         }
       },
       "schematics": {
@@ -1283,6 +1313,50 @@
             "pluginOutputPath": "dist/libs/web-extension",
             "jestConfig": "apps/web-extension-e2e/jest.config.js",
             "tsSpecConfig": "apps/web-extension-e2e/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "plopdown-cues-e2e": {
+      "root": "apps/plopdown-cues-e2e",
+      "sourceRoot": "apps/plopdown-cues-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/plopdown-cues-e2e/cypress.json",
+            "tsConfig": "apps/plopdown-cues-e2e/tsconfig.e2e.json",
+            "devServerTarget": "plopdown-cues:storybook"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "plopdown-cues:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/plopdown-cues-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/plopdown-cues-e2e/**"]
+          }
+        }
+      }
+    },
+    "storybook": {
+      "projectType": "application",
+      "root": "",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "tsConfig": "tsconfig.json",
+            "commands": [
+              {
+                "command": "echo"
+              }
+            ]
           }
         }
       }

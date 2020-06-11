@@ -14,14 +14,14 @@ export class EditSkipService {
     const edits$ = audioEdits.getEdits();
 
     this.skipEdits$ = edits$.pipe(
-      map(edits => {
+      map((edits) => {
         return edits.filter(this.isSkipEdit);
       })
     );
 
     this.skipOffset$ = combineLatest([editTime$, this.skipEdits$]).pipe(
       map(([currentTime, skips]) => {
-        const activatedSkips = skips.filter(skip => {
+        const activatedSkips = skips.filter((skip) => {
           return currentTime > skip.startTime;
         });
 

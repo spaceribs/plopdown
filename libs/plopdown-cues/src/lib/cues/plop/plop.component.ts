@@ -5,7 +5,8 @@ import {
   HostBinding,
   AfterViewInit,
   ChangeDetectorRef,
-  HostListener
+  HostListener,
+  OnChanges,
 } from '@angular/core';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
 import { trigger, transition, useAnimation } from '@angular/animations';
@@ -21,20 +22,20 @@ import { rubberBand, zoomOut } from 'ng-animate';
       transition(
         'void => *',
         useAnimation(rubberBand, {
-          params: { timing: 0.2 }
+          params: { timing: 0.2 },
         })
       ),
       transition(
         '* => void',
         useAnimation(zoomOut, {
-          params: { timing: 0.2 }
+          params: { timing: 0.2 },
         })
-      )
-    ])
-  ]
+      ),
+    ]),
+  ],
 })
 export class PlopComponent extends PlopdownBaseComponent<PlopdownPlop>
-  implements AfterViewInit {
+  implements OnChanges {
   public color = '#b2e7c1';
   @HostBinding('@plopIn') public animate: boolean;
   @HostBinding('style.top.%') top: number;
@@ -50,12 +51,10 @@ export class PlopComponent extends PlopdownBaseComponent<PlopdownPlop>
     super();
   }
 
-  ngAfterViewInit(): void {
+  ngOnChanges(): void {
     this.top = this.data.top;
     this.left = this.data.left;
     this.width = this.data.width;
-
-    this.cd.detectChanges();
   }
 
   textPreview(data = this.data): string {
