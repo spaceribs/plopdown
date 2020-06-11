@@ -91,6 +91,13 @@
     "web-extension-e2e": {
       "tags": [],
       "implicitDependencies": ["web-extension"]
+    },
+    "plopdown-cues-e2e": {
+      "tags": [],
+      "implicitDependencies": ["plopdown-cues"]
+    },
+    "storybook": {
+      "tags": []
     }
   }
 }

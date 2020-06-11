@@ -5,7 +5,8 @@ import {
   Subject,
   ReplaySubject,
   fromEvent,
-  merge
+  merge,
+  BehaviorSubject,
 } from 'rxjs';
 import { AudioEdit } from './audio-edits.model';
 import { switchMap, map, startWith, withLatestFrom } from 'rxjs/operators';
@@ -13,7 +14,7 @@ import { switchMap, map, startWith, withLatestFrom } from 'rxjs/operators';
 @Injectable()
 export class AudioEditsService {
   private audioElem$: Subject<HTMLAudioElement> = new ReplaySubject(1);
-  private edits$: Subject<AudioEdit[]> = new ReplaySubject(1);
+  private edits$: Subject<AudioEdit[]> = new BehaviorSubject([]);
 
   public setAudioElem(audioElem: HTMLAudioElement) {
     this.audioElem$.next(audioElem);
@@ -31,8 +32,8 @@ export class AudioEditsService {
 
   public getEditTime() {
     const audioMetaTrack$ = this.audioElem$.pipe(
-      switchMap(audio => {
-        return new Observable<TextTrack>(observer => {
+      switchMap((audio) => {
+        return new Observable<TextTrack>((observer) => {
           const audioMetadata = audio.addTextTrack('metadata');
           audioMetadata.mode = 'showing';
 
@@ -52,7 +53,7 @@ export class AudioEditsService {
           return EMPTY;
         }
 
-        edits.forEach(edit => {
+        edits.forEach((edit) => {
           const cue = new VTTCue(
             edit['startTime'],
             edit['endTime'] || edit['startTime'],

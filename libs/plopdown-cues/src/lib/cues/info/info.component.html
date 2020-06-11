@@ -1,5 +1,11 @@
 <h3>
-  <a *ngIf="data.url" [href]="data.url" target="_blank">{{ data.title }}</a>
+  <a
+    *ngIf="data.url"
+    [href]="data.url"
+    rel="noreferrer noopener"
+    target="_blank"
+    >{{ data.title }}</a
+  >
   <ng-container *ngIf="!data.url">{{ data.title }}</ng-container>
 </h3>
 <h4>

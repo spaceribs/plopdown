@@ -10,7 +10,7 @@ import {
   ElementRef,
   OnDestroy,
   AfterViewInit,
-  HostBinding
+  HostBinding,
 } from '@angular/core';
 import { PlopdownAudio } from './audio.model';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
@@ -22,14 +22,14 @@ import {
   filter,
   mapTo,
   shareReplay,
-  withLatestFrom
+  withLatestFrom,
 } from 'rxjs/operators';
 
 @Component({
   selector: 'plopdown-audio',
   templateUrl: './audio.component.html',
   styleUrls: ['./audio.component.scss'],
-  providers: [AudioEditsService, EditSkipService]
+  providers: [AudioEditsService, EditSkipService],
 })
 export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   implements AfterViewInit, OnDestroy {
@@ -84,7 +84,9 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
       fromEvent(this.videoElem, 'pause')
     ).pipe(mapTo(null));
 
-    const isPlaying = of(this.videoElem.paused).pipe(filter(paused => !paused));
+    const isPlaying = of(this.videoElem.paused).pipe(
+      filter((paused) => !paused)
+    );
 
     this.videoPlaying$ = merge(
       isPlaying,
@@ -97,7 +99,7 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
     ).pipe(shareReplay(1));
 
     this.progressStyle$ = this.audioTimeUpdate$.pipe(
-      map(event => {
+      map((event) => {
         const currentTime = (event.target as HTMLAudioElement).currentTime;
         const duration = (event.target as HTMLAudioElement).duration;
         const radius = 45;
@@ -105,15 +107,19 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
         const completed = currentTime / duration;
 
         return {
-          'stroke-dasharray': `${circumference * completed}% ${circumference}%`
+          'stroke-dasharray': `${circumference * completed}% ${circumference}%`,
         };
       })
     );
 
+    this.audioEdits.setAudioElem(this.audioElem.nativeElement);
+
     if (this.data.edits && this.data.edits.length > 0) {
-      this.audioEdits.setAudioElem(this.audioElem.nativeElement);
       this.audioEdits.setEdits(this.data.edits);
       this.skipOffset$ = this.editSkip.getOffset().pipe(shareReplay(1));
+    } else {
+      this.audioEdits.setEdits([]);
+      this.skipOffset$ = of(0);
     }
 
     this.timeUpdate$ = merge(
@@ -124,7 +130,7 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
       map(([_, skipOffset]) => {
         return [
           this.audioElem.nativeElement.currentTime - skipOffset,
-          this.videoElem.currentTime
+          this.videoElem.currentTime,
         ];
       })
     );
@@ -135,10 +141,10 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
         return Math.round((videoTime - offsetTime) * 1000);
       }),
       distinctUntilChanged(),
-      filter(offset => offset > 150 || offset < -150)
+      filter((offset) => offset > 150 || offset < -150)
     );
 
-    const syncSub = this.syncOffset$.subscribe(offset => {
+    const syncSub = this.syncOffset$.subscribe((offset) => {
       const currentMS = this.audioElem.nativeElement.currentTime * 1000;
       this.audioElem.nativeElement.currentTime = (currentMS + offset) / 1000;
     });
