@@ -5,7 +5,7 @@ import {
   Percentage,
   ViewBox,
   TransformOrigin,
-} from './../../models/plopdown-primitives.model';
+} from '../../models/plopdown-primitives.model';
 import {
   PlopdownBaseTemplate,
   PlopdownTemplateType,

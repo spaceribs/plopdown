@@ -9,7 +9,7 @@ import {
   BehaviorSubject,
   merge,
   fromEvent,
-  of
+  of,
 } from 'rxjs';
 import {
   Component,
@@ -19,7 +19,7 @@ import {
   Output,
   EventEmitter,
   Inject,
-  ElementRef
+  ElementRef,
 } from '@angular/core';
 import {
   map,
@@ -29,7 +29,7 @@ import {
   startWith,
   mapTo,
   debounceTime,
-  throttleTime
+  throttleTime,
 } from 'rxjs/operators';
 import {
   trigger,
@@ -37,9 +37,9 @@ import {
   useAnimation,
   sequence,
   style,
-  animate
+  animate,
 } from '@angular/animations';
-import { Cue } from '@plopdown/plopdown-cues';
+import { Cue } from '@plopdown/plopdown-embed';
 
 @Component({
   selector: 'plopdown-video-overlay',
@@ -54,22 +54,22 @@ import { Cue } from '@plopdown/plopdown-cues';
         sequence([
           style({
             'box-shadow': 'inset 0 0 0 3px lightgreen',
-            'background-color': 'rgb(144, 238, 144, 0.2)'
+            'background-color': 'rgb(144, 238, 144, 0.2)',
           }),
           useAnimation(bounceIn, {
-            params: { timing: 0.4 }
+            params: { timing: 0.4 },
           }),
           animate(
             '1s',
             style({
               'box-shadow': 'inset 0 0 0 3px transparent',
-              'background-color': 'transparent'
+              'background-color': 'transparent',
             })
-          )
+          ),
         ])
-      )
-    ])
-  ]
+      ),
+    ]),
+  ],
 })
 export class VideoOverlayComponent {
   private manualReposition$: Subject<void> = new BehaviorSubject(null);
@@ -97,7 +97,7 @@ export class VideoOverlayComponent {
 
     const metadataTrack$ = combineLatest([of(videoElem), of(plopTrack)]).pipe(
       switchMap(([elem, track]) => {
-        return new Observable<TextTrack>(observer => {
+        return new Observable<TextTrack>((observer) => {
           const metadataTrack: TextTrack = elem.addTextTrack(
             'metadata',
             track._id,
@@ -120,7 +120,7 @@ export class VideoOverlayComponent {
     );
 
     this.cues$ = metadataTrack$.pipe(
-      switchMap(track => {
+      switchMap((track) => {
         return fromEvent(track, 'cuechange').pipe(
           startWith(track),
           map(() => {
@@ -128,10 +128,10 @@ export class VideoOverlayComponent {
           })
         );
       }),
-      map(cueList => {
+      map((cueList) => {
         return this.cueListToArray(cueList);
       }),
-      tap(_ => {
+      tap((_) => {
         setTimeout(() => {
           cd.detectChanges();
         }, 0);
@@ -140,7 +140,7 @@ export class VideoOverlayComponent {
     );
 
     const positionOverlay$ = of(videoElem).pipe(
-      switchMap(elem => {
+      switchMap((elem) => {
         return merge(
           this.manualReposition$.asObservable(),
           fromEvent(elem, 'play'),
@@ -153,14 +153,14 @@ export class VideoOverlayComponent {
     );
 
     const aspectRatio$ = positionOverlay$.pipe(
-      map(elem => {
+      map((elem) => {
         return elem.videoWidth / elem.videoHeight;
       })
     );
 
     const letterboxedWidth$ = combineLatest([
       positionOverlay$,
-      aspectRatio$
+      aspectRatio$,
     ]).pipe(
       map(([elem, aspectRatio]) => {
         if (elem.offsetWidth <= elem.offsetHeight * aspectRatio) {
@@ -172,7 +172,7 @@ export class VideoOverlayComponent {
 
     const letterboxedHeight$ = combineLatest([
       positionOverlay$,
-      aspectRatio$
+      aspectRatio$,
     ]).pipe(
       map(([elem, aspectRatio]) => {
         if (elem.offsetWidth <= elem.offsetHeight * aspectRatio) {
@@ -183,7 +183,7 @@ export class VideoOverlayComponent {
     );
 
     const fontSize$ = positionOverlay$.pipe(
-      map(elem => {
+      map((elem) => {
         return elem.offsetHeight / 44;
       })
     );
@@ -195,19 +195,19 @@ export class VideoOverlayComponent {
           'height.px': elem.offsetHeight,
           'left.px': elem.offsetLeft,
           'top.px': elem.offsetTop,
-          'font-size.px': fontSize
+          'font-size.px': fontSize,
         };
       })
     );
 
     const stageStyle$ = combineLatest([
       letterboxedWidth$,
-      letterboxedHeight$
+      letterboxedHeight$,
     ]).pipe(
       map(([width, height]) => {
         return {
           'width.px': width,
-          'height.px': height
+          'height.px': height,
         };
       })
     );
@@ -240,7 +240,7 @@ export class VideoOverlayComponent {
   }
 
   private bindCues(metadataTrack: TextTrack, storedTrack: Track) {
-    storedTrack.cues.forEach(cue => {
+    storedTrack.cues.forEach((cue) => {
       const trackCue = new VTTCue(
         cue.startTime,
         cue.endTime,
@@ -275,7 +275,7 @@ export class VideoOverlayComponent {
         startTime: raw_cue.startTime,
         endTime: raw_cue.endTime,
         id,
-        data
+        data,
       });
     }
 

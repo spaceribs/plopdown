@@ -23,24 +23,16 @@
       ]
     },
     "background": {
-      "tags": [
-        "ext-dep"
-      ]
+      "tags": ["ext-dep"]
     },
     "browser-action": {
-      "tags": [
-        "ext-dep"
-      ]
+      "tags": ["ext-dep"]
     },
     "options": {
-      "tags": [
-        "ext-dep"
-      ]
+      "tags": ["ext-dep"]
     },
     "content-script": {
-      "tags": [
-        "ext-dep"
-      ]
+      "tags": ["ext-dep"]
     },
     "testing-sandbox": {
       "tags": []
@@ -72,7 +64,7 @@
     "icon": {
       "tags": []
     },
-    "plopdown-cues": {
+    "plopdown-embed": {
       "tags": []
     },
     "website": {
@@ -98,15 +90,11 @@
     },
     "web-extension-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "web-extension"
-      ]
+      "implicitDependencies": ["web-extension"]
     },
-    "plopdown-cues-e2e": {
+    "plopdown-embed-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "plopdown-cues"
-      ]
+      "implicitDependencies": ["plopdown-embed"]
     },
     "storybook": {
       "tags": []

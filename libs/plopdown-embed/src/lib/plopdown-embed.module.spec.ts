@@ -1,10 +1,10 @@
 import { async, TestBed } from '@angular/core/testing';
-import { PlopdownCuesModule } from './plopdown-cues.module';
+import { PlopdownCuesModule } from './plopdown-embed.module';
 
 describe('PlopdownCuesModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [PlopdownCuesModule]
+      imports: [PlopdownCuesModule],
     }).compileComponents();
   }));
 

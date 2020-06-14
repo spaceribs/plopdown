@@ -9,17 +9,17 @@ import {
   EventEmitter,
   AfterViewInit,
   OnInit,
-  HostListener
+  HostListener,
 } from '@angular/core';
 import { SavedTrack } from '@plopdown/tracks';
 import {
   trigger,
   transition,
   sequence,
-  useAnimation
+  useAnimation,
 } from '@angular/animations';
 import { fadeIn, fadeOut } from 'ng-animate';
-import { PLOPDOWN_TEMPLATES, Cue } from '@plopdown/plopdown-cues';
+import { PLOPDOWN_TEMPLATES, Cue } from '@plopdown/plopdown-embed';
 import { map, startWith, shareReplay } from 'rxjs/operators';
 
 @Component({
@@ -32,20 +32,20 @@ import { map, startWith, shareReplay } from 'rxjs/operators';
         'void => *',
         sequence([
           useAnimation(fadeIn, {
-            params: { timing: 0.2 }
-          })
+            params: { timing: 0.2 },
+          }),
         ])
       ),
       transition(
         '* => void',
         sequence([
           useAnimation(fadeOut, {
-            params: { timing: 0.2 }
-          })
+            params: { timing: 0.2 },
+          }),
         ])
-      )
-    ])
-  ]
+      ),
+    ]),
+  ],
 })
 export class CueTimelineComponent implements OnInit {
   public currentLeft$: Observable<string>;
@@ -68,14 +68,14 @@ export class CueTimelineComponent implements OnInit {
     private injector: Injector
   ) {
     this.cues$ = this.track$.pipe(
-      map(track => this.cues(track)),
+      map((track) => this.cues(track)),
       shareReplay(1)
     );
   }
 
   ngOnInit(): void {
     this.currentLeft$ = fromEvent(this.videoElem, 'timeupdate').pipe(
-      map(event => {
+      map((event) => {
         const elem = event.target as HTMLVideoElement;
         return `${(elem.currentTime / elem.duration) * 100}%`;
       }),
@@ -94,7 +94,7 @@ export class CueTimelineComponent implements OnInit {
   private cues(track: SavedTrack): object[] {
     const duration = this.videoElem.duration;
 
-    return track.cues.map(cue => {
+    return track.cues.map((cue) => {
       const left = (cue.startTime / duration) * 100;
       const right = 100 - (cue.endTime / duration) * 100;
 
@@ -108,19 +108,19 @@ export class CueTimelineComponent implements OnInit {
         style: {
           left: `${left}%`,
           right: `${right}%`,
-          background: component.color
+          background: component.color,
         },
         type: cue.data.type,
         id: cue.id,
         text: component.textPreview(cue.data),
-        startTime: cue.startTime
+        startTime: cue.startTime,
       };
     });
   }
 
   cueActive(cue: Cue): boolean {
     return (
-      this.activeCues.find(activeCue => {
+      this.activeCues.find((activeCue) => {
         return activeCue.id === cue.id;
       }) != null
     );

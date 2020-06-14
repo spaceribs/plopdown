@@ -1,4 +1,4 @@
-describe('plopdown-cues', () => {
+describe('plopdown-embed', () => {
   beforeEach(() => cy.visit('/iframe.html?id=audiocomponent--primary'));
 
   it('should render the component', () => {

@@ -5,7 +5,7 @@ import {
   Title,
   ExternalLink,
   Description,
-} from './../../models/plopdown-primitives.model';
+} from '../../models/plopdown-primitives.model';
 import {
   PlopdownBaseTemplate,
   PlopdownTemplateType,

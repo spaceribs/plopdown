@@ -2,7 +2,7 @@ import { PlopdownFileV1Validator } from './plopdown-file.validator';
 import { PlopdownFileModule } from './plopdown-file.module';
 import { PlopdownFile } from './plopdown-file.model';
 import { Injectable } from '@angular/core';
-import { Cue, PlopdownTemplateType } from '@plopdown/plopdown-cues';
+import { Cue, PlopdownTemplateType } from '@plopdown/plopdown-embed';
 
 @Injectable({
   providedIn: PlopdownFileModule,
