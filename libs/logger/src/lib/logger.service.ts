@@ -6,7 +6,7 @@ import { Type } from '@angular/core';
 import { Injectable, Inject, isDevMode, Injector } from '@angular/core';
 
 @Injectable({
-  providedIn: LoggerModule
+  providedIn: LoggerModule,
 })
 export class LoggerService implements LogProvider {
   private devMode: boolean;
@@ -16,7 +16,7 @@ export class LoggerService implements LogProvider {
     @Inject(LoggerConfigService) config: LoggerConfig,
     private injector: Injector
   ) {
-    this.providers = config.providers.map(provider => {
+    this.providers = config.providers.map((provider) => {
       return this.injector.get<LogProvider>(provider);
     });
 
@@ -28,31 +28,31 @@ export class LoggerService implements LogProvider {
   }
 
   debug(message?: any, ...optionalParams: any[]): void {
-    this.providers.forEach(provider => {
+    this.providers.forEach((provider) => {
       provider.debug(message, ...optionalParams);
     });
   }
 
   log(message?: any, ...optionalParams: any[]): void {
-    this.providers.forEach(provider => {
+    this.providers.forEach((provider) => {
       provider.log(message, ...optionalParams);
     });
   }
 
   error(message?: any, ...optionalParams: any[]): void {
-    this.providers.forEach(provider => {
+    this.providers.forEach((provider) => {
       provider.error(message, ...optionalParams);
     });
   }
 
   info(message?: any, ...optionalParams: any[]): void {
-    this.providers.forEach(provider => {
+    this.providers.forEach((provider) => {
       provider.info(message, ...optionalParams);
     });
   }
 
   warn(message?: any, ...optionalParams: any[]): void {
-    this.providers.forEach(provider => {
+    this.providers.forEach((provider) => {
       provider.warn(message, ...optionalParams);
     });
   }

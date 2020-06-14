@@ -4,7 +4,7 @@ import { ExtStorageModule } from './ext-storage.module';
 describe('ExtStorageModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ExtStorageModule]
+      imports: [ExtStorageModule],
     }).compileComponents();
   }));
 

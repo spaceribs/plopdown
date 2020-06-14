@@ -5,7 +5,7 @@ import {
   Subject,
   merge,
   BehaviorSubject,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { mdiRefresh, mdiAlertCircle, mdiDownload } from '@mdi/js';
@@ -14,7 +14,7 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'plopdown-log-viewer',
   templateUrl: './log-viewer.component.html',
-  styleUrls: ['./log-viewer.component.scss']
+  styleUrls: ['./log-viewer.component.scss'],
 })
 export class LogViewerComponent implements OnInit {
   public confirmReset = false;
@@ -44,7 +44,7 @@ export class LogViewerComponent implements OnInit {
     );
 
     this.logsDownload$ = this.logs$.pipe(
-      map(logs => {
+      map((logs) => {
         const blob = new Blob([JSON.stringify(logs)], { type: 'text/json' });
         return this.santizer.bypassSecurityTrustUrl(
           window.URL.createObjectURL(blob)
@@ -72,9 +72,9 @@ export class LogViewerComponent implements OnInit {
         next: () => {
           this.refreshLogs();
         },
-        error: err => {
+        error: (err) => {
           console.error(err);
-        }
+        },
       });
       this.subs.add(setLogsSub);
 

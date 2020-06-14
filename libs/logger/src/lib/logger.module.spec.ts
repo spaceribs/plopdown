@@ -4,7 +4,7 @@ import { LoggerModule } from './logger.module';
 describe('LoggerModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [LoggerModule]
+      imports: [LoggerModule],
     }).compileComponents();
   }));
 

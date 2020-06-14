@@ -4,7 +4,7 @@ import {
   ContentScriptReady,
   ContentScriptVideosFound,
   ContentScriptIFramesFound,
-  ContentScriptTrackRequested
+  ContentScriptTrackRequested,
 } from './content-script.model';
 import { Injectable } from '@angular/core';
 import { PortSubscriber } from '../subscriber.abstract';
@@ -13,7 +13,7 @@ import { Source } from '../messages.model';
 import { MessagesService } from '../messages.service';
 
 @Injectable({
-  providedIn: MessagesModule
+  providedIn: MessagesModule,
 })
 export class ContentScriptSubService extends PortSubscriber<
   ContentScriptCommand

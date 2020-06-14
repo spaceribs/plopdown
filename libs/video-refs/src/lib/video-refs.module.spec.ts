@@ -4,7 +4,7 @@ import { VideoRefsModule } from './video-refs.module';
 describe('VideoRefsModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [VideoRefsModule]
+      imports: [VideoRefsModule],
     }).compileComponents();
   }));
 

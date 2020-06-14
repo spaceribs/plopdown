@@ -3,7 +3,7 @@ import { Component, Input, HostBinding } from '@angular/core';
 @Component({
   selector: 'plopdown-icon',
   templateUrl: './icon.component.html',
-  styleUrls: ['./icon.component.scss']
+  styleUrls: ['./icon.component.scss'],
 })
 export class IconComponent {
   @HostBinding('class.icon') private iconClass = true;

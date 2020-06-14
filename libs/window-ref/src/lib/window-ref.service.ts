@@ -2,7 +2,7 @@ import { WindowRefModule } from './window-ref.module';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: WindowRefModule
+  providedIn: WindowRefModule,
 })
 export class WindowRefService {
   private window: Window & typeof globalThis;

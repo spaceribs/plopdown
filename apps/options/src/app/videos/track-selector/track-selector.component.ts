@@ -9,7 +9,7 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'plopdown-track-selector',
   templateUrl: './track-selector.component.html',
-  styleUrls: ['./track-selector.component.scss']
+  styleUrls: ['./track-selector.component.scss'],
 })
 export class TrackSelectorComponent implements OnInit {
   public tracks$: Observable<SavedTrack[]>;
@@ -35,14 +35,14 @@ export class TrackSelectorComponent implements OnInit {
 
     this.trackSelectorForm = fb.group({
       _id: [null, Validators.required],
-      title: [null, Validators.required]
+      title: [null, Validators.required],
     });
   }
 
   onSelectTrack(track: SavedTrack) {
     this.trackSelectorForm.setValue({
       _id: track._id,
-      title: track.title
+      title: track.title,
     });
   }
 

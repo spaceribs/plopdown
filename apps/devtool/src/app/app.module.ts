@@ -12,10 +12,10 @@ import { DevtoolsRefModule } from '@plopdown/devtools-ref';
     DevtoolsRefModule,
     RouterModule.forRoot([], {
       useHash: true,
-      initialNavigation: true
-    })
+      initialNavigation: true,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

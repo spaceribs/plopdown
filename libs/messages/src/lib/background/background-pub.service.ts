@@ -10,7 +10,7 @@ import { MessagesModule } from '../messages.module';
 import { VideoRef, SavedVideoRef } from '@plopdown/video-refs';
 
 @Injectable({
-  providedIn: MessagesModule
+  providedIn: MessagesModule,
 })
 export class BackgroundPubService extends PortPublisher<BackgroundCommand> {
   constructor(
@@ -32,21 +32,21 @@ export class BackgroundPubService extends PortPublisher<BackgroundCommand> {
   public contentFound(videoRefs: VideoRef[], iframes: string[]) {
     this.command$.next({
       command: 'BG_CONTENT_FOUND',
-      args: [videoRefs, iframes]
+      args: [videoRefs, iframes],
     });
   }
 
   public trackFound(track: SavedTrack) {
     this.command$.next({
       command: 'BG_TRACK_FOUND',
-      args: [track]
+      args: [track],
     });
   }
 
   public videoRefsFound(videoRefs: SavedVideoRef[]) {
     this.command$.next({
       command: 'BG_VIDEO_REFS_FOUND',
-      args: [videoRefs]
+      args: [videoRefs],
     });
   }
 }

@@ -23,5 +23,5 @@ export const PLOPDOWN_TEMPLATES: {
   [PlopdownTemplateType.Info]: InfoComponent,
   [PlopdownTemplateType.Plop]: PlopComponent,
   [PlopdownTemplateType.Audio]: AudioComponent,
-  [PlopdownTemplateType.Shape]: ShapeComponent
+  [PlopdownTemplateType.Shape]: ShapeComponent,
 };

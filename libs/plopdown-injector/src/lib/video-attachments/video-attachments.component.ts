@@ -11,7 +11,7 @@ import { SavedVideoRef } from '@plopdown/video-refs';
       [duration]="videoRef.value.duration"
       [track]="videoRef.value.track"
     ></plopdown-video-attachment>
-  `
+  `,
 })
 export class VideoAttachmentsComponent implements OnDestroy {
   private subs: Subscription = new Subscription();

@@ -1,7 +1,7 @@
 export enum Source {
   Background = 'BACKGROUND',
   BrowserAction = 'BROWSER_ACTION',
-  ContentScript = 'CONTENT_SCRIPT'
+  ContentScript = 'CONTENT_SCRIPT',
 }
 
 export interface Command<T = string, A = null | any[]> {

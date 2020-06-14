@@ -14,26 +14,26 @@ import { LoggerModule, LogConsoleService } from '@plopdown/logger';
     LoggerModule.forRoot({
       appName: 'Website',
       color: 'magenta',
-      providers: [LogConsoleService]
+      providers: [LogConsoleService],
     }),
     RouterModule.forRoot(
       [
         {
           path: '',
           loadChildren: () =>
-            import('./home/home.module').then(m => m.HomeModule)
+            import('./home/home.module').then((m) => m.HomeModule),
         },
         {
           path: 'blog',
           loadChildren: () =>
-            import('./blog/blog.module').then(m => m.BlogModule)
+            import('./blog/blog.module').then((m) => m.BlogModule),
         },
-        { path: '**', redirectTo: '' }
+        { path: '**', redirectTo: '' },
       ],
       { initialNavigation: 'enabled' }
-    )
+    ),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

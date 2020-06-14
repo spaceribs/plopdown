@@ -6,7 +6,7 @@ import { ExtStorageAreaName } from './ext-storage.model';
 import { BrowserRefService } from '@plopdown/browser-ref';
 
 @Injectable({
-  providedIn: ExtStorageModule
+  providedIn: ExtStorageModule,
 })
 export class ExtStorageService {
   private readonly changed$: Observable<
@@ -19,7 +19,7 @@ export class ExtStorageService {
 
     this.changed$ = new Observable<
       [browser.storage.StorageChange, ExtStorageAreaName]
-    >(observer => {
+    >((observer) => {
       function listener(
         change: browser.storage.StorageChange,
         area: ExtStorageAreaName

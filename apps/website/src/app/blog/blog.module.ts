@@ -17,8 +17,8 @@ import { POSTS } from './blog.config';
     SiteFooterModule,
     CommonModule,
     HttpClientModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  providers: [{ provide: POSTS, useValue: posts }]
+  providers: [{ provide: POSTS, useValue: posts }],
 })
 export class BlogModule {}

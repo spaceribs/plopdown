@@ -7,13 +7,13 @@ import {
   combineLatest,
   from,
   of,
-  partition
+  partition,
 } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import {
   VideoRef,
   SavedVideoRef,
-  VideoRefServiceStatus
+  VideoRefServiceStatus,
 } from './video-ref.model';
 import {
   shareReplay,
@@ -24,7 +24,7 @@ import {
   first,
   scan,
   mapTo,
-  catchError
+  catchError,
 } from 'rxjs/operators';
 import { VideoRefsModule } from './video-refs.module';
 
@@ -35,7 +35,7 @@ PouchDB.plugin(PouchDBFind);
 const STORAGE_KEY = 'videoRefs';
 
 @Injectable({
-  providedIn: VideoRefsModule
+  providedIn: VideoRefsModule,
 })
 export class VideoRefsService implements OnDestroy {
   private db$: Observable<PouchDB.Database<VideoRef>>;
@@ -47,7 +47,7 @@ export class VideoRefsService implements OnDestroy {
   private error$: Observable<Error>;
 
   static createObservableDatabase() {
-    return new Observable<PouchDB.Database<VideoRef>>(observer => {
+    return new Observable<PouchDB.Database<VideoRef>>((observer) => {
       const db = new PouchDB<VideoRef>(STORAGE_KEY);
 
       observer.next(db);
@@ -62,14 +62,14 @@ export class VideoRefsService implements OnDestroy {
     db: PouchDB.Database<VideoRef>
   ): Observable<PouchDB.Core.ChangesResponseChange<VideoRef>> {
     return new Observable<PouchDB.Core.ChangesResponseChange<VideoRef>>(
-      observer => {
+      (observer) => {
         const changes = db.changes({
           live: true,
           since: 'now',
-          include_docs: true
+          include_docs: true,
         });
 
-        changes.on('change', change => {
+        changes.on('change', (change) => {
           observer.next(change);
         });
 
@@ -77,7 +77,7 @@ export class VideoRefsService implements OnDestroy {
           observer.complete();
         });
 
-        changes.on('error', err => {
+        changes.on('error', (err) => {
           observer.error(err);
         });
 
@@ -92,7 +92,7 @@ export class VideoRefsService implements OnDestroy {
     this.db$ = VideoRefsService.createObservableDatabase().pipe(shareReplay(1));
 
     const changes$ = this.db$.pipe(
-      switchMap(db => {
+      switchMap((db) => {
         return VideoRefsService.createObservableChanges(db);
       })
     );
@@ -111,10 +111,10 @@ export class VideoRefsService implements OnDestroy {
           db.allDocs<VideoRef>({ include_docs: true })
         );
       }),
-      map(res => {
+      map((res) => {
         return res.rows
-          .map(row => row.doc)
-          .filter(row => row['language'] !== 'query');
+          .map((row) => row.doc)
+          .filter((row) => row['language'] !== 'query');
       }),
       shareReplay(1)
     );
@@ -127,23 +127,23 @@ export class VideoRefsService implements OnDestroy {
 
     const indexDBSub = this.db$
       .pipe(
-        switchMap(db => {
+        switchMap((db) => {
           return from(
             db.createIndex({
               index: {
-                fields: ['frameOrigin', 'framePath', 'frameSearch']
-              }
+                fields: ['frameOrigin', 'framePath', 'frameSearch'],
+              },
             })
           );
         })
       )
       .subscribe({
-        next: info => {
+        next: (info) => {
           logger.debug('VideoRef Indexed', info);
         },
-        error: err => {
+        error: (err) => {
           logger.error(err);
-        }
+        },
       });
     this.subs.add(indexDBSub);
   }
@@ -170,7 +170,7 @@ export class VideoRefsService implements OnDestroy {
 
   public resetVideoRefs() {
     return this.db$.pipe(
-      switchMap(db => {
+      switchMap((db) => {
         return from(db.destroy());
       })
     );
@@ -205,18 +205,18 @@ export class VideoRefsService implements OnDestroy {
 
   public findVideoRefs(videoRef: VideoRef) {
     return this.db$.pipe(
-      switchMap(db => {
+      switchMap((db) => {
         return from(
           db.find({
             selector: {
               frameOrigin: videoRef.frameOrigin,
               framePath: videoRef.framePath,
-              frameSearch: videoRef.frameSearch
-            }
+              frameSearch: videoRef.frameSearch,
+            },
           })
         );
       }),
-      map(res => {
+      map((res) => {
         if (res.warning) {
           this.logger.warn('PouchDB Find', res.warning);
         }

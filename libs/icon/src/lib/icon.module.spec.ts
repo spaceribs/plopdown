@@ -4,7 +4,7 @@ import { IconModule } from './icon.module';
 describe('IconModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [IconModule]
+      imports: [IconModule],
     }).compileComponents();
   }));
 

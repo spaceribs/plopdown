@@ -4,7 +4,7 @@ import { mdiFileUpload } from '@mdi/js';
 @Component({
   selector: 'plopdown-file-manager',
   templateUrl: './file-manager.component.html',
-  styleUrls: ['./file-manager.component.scss']
+  styleUrls: ['./file-manager.component.scss'],
 })
 export class FileManagerComponent {
   public mdiFileUpload = mdiFileUpload;
@@ -43,8 +43,8 @@ export class FileManagerComponent {
       ...this.attachments,
       [fileName]: {
         content_type: file.type,
-        data: file
-      }
+        data: file,
+      },
     };
   }
 }

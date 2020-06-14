@@ -4,13 +4,13 @@ import { CommonModule } from '@angular/common';
 import { LoggerConfigService } from './logger.config';
 
 @NgModule({
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class LoggerModule {
   static forRoot(config: LoggerConfig) {
     return {
       ngModule: LoggerModule,
-      providers: [{ provide: LoggerConfigService, useValue: config }]
+      providers: [{ provide: LoggerConfigService, useValue: config }],
     };
   }
 }

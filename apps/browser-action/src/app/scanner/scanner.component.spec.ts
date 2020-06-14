@@ -8,9 +8,8 @@ describe('ScannerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScannerComponent ]
-    })
-    .compileComponents();
+      declarations: [ScannerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -9,7 +9,7 @@ import {
   mdiUpload,
   mdiPencil,
   mdiFileMultiple,
-  mdiTrashCan
+  mdiTrashCan,
 } from '@mdi/js';
 import { tap } from 'rxjs/operators';
 import { LoggerService } from '@plopdown/logger';
@@ -17,7 +17,7 @@ import { LoggerService } from '@plopdown/logger';
 @Component({
   selector: 'plopdown-tracks',
   templateUrl: './tracks.component.html',
-  styleUrls: ['./tracks.component.scss']
+  styleUrls: ['./tracks.component.scss'],
 })
 export class TracksComponent implements OnInit {
   public loadingTracks$: Observable<boolean>;
@@ -83,26 +83,26 @@ export class TracksComponent implements OnInit {
     }
 
     const removeVideoRefSub = this.tracksService.resetTracks().subscribe({
-      next: res => {
+      next: (res) => {
         this.logger.debug('Reset all Tracks', res);
         this.windowRef.reload();
       },
-      error: err => {
+      error: (err) => {
         this.logger.error('Error Resetting All Tracks', err);
-      }
+      },
     });
     this.subs.add(removeVideoRefSub);
   }
 
   removeTrack(track: SavedTrack) {
     const addSub = this.tracksService.removeTrack(track).subscribe({
-      next: res => {
+      next: (res) => {
         this.logger.debug('Track Removed', res);
         this.showEditor = false;
       },
-      error: err => {
+      error: (err) => {
         this.logger.error('Error Removing Track', err);
-      }
+      },
     });
     this.subs.add(addSub);
   }
@@ -118,24 +118,24 @@ export class TracksComponent implements OnInit {
       const updateSub = this.tracksService
         .updateTrack(track as SavedTrack)
         .subscribe({
-          next: res => {
+          next: (res) => {
             this.logger.debug('Track Updated', res);
             this.closeEdit();
           },
-          error: err => {
+          error: (err) => {
             this.logger.error('Error Updating Track', err);
-          }
+          },
         });
       this.subs.add(updateSub);
     } else {
       const addSub = this.tracksService.addTrack(track as Track).subscribe({
-        next: res => {
+        next: (res) => {
           this.logger.debug('Track Added', res);
           this.closeEdit();
         },
-        error: err => {
+        error: (err) => {
           this.logger.error('Error Adding Track', err);
-        }
+        },
       });
       this.subs.add(addSub);
     }

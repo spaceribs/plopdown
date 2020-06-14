@@ -8,9 +8,8 @@ describe('VideoManagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VideoManagerComponent ]
-    })
-    .compileComponents();
+      declarations: [VideoManagerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

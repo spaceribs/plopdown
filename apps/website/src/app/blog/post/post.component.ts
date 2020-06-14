@@ -6,7 +6,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'plopdown-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss']
+  styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
   public routeData: PostModel;

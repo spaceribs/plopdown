@@ -3,7 +3,7 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebLoadAssetService {
   constructor(private domSanitizer: DomSanitizer) {}

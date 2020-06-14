@@ -3,6 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [CommonModule, BrowserRefModule]
+  imports: [CommonModule, BrowserRefModule],
 })
 export class DevtoolsRefModule {}

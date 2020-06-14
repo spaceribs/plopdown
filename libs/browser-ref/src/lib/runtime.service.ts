@@ -7,7 +7,7 @@ import { BrowserRefService } from './browser-ref.service';
 import { BrowserRefModule } from './browser-ref.module';
 
 @Injectable({
-  providedIn: BrowserRefModule
+  providedIn: BrowserRefModule,
 })
 export class RuntimeService {
   private readonly onInstalled$: Observable<OnInstalledDetails>;
@@ -21,7 +21,7 @@ export class RuntimeService {
   ) {
     this.runtime = browserRefService.getBrowser().runtime;
 
-    this.onInstalled$ = new Observable<OnInstalledDetails>(observer => {
+    this.onInstalled$ = new Observable<OnInstalledDetails>((observer) => {
       function listener(details: OnInstalledDetails) {
         ngZone.run(() => {
           observer.next(details);
@@ -37,7 +37,7 @@ export class RuntimeService {
       };
     }).pipe(share());
 
-    this.onMessage$ = new Observable(observer => {
+    this.onMessage$ = new Observable((observer) => {
       function listener(
         msg: any,
         sender: browser.runtime.MessageSender,
@@ -56,7 +56,7 @@ export class RuntimeService {
         }
       };
     }).pipe(
-      tap(msg => logger.debug('New Message', msg)),
+      tap((msg) => logger.debug('New Message', msg)),
       map(([cmd]) => cmd),
       share()
     );

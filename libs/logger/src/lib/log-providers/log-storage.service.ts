@@ -10,7 +10,7 @@ const STORAGE_KEY = 'LOGGER';
 const LOG_LIMIT = 100;
 
 @Injectable({
-  providedIn: LoggerModule
+  providedIn: LoggerModule,
 })
 export class LogStorageService implements LogProvider, OnDestroy {
   private appendLog$: Subject<[string, string, string[]]> = new Subject();
@@ -18,10 +18,10 @@ export class LogStorageService implements LogProvider, OnDestroy {
 
   constructor(@Inject(LoggerConfigService) private config: LoggerConfig) {
     const appendedLogs$ = this.appendLog$.pipe(
-      concatMap(log => {
+      concatMap((log) => {
         const logRow = [new Date().toISOString(), log[0], log[1], ...log[2]];
         return this.getLogs().pipe(
-          map(logs => {
+          map((logs) => {
             logs.unshift(logRow);
             return logs.slice(0, LOG_LIMIT);
           }),
@@ -33,7 +33,7 @@ export class LogStorageService implements LogProvider, OnDestroy {
     );
 
     const appendedLogsSub = appendedLogs$.subscribe({
-      error: err => console.error(err)
+      error: (err) => console.error(err),
     });
     this.subs.add(appendedLogsSub);
   }
@@ -68,7 +68,7 @@ export class LogStorageService implements LogProvider, OnDestroy {
   }
 
   private stringify(messages: Array<any>): string[] {
-    return messages.map(message => {
+    return messages.map((message) => {
       if (message instanceof Error) {
         const error = Object.getOwnPropertyNames(message).reduce(
           (memo, errorKey) => {
@@ -91,7 +91,7 @@ export class LogStorageService implements LogProvider, OnDestroy {
 
   public getLogs() {
     return from(browser.storage.local.get(STORAGE_KEY)).pipe(
-      map(keys => {
+      map((keys) => {
         return (keys[STORAGE_KEY] || []) as string[][];
       })
     );
@@ -100,7 +100,7 @@ export class LogStorageService implements LogProvider, OnDestroy {
   public setLogs(logs: string[][]) {
     return from(
       browser.storage.local.set({
-        [STORAGE_KEY]: logs
+        [STORAGE_KEY]: logs,
       })
     );
   }

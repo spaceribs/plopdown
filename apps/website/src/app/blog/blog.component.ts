@@ -12,7 +12,7 @@ interface PostDateBucket {
 @Component({
   selector: 'plopdown-blog',
   templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.scss']
+  styleUrls: ['./blog.component.scss'],
 })
 export class BlogComponent implements OnInit {
   public dateArchives: PostDateBucket[];
@@ -30,7 +30,7 @@ export class BlogComponent implements OnInit {
         const postMonth = new Date(post.data.attributes.created).getMonth();
         const postYear = new Date(post.data.attributes.created).getFullYear();
 
-        const existingBucket = memo.find(bucket => {
+        const existingBucket = memo.find((bucket) => {
           return bucket.year === postYear && bucket.month === postMonth;
         });
 
@@ -42,7 +42,7 @@ export class BlogComponent implements OnInit {
             month: postMonth,
             year: postYear,
             date: postDate,
-            posts: [post]
+            posts: [post],
           });
         }
 

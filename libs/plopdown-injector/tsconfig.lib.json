@@ -5,13 +5,8 @@
     "target": "es2015",
     "declaration": true,
     "inlineSources": true,
-    "types": [
-      "firefox-webext-browser"
-    ],
-    "lib": [
-      "dom",
-      "es2018"
-    ]
+    "types": ["firefox-webext-browser"],
+    "lib": ["dom", "es2018"]
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

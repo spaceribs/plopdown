@@ -7,14 +7,14 @@ import {
   BackgroundContentFound,
   BackgroundCheckAlive,
   BackgroundTrackFound,
-  BackgroundVideoRefFound
+  BackgroundVideoRefFound,
 } from './background.model';
 import { PortSubscriber } from '../subscriber.abstract';
 import { MessagesModule } from '../messages.module';
 import { Source } from '../messages.model';
 
 @Injectable({
-  providedIn: MessagesModule
+  providedIn: MessagesModule,
 })
 export class BackgroundSubService extends PortSubscriber<BackgroundCommand> {
   constructor(ports: MessagesService, logger: LoggerService) {

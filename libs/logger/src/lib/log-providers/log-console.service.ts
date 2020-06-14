@@ -3,7 +3,7 @@ import { LoggerModule } from '../logger.module';
 import { LoggerConfigService } from '../logger.config';
 
 @Injectable({
-  providedIn: LoggerModule
+  providedIn: LoggerModule,
 })
 export class LogConsoleService {
   private appName: string;

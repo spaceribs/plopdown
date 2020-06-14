@@ -4,7 +4,7 @@ import { Component, OnInit, OnDestroy, ErrorHandler } from '@angular/core';
 
 @Component({
   selector: 'plopdown-root',
-  template: 'plopdown-devtool'
+  template: 'plopdown-devtool',
 })
 export class AppComponent implements OnInit, OnDestroy {
   private panelHidden$: Observable<null>;
@@ -24,9 +24,9 @@ export class AppComponent implements OnInit, OnDestroy {
       next: () => {
         console.log('Panel Hidden');
       },
-      error: err => {
+      error: (err) => {
         this.errorHandler.handleError(err);
-      }
+      },
     });
     this.subs.add(panelHiddenSub);
 
@@ -34,9 +34,9 @@ export class AppComponent implements OnInit, OnDestroy {
       next: () => {
         console.log('Panel Shown');
       },
-      error: err => {
+      error: (err) => {
         this.errorHandler.handleError(err);
-      }
+      },
     });
     this.subs.add(panelShownSub);
 

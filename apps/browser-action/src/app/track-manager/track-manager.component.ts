@@ -8,7 +8,7 @@ import { LoggerService } from '@plopdown/logger';
 @Component({
   selector: 'plopdown-track-manager',
   templateUrl: './track-manager.component.html',
-  styleUrls: ['./track-manager.component.scss']
+  styleUrls: ['./track-manager.component.scss'],
 })
 export class TrackManagerComponent {
   public tracks$: Observable<Track[]>;

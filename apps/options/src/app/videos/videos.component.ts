@@ -5,7 +5,7 @@ import {
   VideoRefsService,
   VideoRef,
   SavedVideoRef,
-  TrackRef
+  TrackRef,
 } from '@plopdown/video-refs';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -15,13 +15,13 @@ import {
   mdiPencil,
   mdiTrashCan,
   mdiCommentPlus,
-  mdiComment
+  mdiComment,
 } from '@mdi/js';
 
 @Component({
   selector: 'plopdown-videos',
   templateUrl: './videos.component.html',
-  styleUrls: ['./videos.component.scss']
+  styleUrls: ['./videos.component.scss'],
 })
 export class VideosComponent implements OnInit {
   public updateVideoRef$: Subject<SavedVideoRef> = new Subject();
@@ -52,7 +52,7 @@ export class VideosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const updateVideoRefs = this.updateVideoRef$.subscribe(videoRef => {
+    const updateVideoRefs = this.updateVideoRef$.subscribe((videoRef) => {
       return this.videoRefsService.updateVideoRef(videoRef);
     });
     this.subs.add(updateVideoRefs);
@@ -66,19 +66,20 @@ export class VideosComponent implements OnInit {
     const removeVideoRefSub = this.videoRefsService
       .removeVideoRef(videoRef)
       .subscribe({
-        next: res => {
+        next: (res) => {
           this.logger.debug('Removed Video Ref', res);
         },
-        error: err => {
+        error: (err) => {
           this.logger.error('Error removing Video Ref', err);
-        }
+        },
       });
     this.subs.add(removeVideoRefSub);
   }
 
   public getVideoLink(videoRef: VideoRef) {
-    return `${videoRef.frameOrigin}${videoRef.framePath ||
-      ''}${videoRef.frameSearch || ''}`;
+    return `${videoRef.frameOrigin}${videoRef.framePath || ''}${
+      videoRef.frameSearch || ''
+    }`;
   }
 
   public editVideoRef(videoRef: SavedVideoRef) {
@@ -101,13 +102,13 @@ export class VideosComponent implements OnInit {
     }
 
     const removeVideoRefSub = this.videoRefsService.resetVideoRefs().subscribe({
-      next: res => {
+      next: (res) => {
         this.logger.debug('Reset all Video References', res);
         this.windowRef.reload();
       },
-      error: err => {
+      error: (err) => {
         this.logger.error('Error Resetting Video References.', err);
-      }
+      },
     });
     this.subs.add(removeVideoRefSub);
   }
@@ -136,24 +137,24 @@ export class VideosComponent implements OnInit {
       const updateSub = this.videoRefsService
         .updateVideoRef(videoRef as SavedVideoRef)
         .subscribe({
-          next: res => {
+          next: (res) => {
             this.logger.debug('Video Ref Updated', res);
             this.showEditor = false;
           },
-          error: err => {
+          error: (err) => {
             this.logger.error('Error Updating Video Ref', err);
-          }
+          },
         });
       this.subs.add(updateSub);
     } else {
       const addSub = this.videoRefsService.addVideoRef(videoRef).subscribe({
-        next: res => {
+        next: (res) => {
           this.logger.debug('Video Ref Added', res);
           this.showEditor = false;
         },
-        error: err => {
+        error: (err) => {
           this.logger.error('Error Adding Video Ref', err);
-        }
+        },
       });
       this.subs.add(addSub);
     }

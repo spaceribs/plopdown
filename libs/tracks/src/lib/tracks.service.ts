@@ -7,7 +7,7 @@ import {
   switchMap,
   first,
   mapTo,
-  withLatestFrom
+  withLatestFrom,
 } from 'rxjs/operators';
 import { Observable, merge, Subscription, from, Subject, of } from 'rxjs';
 import { TracksModule } from './tracks.module';
@@ -16,7 +16,7 @@ import PouchDB from 'pouchdb';
 const STORAGE_KEY = 'tracks';
 
 @Injectable({
-  providedIn: TracksModule
+  providedIn: TracksModule,
 })
 export class TracksService implements OnDestroy {
   private manualRefresh$: Subject<void> = new Subject();
@@ -26,7 +26,7 @@ export class TracksService implements OnDestroy {
   private loading$: Observable<boolean>;
 
   static createObservableDatabase() {
-    return new Observable<PouchDB.Database<Track>>(observer => {
+    return new Observable<PouchDB.Database<Track>>((observer) => {
       const db = new PouchDB<Track>(STORAGE_KEY);
 
       observer.next(db);
@@ -41,14 +41,14 @@ export class TracksService implements OnDestroy {
     db: PouchDB.Database<Track>
   ): Observable<PouchDB.Core.ChangesResponseChange<Track>> {
     return new Observable<PouchDB.Core.ChangesResponseChange<Track>>(
-      observer => {
+      (observer) => {
         const changes = db.changes({
           live: true,
           since: 'now',
-          include_docs: false
+          include_docs: false,
         });
 
-        changes.on('change', change => {
+        changes.on('change', (change) => {
           observer.next(change);
         });
 
@@ -56,7 +56,7 @@ export class TracksService implements OnDestroy {
           observer.complete();
         });
 
-        changes.on('error', err => {
+        changes.on('error', (err) => {
           observer.error(err);
         });
 
@@ -72,7 +72,7 @@ export class TracksService implements OnDestroy {
 
     const changes$ = this.db$
       .pipe(
-        switchMap(db => {
+        switchMap((db) => {
           return TracksService.createObservableChanges(db);
         })
       )
@@ -91,13 +91,13 @@ export class TracksService implements OnDestroy {
         return db.allDocs<SavedTrack>({
           include_docs: true,
           attachments: true,
-          binary: true
+          binary: true,
         });
       }),
-      map(res => {
+      map((res) => {
         return res.rows
-          .map(row => row.doc)
-          .filter(row => row['language'] !== 'query');
+          .map((row) => row.doc)
+          .filter((row) => row['language'] !== 'query');
       }),
       shareReplay(1)
     );
@@ -119,7 +119,7 @@ export class TracksService implements OnDestroy {
 
   public resetTracks() {
     return this.db$.pipe(
-      switchMap(db => {
+      switchMap((db) => {
         return from(db.destroy());
       })
     );
@@ -127,7 +127,7 @@ export class TracksService implements OnDestroy {
 
   public addTrack(track: PouchDB.Core.PostDocument<Track>) {
     return this.db$.pipe(
-      switchMap(db => {
+      switchMap((db) => {
         return from(db.post(track));
       }),
       first()
@@ -140,7 +140,7 @@ export class TracksService implements OnDestroy {
     file: File
   ) {
     return this.db$.pipe(
-      switchMap(db => {
+      switchMap((db) => {
         return from(
           db.putAttachment(trackId, file.name, trackRev, file as any, file.type)
         );
@@ -151,7 +151,7 @@ export class TracksService implements OnDestroy {
 
   public updateTrack(track: PouchDB.Core.PutDocument<Track>) {
     return this.db$.pipe(
-      switchMap(db => {
+      switchMap((db) => {
         return from(db.put(track));
       })
     );
@@ -159,7 +159,7 @@ export class TracksService implements OnDestroy {
 
   public removeTrack(track: SavedTrack) {
     return this.db$.pipe(
-      switchMap(db => {
+      switchMap((db) => {
         return from(db.remove(track));
       })
     );
@@ -171,11 +171,11 @@ export class TracksService implements OnDestroy {
 
   public getTrack(id: SavedTrack['_id']) {
     return this.db$.pipe(
-      switchMap(db => {
+      switchMap((db) => {
         return from(
           db.get(id, {
             attachments: true,
-            binary: true
+            binary: true,
           })
         );
       }),

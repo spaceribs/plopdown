@@ -3,14 +3,14 @@ import { LoggerService } from '@plopdown/logger';
 import { Injectable } from '@angular/core';
 import {
   BrowserActionCommand,
-  BrowserActionQueryVideoRefs
+  BrowserActionQueryVideoRefs,
 } from './browser-action.model';
 import { PortSubscriber } from '../subscriber.abstract';
 import { MessagesModule } from '../messages.module';
 import { Source } from '../messages.model';
 
 @Injectable({
-  providedIn: MessagesModule
+  providedIn: MessagesModule,
 })
 export class BrowserActionSubService extends PortSubscriber<
   BrowserActionCommand

@@ -8,7 +8,7 @@ describe('VideoManagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TrackManagerComponent]
+      declarations: [TrackManagerComponent],
     }).compileComponents();
   }));
 

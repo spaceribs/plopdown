@@ -7,7 +7,7 @@ import { switchMap, shareReplay } from 'rxjs/operators';
 type ExtensionPanel = browser.devtools.panels.ExtensionPanel;
 
 @Injectable({
-  providedIn: DevtoolsRefModule
+  providedIn: DevtoolsRefModule,
 })
 export class PanelsService {
   private devtoolsPanels: typeof browser.devtools.panels;
@@ -29,8 +29,8 @@ export class PanelsService {
     );
 
     this.panelShown$ = this.panel$.pipe(
-      switchMap(panel => {
-        return new Observable<Window>(observe => {
+      switchMap((panel) => {
+        return new Observable<Window>((observe) => {
           function callback(window: Window) {
             observe.next(window);
           }
@@ -47,8 +47,8 @@ export class PanelsService {
     );
 
     this.panelHidden$ = this.panel$.pipe(
-      switchMap(panel => {
-        return new Observable<null>(observe => {
+      switchMap((panel) => {
+        return new Observable<null>((observe) => {
           function callback() {
             observe.next(null);
           }

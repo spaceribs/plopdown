@@ -17,9 +17,9 @@ export abstract class PortSubscriber<C extends Command> {
 
   protected filterCommand<T extends C>(command: T['command']) {
     return this.command$.pipe(
-      filter(msg => msg.command === command),
-      map(msg => msg as T),
-      tap(msg => {
+      filter((msg) => msg.command === command),
+      map((msg) => msg as T),
+      tap((msg) => {
         this.logger.debug('Command received', msg);
       })
     );

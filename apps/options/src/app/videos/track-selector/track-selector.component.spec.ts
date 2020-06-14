@@ -8,9 +8,8 @@ describe('TrackSelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrackSelectorComponent ]
-    })
-    .compileComponents();
+      declarations: [TrackSelectorComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

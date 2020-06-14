@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { WindowRefModule } from './window-ref.module';
 
 @Injectable({
-  providedIn: WindowRefModule
+  providedIn: WindowRefModule,
 })
 export class XPathService {
   private document: Document;
