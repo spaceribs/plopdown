@@ -28,7 +28,7 @@
       "@plopdown/browser-ref": ["libs/browser-ref/src/index.ts"],
       "@plopdown/ext-storage": ["libs/ext-storage/src/index.ts"],
       "@plopdown/icon": ["libs/icon/src/index.ts"],
-      "@plopdown/plopdown-cues": ["libs/plopdown-cues/src/index.ts"],
+      "@plopdown/plopdown-embed": ["libs/plopdown-embed/src/index.ts"],
       "@plopdown/plopdown-overlay": ["libs/plopdown-overlay/src/index.ts"],
       "@plopdown/tokens": ["libs/tokens/src/index.ts"],
       "@plopdown/devtools-ref": ["libs/devtools-ref/src/index.ts"],

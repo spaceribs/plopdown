@@ -1,10 +1,10 @@
 module.exports = {
-  name: 'plopdown-cues',
+  name: 'plopdown-embed',
   preset: '../../jest.config.js',
-  coverageDirectory: '../../coverage/libs/plopdown-cues',
+  coverageDirectory: '../../coverage/libs/plopdown-embed',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',
-    'jest-preset-angular/build/HTMLCommentSerializer.js'
-  ]
+    'jest-preset-angular/build/HTMLCommentSerializer.js',
+  ],
 };

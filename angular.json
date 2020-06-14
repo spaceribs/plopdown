@@ -867,32 +867,32 @@
         }
       }
     },
-    "plopdown-cues": {
+    "plopdown-embed": {
       "projectType": "library",
-      "root": "libs/plopdown-cues",
-      "sourceRoot": "libs/plopdown-cues/src",
+      "root": "libs/plopdown-embed",
+      "sourceRoot": "libs/plopdown-embed/src",
       "prefix": "plopdown",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/plopdown-cues/tsconfig.lib.json",
-              "libs/plopdown-cues/tsconfig.spec.json"
+              "libs/plopdown-embed/tsconfig.lib.json",
+              "libs/plopdown-embed/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/plopdown-cues/**"
+              "!libs/plopdown-embed/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/plopdown-cues/jest.config.js",
-            "tsConfig": "libs/plopdown-cues/tsconfig.spec.json",
+            "jestConfig": "libs/plopdown-embed/jest.config.js",
+            "tsConfig": "libs/plopdown-embed/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/plopdown-cues/src/test-setup.ts"
+            "setupFile": "libs/plopdown-embed/src/test-setup.ts"
           }
         },
         "storybook": {
@@ -901,7 +901,7 @@
             "uiFramework": "@storybook/angular",
             "port": 4400,
             "config": {
-              "configFolder": "libs/plopdown-cues/.storybook"
+              "configFolder": "libs/plopdown-embed/.storybook"
             }
           },
           "configurations": {
@@ -914,9 +914,9 @@
           "builder": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/angular",
-            "outputPath": "docs/storybook/plopdown-cues",
+            "outputPath": "docs/storybook/plopdown-embed",
             "config": {
-              "configFolder": "libs/plopdown-cues/.storybook"
+              "configFolder": "libs/plopdown-embed/.storybook"
             }
           },
           "configurations": {
@@ -1415,21 +1415,21 @@
         }
       }
     },
-    "plopdown-cues-e2e": {
-      "root": "apps/plopdown-cues-e2e",
-      "sourceRoot": "apps/plopdown-cues-e2e/src",
+    "plopdown-embed-e2e": {
+      "root": "apps/plopdown-embed-e2e",
+      "sourceRoot": "apps/plopdown-embed-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/plopdown-cues-e2e/cypress.json",
-            "tsConfig": "apps/plopdown-cues-e2e/tsconfig.e2e.json",
-            "devServerTarget": "plopdown-cues:storybook"
+            "cypressConfig": "apps/plopdown-embed-e2e/cypress.json",
+            "tsConfig": "apps/plopdown-embed-e2e/tsconfig.e2e.json",
+            "devServerTarget": "plopdown-embed:storybook"
           },
           "configurations": {
             "ci": {
-              "devServerTarget": "plopdown-cues:storybook:ci"
+              "devServerTarget": "plopdown-embed:storybook:ci"
             }
           }
         },
@@ -1437,11 +1437,11 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/plopdown-cues-e2e/tsconfig.e2e.json"
+              "apps/plopdown-embed-e2e/tsconfig.e2e.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!apps/plopdown-cues-e2e/**"
+              "!apps/plopdown-embed-e2e/**"
             ]
           }
         }

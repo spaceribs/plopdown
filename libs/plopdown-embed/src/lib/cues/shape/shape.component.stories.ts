@@ -4,10 +4,6 @@ import { object } from '@storybook/addon-knobs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlopdownTemplateType } from '../../models/plopdown-base.model';
 
-import exampleImage from '../../../assets/example.png';
-
-console.log(exampleImage);
-
 export default {
   title: 'ShapeComponent',
 };
@@ -31,7 +27,6 @@ export const Rectangles = () => ({
     imports: [BrowserAnimationsModule],
   },
   component: ShapeComponent,
-  assets: [exampleImage],
   props: {
     data: object<PlopdownShape>('data', {
       ...BasicViewport,

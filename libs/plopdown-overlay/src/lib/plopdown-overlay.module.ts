@@ -1,4 +1,4 @@
-import { PlopdownCuesModule } from '@plopdown/plopdown-cues';
+import { PlopdownCuesModule } from '@plopdown/plopdown-embed';
 import { IconModule } from '@plopdown/icon';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,9 +15,9 @@ import { CueTimelineComponent } from './cue-timeline/cue-timeline.component';
     VideoAttachmentComponent,
     VideoAttachmentsComponent,
     OverlayMenuComponent,
-    CueTimelineComponent
+    CueTimelineComponent,
   ],
   exports: [VideoAttachmentsComponent, VideoOverlayComponent],
-  imports: [CommonModule, IconModule, PlopdownCuesModule]
+  imports: [CommonModule, IconModule, PlopdownCuesModule],
 })
 export class PlopdownOverlayModule {}

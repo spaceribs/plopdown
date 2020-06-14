@@ -2,7 +2,7 @@ import {
   Percentage,
   URIReference,
   Title,
-} from './../../models/plopdown-primitives.model';
+} from '../../models/plopdown-primitives.model';
 import {
   PlopdownBaseTemplate,
   PlopdownTemplateType,

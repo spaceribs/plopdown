@@ -2,7 +2,7 @@ import {
   Title,
   ExternalLink,
   Author,
-} from './../../models/plopdown-primitives.model';
+} from '../../models/plopdown-primitives.model';
 import {
   PlopdownBaseTemplate,
   PlopdownTemplateType,
