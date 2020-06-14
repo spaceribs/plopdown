@@ -1,5 +1,5 @@
+import { Cue } from '@plopdown/plopdown-embed';
 import PouchDB from 'pouchdb';
-import { Cue } from 'libs/plopdown-embed/src';
 
 export interface Track {
   /**

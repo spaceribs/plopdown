@@ -39,13 +39,13 @@ import {
   style,
   animate,
 } from '@angular/animations';
-import { Cue } from '@plopdown/plopdown-embed';
+import { Cue } from '../models/plopdown-cue.model';
 
 @Component({
-  selector: 'plopdown-video-overlay',
-  templateUrl: './video-overlay.component.html',
+  selector: 'plopdown-stage',
+  templateUrl: './stage.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./video-overlay.component.scss'],
+  styleUrls: ['./stage.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('videoOutline', [
@@ -75,7 +75,7 @@ export class VideoOverlayComponent {
   private manualReposition$: Subject<void> = new BehaviorSubject(null);
 
   public cues$: Observable<Cue[]>;
-  public styles$: Observable<{ overlay: object; stage: object }>;
+  public styles$: Observable<{ wrapper: object; stage: object }>;
   public editMode$: Observable<boolean>;
 
   private mouseMove$: Observable<Event>;
@@ -213,8 +213,8 @@ export class VideoOverlayComponent {
     );
 
     this.styles$ = combineLatest([overlayStyle$, stageStyle$]).pipe(
-      map(([overlay, stage]) => {
-        return { overlay, stage };
+      map(([wrapper, stage]) => {
+        return { wrapper, stage };
       }),
       tap(() =>
         setTimeout(() => {

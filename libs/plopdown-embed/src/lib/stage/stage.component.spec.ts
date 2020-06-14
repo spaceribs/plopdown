@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VideoOverlayComponent } from './video-overlay.component';
+import { VideoOverlayComponent } from './stage.component';
 
 describe('VideoOverlayComponent', () => {
   let component: VideoOverlayComponent;
@@ -8,9 +8,8 @@ describe('VideoOverlayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VideoOverlayComponent ]
-    })
-    .compileComponents();
+      declarations: [VideoOverlayComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

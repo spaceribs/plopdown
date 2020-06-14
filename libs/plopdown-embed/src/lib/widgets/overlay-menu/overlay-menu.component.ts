@@ -5,7 +5,7 @@ import {
   EventEmitter,
   Input,
   ChangeDetectorRef,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 
 import { mdiClose, mdiTooltipEdit, mdiTooltipPlus } from '@mdi/js';
@@ -15,11 +15,11 @@ import {
   transition,
   sequence,
   style,
-  animate
+  animate,
 } from '@angular/animations';
 import { tap } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { LoadAssetService } from '../load-asset.service';
+import { LoadAssetService } from '../../load-asset.service';
 
 @Component({
   selector: 'plopdown-overlay-menu',
@@ -33,15 +33,15 @@ import { LoadAssetService } from '../load-asset.service';
         sequence([
           style({
             width: '0',
-            marginRight: '0'
+            marginRight: '0',
           }),
           animate(
             '0.2s ease-out',
             style({
               width: '*',
-              marginRight: '*'
+              marginRight: '*',
             })
-          )
+          ),
         ])
       ),
       transition(
@@ -49,19 +49,19 @@ import { LoadAssetService } from '../load-asset.service';
         sequence([
           style({
             width: '*',
-            marginRight: '*'
+            marginRight: '*',
           }),
           animate(
             '0.2s ease-out',
             style({
               width: '0',
-              marginRight: '0'
+              marginRight: '0',
             })
-          )
+          ),
         ])
-      )
-    ])
-  ]
+      ),
+    ]),
+  ],
 })
 export class OverlayMenuComponent implements OnDestroy {
   public mdiClose = mdiClose;

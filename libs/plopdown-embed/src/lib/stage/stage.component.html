@@ -1,8 +1,8 @@
 <div
-  class="elem-overlay"
+  class="stage-wrapper"
   *ngIf="styles$ | async as styles"
   [@videoOutline]
-  [ngStyle]="styles.overlay"
+  [ngStyle]="styles.wrapper"
 >
   <div class="stage" [ngStyle]="styles.stage">
     <plopdown-overlay-menu (remove)="removeOverlay()"></plopdown-overlay-menu>
