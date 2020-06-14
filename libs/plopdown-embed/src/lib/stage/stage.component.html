@@ -5,7 +5,7 @@
   [ngStyle]="styles.wrapper"
 >
   <div class="stage" [ngStyle]="styles.stage">
-    <plopdown-overlay-menu (remove)="removeOverlay()"></plopdown-overlay-menu>
+    <plopdown-injector-menu (remove)="removeOverlay()"></plopdown-injector-menu>
     <plopdown-cue-renderer [cues]="cues$ | async"></plopdown-cue-renderer>
     <plopdown-cue-timeline
       *ngIf="showTimeline$ | async"

@@ -9,19 +9,19 @@ import {
   NgModule,
   DoBootstrap,
   ApplicationRef,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {
   LoggerModule,
   LogConsoleService,
-  LogStorageService
+  LogStorageService,
 } from '@plopdown/logger';
 import { MessagesModule } from '@plopdown/messages';
 import { BrowserRefModule } from '@plopdown/browser-ref';
 import { ContentScannerComponent } from './content-scanner/content-scanner.component';
-import { PlopdownOverlayModule } from '@plopdown/plopdown-overlay';
+import { PlopdownInjectorModule } from '@plopdown/plopdown-injector';
 
 @NgModule({
   declarations: [AppComponent, ContentScannerComponent],
@@ -33,15 +33,15 @@ import { PlopdownOverlayModule } from '@plopdown/plopdown-overlay';
     WindowRefModule,
     BrowserRefModule,
     MessagesModule,
-    PlopdownOverlayModule,
+    PlopdownInjectorModule,
     LoggerModule.forRoot({
       appName: `ContentScript:"${document.title}"`,
       color: 'blue',
-      providers: [LogConsoleService, LogStorageService]
+      providers: [LogConsoleService, LogStorageService],
     }),
     BrowserAnimationsModule,
-    IconModule
-  ]
+    IconModule,
+  ],
 })
 export class AppModule implements DoBootstrap, OnDestroy {
   private appElement: HTMLElement;

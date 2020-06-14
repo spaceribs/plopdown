@@ -11,4 +11,4 @@ import { VideoAttachmentsComponent } from './video-attachments/video-attachments
   exports: [VideoAttachmentsComponent],
   imports: [CommonModule, IconModule, PlopdownCuesModule],
 })
-export class PlopdownOverlayModule {}
+export class PlopdownInjectorModule {}
