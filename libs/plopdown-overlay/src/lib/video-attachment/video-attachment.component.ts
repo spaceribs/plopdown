@@ -1,6 +1,5 @@
 import { SavedTrack } from '@plopdown/tracks';
 import { LoggerService } from '@plopdown/logger';
-import { VideoOverlayComponent } from './../video-overlay/video-overlay.component';
 import { XPathService, WindowRefService } from '@plopdown/window-ref';
 import {
   Component,
@@ -11,19 +10,20 @@ import {
   EmbeddedViewRef,
   ComponentRef,
   OnDestroy,
-  ComponentFactoryResolver
+  ComponentFactoryResolver,
 } from '@angular/core';
 import { Subscription, fromEvent } from 'rxjs';
 import {
   VIDEO_ELEM_TOKEN,
   TRACK_TOKEN,
-  TRACK_FILES_TOKEN
+  TRACK_FILES_TOKEN,
 } from '@plopdown/tokens';
 import { map, filter, startWith, distinctUntilChanged } from 'rxjs/operators';
+import { VideoOverlayComponent } from '@plopdown/plopdown-embed';
 
 @Component({
   selector: 'plopdown-video-attachment',
-  template: ''
+  template: '',
 })
 export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private videoElem: HTMLVideoElement | null;
@@ -59,10 +59,10 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
           return this.videoElem.duration;
         }),
         startWith(this.videoElem.duration),
-        filter(duration => !isNaN(duration)),
+        filter((duration) => !isNaN(duration)),
         distinctUntilChanged()
       )
-      .subscribe(duration => {
+      .subscribe((duration) => {
         this.bindAttachment();
       });
     this.subs.add(waitUntilLoadedSub);
@@ -92,8 +92,8 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
       providers: [
         { provide: VIDEO_ELEM_TOKEN, useValue: this.videoElem },
         { provide: TRACK_TOKEN, useValue: this.track },
-        { provide: TRACK_FILES_TOKEN, useValue: this.files }
-      ]
+        { provide: TRACK_FILES_TOKEN, useValue: this.files },
+      ],
     });
 
     const componentRef = componentFactory.create(componentInjector);

@@ -1,4 +1,4 @@
-import { VideoOverlayComponent } from '@plopdown/plopdown-overlay';
+import { VideoOverlayComponent } from '@plopdown/plopdown-embed';
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
@@ -10,7 +10,7 @@ import {
   ApplicationRef,
   EmbeddedViewRef,
   OnDestroy,
-  ComponentRef
+  ComponentRef,
 } from '@angular/core';
 import { map, switchMap, first, shareReplay } from 'rxjs/operators';
 import { PlopdownFile, PlopdownFileService } from '@plopdown/plopdown-file';
@@ -22,7 +22,7 @@ import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
 @Component({
   selector: 'plopdown-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
   public readonly track$: Observable<Track>;
@@ -52,17 +52,17 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
     this.track$ = http
       .get('/assets/minnie_facts.vtt', {
-        responseType: 'text'
+        responseType: 'text',
       })
       .pipe(
-        map(raw => {
+        map((raw) => {
           const file: PlopdownFile = fileService.decode(raw);
 
           const track: Track = {
             title: file.headers.title,
             for: file.headers.for,
             created: file.headers.created,
-            cues: file.cues
+            cues: file.cues,
           };
 
           return track;
@@ -73,18 +73,18 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       switchMap(() => {
         return this.track$;
       }),
-      map(track => {
+      map((track) => {
         const componentInjector = Injector.create({
           providers: [
             {
               provide: VIDEO_ELEM_TOKEN,
-              useValue: this.exampleVideo.nativeElement
+              useValue: this.exampleVideo.nativeElement,
             },
             {
               provide: TRACK_TOKEN,
-              useValue: track
-            }
-          ]
+              useValue: track,
+            },
+          ],
         });
         const componentRef = overlayFactory.create(componentInjector);
         this.appRef.attachView(componentRef.hostView);
@@ -100,16 +100,18 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       shareReplay(1)
     );
 
-    const attachOverlaySub = this.overlayComponent$.subscribe(componentRef => {
-      const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
-        .rootNodes[0] as HTMLElement;
-      this.exampleVideo.nativeElement.parentNode.appendChild(domElem);
-    });
+    const attachOverlaySub = this.overlayComponent$.subscribe(
+      (componentRef) => {
+        const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
+          .rootNodes[0] as HTMLElement;
+        this.exampleVideo.nativeElement.parentNode.appendChild(domElem);
+      }
+    );
     this.subs.add(attachOverlaySub);
 
     const detachOverlaySub = this.removeTrack$
       .pipe(switchMap(() => this.overlayComponent$.pipe(first())))
-      .subscribe(componentRef => {
+      .subscribe((componentRef) => {
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
           .rootNodes[0] as HTMLElement;
         domElem.remove();

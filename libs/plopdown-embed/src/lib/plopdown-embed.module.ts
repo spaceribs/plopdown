@@ -5,30 +5,31 @@ import { CommonModule } from '@angular/common';
 import { InfoComponent } from './cues/info/info.component';
 import { PlopComponent } from './cues/plop/plop.component';
 import { CueRendererComponent } from './cue-renderer/cue-renderer.component';
-import {
-  SchemaFormModule,
-  WidgetRegistry,
-  DefaultWidgetRegistry,
-} from 'ngx-schema-form';
 import { AudioComponent } from './cues/audio/audio.component';
 import { ShapeComponent } from './cues/shape/shape.component';
+import { VideoOverlayComponent } from './stage/stage.component';
+import { OverlayMenuComponent } from './widgets/overlay-menu/overlay-menu.component';
+import { CueTimelineComponent } from './widgets/cue-timeline/cue-timeline.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, SchemaFormModule.forRoot(), IconModule],
+  imports: [CommonModule, FormsModule, IconModule],
   declarations: [
+    VideoOverlayComponent,
+    OverlayMenuComponent,
+    CueTimelineComponent,
     CueRendererComponent,
     InfoComponent,
     PlopComponent,
     ShapeComponent,
-    AudioComponent
+    AudioComponent,
   ],
   exports: [
     CueRendererComponent,
     InfoComponent,
     PlopComponent,
     ShapeComponent,
-    AudioComponent
+    AudioComponent,
   ],
-  providers: [{ provide: WidgetRegistry, useClass: DefaultWidgetRegistry }]
+  providers: [],
 })
 export class PlopdownCuesModule {}

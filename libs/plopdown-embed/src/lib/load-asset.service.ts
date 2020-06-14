@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoadAssetService {
   constructor(
@@ -17,10 +17,10 @@ export class LoadAssetService {
 
   asText(path: string): Observable<SafeUrl> {
     return from(fetch(this.runtime.getURL(path))).pipe(
-      switchMap(res => {
+      switchMap((res) => {
         return res.blob();
       }),
-      map(blob => {
+      map((blob) => {
         return this.domSanitizer.bypassSecurityTrustUrl(
           this.windowRef.getURL().createObjectURL(blob)
         );

@@ -7,7 +7,6 @@ import {
   Injector,
   Output,
   EventEmitter,
-  AfterViewInit,
   OnInit,
   HostListener,
 } from '@angular/core';
@@ -19,8 +18,9 @@ import {
   useAnimation,
 } from '@angular/animations';
 import { fadeIn, fadeOut } from 'ng-animate';
-import { PLOPDOWN_TEMPLATES, Cue } from '@plopdown/plopdown-embed';
 import { map, startWith, shareReplay } from 'rxjs/operators';
+import { Cue } from '../../models/plopdown-cue.model';
+import { PLOPDOWN_TEMPLATES } from '../../models/plopdown-templates.model';
 
 @Component({
   selector: 'plopdown-cue-timeline',
