@@ -14,12 +14,12 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
   ComponentRef,
-  HostBinding
+  HostBinding,
 } from '@angular/core';
 import { Cue } from '../models/plopdown-cue.model';
 import {
   PLOPDOWN_TEMPLATES,
-  PlopdownTemplate
+  PlopdownTemplate,
 } from '../models/plopdown-templates.model';
 import { PlopdownBaseComponent } from '../models/plopdown-base.component';
 
@@ -30,7 +30,7 @@ type PlopdownComponentFactory = ComponentFactory<
 @Component({
   selector: 'plopdown-cue-renderer',
   templateUrl: './cue-renderer.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CueRendererComponent implements AfterViewInit, OnDestroy {
   private cues$: Subject<Cue[]> = new BehaviorSubject([]);
@@ -62,8 +62,8 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
     private logger: LoggerService
   ) {
     this.cueComponents$ = this.cues$.pipe(
-      map(rawCues => {
-        return rawCues.map(cue => {
+      map((rawCues) => {
+        return rawCues.map((cue) => {
           const PlopdownComponent = PLOPDOWN_TEMPLATES[cue.data.type];
 
           if (PlopdownComponent == null) {
@@ -82,7 +82,7 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     const cueSub = this.cueComponents$.subscribe({
-      next: cues => {
+      next: (cues) => {
         // Add new cues
         cues.forEach(([componentFactory, cue]) => {
           if (componentFactory == null) {
@@ -123,9 +123,9 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
 
         this.cd.detectChanges();
       },
-      error: err => {
+      error: (err) => {
         this.errorHandler.handleError(err);
-      }
+      },
     });
 
     this.subs.add(cueSub);

@@ -4,7 +4,7 @@ import { WindowRefModule } from './window-ref.module';
 describe('WindowRefModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [WindowRefModule]
+      imports: [WindowRefModule],
     }).compileComponents();
   }));
 

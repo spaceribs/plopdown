@@ -4,7 +4,7 @@ import { DevtoolsRefModule } from './devtools-ref.module';
 describe('DevtoolsRefModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DevtoolsRefModule]
+      imports: [DevtoolsRefModule],
     }).compileComponents();
   }));
 

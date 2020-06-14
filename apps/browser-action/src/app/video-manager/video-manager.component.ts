@@ -5,7 +5,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   VideoRefsService,
   VideoRef,
-  SavedVideoRef
+  SavedVideoRef,
 } from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
 import { tap } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { mdiTrashCan } from '@mdi/js';
 @Component({
   selector: 'plopdown-video-manager',
   templateUrl: './video-manager.component.html',
-  styleUrls: ['./video-manager.component.scss']
+  styleUrls: ['./video-manager.component.scss'],
 })
 export class VideoManagerComponent implements OnInit, OnDestroy {
   public videoRefs$: Observable<VideoRef[]>;
@@ -32,7 +32,7 @@ export class VideoManagerComponent implements OnInit, OnDestroy {
   ) {
     this.loadingVideoRefs$ = this.videoRefsService.getLoading();
     this.videoRefs$ = videoRefsService.getVideoRefs().pipe(
-      tap(refs => {
+      tap((refs) => {
         logger.debug('video references', refs);
       })
     );
@@ -54,12 +54,12 @@ export class VideoManagerComponent implements OnInit, OnDestroy {
     const removeVideoRefSub = this.videoRefsService
       .removeVideoRef(videoRef)
       .subscribe({
-        next: res => {
+        next: (res) => {
           this.logger.debug('Removed Video Ref', res);
         },
-        error: err => {
+        error: (err) => {
           this.logger.error('Error removing Video Ref', err);
-        }
+        },
       });
     this.subs.add(removeVideoRefSub);
   }
@@ -76,11 +76,11 @@ export class VideoManagerComponent implements OnInit, OnDestroy {
     event.preventDefault();
     browser.permissions
       .request({
-        origins: ['https://www.youtube.com/embed/7MNS2dPfm0g']
+        origins: ['https://www.youtube.com/embed/7MNS2dPfm0g'],
       })
-      .then(allowed => {
+      .then((allowed) => {
         console.log(allowed);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 }

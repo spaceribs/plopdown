@@ -6,7 +6,7 @@ import { Routes } from '@angular/router';
 @Component({
   selector: 'plopdown-archive',
   templateUrl: './archive.component.html',
-  styleUrls: ['./archive.component.scss']
+  styleUrls: ['./archive.component.scss'],
 })
 export class ArchiveComponent implements OnInit {
   public postRoutes: Routes;

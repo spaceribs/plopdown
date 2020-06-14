@@ -8,9 +8,8 @@ describe('OverlayMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverlayMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [OverlayMenuComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

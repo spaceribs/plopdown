@@ -5,7 +5,7 @@ import {
   Output,
   EventEmitter,
   OnInit,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { mdiFileOutline, mdiFileCheck } from '@mdi/js';
 import { Track } from '@plopdown/tracks';
@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'plopdown-file-importer',
   templateUrl: './file-importer.component.html',
-  styleUrls: ['./file-importer.component.scss']
+  styleUrls: ['./file-importer.component.scss'],
 })
 export class FileImporterComponent implements OnInit, OnDestroy {
   public fileReader = new FileReader();
@@ -47,7 +47,7 @@ export class FileImporterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const fileLoadedSub = this.fileLoaded$.subscribe({
-      next: plopfile => {
+      next: (plopfile) => {
         this.logger.debug('Plopdown track loaded', plopfile);
 
         this.track = {
@@ -60,14 +60,14 @@ export class FileImporterComponent implements OnInit, OnDestroy {
           language: plopfile.headers.language,
           license: plopfile.headers.license,
           authors: plopfile.headers.authors,
-          cues: plopfile.cues
+          cues: plopfile.cues,
         };
 
         this.fileRefs = plopfile.files;
       },
-      error: err => {
+      error: (err) => {
         this.logger.error('Could not load plopdown track', err);
-      }
+      },
     });
     this.subs.add(fileLoadedSub);
   }
@@ -83,8 +83,8 @@ export class FileImporterComponent implements OnInit, OnDestroy {
       ...this.track._attachments,
       [fileName]: {
         content_type: file.type,
-        data: file
-      }
+        data: file,
+      },
     };
   }
 

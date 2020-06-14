@@ -4,7 +4,7 @@ import { BrowserRefService } from './browser-ref.service';
 import { from } from 'rxjs';
 
 @Injectable({
-  providedIn: BrowserRefModule
+  providedIn: BrowserRefModule,
 })
 export class PermissionsService {
   browser: typeof browser;

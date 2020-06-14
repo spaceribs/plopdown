@@ -6,6 +6,6 @@ import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [SiteNavComponent],
   imports: [CommonModule, RouterModule],
-  exports: [SiteNavComponent]
+  exports: [SiteNavComponent],
 })
 export class SiteNavModule {}

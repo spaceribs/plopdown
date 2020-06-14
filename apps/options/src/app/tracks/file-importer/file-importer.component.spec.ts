@@ -8,9 +8,8 @@ describe('FileImporterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileImporterComponent ]
-    })
-    .compileComponents();
+      declarations: [FileImporterComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

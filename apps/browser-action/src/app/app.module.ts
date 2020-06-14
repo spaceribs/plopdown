@@ -4,7 +4,7 @@ import { VideoRefsModule } from '@plopdown/video-refs';
 import {
   LoggerModule,
   LogConsoleService,
-  LogStorageService
+  LogStorageService,
 } from '@plopdown/logger';
 import { TracksModule } from '@plopdown/tracks';
 import { BrowserRefModule } from '@plopdown/browser-ref';
@@ -25,7 +25,7 @@ import { TrackManagerComponent } from './track-manager/track-manager.component';
 const appRoutes: Routes = [
   { path: '', component: ScannerComponent },
   { path: 'videos', component: VideoManagerComponent },
-  { path: 'tracks', component: TrackManagerComponent }
+  { path: 'tracks', component: TrackManagerComponent },
 ];
 
 @NgModule({
@@ -33,7 +33,7 @@ const appRoutes: Routes = [
     AppComponent,
     VideoManagerComponent,
     TrackManagerComponent,
-    ScannerComponent
+    ScannerComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,18 +44,18 @@ const appRoutes: Routes = [
     LoggerModule.forRoot({
       appName: 'BrowserAction',
       color: 'green',
-      providers: [LogConsoleService, LogStorageService]
+      providers: [LogConsoleService, LogStorageService],
     }),
     RouterModule.forRoot(appRoutes, {
       useHash: true,
-      initialNavigation: 'enabled'
+      initialNavigation: 'enabled',
     }),
     BrowserAnimationsModule,
     MessagesModule,
     WindowRefModule,
     VideoRefsModule,
-    TracksModule
+    TracksModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

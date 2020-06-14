@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: WindowRefModule
+  providedIn: WindowRefModule,
 })
 export class IFrameScanService {
   private document: Document;
@@ -20,14 +20,14 @@ export class IFrameScanService {
       map(() => {
         return this.document.querySelectorAll('iframe');
       }),
-      map(domElems => {
+      map((domElems) => {
         const iframes: HTMLIFrameElement[] = [];
 
         if (domElems == null) {
           return iframes;
         }
 
-        domElems.forEach(elem => {
+        domElems.forEach((elem) => {
           iframes.push(elem);
         });
 

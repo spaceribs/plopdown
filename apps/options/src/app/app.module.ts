@@ -11,7 +11,7 @@ import { BrowserRefModule } from '@plopdown/browser-ref';
 import {
   LoggerModule,
   LogConsoleService,
-  LogStorageService
+  LogStorageService,
 } from '@plopdown/logger';
 import { HomeComponent } from './home/home.component';
 import { SubnavComponent } from './subnav/subnav.component';
@@ -41,7 +41,7 @@ import { LogViewerComponent } from './log-viewer/log-viewer.component';
     TrackEditorComponent,
     FileManagerComponent,
     FileImporterComponent,
-    LogViewerComponent
+    LogViewerComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,41 +56,41 @@ import { LogViewerComponent } from './log-viewer/log-viewer.component';
     LoggerModule.forRoot({
       appName: 'Options',
       color: 'orange',
-      providers: [LogConsoleService, LogStorageService]
+      providers: [LogConsoleService, LogStorageService],
     }),
     RouterModule.forRoot(
       [
         {
           path: 'home',
-          component: HomeComponent
+          component: HomeComponent,
         },
         {
           path: 'videos',
-          component: VideosComponent
+          component: VideosComponent,
         },
         {
           path: 'tracks',
-          component: TracksComponent
+          component: TracksComponent,
         },
         {
           path: 'settings',
-          component: SettingsComponent
+          component: SettingsComponent,
         },
         {
           path: 'logs',
-          component: LogViewerComponent
+          component: LogViewerComponent,
         },
         {
           path: '**',
-          redirectTo: 'home'
-        }
+          redirectTo: 'home',
+        },
       ],
       {
         useHash: true,
-        initialNavigation: true
+        initialNavigation: true,
       }
-    )
+    ),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

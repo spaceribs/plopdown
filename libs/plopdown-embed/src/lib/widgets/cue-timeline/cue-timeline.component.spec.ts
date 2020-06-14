@@ -8,9 +8,8 @@ describe('CueTimelineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CueTimelineComponent ]
-    })
-    .compileComponents();
+      declarations: [CueTimelineComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

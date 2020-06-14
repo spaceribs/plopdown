@@ -4,7 +4,7 @@ import { TracksModule } from './tracks.module';
 describe('TracksModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TracksModule]
+      imports: [TracksModule],
     }).compileComponents();
   }));
 

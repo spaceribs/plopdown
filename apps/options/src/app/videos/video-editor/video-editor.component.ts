@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'plopdown-video-editor',
   templateUrl: './video-editor.component.html',
-  styleUrls: ['./video-editor.component.scss']
+  styleUrls: ['./video-editor.component.scss'],
 })
 export class VideoEditorComponent {
   public videoRefForm: FormGroup;
@@ -26,7 +26,7 @@ export class VideoEditorComponent {
       frameTitle: [null],
       frameOrigin: [
         null,
-        [Validators.required, Validators.pattern(/^https?:\/\//)]
+        [Validators.required, Validators.pattern(/^https?:\/\//)],
       ],
       framePath: [null],
       frameSearch: [null],
@@ -34,7 +34,7 @@ export class VideoEditorComponent {
       duration: [null, [Validators.required, Validators.min(1)]],
       track: [null],
       _id: [null],
-      _rev: [null]
+      _rev: [null],
     });
   }
 

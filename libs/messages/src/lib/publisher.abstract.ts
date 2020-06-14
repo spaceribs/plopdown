@@ -18,15 +18,15 @@ export abstract class PortPublisher<C extends object> implements OnDestroy {
   ) {
     const commandsSub = this.command$
       .pipe(
-        tap(command => logger.debug('Command to be Published', command)),
-        map(command => {
+        tap((command) => logger.debug('Command to be Published', command)),
+        map((command) => {
           return { source, ...command };
         }),
-        switchMap(message => {
+        switchMap((message) => {
           if (tabs) {
             return forkJoin([
               messages.sendMessage(message),
-              tabs.sendMessage(message)
+              tabs.sendMessage(message),
             ]);
           }
 
@@ -34,12 +34,12 @@ export abstract class PortPublisher<C extends object> implements OnDestroy {
         })
       )
       .subscribe({
-        next: cmd => {
+        next: (cmd) => {
           logger.debug('Command Published', cmd);
         },
-        error: err => {
+        error: (err) => {
           logger.error('Command Pipeline Broken', err);
-        }
+        },
       });
     this.subs.add(commandsSub);
   }

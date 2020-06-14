@@ -6,7 +6,7 @@ import { WindowRefModule } from './window-ref.module';
 import { WindowRefService } from './window-ref.service';
 
 @Injectable({
-  providedIn: WindowRefModule
+  providedIn: WindowRefModule,
 })
 export class VideoScanService {
   private document: Document;
@@ -22,14 +22,14 @@ export class VideoScanService {
           'video:not([plopdown-ignore])'
         );
       }),
-      map(domElems => {
+      map((domElems) => {
         const videos: HTMLVideoElement[] = [];
 
         if (domElems == null) {
           return videos;
         }
 
-        domElems.forEach(elem => {
+        domElems.forEach((elem) => {
           videos.push(elem);
         });
 

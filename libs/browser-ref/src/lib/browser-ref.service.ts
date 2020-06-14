@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BrowserRefModule } from './browser-ref.module';
 
 @Injectable({
-  providedIn: BrowserRefModule
+  providedIn: BrowserRefModule,
 })
 export class BrowserRefService {
   constructor() {}

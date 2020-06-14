@@ -8,7 +8,7 @@ describe('HomeSubnavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SubnavComponent]
+      declarations: [SubnavComponent],
     }).compileComponents();
   }));
 

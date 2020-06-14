@@ -7,7 +7,7 @@ import { PortPublisher } from '../publisher.abstract';
 import { MessagesModule } from '../messages.module';
 
 @Injectable({
-  providedIn: MessagesModule
+  providedIn: MessagesModule,
 })
 export class BrowserActionPubService extends PortPublisher<
   BrowserActionCommand

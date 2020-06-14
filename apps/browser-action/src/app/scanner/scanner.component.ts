@@ -3,7 +3,7 @@ import { LoggerService } from '@plopdown/logger';
 import {
   BrowserActionPubService,
   BackgroundSubService,
-  BackgroundCheckAlive
+  BackgroundCheckAlive,
 } from '@plopdown/messages';
 import { TracksService, SavedTrack } from '@plopdown/tracks';
 import { VideoRef, VideoRefsService } from '@plopdown/video-refs';
@@ -19,7 +19,7 @@ enum ActionState {
   Loading = 'LOADING',
   NoTracks = 'NO_TRACKS',
   NoVideos = 'NO_VIDEOS',
-  Ready = 'READY'
+  Ready = 'READY',
 }
 
 @Component({
@@ -31,17 +31,17 @@ enum ActionState {
       transition(
         'void => *',
         useAnimation(fadeIn, {
-          params: { timing: 0.2 }
+          params: { timing: 0.2 },
         })
       ),
       transition(
         '* => void',
         useAnimation(fadeOut, {
-          params: { timing: 0.2 }
+          params: { timing: 0.2 },
         })
-      )
-    ])
-  ]
+      ),
+    ]),
+  ],
 })
 export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   public ActionState = ActionState;
@@ -75,10 +75,10 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.checkedAlive$ = bgSub.getCheckAlive();
     const foundContent$ = bgSub.getContentFound().pipe(
-      tap(contentFound => {
+      tap((contentFound) => {
         this.logger.debug('Content Found', contentFound);
       }),
-      map(msg => msg.args),
+      map((msg) => msg.args),
       shareReplay(1)
     );
 
@@ -86,7 +86,7 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.foundIFrames$ = foundContent$.pipe(map(([_, iframes]) => iframes));
 
     this.state$ = combineLatest([this.tracks$, this.foundVideos$]).pipe(
-      tap(content => this.logger.debug('State Updated', content)),
+      tap((content) => this.logger.debug('State Updated', content)),
       map(([tracks, foundVideos]) => {
         if (tracks == null || tracks.length < 1) {
           return ActionState.NoTracks;
@@ -108,11 +108,11 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
       next: () => {
         this.selectedVideo = null;
         this.selectedTrack = null;
-      }
+      },
     });
     this.subs.add(clearInputsSub);
 
-    const stateSub = this.state$.subscribe(state => {
+    const stateSub = this.state$.subscribe((state) => {
       this.logger.debug('State Updated', state);
     });
     this.subs.add(stateSub);
@@ -140,18 +140,18 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
       ...this.selectedVideo,
       track: {
         _id: this.selectedTrack._id,
-        title: this.selectedTrack.title
-      }
+        title: this.selectedTrack.title,
+      },
     };
 
     const addVideoRefSub = this.videoRefsService.addVideoRef(newRef).subscribe({
-      next: res => {
+      next: (res) => {
         this.logger.debug('Added Video Ref', res);
         this.queryVideoRefs();
       },
-      error: err => {
+      error: (err) => {
         this.logger.error('Failed to add Video Ref', err);
-      }
+      },
     });
     this.subs.add(addVideoRefSub);
   }

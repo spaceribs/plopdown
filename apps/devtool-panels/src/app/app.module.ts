@@ -10,10 +10,10 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     RouterModule.forRoot([], {
       useHash: true,
-      initialNavigation: 'enabled'
-    })
+      initialNavigation: 'enabled',
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

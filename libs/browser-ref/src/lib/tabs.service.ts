@@ -10,11 +10,11 @@ import {
   switchMap,
   mapTo,
   tap,
-  catchError
+  catchError,
 } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: BrowserRefModule
+  providedIn: BrowserRefModule,
 })
 export class TabsService {
   tabs: typeof browser.tabs;
@@ -42,7 +42,7 @@ export class TabsService {
         return from(this.tabs.sendMessage(tab.id, message));
       }),
       mapTo(null),
-      catchError(err => of(err))
+      catchError((err) => of(err))
     );
   }
 }

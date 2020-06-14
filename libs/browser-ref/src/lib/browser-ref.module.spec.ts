@@ -4,7 +4,7 @@ import { BrowserRefModule } from './browser-ref.module';
 describe('BrowserRefModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [BrowserRefModule]
+      imports: [BrowserRefModule],
     }).compileComponents();
   }));
 

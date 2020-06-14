@@ -8,9 +8,8 @@ describe('CueRendererComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CueRendererComponent ]
-    })
-    .compileComponents();
+      declarations: [CueRendererComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

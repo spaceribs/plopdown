@@ -8,9 +8,8 @@ describe('SiteNavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SiteNavComponent ]
-    })
-    .compileComponents();
+      declarations: [SiteNavComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

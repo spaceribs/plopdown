@@ -4,7 +4,7 @@ import { PlopdownFileModule } from './plopdown-file.module';
 describe('PlopdownFileModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [PlopdownFileModule]
+      imports: [PlopdownFileModule],
     }).compileComponents();
   }));
 

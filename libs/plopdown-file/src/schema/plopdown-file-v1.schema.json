@@ -15,22 +15,14 @@
           "type": "number"
         },
         "type": {
-          "enum": [
-            "VOLUME"
-          ],
+          "enum": ["VOLUME"],
           "type": "string"
         },
         "video": {
           "type": "number"
         }
       },
-      "required": [
-        "type",
-        "startTime",
-        "endTime",
-        "audio",
-        "video"
-      ],
+      "required": ["type", "startTime", "endTime", "audio", "video"],
       "type": "object"
     },
     "AudioEdit": {
@@ -76,12 +68,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "startTime",
-        "endTime",
-        "id",
-        "data"
-      ],
+      "required": ["startTime", "endTime", "id", "data"],
       "type": "object"
     },
     "DashArray": {
@@ -134,17 +121,11 @@
           "type": "number"
         },
         "type": {
-          "enum": [
-            "PAUSE"
-          ],
+          "enum": ["PAUSE"],
           "type": "string"
         }
       },
-      "required": [
-        "type",
-        "startTime",
-        "duration"
-      ],
+      "required": ["type", "startTime", "duration"],
       "type": "object"
     },
     "Percentage": {
@@ -172,22 +153,14 @@
           "$ref": "#/definitions/Percentage"
         },
         "type": {
-          "enum": [
-            "AUDIO"
-          ],
+          "enum": ["AUDIO"],
           "type": "string"
         },
         "url": {
           "$ref": "#/definitions/URIReference"
         }
       },
-      "required": [
-        "left",
-        "title",
-        "top",
-        "type",
-        "url"
-      ],
+      "required": ["left", "title", "top", "type", "url"],
       "type": "object"
     },
     "PlopdownInfo": {
@@ -203,20 +176,14 @@
           "$ref": "#/definitions/Title"
         },
         "type": {
-          "enum": [
-            "INFO"
-          ],
+          "enum": ["INFO"],
           "type": "string"
         },
         "url": {
           "$ref": "#/definitions/ExternalLink"
         }
       },
-      "required": [
-        "authors",
-        "title",
-        "type"
-      ],
+      "required": ["authors", "title", "type"],
       "type": "object"
     },
     "PlopdownPlop": {
@@ -236,10 +203,7 @@
                 "$ref": "#/definitions/ExternalLink"
               }
             },
-            "required": [
-              "title",
-              "url"
-            ],
+            "required": ["title", "url"],
             "type": "object"
           },
           "type": "array"
@@ -264,13 +228,7 @@
                 "$ref": "#/definitions/Percentage"
               }
             },
-            "required": [
-              "top",
-              "left",
-              "size",
-              "rotate",
-              "emoji"
-            ],
+            "required": ["top", "left", "size", "rotate", "emoji"],
             "type": "object"
           },
           "type": "array"
@@ -282,23 +240,14 @@
           "$ref": "#/definitions/Percentage"
         },
         "type": {
-          "enum": [
-            "PLOP"
-          ],
+          "enum": ["PLOP"],
           "type": "string"
         },
         "width": {
           "$ref": "#/definitions/Percentage"
         }
       },
-      "required": [
-        "desc",
-        "icons",
-        "left",
-        "top",
-        "type",
-        "width"
-      ],
+      "required": ["desc", "icons", "left", "top", "type", "width"],
       "type": "object"
     },
     "PlopdownShape": {
@@ -363,19 +312,14 @@
               "$ref": "#/definitions/Title"
             }
           },
-          "required": [
-            "text",
-            "show"
-          ],
+          "required": ["text", "show"],
           "type": "object"
         },
         "top": {
           "$ref": "#/definitions/Percentage"
         },
         "type": {
-          "enum": [
-            "SHAPE"
-          ],
+          "enum": ["SHAPE"],
           "type": "string"
         },
         "viewBox": {
@@ -407,9 +351,7 @@
           "$ref": "#/definitions/ViewportCoordinate"
         },
         "element": {
-          "enum": [
-            "ellipse"
-          ],
+          "enum": ["ellipse"],
           "type": "string"
         },
         "fill": {
@@ -422,10 +364,7 @@
               "$ref": "#/definitions/Opacity"
             },
             "rule": {
-              "enum": [
-                "nonzero",
-                "evenodd"
-              ],
+              "enum": ["nonzero", "evenodd"],
               "type": "string"
             }
           },
@@ -453,19 +392,11 @@
               "$ref": "#/definitions/DashOffset"
             },
             "linecap": {
-              "enum": [
-                "butt",
-                "square",
-                "round"
-              ],
+              "enum": ["butt", "square", "round"],
               "type": "string"
             },
             "linejoin": {
-              "enum": [
-                "miter",
-                "round",
-                "bevel"
-              ],
+              "enum": ["miter", "round", "bevel"],
               "type": "string"
             },
             "opacity": {
@@ -484,13 +415,7 @@
           "$ref": "#/definitions/TransformOrigin"
         }
       },
-      "required": [
-        "cx",
-        "cy",
-        "element",
-        "rx",
-        "ry"
-      ],
+      "required": ["cx", "cy", "element", "rx", "ry"],
       "type": "object"
     },
     "PlopdownShapePath": {
@@ -500,9 +425,7 @@
           "$ref": "#/definitions/ViewportPath"
         },
         "element": {
-          "enum": [
-            "path"
-          ],
+          "enum": ["path"],
           "type": "string"
         },
         "fill": {
@@ -515,10 +438,7 @@
               "$ref": "#/definitions/Opacity"
             },
             "rule": {
-              "enum": [
-                "nonzero",
-                "evenodd"
-              ],
+              "enum": ["nonzero", "evenodd"],
               "type": "string"
             }
           },
@@ -540,19 +460,11 @@
               "$ref": "#/definitions/DashOffset"
             },
             "linecap": {
-              "enum": [
-                "butt",
-                "square",
-                "round"
-              ],
+              "enum": ["butt", "square", "round"],
               "type": "string"
             },
             "linejoin": {
-              "enum": [
-                "miter",
-                "round",
-                "bevel"
-              ],
+              "enum": ["miter", "round", "bevel"],
               "type": "string"
             },
             "opacity": {
@@ -571,19 +483,14 @@
           "$ref": "#/definitions/TransformOrigin"
         }
       },
-      "required": [
-        "d",
-        "element"
-      ],
+      "required": ["d", "element"],
       "type": "object"
     },
     "PlopdownShapePolygon": {
       "additionalProperties": false,
       "properties": {
         "element": {
-          "enum": [
-            "polygon"
-          ],
+          "enum": ["polygon"],
           "type": "string"
         },
         "fill": {
@@ -596,10 +503,7 @@
               "$ref": "#/definitions/Opacity"
             },
             "rule": {
-              "enum": [
-                "nonzero",
-                "evenodd"
-              ],
+              "enum": ["nonzero", "evenodd"],
               "type": "string"
             }
           },
@@ -624,19 +528,11 @@
               "$ref": "#/definitions/DashOffset"
             },
             "linecap": {
-              "enum": [
-                "butt",
-                "square",
-                "round"
-              ],
+              "enum": ["butt", "square", "round"],
               "type": "string"
             },
             "linejoin": {
-              "enum": [
-                "miter",
-                "round",
-                "bevel"
-              ],
+              "enum": ["miter", "round", "bevel"],
               "type": "string"
             },
             "opacity": {
@@ -655,19 +551,14 @@
           "$ref": "#/definitions/TransformOrigin"
         }
       },
-      "required": [
-        "element",
-        "points"
-      ],
+      "required": ["element", "points"],
       "type": "object"
     },
     "PlopdownShapePolyline": {
       "additionalProperties": false,
       "properties": {
         "element": {
-          "enum": [
-            "polyline"
-          ],
+          "enum": ["polyline"],
           "type": "string"
         },
         "fill": {
@@ -680,10 +571,7 @@
               "$ref": "#/definitions/Opacity"
             },
             "rule": {
-              "enum": [
-                "nonzero",
-                "evenodd"
-              ],
+              "enum": ["nonzero", "evenodd"],
               "type": "string"
             }
           },
@@ -708,19 +596,11 @@
               "$ref": "#/definitions/DashOffset"
             },
             "linecap": {
-              "enum": [
-                "butt",
-                "square",
-                "round"
-              ],
+              "enum": ["butt", "square", "round"],
               "type": "string"
             },
             "linejoin": {
-              "enum": [
-                "miter",
-                "round",
-                "bevel"
-              ],
+              "enum": ["miter", "round", "bevel"],
               "type": "string"
             },
             "opacity": {
@@ -739,19 +619,14 @@
           "$ref": "#/definitions/TransformOrigin"
         }
       },
-      "required": [
-        "element",
-        "points"
-      ],
+      "required": ["element", "points"],
       "type": "object"
     },
     "PlopdownShapeRect": {
       "additionalProperties": false,
       "properties": {
         "element": {
-          "enum": [
-            "rect"
-          ],
+          "enum": ["rect"],
           "type": "string"
         },
         "fill": {
@@ -764,10 +639,7 @@
               "$ref": "#/definitions/Opacity"
             },
             "rule": {
-              "enum": [
-                "nonzero",
-                "evenodd"
-              ],
+              "enum": ["nonzero", "evenodd"],
               "type": "string"
             }
           },
@@ -798,19 +670,11 @@
               "$ref": "#/definitions/DashOffset"
             },
             "linecap": {
-              "enum": [
-                "butt",
-                "square",
-                "round"
-              ],
+              "enum": ["butt", "square", "round"],
               "type": "string"
             },
             "linejoin": {
-              "enum": [
-                "miter",
-                "round",
-                "bevel"
-              ],
+              "enum": ["miter", "round", "bevel"],
               "type": "string"
             },
             "opacity": {
@@ -838,13 +702,7 @@
           "$ref": "#/definitions/ViewportCoordinate"
         }
       },
-      "required": [
-        "element",
-        "height",
-        "width",
-        "x",
-        "y"
-      ],
+      "required": ["element", "height", "width", "x", "y"],
       "type": "object"
     },
     "PlopdownTemplate": {
@@ -873,17 +731,11 @@
           "type": "number"
         },
         "type": {
-          "enum": [
-            "SKIP"
-          ],
+          "enum": ["SKIP"],
           "type": "string"
         }
       },
-      "required": [
-        "type",
-        "startTime",
-        "endTime"
-      ],
+      "required": ["type", "startTime", "endTime"],
       "type": "object"
     },
     "StillAudio": {
@@ -896,17 +748,11 @@
           "type": "number"
         },
         "type": {
-          "enum": [
-            "STILL"
-          ],
+          "enum": ["STILL"],
           "type": "string"
         }
       },
-      "required": [
-        "type",
-        "startTime",
-        "duration"
-      ],
+      "required": ["type", "startTime", "duration"],
       "type": "object"
     },
     "Title": {
@@ -997,16 +843,10 @@
           "type": "string"
         },
         "path": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "search": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "thumbnail": {
           "description": "The thumbnail image of the track, usually packaged alongside\nthe track or fetched remotely.",
@@ -1018,9 +858,7 @@
         },
         "type": {
           "description": "Schema version number",
-          "enum": [
-            "plopdown_v1"
-          ],
+          "enum": ["plopdown_v1"],
           "type": "string"
         },
         "updated": {
@@ -1035,18 +873,10 @@
           "type": "string"
         }
       },
-      "required": [
-        "type",
-        "title",
-        "for",
-        "created"
-      ],
+      "required": ["type", "title", "for", "created"],
       "type": "object"
     }
   },
-  "required": [
-    "headers",
-    "cues"
-  ],
+  "required": ["headers", "cues"],
   "type": "object"
 }

@@ -2,7 +2,7 @@ export enum AudioEditType {
   Still = 'STILL',
   Skip = 'SKIP',
   Pause = 'PAUSE',
-  Volume = 'VOLUME'
+  Volume = 'VOLUME',
 }
 
 export interface SkipAudio {

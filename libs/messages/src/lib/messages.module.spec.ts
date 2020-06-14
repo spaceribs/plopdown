@@ -4,7 +4,7 @@ import { MessagesModule } from './messages.module';
 describe('MessagesModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MessagesModule]
+      imports: [MessagesModule],
     }).compileComponents();
   }));
 

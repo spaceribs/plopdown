@@ -1,7 +1,7 @@
 import {
   BuilderContext,
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import { Observable, of, bindCallback, from } from 'rxjs';
 import { switchMap, mapTo, map } from 'rxjs/operators';
@@ -16,17 +16,17 @@ export function runBuilder(
   context: BuilderContext
 ): Observable<BuilderOutput> {
   return of(options).pipe(
-    switchMap(opt => {
+    switchMap((opt) => {
       return copy(opt.sourceDir, opt.destinationDir).pipe(
         map<WebExtBuilderSchema, WebExtBuilderSchema>(() => {
           return {
             ...opt,
-            sourceDir: opt.destinationDir
+            sourceDir: opt.destinationDir,
           };
         })
       );
     }),
-    switchMap(opt => {
+    switchMap((opt) => {
       return from(webExt.cmd.build(opt));
     }),
     mapTo({ success: true })

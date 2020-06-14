@@ -7,13 +7,13 @@ import { PostModel } from './post/post.model';
 export const posts: Routes = [];
 
 function importAll(r) {
-  r.keys().forEach(key => {
+  r.keys().forEach((key) => {
     const postData: PostModel = r(key);
 
     const route: Route = {
       path: postData.attributes.slug,
       component: PostComponent,
-      data: postData
+      data: postData,
     };
 
     posts.push(route);
@@ -28,6 +28,6 @@ export const routes: Routes = [
   {
     path: '',
     component: BlogComponent,
-    children: [{ path: '', component: ArchiveComponent }, ...posts]
-  }
+    children: [{ path: '', component: ArchiveComponent }, ...posts],
+  },
 ];

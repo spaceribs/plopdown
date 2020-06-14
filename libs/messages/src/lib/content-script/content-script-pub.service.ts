@@ -9,7 +9,7 @@ import { MessagesService } from '../messages.service';
 import { VideoRef } from '@plopdown/video-refs';
 
 @Injectable({
-  providedIn: MessagesModule
+  providedIn: MessagesModule,
 })
 export class ContentScriptPubService extends PortPublisher<
   ContentScriptCommand

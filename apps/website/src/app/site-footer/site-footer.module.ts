@@ -5,6 +5,6 @@ import { SiteFooterComponent } from './site-footer.component';
 @NgModule({
   declarations: [SiteFooterComponent],
   imports: [CommonModule],
-  exports: [SiteFooterComponent]
+  exports: [SiteFooterComponent],
 })
 export class SiteFooterModule {}

@@ -6,7 +6,7 @@ import { Track } from '@plopdown/tracks';
 @Component({
   selector: 'plopdown-track-editor',
   templateUrl: './track-editor.component.html',
-  styleUrls: ['./track-editor.component.scss']
+  styleUrls: ['./track-editor.component.scss'],
 })
 export class TrackEditorComponent {
   public mdiFileUpload = mdiFileUpload;
@@ -37,7 +37,7 @@ export class TrackEditorComponent {
       cues: [null],
       _attachments: [null],
       _id: [null],
-      _rev: [null]
+      _rev: [null],
     });
   }
 
@@ -60,14 +60,14 @@ export class TrackEditorComponent {
 
     const attachment: PouchDB.Core.FullAttachment = {
       content_type: file.type,
-      data: file
+      data: file,
     };
 
     const attachments = control.value;
 
     const updated = {
       ...attachments,
-      [file.name]: attachment
+      [file.name]: attachment,
     };
 
     control.setValue(updated);

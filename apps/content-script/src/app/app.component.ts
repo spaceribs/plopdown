@@ -2,12 +2,12 @@ import { SavedVideoRef } from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
 import {
   ContentScriptPubService,
-  BackgroundSubService
+  BackgroundSubService,
 } from '@plopdown/messages';
 import {
   Component,
   ChangeDetectionStrategy,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import { map, scan } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -20,7 +20,7 @@ import { Observable } from 'rxjs';
       [videoRefs]="videoRefs$ | async"
     ></plopdown-video-attachments>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements AfterViewInit {
   public videoRefs$: Observable<Map<SavedVideoRef['_id'], SavedVideoRef>>;
@@ -31,9 +31,9 @@ export class AppComponent implements AfterViewInit {
     private logger: LoggerService
   ) {
     this.videoRefs$ = this.bgSub.getVideoRefsFound().pipe(
-      map(res => res.args[0]),
+      map((res) => res.args[0]),
       scan((refs, videoRefs) => {
-        videoRefs.forEach(videoRef => {
+        videoRefs.forEach((videoRef) => {
           refs.set(videoRef['_id'], videoRef);
         });
         return refs;

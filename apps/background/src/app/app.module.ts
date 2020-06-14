@@ -23,12 +23,12 @@ import { PlopdownFileModule } from '@plopdown/plopdown-file';
     LoggerModule.forRoot({
       appName: 'Background',
       color: 'red',
-      providers: [LogConsoleService, LogStorageService]
+      providers: [LogConsoleService, LogStorageService],
     }),
     MessagesModule,
     VideoRefsModule,
-    TracksModule
-  ]
+    TracksModule,
+  ],
 })
 export class AppModule implements DoBootstrap {
   ngDoBootstrap(appRef: ApplicationRef): void {
