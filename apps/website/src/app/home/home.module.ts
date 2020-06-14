@@ -5,9 +5,9 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import {
-  PlopdownOverlayModule,
-  LoadAssetService
-} from '@plopdown/plopdown-overlay';
+  PlopdownInjectorModule,
+  LoadAssetService,
+} from '@plopdown/plopdown-injector';
 import { HttpClientModule } from '@angular/common/http';
 import { PlopdownFileModule } from '@plopdown/plopdown-file';
 import { WebLoadAssetService } from './web-load-asset.service';
@@ -19,12 +19,12 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
   imports: [
     CommonModule,
     HttpClientModule,
-    PlopdownOverlayModule,
+    PlopdownInjectorModule,
     PlopdownFileModule,
     SiteNavModule,
     SiteFooterModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  providers: [{ provide: LoadAssetService, useClass: WebLoadAssetService }]
+  providers: [{ provide: LoadAssetService, useClass: WebLoadAssetService }],
 })
 export class HomeModule {}

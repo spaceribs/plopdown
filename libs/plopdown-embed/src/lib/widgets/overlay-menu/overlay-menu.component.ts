@@ -22,7 +22,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { LoadAssetService } from '../../load-asset.service';
 
 @Component({
-  selector: 'plopdown-overlay-menu',
+  selector: 'plopdown-injector-menu',
   templateUrl: './overlay-menu.component.html',
   styleUrls: ['./overlay-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
