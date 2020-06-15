@@ -19,7 +19,8 @@
         "options",
         "content-script",
         "devtool",
-        "devtool-panels"
+        "devtool-panels",
+        "web-extension"
       ]
     },
     "background": {

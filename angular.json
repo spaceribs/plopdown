@@ -7,7 +7,7 @@
       "sourceRoot": "apps/plopdown-ext/src",
       "architect": {
         "build": {
-          "builder": "@plopdown/web-extension:build",
+          "builder": "./dist/libs/web-extension:build",
           "options": {
             "destinationDir": "dist/apps/plopdown-ext",
             "artifactsDir": "dist/extensions",
@@ -17,7 +17,7 @@
           }
         },
         "serve": {
-          "builder": "@plopdown/web-extension:run",
+          "builder": "./dist/libs/web-extension:run",
           "options": {
             "startUrl": [
               "http://localhost:4200/"
