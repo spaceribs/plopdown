@@ -1,25 +1,21 @@
-<h3>
-  <a
-    *ngIf="data.url"
-    [href]="data.url"
-    rel="noreferrer noopener"
-    target="_blank"
-    >{{ data.title }}</a
-  >
-  <ng-container *ngIf="!data.url">{{ data.title }}</ng-container>
-</h3>
-<h4>
-  Annotated By:
-  <span *ngIf="data.authors.length < 1">Anonymous</span>
-  <ng-container *ngFor="let author of data.authors; let isLast = last">
-    <span>{{ author }}</span
-    >{{ isLast ? '' : ', ' }}
-  </ng-container>
-</h4>
+<ng-container *ngIf="data">
+  <h3>
+    <a
+      *ngIf="data.url"
+      [href]="data.url"
+      rel="noreferrer noopener"
+      target="_blank"
+      >{{ data.title }}</a
+    >
+    <ng-container *ngIf="!data.url">{{ data.title }}</ng-container>
+  </h3>
 
-<!-- <sf-form
-  (onChange)="onChange($event)"
-  [(ngModel)]="data"
-  [schema]="schema"
-></sf-form>
-<button (click)="saveData()">Save</button> -->
+  <h4>
+    Annotated By:
+    <span *ngIf="data.authors.length < 1">Anonymous</span>
+    <ng-container *ngFor="let author of data.authors; let isLast = last">
+      <span>{{ author }}</span
+      >{{ isLast ? '' : ', ' }}
+    </ng-container>
+  </h4>
+</ng-container>

@@ -6,7 +6,9 @@ describe('PlopdownFileService', () => {
   let service: PlopdownFileService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [PlopdownFileService],
+    });
     service = TestBed.inject(PlopdownFileService);
   });
 

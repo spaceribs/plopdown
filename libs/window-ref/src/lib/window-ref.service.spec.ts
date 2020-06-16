@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { WindowRefService } from './window-ref.service';
+import { MockWindowRefModule } from '@plopdown/window-ref/mock';
 
 describe('WindowRefService', () => {
   let service: WindowRefService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [MockWindowRefModule],
+    });
     service = TestBed.inject(WindowRefService);
   });
 

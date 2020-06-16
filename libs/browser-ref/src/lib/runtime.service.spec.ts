@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { RuntimeService } from './runtime.service';
+import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
 
 describe('RuntimeService', () => {
   let service: RuntimeService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [MockBrowserRefModule],
+    });
     service = TestBed.inject(RuntimeService);
   });
 

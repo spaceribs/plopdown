@@ -1,25 +1,22 @@
+import { HttpClient } from '@angular/common/http';
 import { WindowRefService } from '@plopdown/window-ref';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { switchMap, map } from 'rxjs/operators';
-import { RuntimeService } from '@plopdown/browser-ref';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoadAssetService {
   constructor(
-    private runtime: RuntimeService,
     private windowRef: WindowRefService,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private http: HttpClient
   ) {}
 
   asText(path: string): Observable<SafeUrl> {
-    return from(fetch(this.runtime.getURL(path))).pipe(
-      switchMap((res) => {
-        return res.blob();
-      }),
+    return this.http.get(path, { responseType: 'blob' }).pipe(
       map((blob) => {
         return this.domSanitizer.bypassSecurityTrustUrl(
           this.windowRef.getURL().createObjectURL(blob)

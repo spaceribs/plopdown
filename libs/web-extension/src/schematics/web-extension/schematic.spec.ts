@@ -24,7 +24,9 @@ describe('web-extension schematic', () => {
 
   it('should run successfully', async () => {
     await expect(
-      testRunner.runSchematicAsync('webExt', options, appTree).toPromise()
+      testRunner
+        .runSchematicAsync('web-extension', options, appTree)
+        .toPromise()
     ).resolves.not.toThrowError();
   });
 });

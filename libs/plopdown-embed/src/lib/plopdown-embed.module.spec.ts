@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { PlopdownCuesModule } from './plopdown-embed.module';
+import { PlopdownEmbedModule } from './plopdown-embed.module';
 
 describe('PlopdownCuesModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [PlopdownCuesModule],
+      imports: [PlopdownEmbedModule],
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(PlopdownCuesModule).toBeDefined();
+    expect(PlopdownEmbedModule).toBeDefined();
   });
 });

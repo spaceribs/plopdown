@@ -2,8 +2,7 @@ import { LoggerConfig } from './logger.model';
 import { LogProvider } from './log-providers/log-provider.model';
 import { LoggerModule } from './logger.module';
 import { LoggerConfigService } from './logger.config';
-import { Type } from '@angular/core';
-import { Injectable, Inject, isDevMode, Injector } from '@angular/core';
+import { Injectable, Inject, Injector } from '@angular/core';
 
 @Injectable({
   providedIn: LoggerModule,

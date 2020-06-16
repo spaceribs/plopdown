@@ -68,13 +68,17 @@ export class PlopComponent extends PlopdownBaseComponent<PlopdownPlop>
   }
 
   textPreview(data = this.data): string {
-    let emojis = data.icons.reduce((memo, icon) => {
-      memo += icon.emoji.trim();
-      return memo;
-    }, '');
+    let emojis = '';
+
+    if (data.icons) {
+      emojis = data.icons.reduce((memo, icon) => {
+        memo += icon.emoji.trim();
+        return memo;
+      }, '');
+    }
 
     if (emojis.length) {
-      emojis = `${emojis}) `;
+      emojis = `${emojis} `;
     }
 
     return `${emojis}${data.desc}`;

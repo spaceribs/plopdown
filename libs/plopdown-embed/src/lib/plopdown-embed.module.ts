@@ -7,14 +7,14 @@ import { PlopComponent } from './cues/plop/plop.component';
 import { CueRendererComponent } from './cue-renderer/cue-renderer.component';
 import { AudioComponent } from './cues/audio/audio.component';
 import { ShapeComponent } from './cues/shape/shape.component';
-import { VideoOverlayComponent } from './stage/stage.component';
+import { StageComponent } from './stage/stage.component';
 import { OverlayMenuComponent } from './widgets/overlay-menu/overlay-menu.component';
 import { CueTimelineComponent } from './widgets/cue-timeline/cue-timeline.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IconModule],
   declarations: [
-    VideoOverlayComponent,
+    StageComponent,
     OverlayMenuComponent,
     CueTimelineComponent,
     CueRendererComponent,
@@ -32,4 +32,4 @@ import { CueTimelineComponent } from './widgets/cue-timeline/cue-timeline.compon
   ],
   providers: [],
 })
-export class PlopdownCuesModule {}
+export class PlopdownEmbedModule {}

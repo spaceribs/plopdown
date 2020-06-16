@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { VideoScanService } from './video-scan.service';
+import { MockWindowRefModule } from '@plopdown/window-ref/mock';
 
 describe('VideoScanService', () => {
   let service: VideoScanService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [MockWindowRefModule],
+    });
     service = TestBed.inject(VideoScanService);
   });
 

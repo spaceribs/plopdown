@@ -1,4 +1,5 @@
-import { VideoOverlayComponent } from '@plopdown/plopdown-embed';
+import { PlyrService } from './plyr.service';
+import { StageComponent } from '@plopdown/plopdown-embed';
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
@@ -16,7 +17,6 @@ import { map, switchMap, first, shareReplay } from 'rxjs/operators';
 import { PlopdownFile, PlopdownFileService } from '@plopdown/plopdown-file';
 import { Track } from '@plopdown/tracks';
 import { Observable, Subscription, Subject } from 'rxjs';
-import Plyr from 'plyr';
 import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
 
 @Component({
@@ -26,9 +26,7 @@ import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
   public readonly track$: Observable<Track>;
-  public readonly overlayComponent$: Observable<
-    ComponentRef<VideoOverlayComponent>
-  >;
+  public readonly overlayComponent$: Observable<ComponentRef<StageComponent>>;
   public subs: Subscription = new Subscription();
   public currentDate: Date;
 
@@ -41,13 +39,14 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   constructor(
     http: HttpClient,
     fileService: PlopdownFileService,
+    private plyrService: PlyrService,
     private appRef: ApplicationRef,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {
     this.currentDate = new Date();
 
     const overlayFactory = this.componentFactoryResolver.resolveComponentFactory(
-      VideoOverlayComponent
+      StageComponent
     );
 
     this.track$ = http
@@ -125,7 +124,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.plyr = new Plyr(this.exampleVideo.nativeElement);
+    this.plyr = this.plyrService.create(this.exampleVideo.nativeElement);
     this.initTrack();
   }
 

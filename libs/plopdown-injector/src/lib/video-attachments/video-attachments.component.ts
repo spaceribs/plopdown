@@ -16,7 +16,10 @@ import { SavedVideoRef } from '@plopdown/video-refs';
 export class VideoAttachmentsComponent implements OnDestroy {
   private subs: Subscription = new Subscription();
 
-  @Input() public videoRefs: Map<SavedVideoRef['_id'], SavedVideoRef>;
+  @Input() public videoRefs: Map<
+    SavedVideoRef['_id'],
+    SavedVideoRef
+  > = new Map();
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();

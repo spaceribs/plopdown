@@ -1,12 +1,16 @@
+import { MockLoggerModule } from '@plopdown/logger/mock';
 import { TestBed } from '@angular/core/testing';
 
 import { BackgroundPubService } from './background-pub.service';
+import { MockMessagesModule } from '@plopdown/messages/mock';
 
 describe('BackgroundPubService', () => {
   let service: BackgroundPubService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [MockMessagesModule, MockLoggerModule],
+    });
     service = TestBed.inject(BackgroundPubService);
   });
 

@@ -71,7 +71,7 @@ import { Cue } from '../models/plopdown-cue.model';
     ]),
   ],
 })
-export class VideoOverlayComponent {
+export class StageComponent {
   private manualReposition$: Subject<void> = new BehaviorSubject(null);
 
   public cues$: Observable<Cue[]>;
@@ -266,7 +266,7 @@ export class VideoOverlayComponent {
 
       let data: null | Cue['data'] = null;
       try {
-        data = JSON.parse(raw_cue.text);
+        data = JSON.parse(raw_cue['text']);
       } catch (err) {
         this.logger.error('Could not parse Cue JSON', err);
       }

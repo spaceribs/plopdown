@@ -1,3 +1,4 @@
+import { MockIconModule } from '@plopdown/icon/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileManagerComponent } from './file-manager.component';
@@ -8,6 +9,7 @@ describe('FileManagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MockIconModule],
       declarations: [FileManagerComponent],
     }).compileComponents();
   }));

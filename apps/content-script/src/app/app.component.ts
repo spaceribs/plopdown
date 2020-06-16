@@ -26,7 +26,6 @@ export class AppComponent implements AfterViewInit {
   public videoRefs$: Observable<Map<SavedVideoRef['_id'], SavedVideoRef>>;
 
   constructor(
-    private csPub: ContentScriptPubService,
     private bgSub: BackgroundSubService,
     private logger: LoggerService
   ) {

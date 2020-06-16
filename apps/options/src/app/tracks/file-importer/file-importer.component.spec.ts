@@ -1,6 +1,9 @@
+import { MockLoggerModule } from './../../../../../../libs/logger/mock/logger.module.mock';
+import { MockPlopdownFileModule } from '@plopdown/plopdown-file/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileImporterComponent } from './file-importer.component';
+import { MockIconModule } from '@plopdown/icon/mock';
 
 describe('FileImporterComponent', () => {
   let component: FileImporterComponent;
@@ -8,6 +11,7 @@ describe('FileImporterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MockIconModule, MockPlopdownFileModule, MockLoggerModule],
       declarations: [FileImporterComponent],
     }).compileComponents();
   }));

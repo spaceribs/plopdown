@@ -4,7 +4,6 @@ import {
   BackgroundFindVideos,
   ContentScriptPubService,
   BackgroundSubService,
-  BackgroundTrackFound,
 } from '@plopdown/messages';
 import { map } from 'rxjs/operators';
 import {
@@ -25,7 +24,6 @@ export class ContentScannerComponent implements OnInit, AfterViewInit {
   private iframeOrigins$: Observable<string[]>;
   private subs: Subscription = new Subscription();
   private onBackgroundFindVideos$: Observable<BackgroundFindVideos>;
-  private onBackgroundTrackFound$: Observable<BackgroundTrackFound>;
 
   constructor(
     private videoScanner: VideoScanService,
@@ -36,7 +34,6 @@ export class ContentScannerComponent implements OnInit, AfterViewInit {
     xpathService: XPathService
   ) {
     this.onBackgroundFindVideos$ = bgSub.getFindVideos();
-    this.onBackgroundTrackFound$ = bgSub.getTrackFound();
 
     const videoElems$ = videoScanner.getVideoElems();
     const iframeElems$ = iframeScanner.getIFrameElems();
