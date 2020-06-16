@@ -1,11 +1,12 @@
 import { Injectable, Inject, isDevMode } from '@angular/core';
 import { LoggerModule } from '../logger.module';
 import { LoggerConfigService } from '../logger.config';
+import { LogProvider } from './log-provider.model';
 
 @Injectable({
   providedIn: LoggerModule,
 })
-export class LogConsoleService {
+export class LogConsoleService implements LogProvider {
   private appName: string;
   private css: string;
   private isDevMode: boolean;

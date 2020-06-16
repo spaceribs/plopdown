@@ -1,5 +1,4 @@
 <video
-  title="{{ data.title }}"
   plopdown-ignore
   (loadstart)="audioLoaded()"
   #audioElem
@@ -32,6 +31,6 @@
   </a>
 </div>
 
-<div class="title-box">
+<div class="title-box" *ngIf="data">
   <div class="title">{{ data.title }}</div>
 </div>

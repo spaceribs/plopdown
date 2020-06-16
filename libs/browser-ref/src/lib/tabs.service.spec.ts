@@ -1,13 +1,15 @@
+import { TabsService } from './tabs.service';
 import { TestBed } from '@angular/core/testing';
+import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
 
-import { StorageService } from './storage.service';
-
-describe('StorageService', () => {
-  let service: StorageService;
+describe('TabsService', () => {
+  let service: TabsService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(StorageService);
+    TestBed.configureTestingModule({
+      imports: [MockBrowserRefModule],
+    });
+    service = TestBed.inject(TabsService);
   });
 
   it('should be created', () => {

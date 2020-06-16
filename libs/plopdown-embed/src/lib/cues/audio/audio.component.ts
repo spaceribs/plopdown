@@ -11,10 +11,20 @@ import {
   OnDestroy,
   AfterViewInit,
   HostBinding,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { PlopdownAudio } from './audio.model';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
-import { Observable, Subscription, fromEvent, merge, of } from 'rxjs';
+import {
+  Observable,
+  Subscription,
+  fromEvent,
+  merge,
+  of,
+  ReplaySubject,
+  Subject,
+} from 'rxjs';
 import { mdiVolumeHigh, mdiVolumeOff, mdiAlert } from '@mdi/js';
 import {
   map,
@@ -32,7 +42,7 @@ import {
   providers: [AudioEditsService, EditSkipService],
 })
 export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
-  implements AfterViewInit, OnDestroy {
+  implements AfterViewInit, OnDestroy, OnChanges {
   constructor(
     private logger: LoggerService,
     private sanitizer: DomSanitizer,
@@ -42,6 +52,7 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
     @Inject(TRACK_FILES_TOKEN) private trackFiles: Map<string, string>
   ) {
     super();
+    this.skipOffset$ = this.editSkip.getOffset().pipe(shareReplay(1));
   }
   public color = '#ffc09f';
   public audioUrl: SafeUrl;
@@ -61,7 +72,7 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   private audioStopped$: Observable<void>;
   private audioStalled$: Observable<void>;
 
-  private editTime$: Observable<number>;
+  private editTime$: Subject<number> = new ReplaySubject(1);
 
   private subs: Subscription = new Subscription();
 
@@ -70,10 +81,22 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   @HostBinding('style.left.%') left: number;
   skipOffset$: Observable<number>;
 
-  ngAfterViewInit(): void {
-    this.top = this.data.top;
-    this.left = this.data.left;
+  ngOnChanges(): void {
+    if (this.data) {
+      this.top = this.data.top;
+      this.left = this.data.left;
 
+      if (this.data.edits && this.data.edits.length > 0) {
+        this.audioEdits.setEdits(this.data.edits);
+      } else {
+        this.audioEdits.setEdits([]);
+      }
+
+      this.audioUrl = this.getFile(this.data.url);
+    }
+  }
+
+  ngAfterViewInit(): void {
     this.videoElem.pause();
 
     this.videoNotPlaying$ = merge(
@@ -114,14 +137,6 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
 
     this.audioEdits.setAudioElem(this.audioElem.nativeElement);
 
-    if (this.data.edits && this.data.edits.length > 0) {
-      this.audioEdits.setEdits(this.data.edits);
-      this.skipOffset$ = this.editSkip.getOffset().pipe(shareReplay(1));
-    } else {
-      this.audioEdits.setEdits([]);
-      this.skipOffset$ = of(0);
-    }
-
     this.timeUpdate$ = merge(
       fromEvent(this.audioElem.nativeElement, 'timeupdate'),
       fromEvent(this.videoElem, 'timeupdate')
@@ -159,8 +174,6 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
       this.playAudio();
     });
     this.subs.add(playSub);
-
-    this.audioUrl = this.getFile(this.data.url);
   }
 
   ngOnDestroy(): void {

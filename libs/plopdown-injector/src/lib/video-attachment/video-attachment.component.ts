@@ -19,7 +19,7 @@ import {
   TRACK_FILES_TOKEN,
 } from '@plopdown/tokens';
 import { map, filter, startWith, distinctUntilChanged } from 'rxjs/operators';
-import { VideoOverlayComponent } from '@plopdown/plopdown-embed';
+import { StageComponent } from '@plopdown/plopdown-embed';
 
 @Component({
   selector: 'plopdown-video-attachment',
@@ -29,7 +29,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private videoElem: HTMLVideoElement | null;
   private subs: Subscription = new Subscription();
   private files: Map<string, string>;
-  private overlayComponentRef: ComponentRef<VideoOverlayComponent>;
+  private overlayComponentRef: ComponentRef<StageComponent>;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -75,7 +75,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     }
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      VideoOverlayComponent
+      StageComponent
     );
 
     if (this.track == null) {

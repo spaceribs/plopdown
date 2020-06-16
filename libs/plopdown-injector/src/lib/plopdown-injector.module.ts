@@ -1,4 +1,4 @@
-import { PlopdownCuesModule } from '@plopdown/plopdown-embed';
+import { PlopdownEmbedModule } from '@plopdown/plopdown-embed';
 import { IconModule } from '@plopdown/icon';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,6 @@ import { VideoAttachmentsComponent } from './video-attachments/video-attachments
 @NgModule({
   declarations: [VideoAttachmentComponent, VideoAttachmentsComponent],
   exports: [VideoAttachmentsComponent],
-  imports: [CommonModule, IconModule, PlopdownCuesModule],
+  imports: [CommonModule, IconModule, PlopdownEmbedModule],
 })
 export class PlopdownInjectorModule {}

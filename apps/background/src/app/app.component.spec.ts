@@ -1,9 +1,25 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MockLoggerModule } from '@plopdown/logger/mock';
+import { MockPlopdownFileModule } from '@plopdown/plopdown-file/mock';
+import { MockVideoRefsModule } from '@plopdown/video-refs/mock';
+import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
+import { MockMessagesModule } from '@plopdown/messages/mock';
+import { MockTracksModule } from '@plopdown/tracks/mock';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        MockLoggerModule,
+        MockPlopdownFileModule,
+        MockTracksModule,
+        MockVideoRefsModule,
+        MockBrowserRefModule,
+        MockMessagesModule,
+      ],
       declarations: [AppComponent],
     }).compileComponents();
   }));
@@ -12,20 +28,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'background'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('background');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain(
-      'Welcome to background!'
-    );
   });
 });

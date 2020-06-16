@@ -1,3 +1,6 @@
+import { MockWindowRefModule } from '@plopdown/window-ref/mock';
+import { MockTracksModule } from '@plopdown/tracks/mock';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TrackSelectorComponent } from './track-selector.component';
@@ -8,6 +11,12 @@ describe('TrackSelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MockTracksModule,
+        MockWindowRefModule,
+      ],
       declarations: [TrackSelectorComponent],
     }).compileComponents();
   }));

@@ -1,4 +1,4 @@
-<div class="pd-icons" *ngIf="data.icons && data.icons.length">
+<div class="pd-icons" *ngIf="data && data.icons && data.icons.length">
   <div
     *ngFor="let icon of data.icons"
     [ngStyle]="{
@@ -12,7 +12,7 @@
     {{ icon.emoji }}‍
   </div>
 </div>
-<div class="desc">
+<div class="desc" *ngIf="data">
   {{ data.desc }}
   <ul class="footnotes" *ngIf="data.footnotes">
     <li class="footnote" *ngFor="let footnote of data.footnotes; let i = index">

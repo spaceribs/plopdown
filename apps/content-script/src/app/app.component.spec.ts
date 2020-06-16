@@ -1,10 +1,19 @@
+import { MockLoggerModule } from '@plopdown/logger/mock';
+import { MockMessagesModule } from '@plopdown/messages/mock';
+import { MockVideoAttachmentsComponent } from '@plopdown/plopdown-injector/mock';
+import { MockContentScannerComponent } from './../../mock/content-scanner.component.mock';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
+      imports: [MockLoggerModule, MockMessagesModule],
+      declarations: [
+        AppComponent,
+        MockContentScannerComponent,
+        MockVideoAttachmentsComponent,
+      ],
     }).compileComponents();
   }));
 
@@ -12,20 +21,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'content-script'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('content-script');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain(
-      'Welcome to content-script!'
-    );
   });
 });

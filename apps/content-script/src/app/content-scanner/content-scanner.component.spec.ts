@@ -1,6 +1,10 @@
+import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
+import { MockMessagesModule } from '@plopdown/messages/mock';
+import { MockLoggerModule } from '@plopdown/logger/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContentScannerComponent } from './content-scanner.component';
+import { WindowRefModule } from '@plopdown/window-ref';
 
 describe('ContentScannerComponent', () => {
   let component: ContentScannerComponent;
@@ -8,6 +12,12 @@ describe('ContentScannerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        WindowRefModule,
+        MockLoggerModule,
+        MockBrowserRefModule,
+        MockMessagesModule,
+      ],
       declarations: [ContentScannerComponent],
     }).compileComponents();
   }));

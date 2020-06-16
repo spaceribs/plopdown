@@ -1,6 +1,7 @@
 <svg
   class="shape"
   preserveAspectRatio="none"
+  *ngIf="data"
   [title]="data.title.text"
   [style.top.%]="data.top"
   [style.left.%]="data.left"

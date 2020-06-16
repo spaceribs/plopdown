@@ -1,3 +1,4 @@
+import { number } from '@storybook/addon-knobs';
 import { Observable, Subject, ReplaySubject, fromEvent } from 'rxjs';
 import {
   Component,
@@ -18,7 +19,7 @@ import {
   useAnimation,
 } from '@angular/animations';
 import { fadeIn, fadeOut } from 'ng-animate';
-import { map, startWith, shareReplay } from 'rxjs/operators';
+import { map, startWith, shareReplay, switchMap } from 'rxjs/operators';
 import { Cue } from '../../models/plopdown-cue.model';
 import { PLOPDOWN_TEMPLATES } from '../../models/plopdown-templates.model';
 
@@ -47,12 +48,18 @@ import { PLOPDOWN_TEMPLATES } from '../../models/plopdown-templates.model';
     ]),
   ],
 })
-export class CueTimelineComponent implements OnInit {
+export class CueTimelineComponent {
   public currentLeft$: Observable<string>;
   private track$: Subject<SavedTrack> = new ReplaySubject(1);
   public cues$: Observable<object[]>;
 
-  @Input() public videoElem: HTMLVideoElement;
+  private videoElem$: Subject<HTMLVideoElement> = new ReplaySubject(1);
+  private timeUpdate$: Observable<HTMLVideoElement>;
+
+  @Input() public set videoElem(elem: HTMLVideoElement) {
+    this.videoElem$.next(elem);
+  }
+
   @Input() public set track(track: SavedTrack) {
     this.track$.next(track);
   }
@@ -71,17 +78,20 @@ export class CueTimelineComponent implements OnInit {
       map((track) => this.cues(track)),
       shareReplay(1)
     );
-  }
 
-  ngOnInit(): void {
-    this.currentLeft$ = fromEvent(this.videoElem, 'timeupdate').pipe(
+    this.timeUpdate$ = this.videoElem$.pipe(
+      switchMap((elem) => {
+        return fromEvent(elem, 'timeupdate');
+      }),
       map((event) => {
-        const elem = event.target as HTMLVideoElement;
+        return event.target as HTMLVideoElement;
+      })
+    );
+
+    this.currentLeft$ = this.timeUpdate$.pipe(
+      map((elem) => {
         return `${(elem.currentTime / elem.duration) * 100}%`;
       }),
-      startWith(
-        `${(this.videoElem.currentTime / this.videoElem.duration) * 100}%`
-      ),
       shareReplay(1)
     );
   }

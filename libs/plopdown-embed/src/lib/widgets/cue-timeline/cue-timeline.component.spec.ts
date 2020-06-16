@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CueTimelineComponent } from './cue-timeline.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CueTimelineComponent', () => {
   let component: CueTimelineComponent;
@@ -8,6 +9,7 @@ describe('CueTimelineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule],
       declarations: [CueTimelineComponent],
     }).compileComponents();
   }));

@@ -1,3 +1,5 @@
+import { MockLoggerModule } from '@plopdown/logger/mock';
+import { MockIconModule } from '@plopdown/icon/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LogViewerComponent } from './log-viewer.component';
@@ -8,6 +10,7 @@ describe('LogViewerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MockIconModule, MockLoggerModule],
       declarations: [LogViewerComponent],
     }).compileComponents();
   }));

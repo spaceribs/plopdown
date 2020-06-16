@@ -31,7 +31,6 @@ import { VideoRefsModule } from './video-refs.module';
 import PouchDB from 'pouchdb';
 import PouchDBFind from 'pouchdb-find';
 
-PouchDB.plugin(PouchDBFind);
 const STORAGE_KEY = 'videoRefs';
 
 @Injectable({
@@ -48,6 +47,8 @@ export class VideoRefsService implements OnDestroy {
 
   static createObservableDatabase() {
     return new Observable<PouchDB.Database<VideoRef>>((observer) => {
+      PouchDB.plugin(PouchDBFind);
+
       const db = new PouchDB<VideoRef>(STORAGE_KEY);
 
       observer.next(db);

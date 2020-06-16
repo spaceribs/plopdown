@@ -1,17 +1,10 @@
 import { LoggerService } from '@plopdown/logger';
 import { browser } from 'webextension-polyfill';
 import { BrowserRefService } from './browser-ref.service';
-import { Observable, from, of } from 'rxjs';
+import { from, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BrowserRefModule } from './browser-ref.module';
-import {
-  map,
-  withLatestFrom,
-  switchMap,
-  mapTo,
-  tap,
-  catchError,
-} from 'rxjs/operators';
+import { map, switchMap, mapTo, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: BrowserRefModule,
@@ -19,10 +12,7 @@ import {
 export class TabsService {
   tabs: typeof browser.tabs;
 
-  constructor(
-    browserRefService: BrowserRefService,
-    private logger: LoggerService
-  ) {
+  constructor(browserRefService: BrowserRefService) {
     this.tabs = browserRefService.getBrowser().tabs;
   }
 

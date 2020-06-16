@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
 import { BrowserActionSubService } from './browser-action-sub.service';
+import { MockMessagesModule } from '@plopdown/messages/mock';
+import { MockLoggerModule } from '@plopdown/logger/mock';
 
 describe('BrowserActionSubService', () => {
   let service: BrowserActionSubService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [MockMessagesModule, MockLoggerModule],
+    });
     service = TestBed.inject(BrowserActionSubService);
   });
 
