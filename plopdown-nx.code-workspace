@@ -7,7 +7,14 @@
   "settings": {
     "editor.tabSize": 2,
     "editor.detectIndentation": false,
-    "cSpell.words": ["Hulu", "Plopdown", "Spaceribs", "timecode", "webext"],
+    "cSpell.words": [
+      "Hulu",
+      "Plopdown",
+      "Spaceribs",
+      "peaceiris",
+      "timecode",
+      "webext"
+    ],
     "deno.enable": false,
     "jshint.enable": false
   }
