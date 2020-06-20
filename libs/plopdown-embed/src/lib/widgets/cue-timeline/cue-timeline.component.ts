@@ -8,7 +8,6 @@ import {
   Injector,
   Output,
   EventEmitter,
-  OnInit,
   HostListener,
 } from '@angular/core';
 import { SavedTrack } from '@plopdown/tracks';
@@ -19,7 +18,7 @@ import {
   useAnimation,
 } from '@angular/animations';
 import { fadeIn, fadeOut } from 'ng-animate';
-import { map, startWith, shareReplay, switchMap } from 'rxjs/operators';
+import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Cue } from '../../models/plopdown-cue.model';
 import { PLOPDOWN_TEMPLATES } from '../../models/plopdown-templates.model';
 
@@ -75,7 +74,8 @@ export class CueTimelineComponent {
     private injector: Injector
   ) {
     this.cues$ = this.track$.pipe(
-      map((track) => this.cues(track)),
+      withLatestFrom(this.videoElem$),
+      map(([track, videoElem]) => this.cues(track, videoElem)),
       shareReplay(1)
     );
 
@@ -101,8 +101,8 @@ export class CueTimelineComponent {
     this.goTo.emit(startTime);
   }
 
-  private cues(track: SavedTrack): object[] {
-    const duration = this.videoElem.duration;
+  private cues(track: SavedTrack, videoElem: HTMLVideoElement): object[] {
+    const duration = videoElem.duration;
 
     return track.cues.map((cue) => {
       const left = (cue.startTime / duration) * 100;
