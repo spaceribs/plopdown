@@ -1,0 +1,846 @@
+WEBVTT
+type: plopdown_v1
+title: Minnie the Moocher - Facts and Trivia
+for: Minnie The Moocher
+url: https://github.com/spaceribs/plopdown-video
+license: CC0
+authors: spaceribs
+created: 2019-12-29T00:23:20.156Z
+updated: 2019-12-29T00:23:20.156Z
+origin: https://plopdown.video
+path: 
+search: 
+xpath: /HTML[1]/BODY[1]/DIV[1]/SECTION[2]/DIV[1]/DIV[2]/DIV[1]/DIV[1]/SECTION[1]/DIV[1]/DIV[1]/FIGURE[1]/VIDEO[1]
+
+info
+00:00:00.000 --> 00:00:05.000
+{
+    "type": "INFO",
+    "title": "Minnie the Moocher - Facts and Trivia",
+    "url": "https://plopdown.video",
+    "authors": ["spaceribs"]
+}
+
+Intro1
+00:00:04.000 --> 00:00:10.000
+{
+    "type": "PLOP",
+    "top": 18,
+    "left": 16,
+    "width": 50,
+    "desc": "Welcome to Plopdown! This is one of a growing list of cue types which can appear during a video",
+    "icons": [
+        {
+            "top": 70,
+            "left": 51,
+            "size": 200,
+            "rotate": 0,
+            "emoji": "🎉"
+        }
+    ]
+}
+
+Intro2
+00:00:10.000 --> 00:00:16.000
+{
+    "type": "PLOP",
+    "top": 21,
+    "left": 54,
+    "width": 40,
+    "desc": "When plopdown is installed on a video, a hover menu appears in the top right with options.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 140,
+            "rotate": 0,
+            "emoji": "⚙️"
+        }
+    ]
+}
+
+Intro3
+00:00:16.000 --> 00:00:20.000
+{
+    "type": "PLOP",
+    "top": 38,
+    "left": 6,
+    "width": 50,
+    "desc": "Now enjoy the rest of the video to sample some of Plopdown's capabilities!",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 130,
+            "rotate": 20,
+            "emoji": "🎟"
+        }
+    ]
+}
+
+1
+00:00:53.000 --> 00:01:00.000
+{
+    "type": "PLOP",
+    "top": 76,
+    "left": 6,
+    "width": 42,
+    "desc": "This is the first known filming of a Cab Calloway performance.",
+    "icons": [
+        {
+            "top": 48,
+            "left": 84,
+            "size": 158,
+            "rotate": 0,
+            "emoji": "🕺‍"
+        },
+        {
+            "top": 65,
+            "left": 13,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "🎥"
+        }
+    ]
+}
+
+2
+00:00:28.000 --> 00:00:32.000
+{
+    "type": "PLOP",
+    "top": 38,
+    "left": 6,
+    "width": 50,
+    "desc": "\"Minnie the Moocher\" came out in 1932, the third year of the Great Depression.",
+    "icons": [
+        {
+            "top": 70,
+            "left": 51,
+            "size": 200,
+            "rotate": 0,
+            "emoji": "📉"
+        }
+    ]
+}
+
+3
+00:00:32.000 --> 00:00:38.000
+{
+    "type": "PLOP",
+    "top": 77,
+    "left": 54,
+    "width": 38,
+    "desc": "Unemployment at the time was ~33%",
+    "icons": [
+        {
+            "top": 48,
+            "left": 24,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "🏚"
+        },
+        {
+            "top": 83,
+            "left": 84,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "😩"
+        }
+    ]
+}
+
+4
+00:00:38.000 --> 00:00:45.000
+{
+    "type": "PLOP",
+    "top": 76,
+    "left": 7,
+    "width": 49,
+    "desc": "This was also released during the dust bowl which ravaged the southern midwest.",
+    "footnotes": [{ "title": "Wikipedia - Dust Bowl", "url": "https://en.wikipedia.org/wiki/Dust_Bowl" }],
+    "icons": [
+        {
+            "top": 43,
+            "left": 25,
+            "size": 180,
+            "rotate": 0,
+            "emoji": "💨"
+        },
+        {
+            "top": 88,
+            "left": 74,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "🚜‍"
+        }
+    ]
+}
+
+5
+00:03:26.000 --> 00:03:30.000
+{
+    "type": "PLOP",
+    "top": 23,
+    "left": 60,
+    "width": 36,
+    "desc": "Bimbo made his first appearance two years previous to this cartoon.",
+    "icons": [
+        {
+            "top": 54,
+            "left": 50,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "🐶"
+        }
+    ]
+}
+
+6
+00:03:30.000 --> 00:03:35.000
+{
+    "type": "PLOP",
+    "top": 23,
+    "left": 60,
+    "width": 36,
+    "desc": "He was quickly eclipsed by Betty Boop's popularity.",
+    "icons": [
+        {
+            "top": 55,
+            "left": 103,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "🐶"
+        },
+        {
+            "top": 59,
+            "left": 26,
+            "size": 110,
+            "rotate": 0,
+            "emoji": "👎"
+        }
+    ]
+}
+
+7
+00:03:44.000 --> 00:03:48.000
+{
+    "type": "PLOP",
+    "top": 15,
+    "left": 10,
+    "width": 40,
+    "desc": "Here, he's relegated to a side-kick.",
+    "icons": [
+        {
+            "top": 29,
+            "left": 15,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "🐶"
+        },
+        {
+            "top": 83,
+            "left": 78,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "👈"
+        }
+    ]
+}
+
+8
+00:03:50.000 --> 00:03:55.000
+{
+    "type": "PLOP",
+    "top": 70,
+    "left": 54,
+    "width": 40,
+    "desc": "Bimbo completely disappears after the Hays Codes in 1933.",
+    "footnotes": [{ "title": "Wikipedia - Motion Picture Production Code", "url": "https://en.wikipedia.org/wiki/Motion_Picture_Production_Code" }],
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "🐶‍"
+        },
+        {
+            "top": 50,
+            "left": 50,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "❌"
+        }
+    ]
+}
+
+9
+00:03:57.000 --> 00:04:02.000
+{
+    "type": "PLOP",
+    "top": 70,
+    "left": 54,
+    "width": 40,
+    "desc": "\"an anthropomorphic dog with a human love interest was considered too risqué during the time.\"",
+    "footnotes": [{ "title": "Betty Boop Wiki - Bimbo", "url": "https://bettyboop.fandom.com/wiki/Bimbo" }],
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 130,
+            "rotate": 20,
+            "emoji": "🦴‍"
+        }
+    ]
+}
+
+10
+00:01:09.000 --> 00:01:14.000
+{
+    "type": "PLOP",
+    "top": 75,
+    "left": 10,
+    "width": 58,
+    "desc": "Boop's father is named \"Otto\", this is his only appearance in any known Betty Boop cartoon.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "👴"
+        }
+    ]
+}
+
+11
+00:01:16.000 --> 00:01:20.000
+{
+    "type": "PLOP",
+    "top": 75,
+    "left": 10,
+    "width": 40,
+    "desc": "Her mother is unnamed and uncredited.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "👵‍"
+        },
+        {
+            "top": 50,
+            "left": 50,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "❔‍"
+        }
+    ]
+}
+
+12
+00:01:21.000 --> 00:01:27.000
+{
+    "type": "PLOP",
+    "top": 73,
+    "left": 7,
+    "width": 50,
+    "desc": "German/Austrian immigrants faced large-scale anti-german sentiments during and after WW1.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 170,
+            "rotate": 0,
+            "emoji": "🇩🇪‍"
+        },
+        {
+            "top": 50,
+            "left": 50,
+            "size": 100,
+            "rotate": 0,
+            "emoji": "😠"
+        }
+    ]
+}
+
+13
+00:01:27.000 --> 00:01:33.000
+{
+    "type": "PLOP",
+    "top": 9,
+    "left": 6,
+    "width": 36,
+    "desc": "The Fleischer brothers themselves were the children of Austrian Jewish immigrants.",
+    "icons": [
+        {
+            "top": 48,
+            "left": 50,
+            "size": 200,
+            "rotate": 20,
+            "emoji": "🇦🇹‍"
+        },
+        {
+            "top": 78,
+            "left": 50,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "👨‍👩‍👦‍👦"
+        }
+    ]
+}
+
+14
+00:02:36.000 --> 00:02:42.000
+{
+    "type": "PLOP",
+    "top": 76,
+    "left": 52,
+    "width": 42,
+    "desc": "Betty Boop's character was based on Helen Kane without her permission.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 160,
+            "rotate": 0,
+            "emoji": "🙈‍"
+        }
+    ]
+}
+
+15
+00:02:42.000 --> 00:02:48.000
+{
+    "type": "PLOP",
+    "top": 75,
+    "left": 47,
+    "width": 47,
+    "desc": "The same year this cartoon came out, Helen sued Fleischer Studios for copying her style and likeness.",
+    "icons": [
+        {
+            "top": 63,
+            "left": 50,
+            "size": 170,
+            "rotate": 0,
+            "emoji": "👩‍⚖️"
+        }
+    ]
+}
+
+16
+00:02:48.000 --> 00:02:55.000
+{
+    "type": "PLOP",
+    "top": 78,
+    "left": 35,
+    "width": 60,
+    "desc": "The defence provided audio evidence that she actually stole \"boop-boop-a-doop\" from a black singer named Baby Esther in 1928.",
+    "footnotes": [{ "title": "Jezebel - Betty Boop's Messy, Disputed Backstory", "url": "https://pictorial.jezebel.com/betty-boops-messy-disputed-backstory-1762247611" }],
+    "icons": [
+        {
+            "top": 48,
+            "left": 84,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "🤔"
+        },
+        {
+            "top": 80,
+            "left": 14,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "📻"
+        }
+    ]
+}
+
+17
+00:02:55.000 --> 00:02:58.000
+{
+    "type": "PLOP",
+    "top": 75,
+    "left": 50,
+    "width": 33,
+    "desc": "She subsequently lost the case.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "🙄‍"
+        }
+    ]
+}
+
+18
+00:03:07.000 --> 00:03:12.000
+{
+    "type": "PLOP",
+    "top": 71,
+    "left": 51,
+    "width": 43,
+    "desc": "A cameo of KoKo the Clown from The Fleischer brothers' experimental series \"Out of the Inkwell\"",
+    "footnotes": [{ "title": "Wikipedia - Out of the Inkwell", "url": "https://en.wikipedia.org/wiki/Out_of_the_Inkwell" }],
+    "icons": [
+        {
+            "top": 59,
+            "left": 30,
+            "size": 150,
+            "rotate": 20,
+            "emoji": "🤡‍"
+        }
+    ]
+}
+
+19
+00:02:14.000 --> 00:02:19.000
+{
+    "type": "PLOP",
+    "top": 25,
+    "left": 57,
+    "width": 30,
+    "desc": "Betty is voiced by Mae Questal",
+    "footnotes": [{ "title": "Wikipedia - Mae Questel", "url": "https://en.wikipedia.org/wiki/Mae_Questel" }],
+    "icons": [
+        {
+            "top": 72,
+            "left": 46,
+            "size": 150,
+            "rotate": 10,
+            "emoji": "🎬‍"
+        }
+    ]
+}
+
+20
+00:02:19.000 --> 00:02:25.000
+{
+    "type": "PLOP",
+    "top": 6,
+    "left": 5,
+    "width": 40,
+    "desc": "She also voiced another Fleischer classic, Olive Oyl in Popeye.",
+    "icons": [
+        {
+            "top": 63,
+            "left": 34,
+            "size": 190,
+            "rotate": 0,
+            "emoji": "🌊"
+        },
+        {
+            "top": 65,
+            "left": 74,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "🛳"
+        }
+    ]
+}
+
+21
+00:02:25.000 --> 00:02:31.000
+{
+    "type": "PLOP",
+    "top": 6,
+    "left": 5,
+    "width": 40,
+    "desc": "As an actress, she later appeared as Aunt Bethany in National Lampoon's Christmas Vacation.",
+    "footnotes": [{ "title": "Youtube - Aunt Bethany", "url": "https://www.youtube.com/watch?v=90eEVC50smY" }],
+    "icons": [
+        {
+            "top": 78,
+            "left": 78,
+            "size": 250,
+            "rotate": 0,
+            "emoji": "🎄"
+        },
+        {
+            "top": 70,
+            "left": 30,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "👵"
+        }
+    ]
+}
+
+22
+00:04:28.000 --> 00:04:36.000
+{
+    "type": "PLOP",
+    "top": 50,
+    "left": 60,
+    "width": 33,
+    "desc": "This animation was created through rotoscoping the previously seen footage of Cab Calloway dancing.",
+    "footnotes": [{ "title": "Wikipedia - Rotoscope", "url": "https://en.wikipedia.org/wiki/Rotoscope" }],
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "🕺‍"
+        },
+        {
+            "top": 33,
+            "left": 101,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "✍️"
+        }
+    ]
+}
+
+23
+00:04:41.000 --> 00:04:45.000
+{
+    "type": "PLOP",
+    "top": 74,
+    "left": 59,
+    "width": 33,
+    "desc": "Fleischer Studios had a patent on the rotoscope.",
+    "footnotes": [{ "title": "Fleischer Studios - Rotoscope", "url": "https://www.fleischerstudios.com/rotoscope.html" }],
+    "icons": [
+        {
+            "top": 48,
+            "left": 24,
+            "size": 190,
+            "rotate": 0,
+            "emoji": "📃‍"
+        },
+        {
+            "top": 73,
+            "left": 74,
+            "size": 160,
+            "rotate": 0,
+            "emoji": "👮‍♂️"
+        }
+    ]
+}
+
+24
+00:05:56.000 --> 00:06:02.000
+{
+    "type": "PLOP",
+    "top": 25,
+    "left": 58,
+    "width": 36,
+    "desc": "The rotoscope patent expired 2 years after this cartoon was released.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 120,
+            "rotate": 0,
+            "emoji": "🧻‍"
+        }
+    ]
+}
+
+25
+00:06:02.000 --> 00:06:10.000
+{
+    "type": "PLOP",
+    "top": 20,
+    "left": 5,
+    "width": 38,
+    "desc": "5 years later in 1937, Walt Disney Studios uses the same rotoscope system for \"Snow White\".",
+    "icons": [
+        {
+            "top": 48,
+            "left": 94,
+            "size": 100,
+            "rotate": -50,
+            "emoji": "🧙‍♀️"
+        },
+        {
+            "top": 68,
+            "left": 39,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "👩‍👦‍👦"
+        }
+    ]
+}
+
+26
+00:05:12.000 --> 00:05:23.000
+{
+    "type": "PLOP",
+    "top": 73,
+    "left": 6,
+    "width": 45,
+    "desc": "Lyric Translation: Minnie got together with a cocaine addict and he showed her how to smoke opium.",
+    "icons": [
+        {
+            "top": 48,
+            "left": 24,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "💉‍"
+        },
+        {
+            "top": 83,
+            "left": 84,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "💋"
+        }
+    ]
+}
+
+27
+00:05:32.000 --> 00:05:36.000
+{
+    "type": "PLOP",
+    "top": 64,
+    "left": 52,
+    "width": 40,
+    "desc": "148 people were sentenced to death in 1932.",
+    "footnotes": [{ "title": "US Executions - 1932", "url": "https://deathpenaltyusa.org/usa1/date/1932.htm" }],
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "⚰️‍"
+        }
+    ]
+}
+
+28
+00:05:36.000 --> 00:05:40.000
+{
+    "type": "PLOP",
+    "top": 76,
+    "left": 52,
+    "width": 33,
+    "desc": "106 were put to the electric chair.",
+    "footnotes": [{ "title": "US Executions - 1932", "url": "https://deathpenaltyusa.org/usa1/date/1932.htm" }],
+    "icons": [
+        {
+            "top": 75,
+            "left": 50,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "☠️"
+        },
+        {
+            "top": 28,
+            "left": 58,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "⚡"
+        }
+    ]
+}
+
+29
+00:05:40.000 --> 00:05:46.000
+{
+    "type": "PLOP",
+    "top": 80,
+    "left": 50,
+    "width": 38,
+    "desc": "54% were African American",
+    "footnotes": [{ "title": "US Executions - 1932", "url": "https://deathpenaltyusa.org/usa1/date/1932.htm" }],
+    "icons": [
+        {
+            "top": 68,
+            "left": 50,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "🙍🏿‍♂️‍"
+        }
+    ]
+}
+
+30
+00:06:40.000 --> 00:06:46.000
+{
+    "type": "PLOP",
+    "top": 70,
+    "left": 10,
+    "width": 58,
+    "desc": "These kinds of psychedelics mostly disappeared after the implementation of the Hays Codes",
+    "icons": [
+        {
+            "top": 54,
+            "left": 50,
+            "size": 130,
+            "rotate": 0,
+            "emoji": "🤯‍"
+        }
+    ]
+}
+
+31
+00:06:46.000 --> 00:06:54.000
+{
+    "type": "PLOP",
+    "top": 60,
+    "left": 50,
+    "width": 46,
+    "desc": "Betty Boop herself changes from a sex symbol to a much more modest \"career gal\" by the end of the 1930s",
+    "footnotes": [{ "title": "Youtube - Sally Swing (1938)", "url": "https://www.youtube.com/watch?v=eSxzenLlr68" }],
+    "icons": [
+        {
+            "top": 50,
+            "left": 20,
+            "size": 120,
+            "rotate": 0,
+            "emoji": "💃"
+        },
+        {
+            "top": 50,
+            "left": 80,
+            "size": 120,
+            "rotate": 0,
+            "emoji": "👩‍💼"
+        }
+    ]
+}
+
+32
+00:07:11.000 --> 00:07:18.000
+{
+    "type": "PLOP",
+    "top": 71,
+    "left": 53,
+    "width": 40,
+    "desc": "This song is the last portion of Vine Street Drag.",
+    "footnotes": [{ "title": "Youtube - Vine Street Drag", "url": "https://www.youtube.com/watch?v=siKYU0eGnvc" }],
+    "icons": [
+        {
+            "top": 58,
+            "left": 50,
+            "size": 150,
+            "rotate": 0,
+            "emoji": "👯‍♀️‍"
+        }
+    ]
+}
+
+33
+00:07:36.000 --> 00:07:40.000
+{
+    "type": "PLOP",
+    "top": 77,
+    "left": 13,
+    "width": 34,
+    "desc": "Thanks for watching!",
+    "icons": [
+        {
+            "top": 62,
+            "left": 50,
+            "size": 136,
+            "rotate": 0,
+            "emoji": "💖"
+        }
+    ]
+}
