@@ -19,7 +19,9 @@
             <tr *ngFor="let attachment of attachments | keyvalue">
               <td>{{ attachment.key }}</td>
               <td>{{ attachment.value.content_type }}</td>
-              <td>{{ formatBytes(attachment.value.data.size) }}</td>
+              <td>
+                {{ formatBytes(attachment.value.data) }}
+              </td>
               <td>
                 <div class="file has-name is-right is-fullwidth">
                   <label class="file-label">

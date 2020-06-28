@@ -22,6 +22,7 @@ import { MessagesModule } from '@plopdown/messages';
 import { BrowserRefModule } from '@plopdown/browser-ref';
 import { ContentScannerComponent } from './content-scanner/content-scanner.component';
 import { PlopdownInjectorModule } from '@plopdown/plopdown-injector';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, ContentScannerComponent],
@@ -34,6 +35,7 @@ import { PlopdownInjectorModule } from '@plopdown/plopdown-injector';
     BrowserRefModule,
     MessagesModule,
     PlopdownInjectorModule,
+    HttpClientModule,
     LoggerModule.forRoot({
       appName: `ContentScript:"${document.title}"`,
       color: 'blue',

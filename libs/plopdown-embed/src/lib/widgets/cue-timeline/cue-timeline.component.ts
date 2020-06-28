@@ -50,7 +50,7 @@ import { PLOPDOWN_TEMPLATES } from '../../models/plopdown-templates.model';
 export class CueTimelineComponent {
   public currentLeft$: Observable<string>;
   private track$: Subject<SavedTrack> = new ReplaySubject(1);
-  public cues$: Observable<object[]>;
+  public cues$: Observable<Partial<Cue>[]>;
 
   private videoElem$: Subject<HTMLVideoElement> = new ReplaySubject(1);
   private timeUpdate$: Observable<HTMLVideoElement>;
@@ -101,7 +101,7 @@ export class CueTimelineComponent {
     this.goTo.emit(startTime);
   }
 
-  private cues(track: SavedTrack, videoElem: HTMLVideoElement): object[] {
+  private cues(track: SavedTrack, videoElem: HTMLVideoElement): Partial<Cue>[] {
     const duration = videoElem.duration;
 
     return track.cues.map((cue) => {
@@ -128,7 +128,7 @@ export class CueTimelineComponent {
     });
   }
 
-  cueActive(cue: Cue): boolean {
+  cueActive(cue: Partial<Cue>): boolean {
     return (
       this.activeCues.find((activeCue) => {
         return activeCue.id === cue.id;

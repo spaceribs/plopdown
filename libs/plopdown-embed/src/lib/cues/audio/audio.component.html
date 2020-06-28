@@ -1,4 +1,5 @@
 <video
+  *ngIf="audioUrl$ | async as audioUrl"
   plopdown-ignore
   (loadstart)="audioLoaded()"
   #audioElem
@@ -6,7 +7,7 @@
   hidden="true"
 ></video>
 
-<div class="audio-indicator" *ngIf="audioElem">
+<div class="audio-indicator">
   <svg class="progress-ring" viewbox="0 0 120 120">
     <circle
       [ngStyle]="progressStyle$ | async"

@@ -24,7 +24,7 @@
     "affected:dep-graph": "nx affected:dep-graph",
     "affected": "nx affected",
     "ci:lint": "nx affected --target=lint --base=remotes/origin/master --parallel",
-    "ci:build": "nx affected --target=build --base=remotes/origin/master --parallel",
+    "ci:build": "nx affected --target=build --base=remotes/origin/master --parallel --prod",
     "ci:test": "nx affected --target=test --base=remotes/origin/master --parallel",
     "format": "nx format:write",
     "format:write": "nx format:write",
