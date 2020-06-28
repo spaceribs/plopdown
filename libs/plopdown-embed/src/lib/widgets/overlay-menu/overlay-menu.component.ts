@@ -4,7 +4,6 @@ import {
   Output,
   EventEmitter,
   Input,
-  ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
 
@@ -17,9 +16,7 @@ import {
   style,
   animate,
 } from '@angular/animations';
-import { tap } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { LoadAssetService } from '../../load-asset.service';
 
 @Component({
   selector: 'plopdown-injector-menu',
@@ -81,16 +78,6 @@ export class OverlayMenuComponent implements OnDestroy {
 
   private subs: Subscription = new Subscription();
 
-  constructor(private cd: ChangeDetectorRef, loadAsset: LoadAssetService) {
-    this.plopdownLogo$ = loadAsset.asText('/icons/plopdown-logo.svg').pipe(
-      tap(() => {
-        setTimeout(() => {
-          this.cd.detectChanges();
-        }, 0);
-      })
-    );
-  }
-
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
@@ -127,11 +114,9 @@ export class OverlayMenuComponent implements OnDestroy {
 
   onMouseEnter() {
     this.slideoutShown = true;
-    this.cd.detectChanges();
   }
 
   onMouseLeave() {
     this.slideoutShown = false;
-    this.cd.detectChanges();
   }
 }

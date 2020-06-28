@@ -50,9 +50,9 @@ export class VideoManagerComponent implements OnInit, OnDestroy {
     this.window.close();
   }
 
-  public onRemoveVideo(videoRef: SavedVideoRef) {
+  public onRemoveVideo(videoRef: SavedVideoRef | VideoRef) {
     const removeVideoRefSub = this.videoRefsService
-      .removeVideoRef(videoRef)
+      .removeVideoRef(videoRef as SavedVideoRef)
       .subscribe({
         next: (res) => {
           this.logger.debug('Removed Video Ref', res);

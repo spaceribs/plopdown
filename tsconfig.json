@@ -49,5 +49,9 @@
       "@plopdown/window-ref/mock": ["libs/window-ref/mock/index.ts"]
     }
   },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  },
   "exclude": ["node_modules", "tmp"]
 }

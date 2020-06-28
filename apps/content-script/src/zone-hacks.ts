@@ -6,13 +6,11 @@
  * to be called with `window` as `this`.
  */
 const patchedClearTimeout = window.clearTimeout;
-console.log(patchedClearTimeout);
 window.clearTimeout = function (...args) {
   return patchedClearTimeout.apply(window, args);
 };
 
 const patchedClearInterval = window.clearInterval;
-console.log(patchedClearInterval);
 window.clearInterval = function (...args) {
   return patchedClearInterval.apply(window, args);
 };

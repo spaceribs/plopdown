@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { mdiFileUpload } from '@mdi/js';
+import { FullAttachments } from '../../../models/full-attachments.model';
 
 @Component({
   selector: 'plopdown-file-manager',
@@ -10,9 +11,8 @@ export class FileManagerComponent {
   public mdiFileUpload = mdiFileUpload;
 
   @Output() cancel: EventEmitter<void> = new EventEmitter();
-  @Output() save: EventEmitter<PouchDB.Core.Attachments> = new EventEmitter();
-
-  @Input() attachments: PouchDB.Core.Attachments;
+  @Output() save: EventEmitter<FullAttachments> = new EventEmitter();
+  @Input() attachments: FullAttachments;
 
   constructor() {}
 
@@ -24,16 +24,18 @@ export class FileManagerComponent {
     this.save.emit(this.attachments);
   }
 
-  formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
+  formatBytes(data: PouchDB.Core.FullAttachment['data'], decimals = 2) {
+    if (data['size'] == null || data['size'] === 0) return '0 Bytes';
 
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    const i = Math.floor(Math.log(data['size']) / Math.log(k));
 
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    return (
+      parseFloat((data['size'] / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+    );
   }
 
   onReplaceFile(fileName: string, event: Event) {

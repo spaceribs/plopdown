@@ -31,5 +31,6 @@ import { CueTimelineComponent } from './widgets/cue-timeline/cue-timeline.compon
     AudioComponent,
   ],
   providers: [],
+  entryComponents: [StageComponent],
 })
 export class PlopdownEmbedModule {}

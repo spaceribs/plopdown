@@ -27,7 +27,7 @@ export class TrackManagerComponent {
     this.window.open(extUrl);
   }
 
-  public onRemoveTrack(track: SavedTrack) {
-    return this.trackService.removeTrack(track);
+  public onRemoveTrack(track: SavedTrack | Track) {
+    return this.trackService.removeTrack(track as SavedTrack);
   }
 }

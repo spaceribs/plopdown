@@ -62,9 +62,9 @@ export class VideosComponent implements OnInit {
     this.videoRefsService.refreshVideos();
   }
 
-  public removeVideo(videoRef: SavedVideoRef) {
+  public removeVideo(videoRef: SavedVideoRef | VideoRef) {
     const removeVideoRefSub = this.videoRefsService
-      .removeVideoRef(videoRef)
+      .removeVideoRef(videoRef as SavedVideoRef)
       .subscribe({
         next: (res) => {
           this.logger.debug('Removed Video Ref', res);
@@ -82,7 +82,7 @@ export class VideosComponent implements OnInit {
     }`;
   }
 
-  public editVideoRef(videoRef: SavedVideoRef) {
+  public editVideoRef(videoRef: VideoRef) {
     this.editingVideoRef = videoRef;
     this.showEditor = true;
   }

@@ -12,7 +12,7 @@ import {
   AfterViewInit,
   HostBinding,
   OnChanges,
-  SimpleChanges,
+  ErrorHandler,
 } from '@angular/core';
 import { PlopdownAudio } from './audio.model';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
@@ -24,6 +24,7 @@ import {
   of,
   ReplaySubject,
   Subject,
+  combineLatest,
 } from 'rxjs';
 import { mdiVolumeHigh, mdiVolumeOff, mdiAlert } from '@mdi/js';
 import {
@@ -32,7 +33,7 @@ import {
   filter,
   mapTo,
   shareReplay,
-  withLatestFrom,
+  switchMap,
 } from 'rxjs/operators';
 
 @Component({
@@ -43,60 +44,60 @@ import {
 })
 export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   implements AfterViewInit, OnDestroy, OnChanges {
+  public color = '#ffc09f';
+  public audioMuted = false;
+  public mdiVolumeHigh = mdiVolumeHigh;
+  public mdiVolumeOff = mdiVolumeOff;
+  public mdiAlert = mdiAlert;
+
+  public progressStyle$: Observable<object>;
+  public timeUpdate$: Observable<[number, number]>;
+  public audioUrl$: Subject<SafeUrl> = new ReplaySubject(1);
+  public skipOffset$: Observable<number>;
+
+  private videoNotPlaying$: Observable<void>;
+  private videoPlaying$: Observable<void>;
+  private syncOffset$: Observable<number>;
+  private audioElem$: Subject<ElementRef<HTMLAudioElement>> = new ReplaySubject(
+    1
+  );
+  private toggleMute$: Subject<void> = new Subject();
+  private playAudio$: Subject<void> = new Subject();
+  private pauseAudio$: Subject<void> = new Subject();
+  private audioTimeUpdate$: Observable<Event>;
+
+  private subs: Subscription = new Subscription();
+
+  @ViewChild('audioElem')
+  set audioElem(elem: ElementRef<HTMLAudioElement>) {
+    if (elem != null) {
+      this.audioElem$.next(elem);
+    }
+  }
+
+  @HostBinding('style.top.%') public top: number;
+  @HostBinding('style.left.%') public left: number;
+
   constructor(
     private logger: LoggerService,
     private sanitizer: DomSanitizer,
     private audioEdits: AudioEditsService,
     private editSkip: EditSkipService,
+    private errorHandler: ErrorHandler,
     @Inject(VIDEO_ELEM_TOKEN) private videoElem: HTMLVideoElement,
     @Inject(TRACK_FILES_TOKEN) private trackFiles: Map<string, string>
   ) {
     super();
     this.skipOffset$ = this.editSkip.getOffset().pipe(shareReplay(1));
   }
-  public color = '#ffc09f';
-  public audioUrl: SafeUrl;
-  public audioMuted = false;
-  public mdiVolumeHigh = mdiVolumeHigh;
-  public mdiVolumeOff = mdiVolumeOff;
-  public mdiAlert = mdiAlert;
-  public progressStyle$: Observable<object>;
-
-  private videoNotPlaying$: Observable<void>;
-  private videoPlaying$: Observable<void>;
-  public timeUpdate$: Observable<[number, number]>;
-  private syncOffset$: Observable<number>;
-
-  private audioPlaying$: Observable<void>;
-  private audioTimeUpdate$: Observable<Event>;
-  private audioStopped$: Observable<void>;
-  private audioStalled$: Observable<void>;
-
-  private editTime$: Subject<number> = new ReplaySubject(1);
-
-  private subs: Subscription = new Subscription();
-
-  @ViewChild('audioElem') audioElem: ElementRef<HTMLAudioElement>;
-  @HostBinding('style.top.%') top: number;
-  @HostBinding('style.left.%') left: number;
-  skipOffset$: Observable<number>;
 
   ngOnChanges(): void {
-    if (this.data) {
-      this.top = this.data.top;
-      this.left = this.data.left;
-
-      if (this.data.edits && this.data.edits.length > 0) {
-        this.audioEdits.setEdits(this.data.edits);
-      } else {
-        this.audioEdits.setEdits([]);
-      }
-
-      this.audioUrl = this.getFile(this.data.url);
-    }
+    this.bindData();
   }
 
   ngAfterViewInit(): void {
+    this.bindData();
+
     this.videoElem.pause();
 
     this.videoNotPlaying$ = merge(
@@ -116,10 +117,12 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
       fromEvent(this.videoElem, 'playing')
     ).pipe(mapTo(null));
 
-    this.audioTimeUpdate$ = fromEvent(
-      this.audioElem.nativeElement,
-      'timeupdate'
-    ).pipe(shareReplay(1));
+    this.audioTimeUpdate$ = this.audioElem$.pipe(
+      switchMap((elem) => {
+        return fromEvent(elem.nativeElement, 'timeupdate');
+      }),
+      shareReplay(1)
+    );
 
     this.progressStyle$ = this.audioTimeUpdate$.pipe(
       map((event) => {
@@ -135,16 +138,24 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
       })
     );
 
-    this.audioEdits.setAudioElem(this.audioElem.nativeElement);
+    const audioElemSub = this.audioElem$.subscribe({
+      error: (err) => this.errorHandler.handleError(err),
+      next: (elem) => {
+        this.audioEdits.setAudioElem(elem.nativeElement);
+      },
+    });
+    this.subs.add(audioElemSub);
 
     this.timeUpdate$ = merge(
-      fromEvent(this.audioElem.nativeElement, 'timeupdate'),
+      this.audioTimeUpdate$,
       fromEvent(this.videoElem, 'timeupdate')
     ).pipe(
-      withLatestFrom(this.skipOffset$),
-      map(([_, skipOffset]) => {
+      switchMap(() => {
+        return combineLatest([this.audioElem$, this.skipOffset$]);
+      }),
+      map(([elem, skipOffset]) => {
         return [
-          this.audioElem.nativeElement.currentTime - skipOffset,
+          elem.nativeElement.currentTime - skipOffset,
           this.videoElem.currentTime,
         ];
       })
@@ -159,21 +170,51 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
       filter((offset) => offset > 150 || offset < -150)
     );
 
-    const syncSub = this.syncOffset$.subscribe((offset) => {
-      const currentMS = this.audioElem.nativeElement.currentTime * 1000;
-      this.audioElem.nativeElement.currentTime = (currentMS + offset) / 1000;
+    const syncSub = combineLatest([
+      this.syncOffset$,
+      this.audioElem$,
+    ]).subscribe(([offset, elem]) => {
+      const currentMS = elem.nativeElement.currentTime * 1000;
+      elem.nativeElement.currentTime = (currentMS + offset) / 1000;
     });
     this.subs.add(syncSub);
 
-    const stopSub = this.videoNotPlaying$.subscribe(() => {
-      this.pauseAudio();
-    });
+    const stopSub = merge(this.videoNotPlaying$, this.pauseAudio$)
+      .pipe(
+        switchMap(() => {
+          return this.audioElem$;
+        })
+      )
+      .subscribe((elem) => {
+        elem.nativeElement.pause();
+      });
     this.subs.add(stopSub);
 
-    const playSub = this.videoPlaying$.subscribe(() => {
-      this.playAudio();
-    });
+    const playSub = merge(this.videoPlaying$, this.playAudio$)
+      .pipe(
+        switchMap(() => {
+          return this.audioElem$;
+        })
+      )
+      .subscribe((elem) => {
+        elem.nativeElement.play();
+      });
     this.subs.add(playSub);
+
+    const toggleMuteSub = this.toggleMute$
+      .pipe(
+        switchMap(() => {
+          return this.audioElem$;
+        })
+      )
+      .subscribe({
+        error: (err) => this.errorHandler.handleError(err),
+        next: (elem) => {
+          elem.nativeElement.muted = !elem.nativeElement.muted;
+          this.audioMuted = elem.nativeElement.muted;
+        },
+      });
+    this.subs.add(toggleMuteSub);
   }
 
   ngOnDestroy(): void {
@@ -182,9 +223,7 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
 
   toggleMute(event: Event) {
     event.preventDefault();
-    const muted = !this.audioMuted;
-    this.audioElem.nativeElement.muted = muted;
-    this.audioMuted = muted;
+    this.toggleMute$.next();
   }
 
   audioLoaded() {
@@ -192,22 +231,38 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   }
 
   playAudio() {
-    this.audioElem.nativeElement.play();
+    this.playAudio$.next();
   }
 
   pauseAudio() {
-    this.audioElem.nativeElement.pause();
+    this.pauseAudio$.next();
   }
 
-  getFile(filename): SafeUrl {
-    const result = this.trackFiles.get(filename);
+  getFile(url: string): SafeUrl {
+    const result = this.trackFiles.get(url);
     if (result == null) {
-      this.logger.error('Could not find filename', filename);
+      this.logger.error('Could not find filename', url);
     }
     return this.sanitizer.bypassSecurityTrustUrl(result);
   }
 
   textPreview(data = this.data): string {
     return `Audio - ${data.title}`;
+  }
+
+  private bindData() {
+    if (this.data != null) {
+      this.top = this.data.top;
+      this.left = this.data.left;
+
+      if (this.data.edits && this.data.edits.length > 0) {
+        this.audioEdits.setEdits(this.data.edits);
+      } else {
+        this.audioEdits.setEdits([]);
+      }
+
+      const url = this.getFile(this.data.url);
+      this.audioUrl$.next(url);
+    }
   }
 }
