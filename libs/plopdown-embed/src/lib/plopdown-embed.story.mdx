@@ -1,0 +1,49 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+
+<Meta title="Intro" />
+
+# Plopdown Format
+
+Welcome to the documentation for creating your own plopdown files! We don't have
+an editor yet for the format, but it adheres to the [WebVTT spec](https://w3c.github.io/webvtt/) and
+JSON.
+
+## Headers
+
+The top of the file contains general information about the plopdown, attribution, and hints about
+what video it should be associated with. Heres an example with a description of each field:
+
+```yaml
+WEBVTT                                              # The file always starts with WEBVTT
+type: plopdown_v1                                   # The type is always "plopdown_v1"
+title: Minnie the Moocher - Facts and Trivia        # The human readable title of the plopdown
+for: Minnie The Moocher                             # The human readable name of the associated video
+url: https://plopdown.video                         # (optional) The url of the homepage this plopdown is associated with
+license: CC0                                        # (optional) The license for reuse or remixing this plopdown
+authors: spaceribs                                  # (optional) Comma delineated list of authors for this plopdown
+created: 2019-12-29T00:23:20.156Z                   # ISO-8601 datetime this plopdown was created
+updated: 2019-12-29T00:23:20.156Z                   # (optional) ISO-8601 datetime this plopdown was last updated
+origin: https://example.com                         # (optional) Hint of the hostname where the video can be found
+path: /video                                        # (optional) Hint of the path under the hostname
+search: id=123                                      # (optional) Hint of the url parameters under the path
+xpath: /HTML[1]/BODY[1]/VIDEO[1]                    # (optional) Hint of the xpath where the video exists on the page
+```
+
+## Cues
+
+Below the headers, and separated by a newline, are the cues which will be rendered into the video:
+
+```json
+info                                                // Required unique identifier for the cue
+00:00:00.000 --> 00:00:05.000                       // Start and end timecodes
+{                                                   // Begin Metadata
+    "type": "INFO",                                 // Type of the cue being rendered.
+    "title": "Minnie the Moocher",                  // Additional data as described by the type.
+    "url": "https://plopdown.video",
+    "authors": ["spaceribs"]
+}                                                   // End Metadata
+```
+
+When you're ready, import your track into the plopdown plugin and go to the page with the video
+to test out your new plopdown track. Check out the examples in the sidebar nav to explore the different
+kinds of cues you can specify.
