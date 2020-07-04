@@ -5,5 +5,9 @@
     "types": ["firefox-webext-browser"]
   },
   "exclude": ["../src/test.ts", "../**/*.spec.ts"],
-  "include": ["../src/**/*"]
+  "include": ["../src/**/*"],
+  "transform": {
+    "^.+\\.[tj]sx?$": "babel-jest",
+    "^.+\\.mdx$": "@storybook/addon-docs/jest-transform-mdx"
+  }
 }

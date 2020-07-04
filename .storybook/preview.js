@@ -1,4 +1,21 @@
 import { addParameters } from '@storybook/angular';
+import plopdownTheme from './plopdownTheme';
+
+addParameters({
+  options: {
+    theme: plopdownTheme,
+    storySort: (a, b) => {
+      switch (b[1].kind) {
+        case 'Intro':
+          return 1;
+        default:
+          return a[1].kind === b[1].kind
+            ? 0
+            : a[1].id.localeCompare(b[1].id, { numeric: true });
+      }
+    },
+  },
+});
 
 addParameters({
   backgrounds: [
