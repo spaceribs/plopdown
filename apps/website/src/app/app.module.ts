@@ -28,6 +28,11 @@ import { LoggerModule, LogConsoleService } from '@plopdown/logger';
           loadChildren: () =>
             import('./blog/blog.module').then((m) => m.BlogModule),
         },
+        {
+          path: 'share',
+          loadChildren: () =>
+            import('./share/share.module').then((m) => m.ShareModule),
+        },
         { path: '**', redirectTo: '' },
       ],
       { initialNavigation: 'enabled' }

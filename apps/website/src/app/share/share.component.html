@@ -1,0 +1,80 @@
+<plopdown-site-nav></plopdown-site-nav>
+<div class="container">
+  <section class="hero is-dark has-text-centered">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Plopdown Link Sharing
+        </h1>
+        <h2 class="subtitle">
+          Generate a link to share annotations with others.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <div class="columns is-centered">
+    <div class="column is-desktop is-half">
+      <div class="health-check">
+        <div class="content">
+          <p>
+            We're checking a few things to make sure you can send and receive
+            Plopdown tracks...
+          </p>
+          <progress
+            class="progress is-fullwidth is-danger"
+            max="5"
+            value="1"
+          ></progress>
+        </div>
+        <ul class="status">
+          <li>
+            <h3>Parsing URL Parameters...</h3>
+            <div class="notification is-danger">
+              There was an error parsing the parameters of the URL to add a
+              plopdown and redirect to the associated video, double check that
+              the URL has been fully copied.
+            </div>
+          </li>
+          <li>
+            <h3>Sending Ready Signal...</h3>
+            <div class="notification is-danger">
+              There was an error sending a message to the web extension, please
+              retry, refresh or reinstall the extension.
+            </div>
+          </li>
+          <li>
+            <h3>Establishing Handshake...</h3>
+            <div class="notification is-danger">
+              We haven't received any messages from the Plopdown web extension,
+              are you sure you have it installed? Please
+              <a
+                href="https://addons.mozilla.org/en-US/firefox/addon/plopdown-video/"
+                target="_blank"
+                >click here</a
+              >
+              to install the extension.
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns is-vcentered">
+    <div class="column">
+      <div class="box content">
+        <h3>Track</h3>
+      </div>
+    </div>
+    <div class="column is-narrow">
+      <strong>Applied To:</strong>
+    </div>
+    <div class="column">
+      <div class="box content">
+        <h3>Video</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<plopdown-site-footer></plopdown-site-footer>

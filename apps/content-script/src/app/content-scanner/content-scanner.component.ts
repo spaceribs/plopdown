@@ -17,7 +17,6 @@ import { VideoRef } from '@plopdown/video-refs';
 @Component({
   selector: 'plopdown-content-scanner',
   template: '',
-  styleUrls: ['./content-scanner.component.scss'],
 })
 export class ContentScannerComponent implements OnInit, AfterViewInit {
   private foundVideos$: Observable<VideoRef[]>;

@@ -1,11 +1,17 @@
 {
   "manifest_version": 2,
   "name": "__MSG_extName__",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage_url": "https://plopdown.video",
   "description": "Show annotations on top of any html5 web video.",
   "default_locale": "en",
-  "permissions": ["activeTab", "storage", "unlimitedStorage"],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "unlimitedStorage",
+    "https://plopdown.video/*",
+    "http://localhost/*"
+  ],
   "optional_permissions": ["https://*/*", "http://*/*"],
   "icons": {
     "16": "icons/16.png",

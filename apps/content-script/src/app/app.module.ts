@@ -22,9 +22,10 @@ import { MessagesModule } from '@plopdown/messages';
 import { BrowserRefModule } from '@plopdown/browser-ref';
 import { ContentScannerComponent } from './content-scanner/content-scanner.component';
 import { PlopdownInjectorModule } from '@plopdown/plopdown-injector';
+import { WebShareComponent } from './web-share/web-share.component';
 
 @NgModule({
-  declarations: [AppComponent, ContentScannerComponent],
+  declarations: [AppComponent, ContentScannerComponent, WebShareComponent],
   imports: [
     BrowserModule,
     ExtStorageModule,

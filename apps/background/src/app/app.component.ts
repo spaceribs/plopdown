@@ -27,6 +27,7 @@ import {
   combineLatest,
   forkJoin,
   of,
+  merge,
 } from 'rxjs';
 import {
   filter,
@@ -143,7 +144,10 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     InstallContentScript: {
-      const installContentScript$: Observable<null | Error> = this.onBrowserActionQueryVideoRefs$.pipe(
+      const installContentScript$: Observable<null | Error> = merge(
+        this.onBrowserActionQueryVideoRefs$,
+        this.tabs.onAutoPlop()
+      ).pipe(
         switchMap(() => {
           return this.installContentScript().pipe(
             mapTo(null),

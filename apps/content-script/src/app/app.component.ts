@@ -1,9 +1,6 @@
 import { SavedVideoRef } from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
-import {
-  ContentScriptPubService,
-  BackgroundSubService,
-} from '@plopdown/messages';
+import { BackgroundSubService } from '@plopdown/messages';
 import {
   Component,
   ChangeDetectionStrategy,
@@ -15,6 +12,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'plopdown-cs',
   template: `
+    <plopdown-web-share></plopdown-web-share>
     <plopdown-content-scanner></plopdown-content-scanner>
     <plopdown-video-attachments
       [videoRefs]="videoRefs$ | async"
@@ -27,7 +25,7 @@ export class AppComponent implements AfterViewInit {
 
   constructor(
     private bgSub: BackgroundSubService,
-    private logger: LoggerService
+    private logger: LoggerService,
   ) {
     this.videoRefs$ = this.bgSub.getVideoRefsFound().pipe(
       map((res) => res.args[0]),
