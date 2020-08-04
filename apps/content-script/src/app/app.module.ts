@@ -5,6 +5,7 @@ import { ExtStorageModule } from '@plopdown/ext-storage';
 import { WindowRefModule } from '@plopdown/window-ref';
 import { VideoRefsModule } from '@plopdown/video-refs';
 import { BrowserModule } from '@angular/platform-browser';
+import { PlopdownFileModule } from '@plopdown/plopdown-file';
 import {
   NgModule,
   DoBootstrap,
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent, ContentScannerComponent],
   imports: [
+    PlopdownFileModule,
     BrowserModule,
     ExtStorageModule,
     VideoRefsModule,
