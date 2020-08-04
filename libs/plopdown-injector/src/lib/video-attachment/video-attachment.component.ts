@@ -69,7 +69,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   }
 
   private bindAttachment() {
-    if (this.videoElem.duration !== this.duration) {
+    if (this.duration > 0 && this.videoElem.duration !== this.duration) {
       this.logger.error('Duration of video did not match.');
       return;
     }
