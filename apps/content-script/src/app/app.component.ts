@@ -2,6 +2,7 @@ import { SavedVideoRef } from '@plopdown/video-refs';
 import { Track, SavedTrack } from '@plopdown/tracks';
 import { PlopdownFileService, PlopdownFile } from '@plopdown/plopdown-file';
 import { LoggerService } from '@plopdown/logger';
+import { WindowRefService } from '@plopdown/window-ref';
 import {
   ContentScriptPubService,
   BackgroundSubService,
@@ -9,11 +10,11 @@ import {
 import {
   Component,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   AfterViewInit,
 } from '@angular/core';
-import { map, scan } from 'rxjs/operators';
-import { Observable, merge } from 'rxjs';
-import LZString from 'lz-string'
+import { map, scan, tap } from 'rxjs/operators';
+import { Observable, Observer, merge } from 'rxjs';
 
 @Component({
   selector: 'plopdown-cs',
@@ -32,58 +33,18 @@ export class AppComponent implements AfterViewInit {
     private bgSub: BackgroundSubService,
     private logger: LoggerService,
     private fileService: PlopdownFileService,
+    private window: WindowRefService,
+    private ref: ChangeDetectorRef,
   ) {
 
-    const linkVideoRefs = new Observable(subscriber => {
-      if (window.location.hash.startsWith("#plopdown:")) {
-        const linkedVideo = LZString.decompressFromEncodedURIComponent(window.location.hash.split(":")[1]);
-        subscriber.next(linkedVideo);
-      }
-      subscriber.complete();
-    })
-
-    function convertVideoRef(file: PlopdownFile): [SavedVideoRef] {
-      const s: SavedTrack = {
-        _id: "local",
-        _rev: "local",
-        title: file.headers.title,
-        for: file.headers.for,
-        created: file.headers.created,
-        thumbnail: file.headers.thumbnail,
-        authors: file.headers.authors,
-        language: file.headers.language,
-        license: file.headers.license,
-        cues: file.cues,
-      };
-
-      const v: SavedVideoRef = {
-        _id: "local",
-        _rev: "local",
-        xpath: file.headers.xpath,
-        title: file.headers.for,
-        duration: 0,
-        frameOrigin: "",
-        track: s,
-        frameTitle: null,
-        framePath: null,
-        frameSearch: null,
-      }
-      return [v]
+    function importVTT(raw: string): PlopdownFile {
+      const f: PlopdownFile = fileService.decode(raw);
+      return f;
     }
 
-    function importVTT(input: string): PlopdownFile {
-      try {
-        const f: PlopdownFile = fileService.decode(input);
-        return f
-      } catch(e) {
-        console.error(e);
-        throw e;
-      }
-    }
-
-    this.videoRefs$ = merge(linkVideoRefs.pipe(
+    this.videoRefs$ = merge(window.getPlopdownFromHash().pipe(
       map(importVTT),
-      map(convertVideoRef),
+      map(this.fileToVideoRef),
     ), this.bgSub.getVideoRefsFound().pipe(
       map((res) => res.args[0]),
     )).pipe(
@@ -92,8 +53,39 @@ export class AppComponent implements AfterViewInit {
           refs.set(videoRef['_id'], videoRef);
         });
         return refs;
-      }, new Map<SavedVideoRef['_id'], SavedVideoRef>())
+      }, new Map<SavedVideoRef['_id'], SavedVideoRef>()),
+      tap(_ => setTimeout(() => this.ref.detectChanges(), 100)),
     );
+  }
+
+
+  private fileToVideoRef(file: PlopdownFile): [SavedVideoRef] {
+    const s: SavedTrack = {
+      _id: "local",
+      _rev: "local",
+      title: file.headers.title,
+      for: file.headers.for,
+      created: file.headers.created,
+      thumbnail: file.headers.thumbnail,
+      authors: file.headers.authors,
+      language: file.headers.language,
+      license: file.headers.license,
+      cues: file.cues,
+    };
+
+    const v: SavedVideoRef = {
+      _id: "local",
+      _rev: "local",
+      xpath: file.headers.xpath,
+      title: file.headers.for,
+      duration: 0,
+      frameOrigin: "",
+      track: s,
+      frameTitle: null,
+      framePath: null,
+      frameSearch: null,
+    }
+    return [v]
   }
 
   ngAfterViewInit(): void {
