@@ -1,16 +1,38 @@
 import { WindowRefModule } from './window-ref.module';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import LZString from 'lz-string'
+import { Observable, fromEvent, merge, of } from 'rxjs';
+import LZString from 'lz-string';
+import { map, filter, shareReplay, startWith } from 'rxjs/operators';
 
 @Injectable({
   providedIn: WindowRefModule,
 })
 export class WindowRefService {
   private window: Window & typeof globalThis;
+  private hashPlopdown$: Observable<string>;
 
   constructor() {
     this.window = window;
+
+    const hashInitial$ = of(this.getHash());
+    const hashChange$ = fromEvent(this.window, 'hashchange').pipe(
+      map(() => this.getHash())
+    );
+
+    const hash$ = merge(hashInitial$, hashChange$).pipe(
+      filter((hash) => hash != null && hash !== ''),
+      shareReplay(1)
+    );
+
+    this.hashPlopdown$ = hash$.pipe(
+      filter((hash) => hash.startsWith('#plopdown:')),
+      map((plopdownHash) => {
+        const plopdownCompressed = plopdownHash.split(':')[1];
+        return LZString.decompressFromEncodedURIComponent(plopdownCompressed);
+      }),
+      filter((plopdown) => plopdown != null),
+      shareReplay(1)
+    );
   }
 
   public getURL() {
@@ -30,28 +52,7 @@ export class WindowRefService {
   }
 
   public getPlopdownFromHash(): Observable<string> {
-    const plopdowns = new Observable<string>(subscriber => {
-      this.emitPlopdownFromHash(subscriber);
-      this.window.addEventListener('hashchange', function() {
-        this.emitPlopdownFromHash(subscriber);
-      }.bind(this), false);
-    });
-    return plopdowns;
-  }
-
-  private emitPlopdownFromHash(subscriber) {
-    const plopdown: string = this.parsePlopdownFromHash(this.getHash());
-    if (plopdown !== "") {
-      subscriber.next(plopdown);
-    }
-  }
-
-  private parsePlopdownFromHash(hash: string): string {
-    if (!hash.startsWith("#plopdown:")) {
-      return "";
-    }
-    const linkedVideo: string = LZString.decompressFromEncodedURIComponent(hash.split(":")[1]);
-    return linkedVideo;
+    return this.hashPlopdown$;
   }
 
   public open(
