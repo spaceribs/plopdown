@@ -1,6 +1,9 @@
 import { WindowRefModule } from './window-ref.module';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  Injectable,
+} from '@angular/core';
+import { Observable, fromEvent } from 'rxjs';
+import { map, startWith, filter } from 'rxjs/operators';
 import LZString from 'lz-string'
 
 @Injectable({
@@ -8,9 +11,19 @@ import LZString from 'lz-string'
 })
 export class WindowRefService {
   private window: Window & typeof globalThis;
+  private hashValueFound$: Observable<string>;
 
   constructor() {
     this.window = window;
+    this.hashValueFound$ = fromEvent(this.window, 'hashchange').pipe(
+      map(() => this.getHash()),
+    ).pipe(
+      startWith(this.getHash()),
+      filter((hash: string) => hash.startsWith('#plopdown:')),
+      map((hash: string) => hash.split(":")[1]),
+      map((hash: string) => this.decompressFromHash(hash)),
+      filter(video => video != null)
+    );
   }
 
   public getURL() {
@@ -29,29 +42,17 @@ export class WindowRefService {
     return this.window.indexedDB;
   }
 
-  public getPlopdownFromHash(): Observable<string> {
-    const plopdowns = new Observable<string>(subscriber => {
-      this.emitPlopdownFromHash(subscriber);
-      this.window.addEventListener('hashchange', function() {
-        this.emitPlopdownFromHash(subscriber);
-      }.bind(this), false);
-    });
-    return plopdowns;
+  public getHashValueFound(): Observable<string> {
+    return this.hashValueFound$;
   }
 
-  private emitPlopdownFromHash(subscriber) {
-    const plopdown: string = this.parsePlopdownFromHash(this.getHash());
-    if (plopdown !== "") {
-      subscriber.next(plopdown);
+  //NOTE: could be moved into a library, does not depend on its parent object.
+  private decompressFromHash(compressedValue: string): string {
+    const decompressedValue: string = LZString.decompressFromEncodedURIComponent(compressedValue);
+    if (decompressedValue === null) {
+      throw new Error('Plopdown string could not be decoded'); 
     }
-  }
-
-  private parsePlopdownFromHash(hash: string): string {
-    if (!hash.startsWith("#plopdown:")) {
-      return "";
-    }
-    const linkedVideo: string = LZString.decompressFromEncodedURIComponent(hash.split(":")[1]);
-    return linkedVideo;
+    return decompressedValue;
   }
 
   public open(

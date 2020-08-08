@@ -42,7 +42,7 @@ export class AppComponent implements AfterViewInit {
       return f;
     }
 
-    this.videoRefs$ = merge(window.getPlopdownFromHash().pipe(
+    this.videoRefs$ = merge(window.getHashValueFound().pipe(
       map(importVTT),
       map(this.fileToVideoRef),
     ), this.bgSub.getVideoRefsFound().pipe(
