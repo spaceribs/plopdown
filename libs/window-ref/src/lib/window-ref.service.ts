@@ -1,8 +1,8 @@
 import { WindowRefModule } from './window-ref.module';
 import { Injectable } from '@angular/core';
-import { Observable, fromEvent, merge, of } from 'rxjs';
+import { Observable, fromEvent, merge, of, throwError } from 'rxjs';
 import LZString from 'lz-string';
-import { map, filter, shareReplay, startWith } from 'rxjs/operators';
+import { map, filter, shareReplay, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: WindowRefModule,
@@ -26,11 +26,19 @@ export class WindowRefService {
 
     this.hashPlopdown$ = hash$.pipe(
       filter((hash) => hash.startsWith('#plopdown:')),
-      map((plopdownHash) => {
+      switchMap((plopdownHash) => {
         const plopdownCompressed = plopdownHash.split(':')[1];
-        return LZString.decompressFromEncodedURIComponent(plopdownCompressed);
+
+        const plopdown = LZString.decompressFromEncodedURIComponent(
+          plopdownCompressed
+        );
+
+        if (plopdown == null) {
+          return throwError(new Error('Plopdown string could not be decoded'));
+        } else {
+          return of(plopdown);
+        }
       }),
-      filter((plopdown) => plopdown != null),
       shareReplay(1)
     );
   }
