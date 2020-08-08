@@ -5,5 +5,5 @@ import { EMPTY } from 'rxjs';
 @Injectable()
 export class MockWindowRefService implements Partial<WindowRefService> {
   getDocument = jest.fn();
-  getPlopdownFromHash = jest.fn().mockReturnValue(EMPTY);
+  getHashValueFound = jest.fn().mockReturnValue(EMPTY);
 }
