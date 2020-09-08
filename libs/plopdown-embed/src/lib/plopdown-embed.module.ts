@@ -1,36 +1,27 @@
+import { WindowRefModule } from '@plopdown/window-ref';
 import { IconModule } from '@plopdown/icon';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InfoComponent } from './cues/info/info.component';
-import { PlopComponent } from './cues/plop/plop.component';
-import { CueRendererComponent } from './cue-renderer/cue-renderer.component';
-import { AudioComponent } from './cues/audio/audio.component';
-import { ShapeComponent } from './cues/shape/shape.component';
-import { StageComponent } from './stage/stage.component';
-import { OverlayMenuComponent } from './widgets/overlay-menu/overlay-menu.component';
-import { CueTimelineComponent } from './widgets/cue-timeline/cue-timeline.component';
+import { CueTimelineComponent } from './cue-timeline/cue-timeline.component';
+import { InjectorMenuModule } from './embed-menu/embed-menu.module';
+import { PlopdownEmbedComponent } from './plopdown-embed.component';
+import { PlopdownCuesModule } from '@plopdown/plopdown-cues';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IconModule],
-  declarations: [
-    StageComponent,
-    OverlayMenuComponent,
-    CueTimelineComponent,
-    CueRendererComponent,
-    InfoComponent,
-    PlopComponent,
-    ShapeComponent,
-    AudioComponent,
+  imports: [
+    CommonModule,
+    FormsModule,
+    IconModule,
+    WindowRefModule,
+    OverlayModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InjectorMenuModule,
+    PlopdownCuesModule,
   ],
-  exports: [
-    CueRendererComponent,
-    InfoComponent,
-    PlopComponent,
-    ShapeComponent,
-    AudioComponent,
-  ],
+  declarations: [PlopdownEmbedComponent, CueTimelineComponent],
   providers: [],
-  entryComponents: [StageComponent],
 })
 export class PlopdownEmbedModule {}

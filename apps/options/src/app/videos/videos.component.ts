@@ -1,13 +1,8 @@
 import { WindowRefService } from '@plopdown/window-ref';
 import { LoggerService } from '@plopdown/logger';
 import { Observable, Subject, Subscription } from 'rxjs';
-import {
-  VideoRefsService,
-  VideoRef,
-  SavedVideoRef,
-  TrackRef,
-} from '@plopdown/video-refs';
-import { Component, OnInit } from '@angular/core';
+import { VideoRefsService, VideoRef, TrackRef } from '@plopdown/video-refs';
+import { Component, OnInit, OnDestroy, ErrorHandler } from '@angular/core';
 import {
   mdiRefresh,
   mdiAlertCircle,
@@ -23,11 +18,11 @@ import {
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.scss'],
 })
-export class VideosComponent implements OnInit {
-  public updateVideoRef$: Subject<SavedVideoRef> = new Subject();
+export class VideosComponent implements OnInit, OnDestroy {
+  private updateVideoRef$: Subject<VideoRef> = new Subject();
   public videoRefs$: Observable<VideoRef[]>;
   public loadingVideoRefs$: Observable<boolean>;
-  public editingVideoRef: VideoRef | SavedVideoRef | null = null;
+  public editingVideoRef: VideoRef | null = null;
   public showEditor = false;
   public showTrackSelector = false;
   public confirmReset = false;
@@ -45,6 +40,7 @@ export class VideosComponent implements OnInit {
   constructor(
     private videoRefsService: VideoRefsService,
     private logger: LoggerService,
+    private errorHandler: ErrorHandler,
     private windowRef: WindowRefService
   ) {
     this.videoRefs$ = this.videoRefsService.getVideoRefs();
@@ -52,19 +48,28 @@ export class VideosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const updateVideoRefs = this.updateVideoRef$.subscribe((videoRef) => {
-      return this.videoRefsService.updateVideoRef(videoRef);
+    const updateVideoRefs = this.updateVideoRef$.subscribe({
+      next: (videoRef) => {
+        return this.videoRefsService.updateVideoRef(videoRef);
+      },
+      error: (err) => {
+        this.errorHandler.handleError(err);
+      },
     });
     this.subs.add(updateVideoRefs);
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   public refreshVideos() {
     this.videoRefsService.refreshVideos();
   }
 
-  public removeVideo(videoRef: SavedVideoRef | VideoRef) {
+  public removeVideo(videoRef: VideoRef) {
     const removeVideoRefSub = this.videoRefsService
-      .removeVideoRef(videoRef as SavedVideoRef)
+      .removeVideoRef(videoRef as VideoRef)
       .subscribe({
         next: (res) => {
           this.logger.debug('Removed Video Ref', res);
@@ -127,15 +132,18 @@ export class VideosComponent implements OnInit {
   }
 
   public updateTrack(trackRef: TrackRef | null) {
+    if (this.editingVideoRef == null) {
+      return;
+    }
     this.editingVideoRef.track = trackRef;
     this.addOrUpdateVideoRef(this.editingVideoRef);
     this.closeTrackSelector();
   }
 
-  public addOrUpdateVideoRef(videoRef: SavedVideoRef | VideoRef) {
+  public addOrUpdateVideoRef(videoRef: VideoRef) {
     if (videoRef['_id'] != null) {
       const updateSub = this.videoRefsService
-        .updateVideoRef(videoRef as SavedVideoRef)
+        .updateVideoRef(videoRef)
         .subscribe({
           next: (res) => {
             this.logger.debug('Video Ref Updated', res);

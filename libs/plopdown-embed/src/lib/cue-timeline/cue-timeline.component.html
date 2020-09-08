@@ -1,0 +1,15 @@
+<ul>
+  <li
+    *ngFor="let cue of cues$ | async"
+    (click)="goToCue($event, cue.startTime)"
+    [ngStyle]="cue.style"
+    [ngClass]="{ active: cueActive(cue) }"
+    [title]="cue.text"
+  >
+    {{ cue.text }}
+  </li>
+</ul>
+<span
+  class="position-indicator"
+  [ngStyle]="{ left: currentLeft$ | async }"
+></span>

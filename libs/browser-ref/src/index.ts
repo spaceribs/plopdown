@@ -6,4 +6,9 @@ export * from './lib/runtime.service';
 
 export * from './lib/tabs.service';
 
-export * from './lib/permissions.service';
+export * from './lib/permissions-req.service';
+
+export * from './lib/web-navigation.service';
+export * from './lib/web-navigation.model';
+
+export * from './lib/browser-action.service';

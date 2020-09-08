@@ -15,7 +15,9 @@ what video it should be associated with. Heres an example with a description of 
 
 ```yaml
 WEBVTT                                              # The file always starts with WEBVTT
-type: plopdown_v1                                   # The type is always "plopdown_v1"
+_id: 85363ae6-18d6-4cbc-a748-7910ecefe8c6           # The ID is some unique identifier to prevent duplicates
+_rev: 2edad9fb-6b8f-468b-98cd-4261d37686ae          # The revision is used to prevent versioning conflicts
+type: plopdown_v2                                   # The type is always "plopdown_v2"
 title: Minnie the Moocher - Facts and Trivia        # The human readable title of the plopdown
 for: Minnie The Moocher                             # The human readable name of the associated video
 url: https://plopdown.video                         # (optional) The url of the homepage this plopdown is associated with
@@ -23,9 +25,9 @@ license: CC0                                        # (optional) The license for
 authors: spaceribs                                  # (optional) Comma delineated list of authors for this plopdown
 created: 2019-12-29T00:23:20.156Z                   # ISO-8601 datetime this plopdown was created
 updated: 2019-12-29T00:23:20.156Z                   # (optional) ISO-8601 datetime this plopdown was last updated
-origin: https://example.com                         # (optional) Hint of the hostname where the video can be found
-path: /video                                        # (optional) Hint of the path under the hostname
-search: id=123                                      # (optional) Hint of the url parameters under the path
+frameOrigin: https://example.com                    # (optional) Hint of the hostname where the video can be found
+framePath: /video                                   # (optional) Hint of the path under the hostname
+frameSearch: id=123                                 # (optional) Hint of the url parameters under the path
 xpath: /HTML[1]/BODY[1]/VIDEO[1]                    # (optional) Hint of the xpath where the video exists on the page
 ```
 

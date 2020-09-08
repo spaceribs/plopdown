@@ -1,3 +1,6 @@
+import { LzStringModule } from '@plopdown/lz-string';
+import { HttpClientModule } from '@angular/common/http';
+import { PermissionsModule } from '@plopdown/permissions';
 import { PlopdownFileModule } from '@plopdown/plopdown-file';
 import { TracksModule } from '@plopdown/tracks';
 import { IconModule } from '@plopdown/icon';
@@ -15,7 +18,6 @@ import {
 } from '@plopdown/logger';
 import { HomeComponent } from './home/home.component';
 import { SubnavComponent } from './subnav/subnav.component';
-import { RouteData } from './route-data.model';
 import { VideosComponent } from './videos/videos.component';
 import { TracksComponent } from './tracks/tracks.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -27,6 +29,8 @@ import { TrackEditorComponent } from './tracks/track-editor/track-editor.compone
 import { FileManagerComponent } from './tracks/file-manager/file-manager/file-manager.component';
 import { FileImporterComponent } from './tracks/file-importer/file-importer.component';
 import { LogViewerComponent } from './log-viewer/log-viewer.component';
+import { PermissionsComponent } from './permissions/permissions.component';
+import { PermissionEditorComponent } from './permissions/permission-editor/permission-editor.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,8 @@ import { LogViewerComponent } from './log-viewer/log-viewer.component';
     FileManagerComponent,
     FileImporterComponent,
     LogViewerComponent,
+    PermissionsComponent,
+    PermissionEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +59,9 @@ import { LogViewerComponent } from './log-viewer/log-viewer.component';
     TracksModule,
     WindowRefModule,
     PlopdownFileModule,
+    PermissionsModule,
+    HttpClientModule,
+    LzStringModule,
     LoggerModule.forRoot({
       appName: 'Options',
       color: 'orange',
@@ -79,6 +88,10 @@ import { LogViewerComponent } from './log-viewer/log-viewer.component';
         {
           path: 'logs',
           component: LogViewerComponent,
+        },
+        {
+          path: 'permissions',
+          component: PermissionsComponent,
         },
         {
           path: '**',

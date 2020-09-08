@@ -1,7 +1,7 @@
 import { WindowRefService } from '@plopdown/window-ref';
 import { Observable } from 'rxjs';
-import { TracksService, SavedTrack } from '@plopdown/tracks';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { TracksService, Track } from '@plopdown/tracks';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TrackRef } from '@plopdown/video-refs';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
@@ -11,13 +11,13 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
   templateUrl: './track-selector.component.html',
   styleUrls: ['./track-selector.component.scss'],
 })
-export class TrackSelectorComponent implements OnInit {
-  public tracks$: Observable<SavedTrack[]>;
+export class TrackSelectorComponent {
+  public tracks$: Observable<Track[]>;
   public trackSelectorForm: FormGroup;
-  @Output() cancel: EventEmitter<void> = new EventEmitter();
+  @Output() cancel: EventEmitter<null> = new EventEmitter();
   @Output() save: EventEmitter<TrackRef> = new EventEmitter();
 
-  @Input() set trackRef(trackRef: TrackRef | null) {
+  @Input() set trackRef(trackRef: TrackRef | undefined | null) {
     if (trackRef != null) {
       this.trackSelectorForm.setValue(trackRef);
     } else {
@@ -39,7 +39,7 @@ export class TrackSelectorComponent implements OnInit {
     });
   }
 
-  onSelectTrack(track: SavedTrack) {
+  onSelectTrack(track: Track) {
     this.trackSelectorForm.setValue({
       _id: track._id,
       title: track.title,
@@ -48,7 +48,7 @@ export class TrackSelectorComponent implements OnInit {
 
   onReset(event: Event) {
     event.preventDefault();
-    this.save.emit(null);
+    this.save.emit();
   }
 
   onCancel() {
@@ -62,11 +62,15 @@ export class TrackSelectorComponent implements OnInit {
     }
   }
 
-  getAttachment(track: SavedTrack, filename: string): SafeUrl {
+  getAttachment(track: Track, filename?: string): SafeUrl | null {
+    if (filename == null) {
+      return null;
+    }
+    if (track._attachments == null) {
+      return null;
+    }
     const attachment = track._attachments[filename];
     const url = this.windowRef.getURL().createObjectURL(attachment.data);
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
-
-  ngOnInit(): void {}
 }

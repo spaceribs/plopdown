@@ -2,7 +2,7 @@ import { PlopdownFileV1Validator } from './plopdown-file.validator';
 import { PlopdownFileModule } from './plopdown-file.module';
 import { PlopdownFile } from './plopdown-file.model';
 import { Injectable } from '@angular/core';
-import { Cue, PlopdownTemplateType } from '@plopdown/plopdown-embed';
+import { Cue, PlopdownTemplateType } from '@plopdown/plopdown-cues';
 
 @Injectable({
   providedIn: PlopdownFileModule,
@@ -103,8 +103,8 @@ export class PlopdownFileService {
     }, {} as any);
   }
 
-  private getAllMatches(str, regex) {
-    const matches = [];
+  private getAllMatches(str: string, regex: RegExp) {
+    const matches: string[] = [];
     let m;
     while (1) {
       m = regex.exec(str);
@@ -172,7 +172,7 @@ export class PlopdownFileService {
   }
 
   private getFiles(file: PlopdownFile) {
-    const files = [];
+    const files: string[] = [];
 
     if (file.headers.thumbnail != null) {
       files.push(file.headers.thumbnail);

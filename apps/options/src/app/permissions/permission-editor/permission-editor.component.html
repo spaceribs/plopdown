@@ -1,0 +1,89 @@
+<div class="modal is-active">
+  <div class="modal-background" (click)="onCancel()"></div>
+  <form
+    class="modal-card"
+    novalidate
+    [formGroup]="permissionForm"
+    (submit)="onSave($event)"
+  >
+    <header class="modal-card-head">
+      <p class="modal-card-title">Permission Editor</p>
+    </header>
+    <section class="modal-card-body">
+      <div class="section">
+        <fieldset>
+          <div class="field" *ngIf="permissionForm.controls.name as control">
+            <label class="label">Name</label>
+            <div class="control">
+              <input
+                formControlName="name"
+                class="input"
+                [ngClass]="{
+                  'is-danger': control.invalid && control.dirty
+                }"
+                type="text"
+                placeholder="Plopdown Video"
+              />
+            </div>
+            <p class="help is-danger" *ngIf="control.invalid && control.dirty">
+              Please name the service to scan.
+            </p>
+          </div>
+
+          <div
+            class="field"
+            *ngIf="permissionForm.controls.test_url as control"
+          >
+            <label class="label">Test URL</label>
+            <div class="control">
+              <input
+                formControlName="test_url"
+                class="input"
+                [ngClass]="{
+                  'is-danger': control.invalid && control.dirty
+                }"
+                type="url"
+                (blur)="control.valid && approximateMatch(control.value)"
+                placeholder="https://plopdown.video"
+              />
+            </div>
+            <p class="help" *ngIf="control.pristine">
+              The URL of a video to test Plopdown against.
+            </p>
+            <p class="help is-danger" *ngIf="control.invalid && control.dirty">
+              Please specify a valid URL to test.
+            </p>
+          </div>
+
+          <div class="field" *ngIf="permissionForm.controls.match as control">
+            <label class="label">Matches</label>
+            <div class="control">
+              <input
+                formControlName="match"
+                class="input"
+                [ngClass]="{
+                  'is-danger': control.invalid && control.dirty
+                }"
+                type="url"
+                placeholder="https://*.plopdown.video/*"
+              />
+            </div>
+            <p class="help is-danger" *ngIf="control.invalid && control.dirty">
+              Please specify a match to inject Plopdown on.
+            </p>
+          </div>
+        </fieldset>
+      </div>
+    </section>
+    <footer class="modal-card-foot buttons is-right">
+      <button type="button" class="button" (click)="onCancel()">Cancel</button>
+      <button
+        type="submit"
+        [disabled]="permissionForm.invalid"
+        class="button is-primary is-pulled-right"
+      >
+        {{ permissionForm.value['_id'] ? 'Save Changes' : 'Add Permission' }}
+      </button>
+    </footer>
+  </form>
+</div>

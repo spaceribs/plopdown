@@ -2,11 +2,7 @@ import { Observable, Subscription } from 'rxjs';
 import { WindowRefService } from '@plopdown/window-ref';
 import { RuntimeService } from '@plopdown/browser-ref';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  VideoRefsService,
-  VideoRef,
-  SavedVideoRef,
-} from '@plopdown/video-refs';
+import { VideoRefsService, VideoRef } from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
 import { tap } from 'rxjs/operators';
 import { mdiTrashCan } from '@mdi/js';
@@ -50,9 +46,9 @@ export class VideoManagerComponent implements OnInit, OnDestroy {
     this.window.close();
   }
 
-  public onRemoveVideo(videoRef: SavedVideoRef | VideoRef) {
+  public onRemoveVideo(videoRef: VideoRef) {
     const removeVideoRefSub = this.videoRefsService
-      .removeVideoRef(videoRef as SavedVideoRef)
+      .removeVideoRef(videoRef)
       .subscribe({
         next: (res) => {
           this.logger.debug('Removed Video Ref', res);
@@ -70,17 +66,5 @@ export class VideoManagerComponent implements OnInit, OnDestroy {
     } else {
       return `${videoRef.frameTitle}`;
     }
-  }
-
-  requestPermissions(event: Event) {
-    event.preventDefault();
-    browser.permissions
-      .request({
-        origins: ['https://www.youtube.com/embed/7MNS2dPfm0g'],
-      })
-      .then((allowed) => {
-        console.log(allowed);
-      })
-      .catch((err) => console.log(err));
   }
 }

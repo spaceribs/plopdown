@@ -33,7 +33,6 @@ import { LoggerModule, LogConsoleService } from '@plopdown/logger';
       { initialNavigation: 'enabled' }
     ),
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

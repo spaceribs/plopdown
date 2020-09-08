@@ -12,7 +12,8 @@ export class ArchiveComponent implements OnInit {
   public postRoutes: Routes;
 
   constructor(@Inject(POSTS) posts: Routes) {
-    this.postRoutes = posts.sort(BlogComponent.comparePostDates).slice(0, 20);
+    posts.sort(BlogComponent.comparePostDates);
+    this.postRoutes = posts.slice(0, 20);
   }
 
   ngOnInit(): void {}

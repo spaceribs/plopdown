@@ -3,14 +3,11 @@ import {
   BuilderOutput,
   createBuilder,
 } from '@angular-devkit/architect';
-import { Observable, of, bindCallback, from } from 'rxjs';
-import { switchMap, mapTo, map } from 'rxjs/operators';
+import { Observable, of, from } from 'rxjs';
+import { switchMap, mapTo } from 'rxjs/operators';
 import { WebExtRunnerSchema } from './schema';
-import * as fs from 'fs-extra';
 import { resolve } from 'path';
 import webExt from 'web-ext';
-
-const copy = bindCallback(fs.copy);
 
 export function runBuilder(
   options: WebExtRunnerSchema,

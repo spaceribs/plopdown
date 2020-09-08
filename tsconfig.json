@@ -11,6 +11,7 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
     "target": "es2015",
     "module": "esnext",
     "typeRoots": ["node_modules/@types"],
@@ -18,6 +19,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "plugins": [{ "name": "typescript-tslint-plugin" }],
     "paths": {
       "@plopdown/browser-ref": ["libs/browser-ref/src/index.ts"],
       "@plopdown/browser-ref/mock": ["libs/browser-ref/mock/index.ts"],
@@ -39,14 +41,17 @@
       "@plopdown/plopdown-injector/mock": [
         "libs/plopdown-injector/mock/index.ts"
       ],
-      "@plopdown/tokens": ["libs/tokens/src/index.ts"],
       "@plopdown/tracks": ["libs/tracks/src/index.ts"],
       "@plopdown/tracks/mock": ["libs/tracks/mock/index.ts"],
       "@plopdown/video-refs": ["libs/video-refs/src/index.ts"],
       "@plopdown/video-refs/mock": ["libs/video-refs/mock/index.ts"],
       "@plopdown/web-extension": ["libs/web-extension/src/index.ts"],
       "@plopdown/window-ref": ["libs/window-ref/src/index.ts"],
-      "@plopdown/window-ref/mock": ["libs/window-ref/mock/index.ts"]
+      "@plopdown/window-ref/mock": ["libs/window-ref/mock/index.ts"],
+      "@plopdown/permissions": ["libs/permissions/src/index.ts"],
+      "@plopdown/lz-string": ["libs/lz-string/src/index.ts"],
+      "@plopdown/browser-action-ref": ["libs/browser-action-ref/src/index.ts"],
+      "@plopdown/plopdown-cues": ["libs/plopdown-cues/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

@@ -16,12 +16,7 @@
       <ng-container *ngIf="track == null">
         <div class="file is-boxed is-large is-block">
           <label class="file-label">
-            <input
-              class="file-input"
-              accept=".vtt"
-              type="file"
-              (change)="trackFileSelected($event)"
-            />
+            <input class="file-input" accept=".vtt" type="file" />
             <span class="file-cta">
               <span class="file-icon">
                 <img
@@ -53,7 +48,7 @@
                 <th>{{ fileRef }}</th>
                 <td>
                   <div
-                    [ngClass]="{ 'is-success': fileInput.files[0] }"
+                    [ngClass]="{ 'is-success': getFile(fileInput?.files) }"
                     class="file is-fullwidth is-pulled-right"
                   >
                     <label class="file-label">
@@ -67,21 +62,26 @@
                       <span class="file-cta">
                         <span class="file-icon">
                           <plopdown-icon
-                            *ngIf="!fileInput.files[0]"
-                            [path]="mdiFileOutline"
-                          ></plopdown-icon>
-                          <plopdown-icon
-                            *ngIf="fileInput.files[0]"
+                            *ngIf="getFile(fileInput?.files); else noFileIcon"
                             [path]="mdiFileCheck"
                           ></plopdown-icon>
+                          <ng-template #noFileIcon>
+                            <plopdown-icon
+                              [path]="mdiFileOutline"
+                            ></plopdown-icon>
+                          </ng-template>
                         </span>
-                        <span class="file-label">
-                          {{
-                            fileInput.files[0]
-                              ? fileInput.files[0].name
-                              : 'Select File...'
-                          }}
+                        <span
+                          class="file-label"
+                          *ngIf="getFile(fileInput?.files); else noFileLabel"
+                        >
+                          {{ getFileName(fileInput?.files) }}
                         </span>
+                        <ng-template #noFileLabel>
+                          <span class="file-label">
+                            Select File...
+                          </span>
+                        </ng-template>
                       </span>
                     </label>
                   </div>

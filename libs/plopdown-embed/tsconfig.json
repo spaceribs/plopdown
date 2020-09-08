@@ -3,5 +3,9 @@
   "compilerOptions": {
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts"]
+  "include": [
+    "**/*.ts",
+    "../tracks/src/lib/track.service.ts",
+    "../tracks/src/lib/track.service.spec.ts"
+  ]
 }

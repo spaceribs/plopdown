@@ -1,3 +1,4 @@
+import { PermissionsModule } from '@plopdown/permissions';
 import { IconModule } from '@plopdown/icon';
 import { WindowRefModule } from '@plopdown/window-ref';
 import { VideoRefsModule } from '@plopdown/video-refs';
@@ -21,11 +22,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { VideoManagerComponent } from './video-manager/video-manager.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { TrackManagerComponent } from './track-manager/track-manager.component';
+import { PermissionsManagerComponent } from './permissions-manager/permissions-manager.component';
 
 const appRoutes: Routes = [
   { path: '', component: ScannerComponent },
   { path: 'videos', component: VideoManagerComponent },
   { path: 'tracks', component: TrackManagerComponent },
+  { path: 'permissions', component: PermissionsManagerComponent },
 ];
 
 @NgModule({
@@ -33,6 +36,7 @@ const appRoutes: Routes = [
     AppComponent,
     VideoManagerComponent,
     TrackManagerComponent,
+    PermissionsManagerComponent,
     ScannerComponent,
   ],
   imports: [
@@ -54,6 +58,7 @@ const appRoutes: Routes = [
     MessagesModule,
     WindowRefModule,
     VideoRefsModule,
+    PermissionsModule,
     TracksModule,
   ],
   bootstrap: [AppComponent],

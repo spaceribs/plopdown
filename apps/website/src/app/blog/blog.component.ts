@@ -18,41 +18,41 @@ export class BlogComponent implements OnInit {
   public dateArchives: PostDateBucket[];
 
   static comparePostDates(a: Route, b: Route) {
-    const aCreated = new Date(a.data.attributes.created);
-    const bCreated = new Date(b.data.attributes.created);
+    const aCreated = new Date(a?.data?.attributes.created);
+    const bCreated = new Date(b?.data?.attributes.created);
     return bCreated.getTime() - aCreated.getTime();
   }
 
   constructor(@Inject(POSTS) posts: Routes) {
-    this.dateArchives = posts
-      .reduce((memo, post) => {
-        const postDate = new Date(post.data.attributes.created);
-        const postMonth = new Date(post.data.attributes.created).getMonth();
-        const postYear = new Date(post.data.attributes.created).getFullYear();
+    this.dateArchives = posts.reduce((memo, post) => {
+      const postDate = new Date(post?.data?.attributes.created);
+      const postMonth = new Date(post?.data?.attributes.created).getMonth();
+      const postYear = new Date(post?.data?.attributes.created).getFullYear();
 
-        const existingBucket = memo.find((bucket) => {
-          return bucket.year === postYear && bucket.month === postMonth;
-        });
-
-        if (existingBucket != null) {
-          existingBucket.posts.push(post);
-          existingBucket.posts.sort(BlogComponent.comparePostDates);
-        } else {
-          memo.push({
-            month: postMonth,
-            year: postYear,
-            date: postDate,
-            posts: [post],
-          });
-        }
-
-        return memo;
-      }, [] as PostDateBucket[])
-      .sort((a, b) => {
-        const aDate = new Date(`${a.year}-${a.month}`);
-        const bDate = new Date(`${b.year}-${b.month}`);
-        return bDate.getTime() - aDate.getTime();
+      const existingBucket = memo.find((bucket) => {
+        return bucket.year === postYear && bucket.month === postMonth;
       });
+
+      if (existingBucket != null) {
+        existingBucket.posts.push(post);
+        existingBucket.posts.sort(BlogComponent.comparePostDates);
+      } else {
+        memo.push({
+          month: postMonth,
+          year: postYear,
+          date: postDate,
+          posts: [post],
+        });
+      }
+
+      return memo;
+    }, [] as PostDateBucket[]);
+
+    this.dateArchives.sort((a, b) => {
+      const aDate = new Date(`${a.year}-${a.month}`);
+      const bDate = new Date(`${b.year}-${b.month}`);
+      return bDate.getTime() - aDate.getTime();
+    });
   }
 
   ngOnInit(): void {}

@@ -1,4 +1,3 @@
-import { SavedTrack } from '@plopdown/tracks';
 import { LoggerService } from '@plopdown/logger';
 import { ContentScriptCommand } from './content-script.model';
 import { Injectable } from '@angular/core';
@@ -22,11 +21,15 @@ export class ContentScriptPubService extends PortPublisher<
     this.command$.next({ command: 'CS_READY', args: null });
   }
 
-  public videosFound(videoRefs: VideoRef[]) {
-    this.command$.next({ command: 'CS_VIDEOS_FOUND', args: videoRefs });
+  public getTracks() {
+    this.command$.next({ command: 'CS_TRACKS_REQUESTED', args: null });
   }
 
-  public iframesFound(iframeUrls: string[]) {
-    this.command$.next({ command: 'CS_IFRAMES_FOUND', args: iframeUrls });
+  public getVideoRefs() {
+    this.command$.next({ command: 'CS_VIDEO_REFS_REQUESTED', args: null });
+  }
+
+  addVideoRef(videoRef: VideoRef) {
+    this.command$.next({ command: 'CS_ADD_VIDEO_REF', args: [videoRef] });
   }
 }

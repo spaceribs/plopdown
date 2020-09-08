@@ -1,8 +1,8 @@
 import { WindowRefService } from '@plopdown/window-ref';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-import { SavedTrack, TracksService, Track } from '@plopdown/tracks';
+import { Component, OnDestroy } from '@angular/core';
+import { TracksService, Track } from '@plopdown/tracks';
 import {
   mdiRefresh,
   mdiAlertCircle,
@@ -11,7 +11,6 @@ import {
   mdiFileMultiple,
   mdiTrashCan,
 } from '@mdi/js';
-import { tap } from 'rxjs/operators';
 import { LoggerService } from '@plopdown/logger';
 
 @Component({
@@ -19,11 +18,11 @@ import { LoggerService } from '@plopdown/logger';
   templateUrl: './tracks.component.html',
   styleUrls: ['./tracks.component.scss'],
 })
-export class TracksComponent implements OnInit {
+export class TracksComponent implements OnDestroy {
   public loadingTracks$: Observable<boolean>;
-  public tracks$: Observable<SavedTrack[]>;
+  public tracks$: Observable<Track[]>;
 
-  public editingTrack: SavedTrack | null = null;
+  public editingTrack: Track | null = null;
   public showEditor = false;
   public showFileManager = false;
   public showTrackUploader = false;
@@ -47,14 +46,16 @@ export class TracksComponent implements OnInit {
     this.tracks$ = tracksService.getTracks();
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
-  public editTrack(track: SavedTrack) {
+  public editTrack(track: Track) {
     this.editingTrack = track;
     this.showEditor = true;
   }
 
-  public manageFiles(track: SavedTrack) {
+  public manageFiles(track: Track) {
     this.editingTrack = track;
     this.showFileManager = true;
   }
@@ -63,7 +64,13 @@ export class TracksComponent implements OnInit {
     this.showTrackUploader = true;
   }
 
-  getAttachment(track: SavedTrack, filename: string): SafeUrl {
+  getAttachment(track: Track, filename?: string): SafeUrl | null {
+    if (filename == null) {
+      return null;
+    }
+    if (track._attachments == null) {
+      return null;
+    }
     const attachment = track._attachments[filename];
     const url = this.windowRef.getURL().createObjectURL(attachment.data);
     return this.sanitizer.bypassSecurityTrustUrl(url);
@@ -94,8 +101,8 @@ export class TracksComponent implements OnInit {
     this.subs.add(removeVideoRefSub);
   }
 
-  removeTrack(track: SavedTrack) {
-    const addSub = this.tracksService.removeTrack(track).subscribe({
+  removeTrack(track: Track) {
+    const removeSub = this.tracksService.removeTrack(track).subscribe({
       next: (res) => {
         this.logger.debug('Track Removed', res);
         this.showEditor = false;
@@ -104,7 +111,7 @@ export class TracksComponent implements OnInit {
         this.logger.error('Error Removing Track', err);
       },
     });
-    this.subs.add(addSub);
+    this.subs.add(removeSub);
   }
 
   public closeEdit() {
@@ -113,10 +120,10 @@ export class TracksComponent implements OnInit {
     this.showTrackUploader = false;
   }
 
-  public addOrUpdateTrack(track: SavedTrack | Track) {
+  public addOrUpdateTrack(track: Track) {
     if (track['_id'] != null) {
       const updateSub = this.tracksService
-        .updateTrack(track as SavedTrack)
+        .updateTrack(track as Track)
         .subscribe({
           next: (res) => {
             this.logger.debug('Track Updated', res);
@@ -141,13 +148,19 @@ export class TracksComponent implements OnInit {
     }
   }
 
-  public updateFiles(attachments: SavedTrack['_attachments']) {
+  public updateFiles(attachments: Track['_attachments']) {
+    if (this.editingTrack == null) {
+      return;
+    }
     this.editingTrack._attachments = attachments;
     this.addOrUpdateTrack(this.editingTrack);
     this.closeEdit();
   }
 
-  public getCount(attachments: SavedTrack['_attachments']) {
+  public getCount(attachments: Track['_attachments']): number {
+    if (attachments == null) {
+      return 0;
+    }
     return Object.keys(attachments).length;
   }
 }

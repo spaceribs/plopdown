@@ -22,7 +22,7 @@ export function runBuilder(
           return {
             ...opt,
             sourceDir: opt.destinationDir,
-          };
+          } as any;
         })
       );
     }),

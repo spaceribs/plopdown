@@ -3,3 +3,4 @@
 /dist
 /coverage
 angular.json
+/libs/plopdown-file/src/schema/**/*

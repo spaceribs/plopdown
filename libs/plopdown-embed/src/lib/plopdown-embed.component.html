@@ -1,0 +1,29 @@
+<div
+  class="stage-wrapper"
+  *ngIf="styles$ | async as styles"
+  [@videoOutline]
+  [ngStyle]="styles.wrapper"
+>
+  <div class="stage" [ngStyle]="styles.stage">
+    <plopdown-embed-menu
+      [tracks]="tracks"
+      [track]="track$ | async"
+      (remove)="removeStage()"
+      (saveVideoRef)="saveVideoRef.emit($event)"
+      (trackChange)="trackChange.emit($event)"
+    ></plopdown-embed-menu>
+    <ng-container *ngIf="trackAndVideoElem$ | async as trackAndVideo">
+      <plopdown-cue-renderer
+        [videoElem]="trackAndVideo[1]"
+        [cues]="cues$ | async"
+      ></plopdown-cue-renderer>
+      <plopdown-cue-timeline
+        *ngIf="(showControls$ | async) && trackAndVideo[0] != null"
+        [videoElem]="trackAndVideo[1]"
+        [track]="trackAndVideo[0]"
+        [activeCues]="cues$ | async"
+        (goTo)="goToTime($event)"
+      ></plopdown-cue-timeline>
+    </ng-container>
+  </div>
+</div>

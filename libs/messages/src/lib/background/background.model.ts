@@ -1,22 +1,24 @@
-import { SavedTrack } from '@plopdown/tracks';
+import { VideoRef } from '@plopdown/video-refs';
+import { Track } from '@plopdown/tracks';
 import { Command } from '../messages.model';
-import { VideoRef, SavedVideoRef } from '@plopdown/video-refs';
+
+export interface BackgroundStatus {
+  active_allowed: boolean;
+  active_origin: string | null;
+}
 
 export type BackgroundCheckAlive = Command<'BG_CHECK_ALIVE'>;
-export type BackgroundFindVideos = Command<'BG_FIND_VIDEOS'>;
-export type BackgroundContentFound = Command<
-  'BG_CONTENT_FOUND',
-  [VideoRef[], string[]]
->;
-export type BackgroundTrackFound = Command<'BG_TRACK_FOUND', [SavedTrack]>;
-export type BackgroundVideoRefFound = Command<
+export type BackgroundPublishStatus = Command<'BG_STATUS', [BackgroundStatus]>;
+export type BackgroundTracksFound = Command<'BG_TRACKS_FOUND', [Track[]]>;
+export type BackgroundVideoRefsFound = Command<
   'BG_VIDEO_REFS_FOUND',
-  [SavedVideoRef[]]
+  [VideoRef[]]
 >;
+export type BackgroundVideoRefAdded = Command<'BG_VIDEO_REF_ADDED', [VideoRef]>;
 
 export type BackgroundCommand =
   | BackgroundCheckAlive
-  | BackgroundContentFound
-  | BackgroundFindVideos
-  | BackgroundTrackFound
-  | BackgroundVideoRefFound;
+  | BackgroundTracksFound
+  | BackgroundPublishStatus
+  | BackgroundVideoRefsFound
+  | BackgroundVideoRefAdded;

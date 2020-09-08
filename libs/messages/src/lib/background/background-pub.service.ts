@@ -1,13 +1,13 @@
-import { SavedTrack } from '@plopdown/tracks';
+import { Track } from '@plopdown/tracks';
 import { TabsService } from '@plopdown/browser-ref';
 import { Injectable } from '@angular/core';
-import { BackgroundCommand } from './background.model';
+import { BackgroundCommand, BackgroundStatus } from './background.model';
 import { MessagesService } from '../messages.service';
 import { LoggerService } from '@plopdown/logger';
 import { Source } from '../messages.model';
 import { PortPublisher } from '../publisher.abstract';
 import { MessagesModule } from '../messages.module';
-import { VideoRef, SavedVideoRef } from '@plopdown/video-refs';
+import { VideoRef } from '@plopdown/video-refs';
 
 @Injectable({
   providedIn: MessagesModule,
@@ -25,28 +25,31 @@ export class BackgroundPubService extends PortPublisher<BackgroundCommand> {
     this.command$.next({ command: 'BG_CHECK_ALIVE', args: null });
   }
 
-  public findVideos() {
-    this.command$.next({ command: 'BG_FIND_VIDEOS', args: null });
-  }
-
-  public contentFound(videoRefs: VideoRef[], iframes: string[]) {
+  public publishStatus(status: BackgroundStatus) {
     this.command$.next({
-      command: 'BG_CONTENT_FOUND',
-      args: [videoRefs, iframes],
+      command: 'BG_STATUS',
+      args: [status],
     });
   }
 
-  public trackFound(track: SavedTrack) {
+  public publishTracks(tracks: Track[]) {
     this.command$.next({
-      command: 'BG_TRACK_FOUND',
-      args: [track],
+      command: 'BG_TRACKS_FOUND',
+      args: [tracks],
     });
   }
 
-  public videoRefsFound(videoRefs: SavedVideoRef[]) {
+  public publishVideoRefs(videoRefs: VideoRef[]) {
     this.command$.next({
       command: 'BG_VIDEO_REFS_FOUND',
       args: [videoRefs],
+    });
+  }
+
+  public videoRefAdded(videoRef: VideoRef) {
+    this.command$.next({
+      command: 'BG_VIDEO_REF_ADDED',
+      args: [videoRef],
     });
   }
 }

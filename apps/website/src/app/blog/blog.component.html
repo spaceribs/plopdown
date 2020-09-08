@@ -27,8 +27,8 @@
             <li *ngFor="let post of dateArchive.posts">
               <a
                 routerLinkActive="is-active"
-                [routerLink]="post.data.attributes.slug"
-                >{{ post.data.attributes.title }}</a
+                [routerLink]="post.data?.attributes.slug"
+                >{{ post.data?.attributes.title }}</a
               >
             </li>
           </ul>

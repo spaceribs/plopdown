@@ -7,7 +7,7 @@ import {
   BehaviorSubject,
   Subscription,
 } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { mdiRefresh, mdiAlertCircle, mdiDownload } from '@mdi/js';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 
@@ -16,17 +16,18 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
   templateUrl: './log-viewer.component.html',
   styleUrls: ['./log-viewer.component.scss'],
 })
-export class LogViewerComponent implements OnInit {
+export class LogViewerComponent implements OnInit, OnDestroy {
   public confirmReset = false;
 
   public loadingLogs$: Observable<boolean>;
-  public loadLogs$: Subject<void> = new BehaviorSubject(null);
   public logsDownload$: Observable<SafeUrl>;
   public logs$: Observable<string[][]>;
 
   public mdiRefresh = mdiRefresh;
   public mdiDownload = mdiDownload;
   public mdiAlertCircle = mdiAlertCircle;
+
+  private loadLogs$: Subject<null> = new BehaviorSubject(null);
 
   private subs: Subscription = new Subscription();
 
@@ -58,6 +59,10 @@ export class LogViewerComponent implements OnInit {
     );
 
     this.refreshLogs();
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
   refreshLogs(): void {

@@ -1,99 +1,139 @@
-<div class="scan-status has-text-centered" [ngSwitch]="state$ | async">
-  <div *ngSwitchCase="ActionState.Loading" [@fadeInOut] class="hero is-dark">
-    <div class="hero-body">
-      <div class="container">
-        <plopdown-icon [spin]="true" [path]="mdiRadar"></plopdown-icon>
-        <h1 class="title">Scanning...</h1>
-        <h2 class="subtitle">Looking for Videos</h2>
-      </div>
-    </div>
+<div class="scan-status has-text-centered">
+  <div
+    class="toggle-plopdown"
+    *ngIf="{ enabled: extEnabled$ | async } as asyncData"
+  >
+    <input
+      id="extension_enabled"
+      name="extension_enabled"
+      type="checkbox"
+      class="switch is-large"
+      [ngModel]="asyncData.enabled"
+      (ngModelChange)="toggleExtension(asyncData.enabled)"
+    />
+    <label for="extension_enabled">Plopdown Enabled</label>
   </div>
-  <section
-    *ngSwitchCase="ActionState.NoTracks"
-    [@fadeInOut]
-    class="hero is-dark is-bold"
-  >
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">No Tracks Found</h1>
-        <h2 class="subtitle">
-          Create or add a track to associate with a video.
-        </h2>
-        <button
-          class="button is-dark is-inverted is-outlined"
-          (click)="openExtensionsPage('/options/index.html#/tracks')"
-        >
-          Add Tracks
-        </button>
-      </div>
-    </div>
-  </section>
-  <section
-    *ngSwitchCase="ActionState.NoVideos"
-    [@fadeInOut]
-    class="hero is-dark is-bold"
-  >
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">No Videos Found</h1>
-        <h2 class="subtitle">Go to a page that contains a video.</h2>
-        <button
-          class="button is-dark is-inverted is-outlined"
-          (click)="queryVideoRefs()"
-        >
-          Refresh
-        </button>
-      </div>
-    </div>
-  </section>
-  <section
-    *ngSwitchCase="ActionState.Ready"
-    [@fadeInOut]
-    class="hero is-success"
-  >
-    <div class="hero-body" *ngIf="foundVideos$ | async as foundVideos">
-      <div class="container">
-        <h1 class="title">
-          {{ foundVideos.length }}
-          {{ foundVideos.length === 1 ? 'Video' : 'Videos' }} Found
-        </h1>
-        <h2 class="subtitle">Initialized Plopdowns Successfully</h2>
-        <div class="buttons">
+
+  <ng-container [ngSwitch]="state$ | async">
+    <section
+      *ngSwitchCase="ActionState.Disabled"
+      [@fadeInOut]
+      class="hero is-dark"
+    >
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Scanning Disabled</h1>
+          <h2 class="subtitle">
+            Re-enable the extension to attach annotations to videos.
+          </h2>
           <button
-            class="button is-success is-fullwidth is-inverted is-outlined"
-            (click)="queryVideoRefs()"
+            class="button is-dark is-inverted is-outlined"
+            (click)="toggleExtension(false)"
+          >
+            Enable
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section
+      *ngSwitchCase="ActionState.NoPerms"
+      [@fadeInOut]
+      class="hero is-dark is-bold"
+    >
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">No Permissions</h1>
+          <h2 class="subtitle">
+            Give permissions to one or more origins.
+          </h2>
+          <button
+            class="button is-dark is-inverted is-outlined"
+            (click)="openExtensionsPage('/options/index.html#/permissions')"
+          >
+            Allow Sites
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section
+      *ngSwitchCase="ActionState.NoTracks"
+      [@fadeInOut]
+      class="hero is-dark is-bold"
+    >
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">No Tracks Found</h1>
+          <h2 class="subtitle">
+            Create or add a track to associate with a video.
+          </h2>
+          <button
+            class="button is-dark is-inverted is-outlined"
+            (click)="openExtensionsPage('/options/index.html#/tracks')"
+          >
+            Add Tracks
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section
+      *ngSwitchCase="ActionState.NoAccess"
+      [@fadeInOut]
+      class="hero is-dark is-bold"
+    >
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">No Access</h1>
+          <h2 class="subtitle">
+            This website needs to be authorized for annotations.
+          </h2>
+          <ng-container *ngIf="bgStatus$ | async as bgStatus">
+            <button
+              *ngIf="bgStatus.active_origin != null"
+              class="button is-dark is-inverted is-outlined"
+              (click)="requestOrigin(bgStatus.active_origin)"
+            >
+              Request Access
+            </button>
+            <p *ngIf="bgStatus.active_origin == null" class="help-text">
+              Could not retrieve URL, please refresh the page.
+            </p>
+          </ng-container>
+        </div>
+      </div>
+    </section>
+
+    <section
+      *ngSwitchCase="ActionState.Ready"
+      [@fadeInOut]
+      class="hero is-success is-bold"
+    >
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Ready</h1>
+          <h2 class="subtitle">
+            Plopdown menu should appear at the top-right corner of all videos.
+          </h2>
+          <button
+            class="button is-dark is-inverted is-outlined"
+            (click)="queryStatus()"
           >
             Refresh
           </button>
         </div>
-        <div class="field">
-          <div class="select is-success is-expanded is-outlined">
-            <select [(ngModel)]="selectedVideo" placeholder="Select Video...">
-              <option [ngValue]="null">Choose a Video...</option>
-              <option
-                *ngFor="let foundVideo of foundVideos"
-                [ngValue]="foundVideo"
-              >
-                {{ getVideoTitle(foundVideo) }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="field" *ngIf="selectedVideo">
-          <div class="select is-success is-expanded is-outlined">
-            <select
-              (change)="onSelectTrack()"
-              [(ngModel)]="selectedTrack"
-              *ngIf="tracks$ | async as tracks"
-            >
-              <option [ngValue]="null">Choose a Track...</option>
-              <option *ngFor="let track of tracks" [ngValue]="track">
-                {{ track.title }}
-              </option>
-            </select>
-          </div>
+      </div>
+    </section>
+
+    <section *ngSwitchDefault [@fadeInOut] class="hero is-dark">
+      <div class="hero-body">
+        <div class="container">
+          <plopdown-icon [spin]="true" [path]="mdiRadar"></plopdown-icon>
+          <h1 class="title">Scanning...</h1>
+          <h2 class="subtitle">Looking for Videos</h2>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </ng-container>
 </div>

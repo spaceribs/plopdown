@@ -15,7 +15,7 @@
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="attachments">
             <tr *ngFor="let attachment of attachments | keyvalue">
               <td>{{ attachment.key }}</td>
               <td>{{ attachment.value.content_type }}</td>
@@ -41,11 +41,7 @@
                       </span>
                     </span>
                     <span class="file-name">
-                      {{
-                        fileInput.files[0]
-                          ? fileInput.files[0].name
-                          : attachment.key
-                      }}
+                      {{ getFileName(fileInput?.files) || attachment.key }}
                     </span>
                   </label>
                 </div>

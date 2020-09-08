@@ -1,0 +1,175 @@
+WEBVTT
+_id: caea223e-ff63-4edb-a292-d92d4a262c6f
+_rev: 27895983-58cb-4b97-8888-37bf22401463
+type: plopdown_v2
+title: Test Pattern
+for: Any Video
+url: https://github.com/spaceribs/plopdown-video
+license: CC0
+language: en-US
+thumbnail: test_pattern.png
+authors: spaceribs
+created: 2020-10-08T11:47:46.376Z
+updated: 2020-10-08T11:47:46.376Z
+xpath: /HTML[1]/BODY[1]//VIDEO[1]
+
+info
+00:00:00.000 --> 00:00:01.000
+{
+    "type": "INFO",
+    "title": "Test Pattern",
+    "url": "https://plopdown.video/",
+    "authors": ["spaceribs"]
+}
+
+1
+00:00:02.000 --> 00:00:08.000
+{
+    "type": "PLOP",
+    "top": 5,
+    "left": 5,
+    "width": 40,
+    "desc": "This should appear at the top left corner.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 147,
+            "rotate": 0,
+            "emoji": "🌕"
+        }
+    ]
+}
+
+2
+00:00:08.000 --> 00:00:14.000
+{
+    "type": "PLOP",
+    "top": 5,
+    "left": 55,
+    "width": 40,
+    "desc": "This should appear at the top right corner.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 147,
+            "rotate": 0,
+            "emoji": "🌓"
+        }
+    ]
+}
+
+3
+00:00:14.000 --> 00:00:20.000
+{
+    "type": "PLOP",
+    "top": 60,
+    "left": 55,
+    "width": 40,
+    "desc": "This should appear at the bottom right corner.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 147,
+            "rotate": 0,
+            "emoji": "🌑"
+        }
+    ]
+}
+
+4
+00:00:20.000 --> 00:00:26.000
+{
+    "type": "PLOP",
+    "top": 60,
+    "left": 5,
+    "width": 40,
+    "desc": "This should appear at the bottom left corner.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 147,
+            "rotate": 0,
+            "emoji": "🌗"
+        }
+    ]
+}
+
+5
+00:00:26.000 --> 00:00:32.000
+{
+    "type": "PLOP",
+    "top": 5,
+    "left": 5,
+    "width": 40,
+    "desc": "This should appear at the top left corner.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 147,
+            "rotate": 0,
+            "emoji": "🌕"
+        }
+    ]
+}
+
+6
+00:00:32.000 --> 00:00:38.000
+{
+    "type": "PLOP",
+    "top": 5,
+    "left": 55,
+    "width": 40,
+    "desc": "This should appear at the top right corner.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 147,
+            "rotate": 0,
+            "emoji": "🌓"
+        }
+    ]
+}
+
+7
+00:00:38.000 --> 00:00:44.000
+{
+    "type": "PLOP",
+    "top": 60,
+    "left": 55,
+    "width": 40,
+    "desc": "This should appear at the bottom right corner.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 147,
+            "rotate": 0,
+            "emoji": "🌑"
+        }
+    ]
+}
+
+8
+00:00:44.000 --> 00:00:50.000
+{
+    "type": "PLOP",
+    "top": 60,
+    "left": 5,
+    "width": 40,
+    "desc": "This should appear at the bottom left corner.",
+    "icons": [
+        {
+            "top": 50,
+            "left": 50,
+            "size": 147,
+            "rotate": 0,
+            "emoji": "🌗"
+        }
+    ]
+}

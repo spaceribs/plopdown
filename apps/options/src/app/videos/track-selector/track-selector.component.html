@@ -23,8 +23,9 @@
             <div class="card-image">
               <figure class="image is-4by3">
                 <img
-                  [src]="getAttachment(track, track.thumbnail)"
-                  alt="Placeholder image"
+                  *ngIf="getAttachment(track, track.thumbnail) as imageSrc"
+                  [src]="imageSrc"
+                  [alt]="track.title"
                 />
               </figure>
             </div>

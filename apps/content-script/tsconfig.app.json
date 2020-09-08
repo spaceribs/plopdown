@@ -12,5 +12,5 @@
     "strictInjectionParameters": true,
     "strictTemplates": true
   },
-  "files": ["src/main.ts", "src/polyfills.ts", "src/zone-hacks.ts"]
+  "files": ["src/main.ts", "src/polyfills.ts"]
 }

@@ -10,7 +10,7 @@ import { BrowserRefService } from '@plopdown/browser-ref';
 })
 export class ExtStorageService {
   private readonly changed$: Observable<
-    [browser.storage.StorageChange, ExtStorageAreaName]
+    [{ [key: string]: browser.storage.StorageChange }, ExtStorageAreaName]
   >;
   private storage: typeof browser.storage;
 
@@ -18,10 +18,10 @@ export class ExtStorageService {
     this.storage = browserRefService.getBrowser().storage;
 
     this.changed$ = new Observable<
-      [browser.storage.StorageChange, ExtStorageAreaName]
+      [{ [key: string]: browser.storage.StorageChange }, ExtStorageAreaName]
     >((observer) => {
       function listener(
-        change: browser.storage.StorageChange,
+        change: { [key: string]: browser.storage.StorageChange },
         area: ExtStorageAreaName
       ) {
         ngZone.run(() => {
@@ -40,7 +40,7 @@ export class ExtStorageService {
   }
 
   public getOnChanged(): Observable<
-    [browser.storage.StorageChange, ExtStorageAreaName]
+    [{ [key: string]: browser.storage.StorageChange }, ExtStorageAreaName]
   > {
     return this.changed$;
   }

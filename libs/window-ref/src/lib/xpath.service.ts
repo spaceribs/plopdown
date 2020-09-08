@@ -36,6 +36,8 @@ export class XPathService {
         ix++;
       }
     }
+
+    return null;
   }
 
   getElement<E extends Node>(xpath: string): E {

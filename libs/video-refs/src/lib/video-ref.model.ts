@@ -1,8 +1,19 @@
-import type { SavedTrack } from '@plopdown/tracks';
+import type { Track } from '@plopdown/tracks';
 
 export interface TrackRef {
-  _id: SavedTrack['_id'];
-  title: SavedTrack['title'];
+  _id: Track['_id'];
+  title: Track['title'];
+}
+
+export interface UnsavedVideoRef {
+  xpath: string;
+  title: string;
+  duration?: string;
+  frameTitle?: string;
+  frameOrigin?: string;
+  framePath?: string;
+  frameSearch?: string;
+  track: TrackRef | null;
 }
 
 /**
@@ -12,22 +23,10 @@ export interface TrackRef {
  * @export
  * @interface VideoRef
  */
-export interface VideoRef {
-  xpath: string;
-  title: string;
-  duration: number;
-  frameTitle: string | null;
-  frameOrigin: string;
-  framePath: string | null;
-  frameSearch: string | null;
-  track?: TrackRef;
-}
-
-export interface SavedVideoRef extends VideoRef {
-  _id: string;
-  _rev: string;
-  track?: SavedTrack;
-}
+export interface VideoRef
+  extends UnsavedVideoRef,
+    PouchDB.Core.IdMeta,
+    PouchDB.Core.GetMeta {}
 
 export interface VideoRefServiceStatus {
   loading: number;

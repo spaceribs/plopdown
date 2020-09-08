@@ -1,17 +1,15 @@
-import { SavedTrack } from '@plopdown/tracks';
-import { Command } from '../messages.model';
 import { VideoRef } from '@plopdown/video-refs';
+import { Command } from '../messages.model';
 
 export type ContentScriptReady = Command<'CS_READY'>;
-export type ContentScriptVideosFound = Command<'CS_VIDEOS_FOUND', VideoRef[]>;
-export type ContentScriptIFramesFound = Command<'CS_IFRAMES_FOUND', string[]>;
-export type ContentScriptTrackRequested = Command<
-  'CS_TRACK_REQUESTED',
-  [SavedTrack['_id']]
+export type ContentScriptTracksRequested = Command<'CS_TRACKS_REQUESTED'>;
+export type ContentScriptVideoRefsRequested = Command<
+  'CS_VIDEO_REFS_REQUESTED'
 >;
+export type ContentScriptAddVideoRef = Command<'CS_ADD_VIDEO_REF', [VideoRef]>;
 
 export type ContentScriptCommand =
   | ContentScriptReady
-  | ContentScriptVideosFound
-  | ContentScriptIFramesFound
-  | ContentScriptTrackRequested;
+  | ContentScriptTracksRequested
+  | ContentScriptVideoRefsRequested
+  | ContentScriptAddVideoRef;

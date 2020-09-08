@@ -16,7 +16,7 @@ export class BrowserActionPubService extends PortPublisher<
     super(Source.BrowserAction, messages, logger);
   }
 
-  public queryVideoRefs() {
-    this.command$.next({ command: 'BA_QUERY_VIDEOREFS', args: null });
+  public queryStatus() {
+    this.command$.next({ command: 'BA_QUERY_STATUS', args: null });
   }
 }

@@ -12,7 +12,7 @@ export class FileManagerComponent {
 
   @Output() cancel: EventEmitter<void> = new EventEmitter();
   @Output() save: EventEmitter<FullAttachments> = new EventEmitter();
-  @Input() attachments: FullAttachments;
+  @Input() attachments?: FullAttachments;
 
   constructor() {}
 
@@ -21,7 +21,9 @@ export class FileManagerComponent {
   }
 
   onSave() {
-    this.save.emit(this.attachments);
+    if (this.attachments != null) {
+      this.save.emit(this.attachments);
+    }
   }
 
   formatBytes(data: PouchDB.Core.FullAttachment['data'], decimals = 2) {
@@ -39,7 +41,13 @@ export class FileManagerComponent {
   }
 
   onReplaceFile(fileName: string, event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files == null) {
+      return;
+    }
+
+    const file = files[0];
 
     this.attachments = {
       ...this.attachments,
@@ -48,5 +56,19 @@ export class FileManagerComponent {
         data: file,
       },
     };
+  }
+
+  getFile(files?: FileList | null): File | null {
+    if (files == null || files[0] == null) {
+      return null;
+    }
+    return files[0];
+  }
+
+  getFileName(files?: FileList | null) {
+    if (files == null || files[0] == null) {
+      return null;
+    }
+    return files[0].name;
   }
 }

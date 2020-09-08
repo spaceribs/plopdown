@@ -132,6 +132,6 @@
 <plopdown-track-selector
   (cancel)="closeTrackSelector()"
   (save)="updateTrack($event)"
-  [trackRef]="editingVideoRef.track"
+  [trackRef]="editingVideoRef?.track"
   *ngIf="showTrackSelector"
 ></plopdown-track-selector>

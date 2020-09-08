@@ -16,6 +16,7 @@
       <a
         class="navbar-item"
         href="https://github.com/spaceribs/plopdown"
+        rel="noopener"
         target="_blank"
       >
         Github
@@ -50,6 +51,13 @@
           <span>Tracks</span>
         </a>
         <a
+          [routerLink]="['permissions']"
+          routerLinkActive="is-active"
+          class="navbar-item"
+        >
+          <span>Permissions</span>
+        </a>
+        <a
           [routerLink]="['logs']"
           routerLinkActive="is-active"
           class="navbar-item"
@@ -75,11 +83,15 @@
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        <a href="http://madewithloveinbaltimore.org">
+        <a
+          target="_blank"
+          rel="noopener"
+          href="http://madewithloveinbaltimore.org"
+        >
           Made with &hearts; in Baltimore
         </a>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="https://keybase.io/spaceribs">
+        <a target="_blank" rel="noopener" href="https://keybase.io/spaceribs">
           Spaceribs &copy;{{ currentDate | date: 'y' }}
         </a>
       </p>

@@ -74,9 +74,6 @@
     "plopdown-injector": {
       "tags": []
     },
-    "tokens": {
-      "tags": []
-    },
     "devtool": {
       "tags": []
     },
@@ -98,6 +95,15 @@
       "implicitDependencies": ["plopdown-embed"]
     },
     "storybook": {
+      "tags": []
+    },
+    "permissions": {
+      "tags": []
+    },
+    "lz-string": {
+      "tags": []
+    },
+    "plopdown-cues": {
       "tags": []
     }
   }
