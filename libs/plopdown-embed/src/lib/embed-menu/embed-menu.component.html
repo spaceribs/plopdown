@@ -1,0 +1,28 @@
+<div
+  title="Plopdown Menu"
+  class="pd-menu"
+  tabindex="0"
+  (focus)="onMouseEnter()"
+  (blur)="onMouseLeave()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (click)="$event.stopPropagation()"
+>
+  <nav class="pd-menu-container">
+    <ul [@menuSlideout] class="pd-menu-list" *ngIf="slideoutShown">
+      <li class="pd-menu-item">
+        <a href="#" title="Remove Plopdown" (click)="onRemovePlopdown($event)">
+          <plopdown-icon [path]="mdiClose"></plopdown-icon>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <a
+    class="logo-container"
+    href="#"
+    title="Select Track"
+    (click)="onSelectTrack($event)"
+  >
+    <plopdown-logo></plopdown-logo>
+  </a>
+</div>

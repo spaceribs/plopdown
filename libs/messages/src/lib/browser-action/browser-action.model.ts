@@ -1,4 +1,4 @@
 import { Command } from '../messages.model';
 
-export type BrowserActionQueryVideoRefs = Command<'BA_QUERY_VIDEOREFS'>;
-export type BrowserActionCommand = BrowserActionQueryVideoRefs;
+export type BrowserActionQueryStatus = Command<'BA_QUERY_STATUS'>;
+export type BrowserActionCommand = BrowserActionQueryStatus;

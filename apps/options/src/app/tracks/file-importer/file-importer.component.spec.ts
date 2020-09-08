@@ -1,4 +1,4 @@
-import { MockLoggerModule } from './../../../../../../libs/logger/mock/logger.module.mock';
+import { MockLoggerModule } from '@plopdown/logger/mock';
 import { MockPlopdownFileModule } from '@plopdown/plopdown-file/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 

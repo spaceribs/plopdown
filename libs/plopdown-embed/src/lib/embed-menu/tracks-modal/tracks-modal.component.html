@@ -1,0 +1,22 @@
+<div class="track-modal">
+  <h4>Annotate this video</h4>
+  <form (ngSubmit)="onSubmit($event)">
+    <div class="form-field">
+      <label for="track">Select Track</label>
+      <select [(ngModel)]="track" name="track" id="track" required>
+        <option [ngValue]="null">None</option>
+        <option [ngValue]="track" *ngFor="let track of tracks">{{
+          track.title
+        }}</option>
+      </select>
+    </div>
+    <div class="form-field checkbox-input">
+      <input [(ngModel)]="save" type="checkbox" name="save" id="save" />
+      <label for="save">Auto initialize this track</label>
+    </div>
+    <div class="buttons">
+      <button type="button" (click)="onCancel()">Cancel</button>
+      <button type="submit">Set Track</button>
+    </div>
+  </form>
+</div>

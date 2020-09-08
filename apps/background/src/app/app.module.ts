@@ -1,4 +1,7 @@
-import { LogStorageService } from './../../../../libs/logger/src/lib/log-providers/log-storage.service';
+import { VideoRefsRequestedComponent } from './video-refs-requested/video-refs-requested.component';
+import { TracksRequestedComponent } from './tracks-requested/tracks-requested.component';
+import { PermissionsModule } from '@plopdown/permissions';
+import { LogStorageService } from '@plopdown/logger';
 import { ExtStorageModule } from '@plopdown/ext-storage';
 import { BrowserRefModule } from '@plopdown/browser-ref';
 import { TracksModule } from '@plopdown/tracks';
@@ -11,9 +14,19 @@ import { AppComponent } from './app.component';
 import { MessagesModule } from '@plopdown/messages';
 import { VideoRefsModule } from '@plopdown/video-refs';
 import { PlopdownFileModule } from '@plopdown/plopdown-file';
+import { NewInstallComponent } from './new-install/new-install.component';
+import { InstallContentScriptComponent } from './install-content-script/install-content-script.component';
+import { GetStatusComponent } from './get-status/get-status.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    NewInstallComponent,
+    InstallContentScriptComponent,
+    TracksRequestedComponent,
+    VideoRefsRequestedComponent,
+    GetStatusComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserRefModule,
@@ -25,6 +38,7 @@ import { PlopdownFileModule } from '@plopdown/plopdown-file';
       color: 'red',
       providers: [LogConsoleService, LogStorageService],
     }),
+    PermissionsModule,
     MessagesModule,
     VideoRefsModule,
     TracksModule,

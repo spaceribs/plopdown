@@ -1,9 +1,10 @@
-import { TracksModule } from '@plopdown/tracks';
+import { LzStringModule } from '@plopdown/lz-string';
+import { TracksModule, TracksService } from '@plopdown/tracks';
 import { IconModule } from '@plopdown/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExtStorageModule } from '@plopdown/ext-storage';
 import { WindowRefModule } from '@plopdown/window-ref';
-import { VideoRefsModule } from '@plopdown/video-refs';
+import { VideoRefsModule, VideoRefsService } from '@plopdown/video-refs';
 import { BrowserModule } from '@angular/platform-browser';
 import { PlopdownFileModule } from '@plopdown/plopdown-file';
 import {
@@ -21,12 +22,13 @@ import {
 } from '@plopdown/logger';
 import { MessagesModule } from '@plopdown/messages';
 import { BrowserRefModule } from '@plopdown/browser-ref';
-import { ContentScannerComponent } from './content-scanner/content-scanner.component';
 import { PlopdownInjectorModule } from '@plopdown/plopdown-injector';
 import { HttpClientModule } from '@angular/common/http';
+import { ContentScriptTracksService } from './content-script-tracks.service';
+import { ContentScriptVideoRefsService } from './content-script-video-refs.service';
 
 @NgModule({
-  declarations: [AppComponent, ContentScannerComponent],
+  declarations: [AppComponent],
   imports: [
     PlopdownFileModule,
     BrowserModule,
@@ -43,8 +45,19 @@ import { HttpClientModule } from '@angular/common/http';
       color: 'blue',
       providers: [LogConsoleService, LogStorageService],
     }),
+    LzStringModule,
     BrowserAnimationsModule,
     IconModule,
+  ],
+  providers: [
+    {
+      provide: TracksService,
+      useClass: ContentScriptTracksService,
+    },
+    {
+      provide: VideoRefsService,
+      useClass: ContentScriptVideoRefsService,
+    },
   ],
 })
 export class AppModule implements DoBootstrap, OnDestroy {

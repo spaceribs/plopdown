@@ -16,6 +16,7 @@
 
 @import '~bulma/sass/elements/box.sass';
 @import '~bulma/sass/elements/icon.sass';
+@import '~bulma/sass/elements/tag.sass';
 @import '~bulma/sass/elements/button.sass';
 @import '~bulma/sass/elements/container.sass';
 @import '~bulma/sass/elements/notification.sass';
@@ -25,3 +26,7 @@
 
 @import '~bulma/sass/layout/hero.sass';
 @import '~bulma/sass/layout/section.sass';
+
+code {
+  color: inherit;
+}

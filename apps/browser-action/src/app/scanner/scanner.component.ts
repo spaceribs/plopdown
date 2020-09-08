@@ -4,21 +4,42 @@ import {
   BrowserActionPubService,
   BackgroundSubService,
   BackgroundCheckAlive,
+  BackgroundStatus,
 } from '@plopdown/messages';
-import { TracksService, SavedTrack } from '@plopdown/tracks';
-import { VideoRef, VideoRefsService } from '@plopdown/video-refs';
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { Observable, Subscription, combineLatest, Subject } from 'rxjs';
-import { map, startWith, tap, shareReplay, debounceTime } from 'rxjs/operators';
+import { TracksService } from '@plopdown/tracks';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  ErrorHandler,
+} from '@angular/core';
+import {
+  Observable,
+  Subscription,
+  combineLatest,
+  Subject,
+  merge,
+  of,
+} from 'rxjs';
+import { map, shareReplay, filter, switchMap, first } from 'rxjs/operators';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { fadeOut, fadeIn } from 'ng-animate';
-import { RuntimeService } from '@plopdown/browser-ref';
+import {
+  PermissionsRequestService,
+  RuntimeService,
+  TabsService,
+} from '@plopdown/browser-ref';
 import { WindowRefService } from '@plopdown/window-ref';
+import { PermissionsService } from '@plopdown/permissions';
+import { ExtStorageAreaName, ExtStorageService } from '@plopdown/ext-storage';
 
 enum ActionState {
-  Loading = 'LOADING',
+  Disabled = 'DISABLED',
+  NoPerms = 'NO_PERMS',
   NoTracks = 'NO_TRACKS',
-  NoVideos = 'NO_VIDEOS',
+  NoVideoRefs = 'NO_VIDEOREFS',
+  NoAccess = 'NO_ACCESS',
   Ready = 'READY',
 }
 
@@ -48,112 +69,108 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   public mdiRadar = mdiRadar;
 
   public state$: Observable<ActionState>;
-  public videoRefs$: Observable<VideoRef[]>;
-  public tracks$: Observable<SavedTrack[]>;
-  public foundVideos$: Observable<VideoRef[]>;
-  public foundIFrames$: Observable<string[]>;
-  public loadingVideoRefs$: Observable<boolean>;
-  public onQueryVideoRefs$: Subject<void> = new Subject();
+  public extEnabled$: Observable<boolean>;
+  private onQueryStatus$: Subject<void> = new Subject();
 
   private subs: Subscription = new Subscription();
 
-  public selectedVideo: VideoRef;
-  public selectedTrack: SavedTrack;
   public checkedAlive$: Observable<BackgroundCheckAlive>;
+  public bgStatus$: Observable<BackgroundStatus>;
 
   constructor(
-    private videoRefsService: VideoRefsService,
-    private baPub: BrowserActionPubService,
     private runtime: RuntimeService,
     private window: WindowRefService,
     private logger: LoggerService,
+    private baPub: BrowserActionPubService,
+    private extStore: ExtStorageService,
+    private permsService: PermissionsService,
+    private permsReqService: PermissionsRequestService,
+    private errorHandler: ErrorHandler,
+    private tabs: TabsService,
     bgSub: BackgroundSubService,
     tracksService: TracksService
   ) {
-    this.videoRefs$ = videoRefsService.getVideoRefs();
-    this.tracks$ = tracksService.getTracks();
-
-    this.checkedAlive$ = bgSub.getCheckAlive();
-    const foundContent$ = bgSub.getContentFound().pipe(
-      tap((contentFound) => {
-        this.logger.debug('Content Found', contentFound);
+    this.bgStatus$ = bgSub.getStatus().pipe(
+      map((command) => {
+        return command.args[0];
       }),
-      map((msg) => msg.args),
       shareReplay(1)
     );
 
-    this.foundVideos$ = foundContent$.pipe(map(([videos]) => videos));
-    this.foundIFrames$ = foundContent$.pipe(map(([_, iframes]) => iframes));
+    const extEnabledInit$ = extStore
+      .get(ExtStorageAreaName.Sync, 'extension_enabled')
+      .pipe(
+        map((change) => {
+          return change.extension_enabled || false;
+        })
+      );
+    const extEnabledChange$ = extStore.getOnChanged().pipe(
+      filter(([_, area]) => area === ExtStorageAreaName.Sync),
+      map(([change]) => {
+        return change.extension_enabled.newValue || false;
+      })
+    );
+    this.extEnabled$ = merge(extEnabledInit$, extEnabledChange$).pipe(
+      shareReplay(1)
+    );
 
-    this.state$ = combineLatest([this.tracks$, this.foundVideos$]).pipe(
-      tap((content) => this.logger.debug('State Updated', content)),
-      map(([tracks, foundVideos]) => {
-        if (tracks == null || tracks.length < 1) {
+    this.state$ = combineLatest([
+      this.extEnabled$,
+      this.bgStatus$,
+      tracksService.getTracks(),
+      permsService.getPermissions(),
+    ]).pipe(
+      map(([enabled, bgStatus, tracks, perms]) => {
+        if (enabled !== true) {
+          return ActionState.Disabled;
+        }
+
+        if (tracks.length < 1) {
           return ActionState.NoTracks;
         }
 
-        if (foundVideos == null || foundVideos?.length < 1) {
-          return ActionState.NoVideos;
+        if (perms.length < 1) {
+          return ActionState.NoPerms;
+        }
+
+        if (bgStatus.active_allowed !== true) {
+          return ActionState.NoAccess;
         }
 
         return ActionState.Ready;
       }),
-      startWith(ActionState.Loading),
       shareReplay(1)
     );
   }
 
   ngOnInit(): void {
-    const clearInputsSub = this.videoRefs$.subscribe({
-      next: () => {
-        this.selectedVideo = null;
-        this.selectedTrack = null;
+    const stateSub = this.state$.subscribe({
+      next: (state) => {
+        this.logger.debug('State Updated', state);
       },
-    });
-    this.subs.add(clearInputsSub);
-
-    const stateSub = this.state$.subscribe((state) => {
-      this.logger.debug('State Updated', state);
+      error: (err) => {
+        this.errorHandler.handleError(err);
+      },
     });
     this.subs.add(stateSub);
 
-    const queryVideoRefsSub = this.onQueryVideoRefs$
-      .pipe(debounceTime(200))
-      .subscribe(() => {
-        this.baPub.queryVideoRefs();
-      });
-    this.subs.add(queryVideoRefsSub);
-
-    this.loadingVideoRefs$ = this.videoRefsService.getLoading();
+    const queryStatusSub = this.onQueryStatus$.subscribe({
+      next: () => {
+        this.baPub.queryStatus();
+      },
+      error: (err) => {
+        this.errorHandler.handleError(err);
+      },
+    });
+    this.subs.add(queryStatusSub);
   }
 
   ngAfterViewInit(): void {
-    this.queryVideoRefs();
+    this.queryStatus();
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
-  }
-
-  public onSelectTrack() {
-    const newRef: VideoRef = {
-      ...this.selectedVideo,
-      track: {
-        _id: this.selectedTrack._id,
-        title: this.selectedTrack.title,
-      },
-    };
-
-    const addVideoRefSub = this.videoRefsService.addVideoRef(newRef).subscribe({
-      next: (res) => {
-        this.logger.debug('Added Video Ref', res);
-        this.queryVideoRefs();
-      },
-      error: (err) => {
-        this.logger.error('Failed to add Video Ref', err);
-      },
-    });
-    this.subs.add(addVideoRefSub);
   }
 
   public openExtensionsPage(route: string) {
@@ -161,15 +178,50 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.window.open(extUrl);
   }
 
-  public getVideoTitle(videoRef: VideoRef) {
-    if (videoRef.title) {
-      return `${videoRef.title}`;
-    } else {
-      return `${videoRef.frameTitle}`;
-    }
+  public queryStatus() {
+    this.onQueryStatus$.next();
   }
 
-  public queryVideoRefs() {
-    this.onQueryVideoRefs$.next();
+  public toggleExtension(enabled: boolean | null) {
+    this.extStore.set(ExtStorageAreaName.Sync, { extension_enabled: !enabled });
+  }
+
+  public requestOrigin(origin: string) {
+    if (origin === null) {
+      this.logger.warn('Origin to request was not found.');
+      return;
+    }
+
+    const setPermsSub = this.permsReqService
+      .request({
+        origins: [origin],
+      })
+      .pipe(
+        switchMap(() => {
+          return this.permsService.addPermission({
+            name: origin,
+            test_url: null,
+            match: origin,
+          });
+        }),
+        switchMap(() => {
+          return this.tabs.getActiveTab().pipe(
+            first(),
+            switchMap((tab) => {
+              if (tab.id == null) {
+                return of();
+              }
+              return this.tabs.reload(tab.id);
+            })
+          );
+        })
+      )
+      .subscribe({
+        error: (err) => {
+          this.errorHandler.handleError(err);
+        },
+      });
+
+    this.subs.add(setPermsSub);
   }
 }

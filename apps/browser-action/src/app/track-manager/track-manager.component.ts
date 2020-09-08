@@ -1,4 +1,4 @@
-import { Track, TracksService, SavedTrack } from '@plopdown/tracks';
+import { Track, TracksService } from '@plopdown/tracks';
 import { Observable } from 'rxjs';
 import { WindowRefService } from '@plopdown/window-ref';
 import { RuntimeService } from '@plopdown/browser-ref';
@@ -16,10 +16,10 @@ export class TrackManagerComponent {
   constructor(
     private runtime: RuntimeService,
     private window: WindowRefService,
-    private trackService: TracksService,
+    private tracksService: TracksService,
     logger: LoggerService
   ) {
-    this.tracks$ = trackService.getTracks();
+    this.tracks$ = tracksService.getTracks();
   }
 
   openExtensionsPage(route: string) {
@@ -27,7 +27,7 @@ export class TrackManagerComponent {
     this.window.open(extUrl);
   }
 
-  public onRemoveTrack(track: SavedTrack | Track) {
-    return this.trackService.removeTrack(track as SavedTrack);
+  public onRemoveTrack(track: Track) {
+    return this.tracksService.removeTrack(track);
   }
 }

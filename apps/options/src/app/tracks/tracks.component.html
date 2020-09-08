@@ -26,8 +26,6 @@
         </div>
       </div>
 
-      <hr />
-
       <div class="tile is-parent">
         <div class="tile is-child">
           <div
@@ -48,8 +46,11 @@
                   <div class="card-image">
                     <figure class="image is-4by3">
                       <img
-                        [src]="getAttachment(track, track.thumbnail)"
-                        alt="Placeholder image"
+                        *ngIf="
+                          getAttachment(track, track.thumbnail) as imageSrc
+                        "
+                        [src]="imageSrc"
+                        [alt]="track.title"
                       />
                     </figure>
                   </div>
@@ -101,7 +102,7 @@
 
 <plopdown-file-manager
   *ngIf="showFileManager"
-  [attachments]="editingTrack._attachments"
+  [attachments]="editingTrack?._attachments"
   (save)="updateFiles($event)"
   (cancel)="closeEdit()"
 ></plopdown-file-manager>

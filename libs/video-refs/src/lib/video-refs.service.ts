@@ -1,30 +1,14 @@
 import { LoggerService } from '@plopdown/logger';
-import {
-  Observable,
-  merge,
-  Subject,
-  Subscription,
-  combineLatest,
-  from,
-  of,
-  partition,
-} from 'rxjs';
+import { Observable, merge, Subject, Subscription, from, of } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import {
-  VideoRef,
-  SavedVideoRef,
-  VideoRefServiceStatus,
-} from './video-ref.model';
+import { VideoRef, UnsavedVideoRef } from './video-ref.model';
 import {
   shareReplay,
   map,
   withLatestFrom,
-  concatMap,
   switchMap,
   first,
-  scan,
   mapTo,
-  catchError,
 } from 'rxjs/operators';
 import { VideoRefsModule } from './video-refs.module';
 
@@ -37,7 +21,7 @@ const STORAGE_KEY = 'videoRefs';
   providedIn: VideoRefsModule,
 })
 export class VideoRefsService implements OnDestroy {
-  private db$: Observable<PouchDB.Database<VideoRef>>;
+  private db$: Observable<PouchDB.Database<UnsavedVideoRef>>;
   private videoRefs$: Observable<VideoRef[]>;
   private manualRefresh$: Subject<void> = new Subject();
   private subs: Subscription = new Subscription();
@@ -46,10 +30,10 @@ export class VideoRefsService implements OnDestroy {
   private error$: Observable<Error>;
 
   static createObservableDatabase() {
-    return new Observable<PouchDB.Database<VideoRef>>((observer) => {
+    return new Observable<PouchDB.Database<UnsavedVideoRef>>((observer) => {
       PouchDB.plugin(PouchDBFind);
 
-      const db = new PouchDB<VideoRef>(STORAGE_KEY);
+      const db = new PouchDB<UnsavedVideoRef>(STORAGE_KEY);
 
       observer.next(db);
 
@@ -60,9 +44,9 @@ export class VideoRefsService implements OnDestroy {
   }
 
   static createObservableChanges(
-    db: PouchDB.Database<VideoRef>
-  ): Observable<PouchDB.Core.ChangesResponseChange<VideoRef>> {
-    return new Observable<PouchDB.Core.ChangesResponseChange<VideoRef>>(
+    db: PouchDB.Database<UnsavedVideoRef>
+  ): Observable<PouchDB.Core.ChangesResponseChange<UnsavedVideoRef>> {
+    return new Observable<PouchDB.Core.ChangesResponseChange<UnsavedVideoRef>>(
       (observer) => {
         const changes = db.changes({
           live: true,
@@ -114,8 +98,14 @@ export class VideoRefsService implements OnDestroy {
       }),
       map((res) => {
         return res.rows
-          .map((row) => row.doc)
-          .filter((row) => row['language'] !== 'query');
+          .map(
+            (row) =>
+              row.doc as PouchDB.Core.ExistingDocument<
+                VideoRef & PouchDB.Core.AllDocsMeta
+              >
+          )
+          .filter((doc) => doc != null)
+          .filter((doc) => (doc as any)?.language !== 'query');
       }),
       shareReplay(1)
     );
@@ -177,7 +167,7 @@ export class VideoRefsService implements OnDestroy {
     );
   }
 
-  public updateVideoRef(videoRef: SavedVideoRef) {
+  public updateVideoRef(videoRef: VideoRef) {
     return of(videoRef).pipe(
       withLatestFrom(this.db$),
       switchMap(([vRef, db]) => {
@@ -186,16 +176,20 @@ export class VideoRefsService implements OnDestroy {
     );
   }
 
-  public addVideoRef(videoRef: VideoRef) {
+  public addVideoRef(videoRef: UnsavedVideoRef): Observable<VideoRef> {
     return of(videoRef).pipe(
       withLatestFrom(this.db$),
       switchMap(([vRef, db]) => {
-        return from(db.post(vRef));
+        return from(db.post(vRef)).pipe(
+          switchMap((res) => {
+            return from(db.get<VideoRef>(res.id));
+          })
+        );
       })
     );
   }
 
-  public removeVideoRef(videoRef: SavedVideoRef) {
+  public removeVideoRef(videoRef: VideoRef) {
     return of(videoRef).pipe(
       withLatestFrom(this.db$),
       switchMap(([vRef, db]) => {
@@ -204,7 +198,7 @@ export class VideoRefsService implements OnDestroy {
     );
   }
 
-  public findVideoRefs(videoRef: VideoRef) {
+  public findVideoRefs(videoRef: Partial<VideoRef>) {
     return this.db$.pipe(
       switchMap((db) => {
         return from(

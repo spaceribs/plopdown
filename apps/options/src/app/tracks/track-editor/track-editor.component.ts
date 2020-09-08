@@ -56,7 +56,13 @@ export class TrackEditorComponent {
     const control = this.trackForm.controls['_attachments'];
     const refControl = this.trackForm.controls['thumbnail'];
 
-    const file = (event.target as HTMLInputElement).files[0];
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files == null) {
+      return;
+    }
+
+    const file = files[0];
 
     const attachment: PouchDB.Core.FullAttachment = {
       content_type: file.type,

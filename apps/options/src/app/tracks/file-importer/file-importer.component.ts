@@ -51,6 +51,7 @@ export class FileImporterComponent implements OnInit, OnDestroy {
         this.logger.debug('Plopdown track loaded', plopfile);
 
         this.track = {
+          _id: plopfile.headers._id,
           title: plopfile.headers.title,
           for: plopfile.headers.for,
           created: plopfile.headers.created,
@@ -63,7 +64,9 @@ export class FileImporterComponent implements OnInit, OnDestroy {
           cues: plopfile.cues,
         };
 
-        this.fileRefs = plopfile.files;
+        if (plopfile.files) {
+          this.fileRefs = plopfile.files;
+        }
       },
       error: (err) => {
         this.logger.error('Could not load plopdown track', err);
@@ -77,7 +80,13 @@ export class FileImporterComponent implements OnInit, OnDestroy {
   }
 
   onAddFile(fileName: string, event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files == null) {
+      return;
+    }
+
+    const file = files[0];
 
     this.track._attachments = {
       ...this.track._attachments,
@@ -93,9 +102,18 @@ export class FileImporterComponent implements OnInit, OnDestroy {
     return `.${fileParts[fileParts.length - 1]}`;
   }
 
-  trackFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.fileReader.readAsText(file);
+  getFile(files?: FileList | null): File | null {
+    if (files == null || files[0] == null) {
+      return null;
+    }
+    return files[0];
+  }
+
+  getFileName(files?: FileList | null) {
+    if (files == null || files[0] == null) {
+      return 'N/A';
+    }
+    return files[0].name;
   }
 
   onCancel() {

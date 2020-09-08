@@ -1,5 +1,5 @@
 import { PlyrService } from './plyr.service';
-import { StageComponent } from '@plopdown/plopdown-embed';
+import { PlopdownEmbedComponent } from '@plopdown/plopdown-embed';
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
@@ -12,12 +12,18 @@ import {
   EmbeddedViewRef,
   OnDestroy,
   ComponentRef,
+  ErrorHandler,
 } from '@angular/core';
-import { map, switchMap, first, shareReplay } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  first,
+  shareReplay,
+  withLatestFrom,
+} from 'rxjs/operators';
 import { PlopdownFile, PlopdownFileService } from '@plopdown/plopdown-file';
 import { Track } from '@plopdown/tracks';
-import { Observable, Subscription, Subject } from 'rxjs';
-import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
+import { Observable, Subscription, Subject, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'plopdown-home',
@@ -25,14 +31,17 @@ import { VIDEO_ELEM_TOKEN, TRACK_TOKEN } from '@plopdown/tokens';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
-  public readonly track$: Observable<Track>;
-  public readonly overlayComponent$: Observable<ComponentRef<StageComponent>>;
+  public readonly overlayComponent$: Observable<
+    ComponentRef<PlopdownEmbedComponent>
+  >;
   public subs: Subscription = new Subscription();
   public currentDate: Date;
 
   @ViewChild('exampleVideo') exampleVideo: ElementRef<HTMLVideoElement>;
   public plyr: Plyr;
 
+  private tracks$: Observable<Track[]>;
+  private track$: Subject<Track | null> = new ReplaySubject(1);
   private initTrack$: Subject<void> = new Subject();
   private removeTrack$: Subject<void> = new Subject();
 
@@ -41,15 +50,17 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     fileService: PlopdownFileService,
     private plyrService: PlyrService,
     private appRef: ApplicationRef,
+    private errorHandler: ErrorHandler,
+    private injector: Injector,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {
     this.currentDate = new Date();
 
     const overlayFactory = this.componentFactoryResolver.resolveComponentFactory(
-      StageComponent
+      PlopdownEmbedComponent
     );
 
-    this.track$ = http
+    this.tracks$ = http
       .get('/assets/minnie_facts.vtt', {
         responseType: 'text',
       })
@@ -58,40 +69,28 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
           const file: PlopdownFile = fileService.decode(raw);
 
           const track: Track = {
+            _id: 'f2c311a4-e4f8-471d-9882-2a98eabbecee',
             title: file.headers.title,
             for: file.headers.for,
             created: file.headers.created,
             cues: file.cues,
           };
 
-          return track;
-        })
+          return [track];
+        }),
+        shareReplay(1)
       );
 
     this.overlayComponent$ = this.initTrack$.pipe(
       switchMap(() => {
-        return this.track$;
+        return this.tracks$;
       }),
-      map((track) => {
-        const componentInjector = Injector.create({
-          providers: [
-            {
-              provide: VIDEO_ELEM_TOKEN,
-              useValue: this.exampleVideo.nativeElement,
-            },
-            {
-              provide: TRACK_TOKEN,
-              useValue: track,
-            },
-          ],
-        });
-        const componentRef = overlayFactory.create(componentInjector);
+      map((tracks) => {
+        const componentRef = overlayFactory.create(this.injector);
         this.appRef.attachView(componentRef.hostView);
-
-        const removeSub = componentRef.instance.remove.subscribe(() => {
-          this.removeTrack$.next();
-        });
-        this.subs.add(removeSub);
+        componentRef.instance.tracks = tracks;
+        componentRef.instance.track = tracks[0];
+        componentRef.instance.videoElem = this.exampleVideo.nativeElement;
         componentRef.changeDetectorRef.detectChanges();
 
         return componentRef;
@@ -99,22 +98,69 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       shareReplay(1)
     );
 
-    const attachOverlaySub = this.overlayComponent$.subscribe(
-      (componentRef) => {
+    const removeSub = this.overlayComponent$
+      .pipe(
+        switchMap((componentRef) => {
+          return componentRef.instance.remove.asObservable();
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.removeTrack$.next();
+        },
+        error: (err) => {
+          errorHandler.handleError(err);
+        },
+      });
+    this.subs.add(removeSub);
+
+    const setTrackSub = this.track$
+      .pipe(withLatestFrom(this.overlayComponent$))
+      .subscribe({
+        next: ([track, component]) => {
+          component.instance.track = track;
+          this.track$.next(track);
+        },
+      });
+    this.subs.add(setTrackSub);
+
+    const trackChangeSub = this.overlayComponent$
+      .pipe(
+        switchMap((componentRef) => {
+          return componentRef.instance.trackChange.asObservable();
+        })
+      )
+      .subscribe({
+        next: (track) => {
+          this.track$.next(track);
+        },
+      });
+    this.subs.add(trackChangeSub);
+
+    const attachOverlaySub = this.overlayComponent$.subscribe({
+      next: (componentRef) => {
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
           .rootNodes[0] as HTMLElement;
-        this.exampleVideo.nativeElement.parentNode.appendChild(domElem);
-      }
-    );
+        this.exampleVideo?.nativeElement?.parentNode?.appendChild(domElem);
+      },
+      error: (err) => {
+        this.errorHandler.handleError(err);
+      },
+    });
     this.subs.add(attachOverlaySub);
 
     const detachOverlaySub = this.removeTrack$
       .pipe(switchMap(() => this.overlayComponent$.pipe(first())))
-      .subscribe((componentRef) => {
-        const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
-          .rootNodes[0] as HTMLElement;
-        domElem.remove();
-        componentRef.destroy();
+      .subscribe({
+        next: (componentRef) => {
+          const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
+            .rootNodes[0] as HTMLElement;
+          domElem.remove();
+          componentRef.destroy();
+        },
+        error: (err) => {
+          this.errorHandler.handleError(err);
+        },
       });
     this.subs.add(detachOverlaySub);
   }

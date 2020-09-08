@@ -18,7 +18,9 @@ export class PostComponent implements OnInit {
       SecurityContext.HTML,
       this.routeData.html
     );
-    this.routeContent = sanitizer.bypassSecurityTrustHtml(sanitizedContent);
+    if (sanitizedContent != null) {
+      this.routeContent = sanitizer.bypassSecurityTrustHtml(sanitizedContent);
+    }
   }
 
   ngOnInit(): void {}

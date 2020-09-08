@@ -1,5 +1,7 @@
 WEBVTT
-type: plopdown_v1
+_id: a02cb559-7b93-4d7d-aa93-379c2d4132bd
+_rev: 00e9a036-5f0e-4a3a-918d-8bf7050dff9b
+type: plopdown_v2
 title: Minnie the Moocher - Facts and Trivia
 for: Minnie The Moocher
 url: https://github.com/spaceribs/plopdown-video
@@ -7,9 +9,8 @@ license: CC0
 authors: spaceribs
 created: 2019-12-29T00:23:20.156Z
 updated: 2019-12-29T00:23:20.156Z
-origin: https://plopdown.video
-path: 
-search: 
+frameSearch: https://plopdown.video
+duration: 466
 xpath: /HTML[1]/BODY[1]/DIV[1]/SECTION[2]/DIV[1]/DIV[2]/DIV[1]/DIV[1]/SECTION[1]/DIV[1]/DIV[1]/FIGURE[1]/VIDEO[1]
 
 info

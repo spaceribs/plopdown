@@ -5,30 +5,29 @@
   "homepage_url": "https://plopdown.video",
   "description": "Show annotations on top of any html5 web video.",
   "default_locale": "en",
-  "permissions": ["activeTab", "storage", "unlimitedStorage", "<all_urls>"],
-  "optional_permissions": ["https://*/*", "http://*/*"],
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "webNavigation",
+    "https://plopdown.video/*"
+  ],
+  "optional_permissions": ["*://*/*"],
   "icons": {
     "16": "icons/16.png",
     "48": "icons/48.png",
     "128": "icons/128.png"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": [
-        "content-script/polyfills.js",
-        "content-script/styles.js",
-        "content-script/main.js"
-      ],
-      "run_at": "document_idle"
-    }
-  ],
   "background": {
     "scripts": [
       "background/runtime.js",
       "background/polyfills.js",
       "background/main.js"
     ]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{aa0a758b-803a-a14f-8d12-892689861f3b}"
+    }
   },
   "options_ui": {
     "page": "options/index.html",

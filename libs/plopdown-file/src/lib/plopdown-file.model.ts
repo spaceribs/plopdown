@@ -8,27 +8,31 @@ import { VideoRef } from '@plopdown/video-refs';
  *
  * @interface PlopdownFileHeaders
  */
-interface PlopdownFileHeaders {
+interface PlopdownFileHeaders
+  extends PouchDB.Core.IdMeta,
+    PouchDB.Core.RevisionIdMeta {
   /**
    * Schema version number
    *
-   * @type {'plopdown_v1'}
+   * @type {'plopdown_v2'}
    * @memberof PlopdownFileHeaders
    */
-  type: 'plopdown_v1';
+  type: 'plopdown_v2';
   title: Track['title'];
   for: Track['for'];
   created: Track['created'];
-  updated?: Track['updated'];
-  thumbnail?: Track['thumbnail'];
-  url?: Track['url'];
-  language?: Track['language'];
-  license?: Track['license'];
-  authors?: Track['authors'];
-  origin?: VideoRef['frameOrigin'];
-  path?: VideoRef['framePath'];
-  search?: VideoRef['frameSearch'];
-  xpath?: VideoRef['xpath'];
+  updated: Track['updated'];
+  thumbnail: Track['thumbnail'];
+  url: Track['url'];
+  language: Track['language'];
+  license: Track['license'];
+  authors: Track['authors'];
+  frameOrigin: VideoRef['frameOrigin'];
+  framePath: VideoRef['framePath'];
+  frameSearch: VideoRef['frameSearch'];
+  xpath: VideoRef['xpath'];
+  duration: VideoRef['duration'];
+  frameTitle: VideoRef['frameTitle'];
 }
 
 /**

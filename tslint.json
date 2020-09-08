@@ -3,6 +3,7 @@
     "node_modules/@nrwl/workspace/src/tslint",
     "node_modules/codelyzer"
   ],
+  "extends": ["rxjs-tslint-rules", "tslint-etc"],
   "linterOptions": {
     "exclude": ["**/*"]
   },
@@ -47,6 +48,18 @@
     "no-unnecessary-initializer": true,
     "no-unused-expression": true,
     "no-var-keyword": true,
+    "no-assign-mutated-array": true,
+    "no-unused-declaration": {
+      "options": [
+        {
+          "declarations": true,
+          "ignored": {},
+          "imports": true
+        }
+      ],
+      "severity": "error"
+    },
+    "throw-error": true,
     "object-literal-sort-keys": false,
     "prefer-const": true,
     "radix": true,
@@ -79,6 +92,45 @@
     "template-banana-in-box": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
+    "use-pipe-transform-interface": true,
+    "rxjs-finnish": {
+      "options": [
+        {
+          "functions": false,
+          "methods": false,
+          "parameters": true,
+          "properties": true,
+          "variables": true
+        }
+      ],
+      "severity": "error"
+    },
+    "rxjs-no-exposed-subjects": {
+      "options": [
+        {
+          "allowProtected": true
+        }
+      ],
+      "severity": "error"
+    },
+    "rxjs-no-ignored-replay-buffer": {
+      "severity": "error"
+    },
+    "rxjs-no-ignored-subscribe": {
+      "severity": "error"
+    },
+    "rxjs-no-ignored-subscription": {
+      "severity": "error"
+    },
+    "rxjs-no-index": { "severity": "error" },
+    "rxjs-no-internal": { "severity": "error" },
+    "rxjs-no-nested-subscribe": { "severity": "error" },
+    "rxjs-no-subclass": { "severity": "error" },
+    "rxjs-no-subject-unsubscribe": { "severity": "error" },
+    "rxjs-no-subject-value": { "severity": "error" },
+    "rxjs-no-unbound-methods": { "severity": "error" },
+    "rxjs-prefer-angular-composition": { "severity": "error" },
+    "rxjs-prefer-observer": { "severity": "error" },
+    "rxjs-no-ignored-error": { "severity": "error" }
   }
 }

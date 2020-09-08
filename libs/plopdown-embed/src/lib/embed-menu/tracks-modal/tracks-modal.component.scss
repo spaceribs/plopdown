@@ -1,0 +1,75 @@
+:host {
+  color: #333;
+  font-family: sans-serif;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1001;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+
+  .track-modal {
+    background: rgba(255, 255, 255, 1);
+    padding: 1em 2em;
+    border-radius: 2em;
+  }
+
+  h4 {
+    color: inherit;
+    font-size: 1.5em;
+    font-family: inherit;
+    margin: 0.8em 0;
+  }
+
+  .form-field {
+    margin: 0.8em 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buttons {
+    margin: 0.8em 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      border: none;
+      background: #333;
+      color: white;
+      border-radius: 1em;
+      padding: 0 1.5em;
+      margin: 0 0.2em;
+      line-height: 2em;
+      font-size: inherit;
+      cursor: pointer;
+      &:hover {
+        background: #666;
+      }
+      &:active {
+        background: #000;
+      }
+    }
+  }
+
+  .checkbox-input {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    input {
+      margin: 0 0.6em 0 0;
+      padding: 0;
+      line-height: 1em;
+      font-size: 1em;
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  select {
+    font-size: inherit;
+  }
+}

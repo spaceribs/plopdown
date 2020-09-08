@@ -1,5 +1,7 @@
 WEBVTT
-type: plopdown_v1
+_id: dd6fba47-8899-4b8a-a94b-f910feaabcdf
+_rev: 2edad9fb-6b8f-468b-98cd-4261d37686ae
+type: plopdown_v2
 title: Introduction to Plopdown
 for: Buck Bunny
 url: https://github.com/spaceribs/plopdown-video
@@ -9,9 +11,8 @@ thumbnail: thumbnail.png
 authors: spaceribs
 created: 2019-12-29T00:23:20.156Z
 updated: 2019-12-29T00:23:20.156Z
-origin: chrome-extension://edchaahgfmacaaobhlccfnebfpobfbng
-path: /options.html
-search: 
+frameOrigin: chrome-extension://edchaahgfmacaaobhlccfnebfpobfbng
+framePath: /options.html
 xpath: /HTML[1]/BODY[1]/DIV[1]/SECTION[2]/DIV[1]/DIV[2]/DIV[1]/DIV[1]/SECTION[1]/DIV[1]/DIV[1]/FIGURE[1]/VIDEO[1]
 
 info
@@ -19,7 +20,7 @@ info
 {
     "type": "INFO",
     "title": "Introduction to Plopdown",
-    "url": "https://github.com/spaceribs/plopdown-video",
+    "url": "https://plopdown.video/",
     "authors": ["spaceribs"]
 }
 

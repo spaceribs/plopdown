@@ -1,10 +1,10 @@
 import { TabsService } from '@plopdown/browser-ref';
 import { OnDestroy } from '@angular/core';
-import { Subject, Subscription, forkJoin, combineLatest, of } from 'rxjs';
+import { Subject, Subscription, forkJoin } from 'rxjs';
 import { MessagesService } from './messages.service';
 import { LoggerService } from '@plopdown/logger';
 import { Source } from './messages.model';
-import { map, switchMap, tap, catchError, mapTo } from 'rxjs/operators';
+import { map, switchMap, tap, mapTo } from 'rxjs/operators';
 
 export abstract class PortPublisher<C extends object> implements OnDestroy {
   protected command$: Subject<C> = new Subject();
@@ -27,10 +27,10 @@ export abstract class PortPublisher<C extends object> implements OnDestroy {
             return forkJoin([
               messages.sendMessage(message),
               tabs.sendMessage(message),
-            ]);
+            ]).pipe(mapTo(message));
           }
 
-          return messages.sendMessage(message);
+          return messages.sendMessage(message).pipe(mapTo(message));
         })
       )
       .subscribe({

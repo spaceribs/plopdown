@@ -1,3 +1,4 @@
+import { HashVideoRefsService } from './hash-video-refs.service';
 import { PlopdownEmbedModule } from '@plopdown/plopdown-embed';
 import { IconModule } from '@plopdown/icon';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,8 @@ import { VideoAttachmentsComponent } from './video-attachments/video-attachments
 
 @NgModule({
   declarations: [VideoAttachmentComponent, VideoAttachmentsComponent],
-  exports: [VideoAttachmentsComponent],
+  exports: [VideoAttachmentsComponent, VideoAttachmentComponent],
   imports: [CommonModule, IconModule, PlopdownEmbedModule],
+  providers: [HashVideoRefsService],
 })
 export class PlopdownInjectorModule {}

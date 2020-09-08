@@ -11,11 +11,12 @@
     "types": ["firefox-webext-browser"],
     "paths": {
       "@plopdown/icon": ["../icon/src/index.ts"],
-      "@plopdown/tokens": ["../tokens/src/index.ts"],
       "@plopdown/logger": ["../logger/src/index.ts"],
       "@plopdown/plopdown-embed": ["../plopdown-embed/src/index.ts"],
       "@plopdown/video-refs": ["../video-refs/src/index.ts"],
-      "@plopdown/tracks": ["../tracks/src/index.ts"]
+      "@plopdown/tracks": ["../tracks/src/index.ts"],
+      "@plopdown/plopdown-cues": ["../plopdown-cues/src/index.ts"],
+      "@plopdown/window-ref": ["../window-ref/src/index.ts"]
     }
   },
   "include": ["**/*.ts"],

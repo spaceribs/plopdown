@@ -2,7 +2,18 @@
   position: relative;
   overflow: hidden;
   background: #333;
-  height: 400px;
+  height: 450px;
+  .toggle-plopdown {
+    background: #666;
+    color: #fff;
+    height: 50px;
+    padding-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
   plopdown-icon {
     display: block;
     width: 100px;
@@ -12,7 +23,7 @@
   }
   .hero {
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 0;
     right: 0;
     bottom: 0;

@@ -11,7 +11,9 @@
       "Hulu",
       "Plopdown",
       "Spaceribs",
+      "lzstring",
       "peaceiris",
+      "plopfile",
       "timecode",
       "webext"
     ],

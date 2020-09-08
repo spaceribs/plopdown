@@ -3,7 +3,7 @@ import { LoggerService } from '@plopdown/logger';
 import { Injectable } from '@angular/core';
 import {
   BrowserActionCommand,
-  BrowserActionQueryVideoRefs,
+  BrowserActionQueryStatus,
 } from './browser-action.model';
 import { PortSubscriber } from '../subscriber.abstract';
 import { MessagesModule } from '../messages.module';
@@ -19,9 +19,7 @@ export class BrowserActionSubService extends PortSubscriber<
     super(Source.BrowserAction, messages, logger);
   }
 
-  public getQueryVideoRefs() {
-    return super.filterCommand<BrowserActionQueryVideoRefs>(
-      'BA_QUERY_VIDEOREFS'
-    );
+  public getQueryStatus() {
+    return super.filterCommand<BrowserActionQueryStatus>('BA_QUERY_STATUS');
   }
 }

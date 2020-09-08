@@ -1,6 +1,6 @@
 import { LoggerService } from '@plopdown/logger';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Track, SavedTrack } from './track.model';
+import { Track } from './track.model';
 import {
   map,
   shareReplay,
@@ -21,7 +21,7 @@ const STORAGE_KEY = 'tracks';
 export class TracksService implements OnDestroy {
   private manualRefresh$: Subject<void> = new Subject();
   private db$: Observable<PouchDB.Database<Track>>;
-  private tracks$: Observable<SavedTrack[]>;
+  private tracks$: Observable<Track[]>;
   private subs: Subscription = new Subscription();
   private loading$: Observable<boolean>;
 
@@ -88,7 +88,7 @@ export class TracksService implements OnDestroy {
       withLatestFrom(this.db$),
       switchMap(([source, db]) => {
         logger.debug('Tracks updated', source);
-        return db.allDocs<SavedTrack>({
+        return db.allDocs<Track>({
           include_docs: true,
           attachments: true,
           binary: true,
@@ -96,8 +96,14 @@ export class TracksService implements OnDestroy {
       }),
       map((res) => {
         return res.rows
-          .map((row) => row.doc)
-          .filter((row) => row['language'] !== 'query');
+          .map(
+            (row) =>
+              row.doc as PouchDB.Core.ExistingDocument<
+                Track & PouchDB.Core.AllDocsMeta
+              >
+          )
+          .filter((doc) => doc != null)
+          .filter((doc) => (doc as any)?.language !== 'query');
       }),
       shareReplay(1)
     );
@@ -128,17 +134,17 @@ export class TracksService implements OnDestroy {
   public addTrack(track: PouchDB.Core.PostDocument<Track>) {
     return this.db$.pipe(
       switchMap((db) => {
-        return from(db.post(track));
+        return from(db.post(track)).pipe(
+          switchMap((res) => {
+            return from(db.get(res.id)) as Observable<Track>;
+          })
+        );
       }),
       first()
     );
   }
 
-  public attachTrackFile(
-    trackId: SavedTrack['_id'],
-    trackRev: SavedTrack['_rev'],
-    file: File
-  ) {
+  public attachTrackFile(trackId: Track['_id'], trackRev: string, file: File) {
     return this.db$.pipe(
       switchMap((db) => {
         return from(
@@ -157,19 +163,19 @@ export class TracksService implements OnDestroy {
     );
   }
 
-  public removeTrack(track: SavedTrack) {
+  public removeTrack(track: Track) {
     return this.db$.pipe(
       switchMap((db) => {
-        return from(db.remove(track));
+        return from(db.remove(track as any));
       })
     );
   }
 
-  public getTracks(): Observable<SavedTrack[]> {
+  public getTracks(): Observable<Track[]> {
     return this.tracks$;
   }
 
-  public getTrack(id: SavedTrack['_id']) {
+  public getTrack(id: Track['_id']) {
     return this.db$.pipe(
       switchMap((db) => {
         return from(
