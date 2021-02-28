@@ -18,7 +18,7 @@ export class HashVideoRefsService {
     lzstring: LzStringService
   ) {
     const file$ = location.getHash().pipe(
-      filter((hash: string) => hash.startsWith('#plopdown:')),
+      filter((hash: string) => hash?.startsWith('#plopdown:')),
       map((hash: string) => hash.split(':')[1]),
       map((compressedFile) => lzstring.decompressURI(compressedFile)),
       map((rawFile) => fileService.decode(rawFile)),

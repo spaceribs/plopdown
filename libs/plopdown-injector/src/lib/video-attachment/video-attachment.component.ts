@@ -59,6 +59,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   @Input() public set videoElem(videoElem: HTMLVideoElement) {
     this.videoElem$.next(videoElem);
   }
+
   private videoElemLoaded$: Observable<HTMLVideoElement>;
   private videoRef$: Observable<Partial<VideoRef>>;
   private videoRefs$: Observable<VideoRef[]>;

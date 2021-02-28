@@ -1,7 +1,6 @@
 import { EditSkipService } from './audio-edits/edit-skip.service';
 import { AudioEditsService } from './audio-edits/audio-edits.service';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
-import { LoggerService } from '@plopdown/logger';
 import {
   Component,
   ViewChild,
@@ -78,7 +77,6 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   @HostBinding('style.left.%') public left: number;
 
   constructor(
-    private logger: LoggerService,
     private sanitizer: DomSanitizer,
     private audioEdits: AudioEditsService,
     private editSkip: EditSkipService,

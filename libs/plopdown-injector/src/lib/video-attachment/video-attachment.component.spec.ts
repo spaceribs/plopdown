@@ -1,8 +1,14 @@
+import { MockPlopdownEmbedModule } from '@plopdown/plopdown-embed/mock';
+import { MockTracksModule } from '@plopdown/tracks/mock';
+import { MockVideoRefsModule } from '@plopdown/video-refs/mock';
+import { LzStringModule } from '@plopdown/lz-string';
 import { MockWindowRefModule } from '@plopdown/window-ref/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VideoAttachmentComponent } from './video-attachment.component';
 import { MockLoggerModule } from '@plopdown/logger/mock';
+import { HashVideoRefsService } from '../hash-video-refs.service';
+import { MockPlopdownFileModule } from '@plopdown/plopdown-file/mock';
 
 describe('VideoAttachmentComponent', () => {
   let component: VideoAttachmentComponent;
@@ -10,8 +16,17 @@ describe('VideoAttachmentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MockLoggerModule, MockWindowRefModule],
+      imports: [
+        MockLoggerModule,
+        MockWindowRefModule,
+        MockPlopdownFileModule,
+        MockVideoRefsModule,
+        MockTracksModule,
+        MockPlopdownEmbedModule,
+        LzStringModule,
+      ],
       declarations: [VideoAttachmentComponent],
+      providers: [HashVideoRefsService],
     }).compileComponents();
   }));
 

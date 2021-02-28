@@ -1,3 +1,6 @@
+import { MockLoggerModule } from '@plopdown/logger/mock';
+import { MockMessagesModule } from '@plopdown/messages/mock';
+import { MockTracksModule } from '@plopdown/tracks/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TracksRequestedComponent } from './tracks-requested.component';
@@ -8,6 +11,7 @@ describe('TracksRequestedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MockTracksModule, MockMessagesModule, MockLoggerModule],
       declarations: [TracksRequestedComponent],
     }).compileComponents();
   }));
