@@ -17,7 +17,6 @@ const mockAudioData: PlopdownAudio = {
   title: 'Test',
   url: 'test.mp3',
 };
-const mockVideoElem = document.createElement('video');
 
 export const primary = () => ({
   moduleMetadata: {

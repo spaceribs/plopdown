@@ -1,3 +1,4 @@
+import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
 import { TestBed } from '@angular/core/testing';
 
 import { BrowserActionService } from './browser-action.service';
@@ -6,7 +7,10 @@ describe('BrowserActionRefService', () => {
   let service: BrowserActionService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [MockBrowserRefModule],
+      providers: [BrowserActionService],
+    });
     service = TestBed.inject(BrowserActionService);
   });
 

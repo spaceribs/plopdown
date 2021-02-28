@@ -1,3 +1,6 @@
+import { MockVideoRefsModule } from '@plopdown/video-refs/mock';
+import { MockLoggerModule } from '@plopdown/logger/mock';
+import { MockMessagesModule } from '@plopdown/messages/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VideoRefsRequestedComponent } from './video-refs-requested.component';
@@ -8,6 +11,7 @@ describe('TracksRequestedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MockMessagesModule, MockLoggerModule, MockVideoRefsModule],
       declarations: [VideoRefsRequestedComponent],
     }).compileComponents();
   }));

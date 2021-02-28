@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlopdownLogoComponent } from './plopdown-logo.component';
 
@@ -6,11 +6,11 @@ describe('PlopdownLogoComponent', () => {
   let component: PlopdownLogoComponent;
   let fixture: ComponentFixture<PlopdownLogoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [PlopdownLogoComponent],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PlopdownLogoComponent);

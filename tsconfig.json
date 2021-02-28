@@ -49,6 +49,7 @@
       "@plopdown/window-ref": ["libs/window-ref/src/index.ts"],
       "@plopdown/window-ref/mock": ["libs/window-ref/mock/index.ts"],
       "@plopdown/permissions": ["libs/permissions/src/index.ts"],
+      "@plopdown/permissions/mock": ["libs/permissions/mock/index.ts"],
       "@plopdown/lz-string": ["libs/lz-string/src/index.ts"],
       "@plopdown/browser-action-ref": ["libs/browser-action-ref/src/index.ts"],
       "@plopdown/plopdown-cues": ["libs/plopdown-cues/src/index.ts"]

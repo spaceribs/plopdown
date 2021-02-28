@@ -14,6 +14,9 @@ export const MOCK_CONFIG: LoggerConfig = {
 
 @NgModule({
   imports: [LoggerModule],
-  providers: [{ provide: LoggerConfigService, useValue: MOCK_CONFIG }],
+  providers: [
+    { provide: LoggerConfigService, useValue: MOCK_CONFIG },
+    LogMockService,
+  ],
 })
 export class MockLoggerModule {}

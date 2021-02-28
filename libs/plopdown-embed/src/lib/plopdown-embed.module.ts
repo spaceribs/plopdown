@@ -23,5 +23,6 @@ import { PlopdownCuesModule } from '@plopdown/plopdown-cues';
   ],
   declarations: [PlopdownEmbedComponent, CueTimelineComponent],
   providers: [],
+  entryComponents: [PlopdownEmbedComponent],
 })
 export class PlopdownEmbedModule {}

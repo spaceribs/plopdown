@@ -1,6 +1,14 @@
+import { MockIconModule } from '@plopdown/icon/mock';
+import { LzStringModule } from '@plopdown/lz-string';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MockLoggerModule } from '@plopdown/logger/mock';
+import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
+import { MockPermissionsModule } from '@plopdown/permissions/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PermissionsComponent } from './permissions.component';
+import { PermissionEditorComponent } from './permission-editor/permission-editor.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('PermissionsComponent', () => {
   let component: PermissionsComponent;
@@ -8,7 +16,17 @@ describe('PermissionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PermissionsComponent],
+      imports: [
+        MockPermissionsModule,
+        MockIconModule,
+        MockBrowserRefModule,
+        MockLoggerModule,
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        LzStringModule,
+      ],
+      declarations: [PermissionsComponent, PermissionEditorComponent],
     }).compileComponents();
   }));
 

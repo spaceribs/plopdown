@@ -1,3 +1,5 @@
+import { MockPermissionsModule } from '@plopdown/permissions/mock';
+import { MockExtStorageModule } from '@plopdown/ext-storage/mock';
 import { MockTracksModule } from '@plopdown/tracks/mock';
 import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
 import { MockLoggerModule } from '@plopdown/logger/mock';
@@ -26,6 +28,8 @@ describe('ScannerComponent', () => {
         MockVideoRefsModule,
         MockMessagesModule,
         MockLoggerModule,
+        MockExtStorageModule,
+        MockPermissionsModule,
         NoopAnimationsModule,
       ],
       declarations: [ScannerComponent],

@@ -1,3 +1,4 @@
+import { MockPermissionsModule } from '@plopdown/permissions/mock';
 import { MockVideoRefsModule } from '@plopdown/video-refs/mock';
 import { MockLoggerModule } from '@plopdown/logger/mock';
 import { MockWindowRefModule } from '@plopdown/window-ref/mock';
@@ -19,6 +20,7 @@ describe('PermissionsManagerComponent', () => {
         MockWindowRefModule,
         MockLoggerModule,
         MockVideoRefsModule,
+        MockPermissionsModule,
       ],
       declarations: [PermissionsManagerComponent],
     }).compileComponents();

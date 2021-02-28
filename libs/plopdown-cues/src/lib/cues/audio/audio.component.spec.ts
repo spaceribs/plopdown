@@ -1,8 +1,10 @@
+import { MockWindowRefModule } from '@plopdown/window-ref/mock';
 import { MockLoggerModule } from '@plopdown/logger/mock';
 import { MockIconModule } from '@plopdown/icon/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AudioComponent } from './audio.component';
+import { TrackService } from '@plopdown/tracks';
 
 const mockVideoElem = document.createElement('video');
 mockVideoElem['addTextTrack'] = jest.fn().mockReturnValue({});
@@ -14,14 +16,18 @@ describe('AudioComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MockIconModule, MockLoggerModule],
+      imports: [MockIconModule, MockLoggerModule, MockWindowRefModule],
       declarations: [AudioComponent],
+      providers: [TrackService],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AudioComponent);
     component = fixture.componentInstance;
+    const videoElem = document.createElement('video');
+    videoElem.pause = jest.fn();
+    component.videoElem = videoElem;
     fixture.detectChanges();
   });
 

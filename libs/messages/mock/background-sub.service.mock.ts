@@ -9,4 +9,5 @@ export class MockBackgroundSubService implements Partial<BackgroundSubService> {
   public getContentFound = jest.fn().mockReturnValue(EMPTY);
   public getTrackFound = jest.fn().mockReturnValue(EMPTY);
   public getVideoRefsFound = jest.fn().mockReturnValue(EMPTY);
+  public getStatus = jest.fn().mockReturnValue(EMPTY);
 }

@@ -1,3 +1,5 @@
+import { PlopdownLogoComponent } from './plopdown-logo/plopdown-logo.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MockWindowRefModule } from '@plopdown/window-ref/mock';
 import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
@@ -16,9 +18,10 @@ describe('EmbedMenuComponent', () => {
         MockIconModule,
         MockBrowserRefModule,
         MockWindowRefModule,
+        OverlayModule,
         HttpClientTestingModule,
       ],
-      declarations: [EmbedMenuComponent],
+      declarations: [EmbedMenuComponent, PlopdownLogoComponent],
     }).compileComponents();
   }));
 

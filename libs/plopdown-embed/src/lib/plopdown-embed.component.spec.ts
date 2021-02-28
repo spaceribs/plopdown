@@ -1,32 +1,46 @@
 import { MockLoggerModule } from '@plopdown/logger/mock';
-import { Track } from '@plopdown/tracks';
 import { MockWindowRefModule } from '@plopdown/window-ref/mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlopdownEmbedComponent } from './plopdown-embed.component';
-import { EmbedMenuComponent } from './embed-menu/embed-menu.component';
-import { Component, Input } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Component, Input } from '@angular/core';
+import { EmbedMenuComponent } from './embed-menu/embed-menu.component';
+import { Track } from '@plopdown/tracks';
+import { Cue, CueRendererComponent } from '@plopdown/plopdown-cues';
 import { CueTimelineComponent } from './cue-timeline/cue-timeline.component';
 
+const mockVideoElem = document.createElement('video');
+mockVideoElem['addTextTrack'] = jest.fn().mockReturnValue({});
+mockVideoElem['pause'] = jest.fn();
+
 @Component({
-  selector: 'plopdown-injector-menu',
+  selector: 'plopdown-embed-menu',
   template: '',
 })
-class MockEmbedMenuComponent implements Partial<EmbedMenuComponent> {}
+export class MockEmbedMenuComponent implements Partial<EmbedMenuComponent> {
+  @Input() tracks: Track[];
+  @Input() track: Track | null;
+}
+
+@Component({
+  selector: 'plopdown-cue-renderer',
+  template: '',
+})
+export class MockCueRendererComponent implements Partial<CueRendererComponent> {
+  @Input() cues: Cue[];
+  @Input() videoElem: HTMLVideoElement;
+}
 
 @Component({
   selector: 'plopdown-cue-timeline',
   template: '',
 })
-class MockCueTimelineComponent implements Partial<CueTimelineComponent> {
+export class MockCueTimelineComponent implements Partial<CueTimelineComponent> {
   @Input() videoElem: HTMLVideoElement;
-  @Input() track: Track;
+  @Input() track: Track | null;
+  @Input() activeCues: Cue[] | null;
 }
-
-const mockVideoElem = document.createElement('video');
-mockVideoElem['addTextTrack'] = jest.fn().mockReturnValue({});
-mockVideoElem['pause'] = jest.fn();
 
 describe('PlopdownEmbedComponent', () => {
   let component: PlopdownEmbedComponent;
@@ -38,6 +52,7 @@ describe('PlopdownEmbedComponent', () => {
       declarations: [
         PlopdownEmbedComponent,
         MockEmbedMenuComponent,
+        MockCueRendererComponent,
         MockCueTimelineComponent,
       ],
     }).compileComponents();
