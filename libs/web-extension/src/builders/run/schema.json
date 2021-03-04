@@ -1,6 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft-07/schema",
-  "$id": "https://json-schema.org/draft-07/schema",
+  "$schema": "http://json-schema.org/schema",
   "title": "Web Extension Runner",
   "description": "",
   "type": "object",
@@ -64,5 +63,7 @@
       }
     }
   },
-  "requiredProperties": ["sourceDir"]
+  "requiredProperties": [
+    "sourceDir"
+  ]
 }

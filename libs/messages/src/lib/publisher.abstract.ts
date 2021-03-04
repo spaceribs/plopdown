@@ -1,11 +1,13 @@
 import { TabsService } from '@plopdown/browser-ref';
-import { OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Subject, Subscription, forkJoin } from 'rxjs';
 import { MessagesService } from './messages.service';
 import { LoggerService } from '@plopdown/logger';
 import { Source } from './messages.model';
 import { map, switchMap, tap, mapTo } from 'rxjs/operators';
 
+// TODO: Add Angular decorator.
+@Injectable()
 export abstract class PortPublisher<C extends object> implements OnDestroy {
   protected command$: Subject<C> = new Subject();
   private subs: Subscription = new Subscription();

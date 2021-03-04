@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MockWindowRefModule } from '@plopdown/window-ref/mock';
 import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
 import { MockIconModule } from '@plopdown/icon/mock';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EmbedMenuComponent } from './embed-menu.component';
 
@@ -12,7 +12,7 @@ describe('EmbedMenuComponent', () => {
   let component: EmbedMenuComponent;
   let fixture: ComponentFixture<EmbedMenuComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MockIconModule,

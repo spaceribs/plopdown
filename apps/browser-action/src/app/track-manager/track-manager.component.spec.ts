@@ -3,7 +3,7 @@ import { MockTracksModule } from '@plopdown/tracks/mock';
 import { MockIconModule } from '@plopdown/icon/mock';
 import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
 import { MockWindowRefModule } from '@plopdown/window-ref/mock';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TrackManagerComponent } from './track-manager.component';
 
@@ -11,7 +11,7 @@ describe('VideoManagerComponent', () => {
   let component: TrackManagerComponent;
   let fixture: ComponentFixture<TrackManagerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MockBrowserRefModule,

@@ -7,7 +7,7 @@ import { MockVideoRefsModule } from '@plopdown/video-refs/mock';
 import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
 import { MockMessagesModule } from '@plopdown/messages/mock';
 import { MockTracksModule } from '@plopdown/tracks/mock';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { Component } from '@angular/core';
 
@@ -42,7 +42,7 @@ class MockVideoRefsRequestedComponent {}
 class MockInstallContentScriptComponent {}
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,

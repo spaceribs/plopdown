@@ -1,5 +1,5 @@
 import { VideoAttachmentComponent } from './../video-attachment/video-attachment.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { VideoAttachmentsComponent } from './video-attachments.component';
 import { Component, Input } from '@angular/core';
@@ -17,7 +17,7 @@ describe('VideoAttachmentsComponent', () => {
   let component: VideoAttachmentsComponent;
   let fixture: ComponentFixture<VideoAttachmentsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [VideoAttachmentsComponent, MockVideoAttachmentComponent],
     }).compileComponents();

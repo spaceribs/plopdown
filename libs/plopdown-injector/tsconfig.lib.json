@@ -23,5 +23,10 @@
     "**/*.stories.js",
     "**/*.stories.ts",
     "**/*.stories.js"
+  ],
+  "include": [
+    "**/*.ts",
+    "../plopdown-embed/src/lib/load-asset.service.ts",
+    "../plopdown-embed/src/lib/load-asset.service.spec.ts"
   ]
 }

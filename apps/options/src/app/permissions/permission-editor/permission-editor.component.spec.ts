@@ -3,7 +3,7 @@ import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MockIconModule } from '@plopdown/icon/mock';
 import { MockPermissionsModule } from '@plopdown/permissions/mock';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PermissionEditorComponent } from './permission-editor.component';
 
@@ -11,7 +11,7 @@ describe('VideoEditorComponent', () => {
   let component: PermissionEditorComponent;
   let fixture: ComponentFixture<PermissionEditorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MockIconModule,

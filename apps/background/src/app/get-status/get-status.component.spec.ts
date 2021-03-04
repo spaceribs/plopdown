@@ -1,6 +1,6 @@
 import { MockLoggerModule } from '@plopdown/logger/mock';
 import { MockMessagesModule } from '@plopdown/messages/mock';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { GetStatusComponent } from './get-status.component';
 
@@ -8,7 +8,7 @@ describe('GetStatusComponent', () => {
   let component: GetStatusComponent;
   let fixture: ComponentFixture<GetStatusComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MockMessagesModule, MockLoggerModule],
       declarations: [GetStatusComponent],

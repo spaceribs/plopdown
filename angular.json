@@ -48,11 +48,12 @@
             "polyfills": "apps/background/src/polyfills.ts",
             "tsConfig": "apps/background/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/background/src/assets"],
+            "assets": [
+              "apps/background/src/assets"
+            ],
             "styles": [],
             "scripts": [],
-            "vendorChunk": false,
-            "extractCss": true
+            "vendorChunk": false
           },
           "configurations": {
             "production": {
@@ -65,7 +66,6 @@
               "optimization": true,
               "outputHashing": "none",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -83,7 +83,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -109,17 +112,21 @@
               "apps/background/tsconfig.app.json",
               "apps/background/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/background/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/background/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/background/jest.config.js",
-            "tsConfig": "apps/background/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/background/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/background"
+          ]
         }
       }
     },
@@ -148,7 +155,9 @@
               "apps/browser-action/src/favicon.ico",
               "apps/browser-action/src/assets"
             ],
-            "styles": ["apps/browser-action/src/styles.scss"],
+            "styles": [
+              "apps/browser-action/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -162,7 +171,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -180,7 +188,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -206,17 +217,21 @@
               "apps/browser-action/tsconfig.app.json",
               "apps/browser-action/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/browser-action/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/browser-action/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/browser-action/jest.config.js",
-            "tsConfig": "apps/browser-action/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/browser-action/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/browser-action"
+          ]
         }
       }
     },
@@ -245,7 +260,9 @@
               "apps/options/src/favicon.ico",
               "apps/options/src/assets"
             ],
-            "styles": ["apps/options/src/styles.scss"],
+            "styles": [
+              "apps/options/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -259,7 +276,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -277,7 +293,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -303,17 +322,21 @@
               "apps/options/tsconfig.app.json",
               "apps/options/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/options/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/options/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/options/jest.config.js",
-            "tsConfig": "apps/options/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/options/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/options"
+          ]
         }
       }
     },
@@ -345,7 +368,9 @@
               "apps/content-script/src/favicon.ico",
               "apps/content-script/src/assets"
             ],
-            "styles": ["apps/content-script/src/styles.scss"],
+            "styles": [
+              "apps/content-script/src/styles.scss"
+            ],
             "scripts": [],
             "vendorChunk": false,
             "extractCss": false
@@ -404,17 +429,21 @@
               "apps/content-script/tsconfig.app.json",
               "apps/content-script/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/content-script/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/content-script/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/content-script/jest.config.js",
-            "tsConfig": "apps/content-script/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/content-script/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/content-script"
+          ]
         }
       }
     },
@@ -442,7 +471,9 @@
               "apps/testing-sandbox/src/favicon.ico",
               "apps/testing-sandbox/src/assets"
             ],
-            "styles": ["apps/testing-sandbox/src/styles.scss"],
+            "styles": [
+              "apps/testing-sandbox/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -456,7 +487,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -474,7 +504,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -500,17 +533,21 @@
               "apps/testing-sandbox/tsconfig.app.json",
               "apps/testing-sandbox/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/testing-sandbox/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/testing-sandbox/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/testing-sandbox/jest.config.js",
-            "tsConfig": "apps/testing-sandbox/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/testing-sandbox/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/testing-sandbox"
+          ]
         }
       }
     },
@@ -541,17 +578,21 @@
               "libs/plopdown-file/tsconfig.lib.json",
               "libs/plopdown-file/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/plopdown-file/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/plopdown-file/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/plopdown-file/jest.config.js",
-            "tsConfig": "libs/plopdown-file/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/plopdown-file/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/plopdown-file"
+          ]
         }
       },
       "schematics": {
@@ -573,17 +614,21 @@
               "libs/messages/tsconfig.lib.json",
               "libs/messages/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/messages/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/messages/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/messages/jest.config.js",
-            "tsConfig": "libs/messages/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/messages/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/messages"
+          ]
         }
       },
       "schematics": {
@@ -605,17 +650,21 @@
               "libs/video-refs/tsconfig.lib.json",
               "libs/video-refs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/video-refs/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/video-refs/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/video-refs/jest.config.js",
-            "tsConfig": "libs/video-refs/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/video-refs/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/video-refs"
+          ]
         }
       },
       "schematics": {
@@ -637,17 +686,21 @@
               "libs/tracks/tsconfig.lib.json",
               "libs/tracks/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/tracks/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/tracks/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/tracks/jest.config.js",
-            "tsConfig": "libs/tracks/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/tracks/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/tracks"
+          ]
         }
       },
       "schematics": {
@@ -669,17 +722,21 @@
               "libs/logger/tsconfig.lib.json",
               "libs/logger/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/logger/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/logger/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/logger/jest.config.js",
-            "tsConfig": "libs/logger/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/logger/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/logger"
+          ]
         }
       },
       "schematics": {
@@ -701,17 +758,21 @@
               "libs/window-ref/tsconfig.lib.json",
               "libs/window-ref/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/window-ref/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/window-ref/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/window-ref/jest.config.js",
-            "tsConfig": "libs/window-ref/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/window-ref/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/window-ref"
+          ]
         }
       },
       "schematics": {
@@ -733,17 +794,21 @@
               "libs/browser-ref/tsconfig.lib.json",
               "libs/browser-ref/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/browser-ref/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/browser-ref/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/browser-ref/jest.config.js",
-            "tsConfig": "libs/browser-ref/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/browser-ref/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/browser-ref"
+          ]
         }
       },
       "schematics": {
@@ -765,17 +830,21 @@
               "libs/ext-storage/tsconfig.lib.json",
               "libs/ext-storage/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ext-storage/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ext-storage/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/ext-storage/jest.config.js",
-            "tsConfig": "libs/ext-storage/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/ext-storage/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/ext-storage"
+          ]
         }
       },
       "schematics": {
@@ -797,17 +866,21 @@
               "libs/icon/tsconfig.lib.json",
               "libs/icon/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/icon/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/icon/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/icon/jest.config.js",
-            "tsConfig": "libs/icon/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/icon/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/icon"
+          ]
         }
       },
       "schematics": {
@@ -827,19 +900,24 @@
           "options": {
             "tsConfig": [
               "libs/plopdown-embed/tsconfig.lib.json",
-              "libs/plopdown-embed/tsconfig.spec.json"
+              "libs/plopdown-embed/tsconfig.spec.json",
+              "libs/plopdown-embed/.storybook/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/plopdown-embed/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/plopdown-embed/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/plopdown-embed/jest.config.js",
-            "tsConfig": "libs/plopdown-embed/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/plopdown-embed/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/plopdown-embed"
+          ]
         },
         "storybook": {
           "builder": "@nrwl/storybook:storybook",
@@ -869,7 +947,10 @@
             "ci": {
               "quiet": true
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         }
       },
       "schematics": {
@@ -904,7 +985,9 @@
               "apps/website/src/404.html",
               "apps/website/src/CNAME"
             ],
-            "styles": ["apps/website/src/styles.scss"],
+            "styles": [
+              "apps/website/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -918,7 +1001,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -936,7 +1018,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -962,17 +1047,21 @@
               "apps/website/tsconfig.app.json",
               "apps/website/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/website/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/website/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/website/jest.config.js",
-            "tsConfig": "apps/website/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/website/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/website"
+          ]
         }
       }
     },
@@ -989,17 +1078,21 @@
               "libs/plopdown-injector/tsconfig.lib.json",
               "libs/plopdown-injector/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/plopdown-injector/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/plopdown-injector/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/plopdown-injector/jest.config.js",
-            "tsConfig": "libs/plopdown-injector/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/plopdown-injector/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/plopdown-injector"
+          ]
         }
       },
       "schematics": {
@@ -1032,7 +1125,9 @@
               "apps/devtool/src/favicon.ico",
               "apps/devtool/src/assets"
             ],
-            "styles": ["apps/devtool/src/styles.scss"],
+            "styles": [
+              "apps/devtool/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -1046,7 +1141,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -1064,7 +1158,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -1090,17 +1187,21 @@
               "apps/devtool/tsconfig.app.json",
               "apps/devtool/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/devtool/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/devtool/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/devtool/jest.config.js",
-            "tsConfig": "apps/devtool/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/devtool/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/devtool"
+          ]
         }
       }
     },
@@ -1128,7 +1229,9 @@
               "apps/devtool-panels/src/favicon.ico",
               "apps/devtool-panels/src/assets"
             ],
-            "styles": ["apps/devtool-panels/src/styles.scss"],
+            "styles": [
+              "apps/devtool-panels/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -1142,7 +1245,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -1160,7 +1262,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -1186,17 +1291,21 @@
               "apps/devtool-panels/tsconfig.app.json",
               "apps/devtool-panels/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/devtool-panels/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/devtool-panels/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/devtool-panels/jest.config.js",
-            "tsConfig": "apps/devtool-panels/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/devtool-panels/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/devtool-panels"
+          ]
         }
       }
     },
@@ -1213,17 +1322,21 @@
               "libs/devtools-ref/tsconfig.lib.json",
               "libs/devtools-ref/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/devtools-ref/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/devtools-ref/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/devtools-ref/jest.config.js",
-            "tsConfig": "libs/devtools-ref/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/devtools-ref/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/devtools-ref"
+          ]
         }
       },
       "schematics": {
@@ -1245,16 +1358,21 @@
               "libs/web-extension/tsconfig.lib.json",
               "libs/web-extension/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/web-extension/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/web-extension/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/web-extension/jest.config.js",
-            "tsConfig": "libs/web-extension/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/web-extension"
+          ]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -1280,8 +1398,12 @@
                 "glob": "builders.json",
                 "output": "."
               }
-            ]
-          }
+            ],
+            "srcRootForCompilationRoot": "libs/web-extension"
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         }
       }
     },
@@ -1296,8 +1418,7 @@
             "target": "web-extension:build",
             "npmPackageName": "@plopdown/web-extension",
             "pluginOutputPath": "dist/libs/web-extension",
-            "jestConfig": "apps/web-extension-e2e/jest.config.js",
-            "tsSpecConfig": "apps/web-extension-e2e/tsconfig.spec.json"
+            "jestConfig": "apps/web-extension-e2e/jest.config.js"
           }
         }
       }
@@ -1323,8 +1444,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/plopdown-embed-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/plopdown-embed-e2e/**"]
+            "tsConfig": [
+              "apps/plopdown-embed-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/plopdown-embed-e2e/**/*"
+            ]
           }
         }
       }
@@ -1359,17 +1485,21 @@
               "libs/permissions/tsconfig.lib.json",
               "libs/permissions/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/permissions/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/permissions/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/permissions/jest.config.js",
-            "tsConfig": "libs/permissions/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/permissions/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/permissions"
+          ]
         }
       },
       "schematics": {
@@ -1391,17 +1521,21 @@
               "libs/lz-string/tsconfig.lib.json",
               "libs/lz-string/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/lz-string/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/lz-string/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/lz-string/jest.config.js",
-            "tsConfig": "libs/lz-string/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/lz-string/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/lz-string"
+          ]
         }
       },
       "schematics": {
@@ -1423,17 +1557,21 @@
               "libs/plopdown-cues/tsconfig.lib.json",
               "libs/plopdown-cues/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/plopdown-cues/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/plopdown-cues/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/plopdown-cues/jest.config.js",
-            "tsConfig": "libs/plopdown-cues/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/plopdown-cues/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/plopdown-cues"
+          ]
         }
       },
       "schematics": {

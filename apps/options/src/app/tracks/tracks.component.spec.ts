@@ -5,7 +5,7 @@ import { MockTrackEditorComponent } from './../../../mock/track-editor.component
 import { MockFileManagerComponent } from '../../../mock/file-manager.component.mock';
 import { MockFileImporterComponent } from './../../../mock/file-importer.component.mock';
 import { MockIconModule } from '@plopdown/icon/mock';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TracksComponent } from './tracks.component';
 
@@ -13,7 +13,7 @@ describe('TracksComponent', () => {
   let component: TracksComponent;
   let fixture: ComponentFixture<TracksComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MockIconModule,

@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ContentScriptTracksService } from './content-script-tracks.service';
 import { ContentScriptVideoRefsService } from './content-script-video-refs.service';
 
+// TODO: Add Angular decorator.
 @NgModule({
   declarations: [AppComponent],
   imports: [

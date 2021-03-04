@@ -6,9 +6,10 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    "tsconfig.json": "*",
     "tslint.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    "tsconfig.base.json": "*",
+    ".eslintrc.json": "*"
   },
   "projects": {
     "plopdown-ext": {
@@ -106,5 +107,8 @@
     "plopdown-cues": {
       "tags": []
     }
+  },
+  "affected": {
+    "defaultBase": "master"
   }
 }

@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MockLoggerModule } from '@plopdown/logger/mock';
 import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
 import { MockPermissionsModule } from '@plopdown/permissions/mock';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PermissionsComponent } from './permissions.component';
 import { PermissionEditorComponent } from './permission-editor/permission-editor.component';
@@ -14,7 +14,7 @@ describe('PermissionsComponent', () => {
   let component: PermissionsComponent;
   let fixture: ComponentFixture<PermissionsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MockPermissionsModule,

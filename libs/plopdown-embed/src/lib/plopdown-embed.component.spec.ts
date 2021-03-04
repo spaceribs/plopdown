@@ -1,6 +1,6 @@
 import { MockLoggerModule } from '@plopdown/logger/mock';
 import { MockWindowRefModule } from '@plopdown/window-ref/mock';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PlopdownEmbedComponent } from './plopdown-embed.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -46,7 +46,7 @@ describe('PlopdownEmbedComponent', () => {
   let component: PlopdownEmbedComponent;
   let fixture: ComponentFixture<PlopdownEmbedComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MockWindowRefModule, MockLoggerModule, NoopAnimationsModule],
       declarations: [
