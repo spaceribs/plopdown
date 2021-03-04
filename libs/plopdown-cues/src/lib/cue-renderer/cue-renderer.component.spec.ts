@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CueRendererComponent } from './cue-renderer.component';
 import { MockLoggerModule } from '@plopdown/logger/mock';
@@ -7,7 +7,7 @@ describe('CueRendererComponent', () => {
   let component: CueRendererComponent;
   let fixture: ComponentFixture<CueRendererComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MockLoggerModule],
       declarations: [CueRendererComponent],

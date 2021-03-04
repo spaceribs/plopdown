@@ -1,5 +1,5 @@
 import { MockLoggerModule } from '@plopdown/logger/mock';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ShapeComponent } from './shape.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,7 +8,7 @@ describe('ShapeComponent', () => {
   let component: ShapeComponent;
   let fixture: ComponentFixture<ShapeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, MockLoggerModule],
       declarations: [ShapeComponent],

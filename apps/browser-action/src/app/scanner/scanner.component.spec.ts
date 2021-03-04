@@ -6,7 +6,7 @@ import { MockLoggerModule } from '@plopdown/logger/mock';
 import { MockMessagesModule } from '@plopdown/messages/mock';
 import { MockVideoRefsModule } from '@plopdown/video-refs/mock';
 import { MockIconModule } from '@plopdown/icon/mock';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ScannerComponent } from './scanner.component';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ describe('ScannerComponent', () => {
   let component: ScannerComponent;
   let fixture: ComponentFixture<ScannerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,

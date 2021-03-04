@@ -1,7 +1,7 @@
 import { MockLoggerModule } from '@plopdown/logger/mock';
 import { MockMessagesModule } from '@plopdown/messages/mock';
 import { MockTracksModule } from '@plopdown/tracks/mock';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TracksRequestedComponent } from './tracks-requested.component';
 
@@ -9,7 +9,7 @@ describe('TracksRequestedComponent', () => {
   let component: TracksRequestedComponent;
   let fixture: ComponentFixture<TracksRequestedComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MockTracksModule, MockMessagesModule, MockLoggerModule],
       declarations: [TracksRequestedComponent],

@@ -99,9 +99,10 @@ import { PermissionEditorComponent } from './permissions/permission-editor/permi
         },
       ],
       {
-        useHash: true,
-        initialNavigation: true,
-      }
+    useHash: true,
+    initialNavigation: 'enabledNonBlocking',
+    relativeLinkResolution: 'legacy'
+}
     ),
   ],
   bootstrap: [AppComponent],

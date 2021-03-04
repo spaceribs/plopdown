@@ -1,5 +1,5 @@
 import { LoggerConfig } from './logger.model';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoggerConfigService } from './logger.config';
 
@@ -7,10 +7,10 @@ import { LoggerConfigService } from './logger.config';
   imports: [CommonModule],
 })
 export class LoggerModule {
-  static forRoot(config: LoggerConfig) {
+  static forRoot(config: LoggerConfig): ModuleWithProviders<LoggerModule> {
     return {
-      ngModule: LoggerModule,
-      providers: [{ provide: LoggerConfigService, useValue: config }],
+        ngModule: LoggerModule,
+        providers: [{ provide: LoggerConfigService, useValue: config }],
     };
-  }
+}
 }

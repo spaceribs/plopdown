@@ -21,5 +21,10 @@
     "**/*.spec.ts",
     "**/*.stories.ts",
     "**/*.stories.js"
+  ],
+  "include": [
+    "**/*.ts",
+    "../tracks/src/lib/track.service.ts",
+    "../tracks/src/lib/track.service.spec.ts"
   ]
 }

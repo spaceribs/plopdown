@@ -1,11 +1,16 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["firefox-webext-browser", "jest"]
   },
-  "include": [
-    "**/*.ts",
-    "../plopdown-embed/src/lib/load-asset.service.ts",
-    "../plopdown-embed/src/lib/load-asset.service.spec.ts"
+  "include": [],
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
   ]
 }

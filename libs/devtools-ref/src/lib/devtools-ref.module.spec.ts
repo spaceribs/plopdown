@@ -1,8 +1,8 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { DevtoolsRefModule } from './devtools-ref.module';
 
 describe('DevtoolsRefModule', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [DevtoolsRefModule],
     }).compileComponents();

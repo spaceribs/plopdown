@@ -1,6 +1,6 @@
 import { SiteNavComponent } from './../site-nav/site-nav.component';
 import { SiteFooterComponent } from './../site-footer/site-footer.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BlogComponent } from './blog.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,7 +10,7 @@ describe('BlogComponent', () => {
   let component: BlogComponent;
   let fixture: ComponentFixture<BlogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       providers: [{ provide: POSTS, useValue: [] }],

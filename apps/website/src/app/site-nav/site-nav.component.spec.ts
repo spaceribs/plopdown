@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SiteNavComponent } from './site-nav.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,7 +7,7 @@ describe('SiteNavComponent', () => {
   let component: SiteNavComponent;
   let fixture: ComponentFixture<SiteNavComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [SiteNavComponent],

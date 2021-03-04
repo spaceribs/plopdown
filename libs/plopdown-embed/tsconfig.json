@@ -1,11 +1,19 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node", "jest"]
   },
-  "include": [
-    "**/*.ts",
-    "../tracks/src/lib/track.service.ts",
-    "../tracks/src/lib/track.service.spec.ts"
+  "include": [],
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./.storybook/tsconfig.json"
+    }
   ]
 }
