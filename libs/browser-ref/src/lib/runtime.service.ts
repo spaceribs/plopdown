@@ -12,7 +12,7 @@ import { BrowserRefModule } from './browser-ref.module';
 export class RuntimeService {
   private readonly onInstalled$: Observable<OnInstalledDetails>;
   private readonly runtime: typeof browser.runtime;
-  private onMessage$: Observable<object>;
+  private onMessage$: Observable<Record<string, unknown>>;
 
   constructor(
     browserRefService: BrowserRefService,
@@ -70,7 +70,7 @@ export class RuntimeService {
     return this.onMessage$;
   }
 
-  public sendMessage(message: object) {
+  public sendMessage(message: Record<string, unknown>) {
     return from(this.runtime.sendMessage(message));
   }
 

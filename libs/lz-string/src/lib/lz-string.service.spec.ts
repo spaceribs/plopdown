@@ -6,7 +6,9 @@ describe('LzStringService', () => {
   let service: LzStringService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [LzStringService],
+    });
     service = TestBed.inject(LzStringService);
   });
 

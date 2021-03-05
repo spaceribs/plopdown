@@ -28,8 +28,6 @@ export class AudioEditsService {
     return this.edits$.asObservable();
   }
 
-  constructor() {}
-
   public getEditTime() {
     const audioMetaTrack$ = this.audioElem$.pipe(
       switchMap((audio) => {

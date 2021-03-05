@@ -55,6 +55,7 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  @Input() files: Map<string, string> | null = null;
   @Input() videoElem: HTMLVideoElement;
 
   constructor(
@@ -108,6 +109,7 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
           componentRef.instance.id = cue.id;
           componentRef.instance.data = cue.data;
           componentRef.instance.videoElem = this.videoElem;
+          componentRef.instance.files = this.files;
 
           this.cueMap.set(cue.id, componentRef);
 

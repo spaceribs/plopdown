@@ -1,15 +1,13 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'plopdown-subnav',
   templateUrl: './subnav.component.html',
   styleUrls: ['./subnav.component.scss'],
 })
-export class SubnavComponent implements OnInit {
+export class SubnavComponent {
   constructor(private router: Router) {}
-
-  ngOnInit(): void {}
 
   isRouteActive(routePath: string[]) {
     const route = this.router.createUrlTree(routePath);

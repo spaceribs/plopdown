@@ -8,6 +8,7 @@ export abstract class PlopdownBaseComponent<T extends Cue['data']> {
   @Input() public id?: Cue['id'];
   @Input() public data?: T;
   @Input() public videoElem: HTMLVideoElement;
+  @Input() public files: Map<string, string> | null;
 
   @HostBinding('attr.aria-atomic') public ariaAtomic = true;
 

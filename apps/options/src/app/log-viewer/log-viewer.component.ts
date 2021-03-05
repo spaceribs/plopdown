@@ -93,8 +93,6 @@ export class LogViewerComponent implements OnInit, OnDestroy {
     }, 5000);
   }
 
-  downloadLogs() {}
-
   formatData(log: unknown) {
     if (typeof log === 'string') {
       return JSON.parse(log);

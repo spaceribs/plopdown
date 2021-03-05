@@ -14,6 +14,7 @@
     ></plopdown-embed-menu>
     <ng-container *ngIf="trackAndVideoElem$ | async as trackAndVideo">
       <plopdown-cue-renderer
+        [files]="files$ | async"
         [videoElem]="trackAndVideo[1]"
         [cues]="cues$ | async"
       ></plopdown-cue-renderer>

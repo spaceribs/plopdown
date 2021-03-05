@@ -7,12 +7,7 @@ import { WindowRefModule } from '@plopdown/window-ref';
 import { VideoRefsModule, VideoRefsService } from '@plopdown/video-refs';
 import { BrowserModule } from '@angular/platform-browser';
 import { PlopdownFileModule } from '@plopdown/plopdown-file';
-import {
-  NgModule,
-  DoBootstrap,
-  ApplicationRef,
-  OnDestroy,
-} from '@angular/core';
+import { NgModule, DoBootstrap, ApplicationRef } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {
@@ -61,12 +56,8 @@ import { ContentScriptVideoRefsService } from './content-script-video-refs.servi
     },
   ],
 })
-export class AppModule implements DoBootstrap, OnDestroy {
+export class AppModule implements DoBootstrap {
   private appElement: HTMLElement;
-
-  ngOnDestroy(): void {
-    this.appElement.remove();
-  }
 
   ngDoBootstrap(appRef: ApplicationRef): void {
     this.appElement = document.createElement('plopdown-cs');

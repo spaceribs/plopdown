@@ -83,13 +83,17 @@ export class PlopdownEmbedComponent implements OnDestroy, OnInit {
   private manualReposition$: Subject<null> = new BehaviorSubject(null);
 
   public cues$: Observable<Cue[]>;
-  public styles$: Observable<{ wrapper: object; stage: object }>;
+  public styles$: Observable<{
+    wrapper: Record<string, unknown>;
+    stage: Record<string, unknown>;
+  }>;
   public editMode$: Observable<boolean>;
   private subs: Subscription = new Subscription();
 
   private mouseMove$: Observable<Event>;
   public showControls$: Observable<boolean>;
   private goToTime$: Subject<number> = new Subject();
+  public files$: Observable<Map<string, string>>;
 
   @Output() public remove: EventEmitter<void> = new EventEmitter();
   @Output() public trackChange: EventEmitter<Track | null> = new EventEmitter();
@@ -118,6 +122,7 @@ export class PlopdownEmbedComponent implements OnDestroy, OnInit {
     elemRef: ElementRef
   ) {
     this.track$ = trackService.getTrack();
+    this.files$ = trackService.getTrackFiles();
 
     this.mouseMove$ = merge(
       fromEvent(elemRef.nativeElement, 'mousemove'),

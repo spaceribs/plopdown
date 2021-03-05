@@ -1,9 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
-import { LogProvider, LoggerConfigService } from '@plopdown/logger';
+import { Injectable } from '@angular/core';
+import { LogProvider } from '@plopdown/logger';
 
 @Injectable()
 export class LogMockService implements LogProvider {
-  constructor(@Inject(LoggerConfigService) config) {}
   debug = jest.fn();
   log = jest.fn();
   error = jest.fn();

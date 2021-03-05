@@ -1,8 +1,4 @@
-import {
-  BuilderContext,
-  BuilderOutput,
-  createBuilder,
-} from '@angular-devkit/architect';
+import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import { Observable, of, bindCallback, from } from 'rxjs';
 import { switchMap, mapTo, map } from 'rxjs/operators';
 import { WebExtBuilderSchema } from './schema';
@@ -12,8 +8,7 @@ import webExt from 'web-ext';
 const copy = bindCallback(fs.copy);
 
 export function runBuilder(
-  options: WebExtBuilderSchema,
-  context: BuilderContext
+  options: WebExtBuilderSchema
 ): Observable<BuilderOutput> {
   return of(options).pipe(
     switchMap((opt) => {

@@ -1,7 +1,7 @@
 import { Observable, Subscription } from 'rxjs';
 import { WindowRefService } from '@plopdown/window-ref';
 import { RuntimeService } from '@plopdown/browser-ref';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { VideoRefsService, VideoRef } from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
 import { tap } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { mdiTrashCan } from '@mdi/js';
   templateUrl: './video-manager.component.html',
   styleUrls: ['./video-manager.component.scss'],
 })
-export class VideoManagerComponent implements OnInit, OnDestroy {
+export class VideoManagerComponent implements OnDestroy {
   public videoRefs$: Observable<VideoRef[]>;
   public loadingVideoRefs$: Observable<boolean>;
 
@@ -33,8 +33,6 @@ export class VideoManagerComponent implements OnInit, OnDestroy {
       })
     );
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();

@@ -1,34 +1,21 @@
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const rootWebpackConfig = require('../../../.storybook/webpack.config');
-const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin');
-
-// Export a function. Accept the base config as the only param.
+/**
+ * Export a function. Accept the base config as the only param.
+ *
+ * @param {Parameters<typeof rootWebpackConfig>[0]} options
+ */
 module.exports = async ({ config, mode }) => {
   config = await rootWebpackConfig({ config, mode });
 
-  config.module.rules.push({
-    test: /\.(stories|story)\.mdx$/,
-    use: [
-      {
-        loader: 'babel-loader',
-        options: {
-          plugins: ['@babel/plugin-transform-react-jsx'],
-        },
-      },
-      {
-        loader: '@mdx-js/loader',
-        options: {
-          compilers: [createCompiler({})],
-        },
-      },
-    ],
-  });
+  const tsPaths = new TsconfigPathsPlugin({
+    configFile: './tsconfig.base.json',
+   });
 
-  config.module.rules.push({
-    test: /\.(stories|story)\.[tj]sx?$/,
-    loader: require.resolve('@storybook/source-loader'),
-    exclude: [/node_modules/],
-    enforce: 'pre',
-  });
+  config.resolve.plugins
+    ? config.resolve.plugins.push(tsPaths)
+    : (config.resolve.plugins = [tsPaths])
 
+  
   return config;
 };

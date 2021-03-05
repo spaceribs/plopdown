@@ -5,5 +5,5 @@ export interface Cue {
   endTime: number;
   id: string;
   data: PlopdownTemplate;
-  style?: object;
+  style?: Partial<CSSStyleDeclaration>;
 }

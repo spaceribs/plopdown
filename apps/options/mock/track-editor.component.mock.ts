@@ -7,5 +7,7 @@ import { Track } from '@plopdown/tracks';
   template: 'mock-plopdown-track-editor',
 })
 export class MockTrackEditorComponent implements Partial<TrackEditorComponent> {
-  @Input() set track(track: Track | null) {}
+  @Input() set track(track: Track | null) {
+    return;
+  }
 }
