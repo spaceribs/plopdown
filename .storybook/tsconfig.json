@@ -1,8 +1,10 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "types": ["firefox-webext-browser"]
-  },
-  "exclude": ["../**/test.ts", "../**/*.spec.ts"],
+  "exclude": [
+    "../**/*.spec.js",
+    "../**/*.spec.ts",
+    "../**/*.spec.tsx",
+    "../**/*.spec.jsx"
+  ],
   "include": ["../**/*"]
 }

@@ -70,7 +70,7 @@ export class TabsService {
     return merge(tabInit$, tabChange$).pipe(shareReplay(1));
   }
 
-  public sendMessage(message: object) {
+  public sendMessage(message: Record<string, unknown>) {
     return this.getActiveTab().pipe(
       switchMap((tab) => {
         if (tab.id == null) {

@@ -8,8 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class SiteFooterComponent implements OnInit {
   public currentDate: Date;
 
-  constructor() {}
-
   ngOnInit(): void {
     this.currentDate = new Date();
   }

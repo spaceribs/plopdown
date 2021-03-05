@@ -47,18 +47,17 @@ export class PlopdownFileService {
     return /^WEBVTT$/gm.test(file);
   }
 
-  private convertToHeader(headers: object): string {
-    let headerString = 'WEBVTT';
-    for (const key in headers) {
-      if (headers.hasOwnProperty(key)) {
-        const value = (headers as any)[key];
+  private convertToHeader(headers: PlopdownFile['headers']): string {
+    return Object.keys(headers)
+      .reduce((memo, key) => {
+        const value = headers[key];
         if (value == null) {
-          continue;
+          return memo;
         }
-        headerString += `\n${key}: ${value.trim()}`;
-      }
-    }
-    return headerString.trim();
+        memo += `\n${key}: ${value.trim()}`;
+        return memo;
+      }, 'WEBVTT')
+      .trim();
   }
 
   private convertToCues(cues: Cue[]): string {
@@ -81,7 +80,7 @@ export class PlopdownFileService {
     return cueStrings.join('\n\n');
   }
 
-  private convertWebVTT(file: string): object {
+  private convertWebVTT(file: string): Record<string, unknown> {
     const blocks = file.trim().split('\n\n');
     const firstBlock = blocks[0];
 
@@ -91,7 +90,7 @@ export class PlopdownFileService {
     return { headers, cues };
   }
 
-  private getHeaders(firstBlock: string): object {
+  private getHeaders(firstBlock: string): Record<string, unknown> {
     const headerMatcher = /^([\w-]+):(.*)$/gm;
     const headerMatches = this.getAllMatches(firstBlock, headerMatcher);
 
@@ -106,6 +105,7 @@ export class PlopdownFileService {
   private getAllMatches(str: string, regex: RegExp) {
     const matches: string[] = [];
     let m;
+    // eslint-disable-next-line no-constant-condition
     while (1) {
       m = regex.exec(str);
       if (m) matches.push(m);
@@ -187,7 +187,7 @@ export class PlopdownFileService {
     return files;
   }
 
-  private isPlopdownFile(file: object): file is PlopdownFile {
+  private isPlopdownFile(file: Record<string, unknown>): file is PlopdownFile {
     const fileValid = this.validator.validate(file);
     return fileValid as boolean;
   }

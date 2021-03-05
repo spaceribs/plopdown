@@ -1,8 +1,4 @@
-import {
-  BuilderContext,
-  BuilderOutput,
-  createBuilder,
-} from '@angular-devkit/architect';
+import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import { Observable, of, from } from 'rxjs';
 import { switchMap, mapTo } from 'rxjs/operators';
 import { WebExtRunnerSchema } from './schema';
@@ -10,8 +6,7 @@ import { resolve } from 'path';
 import webExt from 'web-ext';
 
 export function runBuilder(
-  options: WebExtRunnerSchema,
-  context: BuilderContext
+  options: WebExtRunnerSchema
 ): Observable<BuilderOutput> {
   return of(options).pipe(
     switchMap((opt) => {

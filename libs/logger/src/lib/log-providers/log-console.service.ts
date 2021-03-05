@@ -19,6 +19,7 @@ export class LogConsoleService implements LogProvider {
 
   debug(message?: any, ...optionalParams: any[]): void {
     if (this.isDevMode) {
+      // eslint-disable-next-line no-restricted-syntax
       console.debug(`${this.appName}`, this.css, message, ...optionalParams);
     }
   }
@@ -34,6 +35,7 @@ export class LogConsoleService implements LogProvider {
   }
 
   info(message?: any, ...optionalParams: any[]) {
+    // eslint-disable-next-line no-restricted-syntax
     console.info(this.appName, this.css, message, ...optionalParams);
   }
 

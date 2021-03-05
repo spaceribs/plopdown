@@ -106,15 +106,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/background/tsconfig.app.json",
-              "apps/background/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/background/**/*"
+            "lintFilePatterns": [
+              "apps/background/**/*.ts",
+              "apps/background/**/*.html"
             ]
           }
         },
@@ -211,15 +207,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/browser-action/tsconfig.app.json",
-              "apps/browser-action/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/browser-action/**/*"
+            "lintFilePatterns": [
+              "apps/browser-action/**/*.ts",
+              "apps/browser-action/**/*.html"
             ]
           }
         },
@@ -316,15 +308,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/options/tsconfig.app.json",
-              "apps/options/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/options/**/*"
+            "lintFilePatterns": [
+              "apps/options/**/*.ts",
+              "apps/options/**/*.html"
             ]
           }
         },
@@ -423,15 +411,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/content-script/tsconfig.app.json",
-              "apps/content-script/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/content-script/**/*"
+            "lintFilePatterns": [
+              "apps/content-script/**/*.ts",
+              "apps/content-script/**/*.html"
             ]
           }
         },
@@ -527,15 +511,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/testing-sandbox/tsconfig.app.json",
-              "apps/testing-sandbox/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/testing-sandbox/**/*"
+            "lintFilePatterns": [
+              "apps/testing-sandbox/**/*.ts",
+              "apps/testing-sandbox/**/*.html"
             ]
           }
         },
@@ -572,15 +552,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/plopdown-file/tsconfig.lib.json",
-              "libs/plopdown-file/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/plopdown-file/**/*"
+            "lintFilePatterns": [
+              "libs/plopdown-file/**/*.ts",
+              "libs/plopdown-file/**/*.html"
             ]
           }
         },
@@ -608,15 +584,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/messages/tsconfig.lib.json",
-              "libs/messages/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/messages/**/*"
+            "lintFilePatterns": [
+              "libs/messages/**/*.ts",
+              "libs/messages/**/*.html"
             ]
           }
         },
@@ -644,15 +616,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/video-refs/tsconfig.lib.json",
-              "libs/video-refs/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/video-refs/**/*"
+            "lintFilePatterns": [
+              "libs/video-refs/**/*.ts",
+              "libs/video-refs/**/*.html"
             ]
           }
         },
@@ -680,15 +648,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/tracks/tsconfig.lib.json",
-              "libs/tracks/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/tracks/**/*"
+            "lintFilePatterns": [
+              "libs/tracks/**/*.ts",
+              "libs/tracks/**/*.html"
             ]
           }
         },
@@ -716,15 +680,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/logger/tsconfig.lib.json",
-              "libs/logger/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/logger/**/*"
+            "lintFilePatterns": [
+              "libs/logger/**/*.ts",
+              "libs/logger/**/*.html"
             ]
           }
         },
@@ -752,15 +712,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/window-ref/tsconfig.lib.json",
-              "libs/window-ref/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/window-ref/**/*"
+            "lintFilePatterns": [
+              "libs/window-ref/**/*.ts",
+              "libs/window-ref/**/*.html"
             ]
           }
         },
@@ -788,15 +744,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/browser-ref/tsconfig.lib.json",
-              "libs/browser-ref/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/browser-ref/**/*"
+            "lintFilePatterns": [
+              "libs/browser-ref/**/*.ts",
+              "libs/browser-ref/**/*.html"
             ]
           }
         },
@@ -824,15 +776,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/ext-storage/tsconfig.lib.json",
-              "libs/ext-storage/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ext-storage/**/*"
+            "lintFilePatterns": [
+              "libs/ext-storage/**/*.ts",
+              "libs/ext-storage/**/*.html"
             ]
           }
         },
@@ -860,15 +808,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/icon/tsconfig.lib.json",
-              "libs/icon/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/icon/**/*"
+            "lintFilePatterns": [
+              "libs/icon/**/*.ts",
+              "libs/icon/**/*.html"
             ]
           }
         },
@@ -896,16 +840,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/plopdown-embed/tsconfig.lib.json",
-              "libs/plopdown-embed/tsconfig.spec.json",
-              "libs/plopdown-embed/.storybook/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/plopdown-embed/**/*"
+            "lintFilePatterns": [
+              "libs/plopdown-embed/**/*.ts",
+              "libs/plopdown-embed/**/*.html"
             ]
           }
         },
@@ -1041,15 +980,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/website/tsconfig.app.json",
-              "apps/website/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/website/**/*"
+            "lintFilePatterns": [
+              "apps/website/**/*.ts",
+              "apps/website/**/*.html"
             ]
           }
         },
@@ -1072,15 +1007,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/plopdown-injector/tsconfig.lib.json",
-              "libs/plopdown-injector/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/plopdown-injector/**/*"
+            "lintFilePatterns": [
+              "libs/plopdown-injector/**/*.ts",
+              "libs/plopdown-injector/**/*.html"
             ]
           }
         },
@@ -1181,15 +1112,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/devtool/tsconfig.app.json",
-              "apps/devtool/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/devtool/**/*"
+            "lintFilePatterns": [
+              "apps/devtool/**/*.ts",
+              "apps/devtool/**/*.html"
             ]
           }
         },
@@ -1285,15 +1212,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/devtool-panels/tsconfig.app.json",
-              "apps/devtool-panels/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/devtool-panels/**/*"
+            "lintFilePatterns": [
+              "apps/devtool-panels/**/*.ts",
+              "apps/devtool-panels/**/*.html"
             ]
           }
         },
@@ -1316,15 +1239,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/devtools-ref/tsconfig.lib.json",
-              "libs/devtools-ref/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/devtools-ref/**/*"
+            "lintFilePatterns": [
+              "libs/devtools-ref/**/*.ts",
+              "libs/devtools-ref/**/*.html"
             ]
           }
         },
@@ -1352,15 +1271,11 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/web-extension/tsconfig.lib.json",
-              "libs/web-extension/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/web-extension/**/*"
+            "lintFilePatterns": [
+              "libs/web-extension/**/*.ts",
+              "libs/web-extension/**/*.html"
             ]
           }
         },
@@ -1420,6 +1335,15 @@
             "pluginOutputPath": "dist/libs/web-extension",
             "jestConfig": "apps/web-extension-e2e/jest.config.js"
           }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/web-extension-e2e/**/*.ts",
+              "apps/web-extension-e2e/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -1442,31 +1366,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/plopdown-embed-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/plopdown-embed-e2e/**/*"
-            ]
-          }
-        }
-      }
-    },
-    "storybook": {
-      "projectType": "application",
-      "root": "",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "tsConfig": "tsconfig.json",
-            "commands": [
-              {
-                "command": "echo"
-              }
+            "lintFilePatterns": [
+              "apps/plopdown-embed-e2e/**/*.ts",
+              "apps/plopdown-embed-e2e/**/*.html"
             ]
           }
         }
@@ -1479,15 +1383,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/permissions/tsconfig.lib.json",
-              "libs/permissions/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/permissions/**/*"
+            "lintFilePatterns": [
+              "libs/permissions/**/*.ts",
+              "libs/permissions/**/*.html"
             ]
           }
         },
@@ -1515,15 +1415,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/lz-string/tsconfig.lib.json",
-              "libs/lz-string/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/lz-string/**/*"
+            "lintFilePatterns": [
+              "libs/lz-string/**/*.ts",
+              "libs/lz-string/**/*.html"
             ]
           }
         },
@@ -1551,15 +1447,11 @@
       "prefix": "plopdown",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/plopdown-cues/tsconfig.lib.json",
-              "libs/plopdown-cues/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/plopdown-cues/**/*"
+            "lintFilePatterns": [
+              "libs/plopdown-cues/**/*.ts",
+              "libs/plopdown-cues/**/*.html"
             ]
           }
         },

@@ -6,8 +6,6 @@ import Plyr from 'plyr';
   providedIn: 'root',
 })
 export class PlyrService {
-  constructor() {}
-
   create(selector: HTMLElement) {
     return new Plyr(selector);
   }

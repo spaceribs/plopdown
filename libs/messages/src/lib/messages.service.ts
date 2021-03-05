@@ -11,7 +11,9 @@ import { filter, mapTo, catchError } from 'rxjs/operators';
 export class MessagesService {
   constructor(private runtime: RuntimeService) {}
 
-  public onMessage<C extends object>(source: Source): Observable<C> {
+  public onMessage<C extends Record<string, unknown>>(
+    source: Source
+  ): Observable<C> {
     return this.runtime.getOnMessage().pipe(
       filter<C>((msg) => {
         return msg['source'] != null && msg['source'] === source;
@@ -19,7 +21,7 @@ export class MessagesService {
     );
   }
 
-  public sendMessage(command: object) {
+  public sendMessage(command: Record<string, unknown>) {
     return this.runtime.sendMessage(command).pipe(
       mapTo(null),
       catchError((err) => of(err))

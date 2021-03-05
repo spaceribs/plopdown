@@ -122,8 +122,6 @@ export class PermissionsComponent implements OnDestroy {
     }
   }
 
-  public resetPermissions() {}
-
   public editPermission(perm: SavedPermission) {
     this.editingPermission = perm;
     this.showEditor = true;

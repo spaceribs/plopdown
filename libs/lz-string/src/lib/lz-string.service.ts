@@ -6,8 +6,6 @@ import { LzStringModule } from './lz-string.module';
   providedIn: LzStringModule,
 })
 export class LzStringService {
-  constructor() {}
-
   public decompressURI(compressedValue: string): string {
     const decompressedValue = LZString.decompressFromEncodedURIComponent(
       compressedValue

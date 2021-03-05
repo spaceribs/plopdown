@@ -29,6 +29,7 @@ export class MockEmbedMenuComponent implements Partial<EmbedMenuComponent> {
 })
 export class MockCueRendererComponent implements Partial<CueRendererComponent> {
   @Input() cues: Cue[];
+  @Input() files: Map<string, string> | null = null;
   @Input() videoElem: HTMLVideoElement;
 }
 
@@ -46,17 +47,19 @@ describe('PlopdownEmbedComponent', () => {
   let component: PlopdownEmbedComponent;
   let fixture: ComponentFixture<PlopdownEmbedComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [MockWindowRefModule, MockLoggerModule, NoopAnimationsModule],
-      declarations: [
-        PlopdownEmbedComponent,
-        MockEmbedMenuComponent,
-        MockCueRendererComponent,
-        MockCueTimelineComponent,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [MockWindowRefModule, MockLoggerModule, NoopAnimationsModule],
+        declarations: [
+          PlopdownEmbedComponent,
+          MockEmbedMenuComponent,
+          MockCueRendererComponent,
+          MockCueTimelineComponent,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PlopdownEmbedComponent);

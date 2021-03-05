@@ -5,8 +5,6 @@ import { BrowserRefModule } from './browser-ref.module';
   providedIn: BrowserRefModule,
 })
 export class BrowserRefService {
-  constructor() {}
-
   public getBrowser(): typeof browser {
     if (!browser) {
       throw new Error('browser global not found.');

@@ -1,13 +1,8 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "emitDecoratorMetadata": true,
-    "types": ["firefox-webext-browser"]
+    "emitDecoratorMetadata": true
   },
-  "exclude": ["../src/test.ts", "../**/*.spec.ts"],
-  "include": ["../src/**/*"],
-  "transform": {
-    "^.+\\.[tj]sx?$": "babel-jest",
-    "^.+\\.mdx$": "@storybook/addon-docs/jest-transform-mdx"
-  }
+  "exclude": ["../**/*.spec.ts" ],
+  "include": ["../src/**/*"]
 }

@@ -74,7 +74,7 @@ export class PermissionEditorComponent implements OnDestroy {
     this.subs.unsubscribe();
   }
 
-  approximateMatch(rawUrl: string) {
+  approximateMatch() {
     const control = this.permissionForm.controls.match;
 
     if (control.value === '' || control.value == null) {

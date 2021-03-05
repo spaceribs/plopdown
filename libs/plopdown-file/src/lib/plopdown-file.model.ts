@@ -10,7 +10,8 @@ import { VideoRef } from '@plopdown/video-refs';
  */
 interface PlopdownFileHeaders
   extends PouchDB.Core.IdMeta,
-    PouchDB.Core.RevisionIdMeta {
+    PouchDB.Core.RevisionIdMeta,
+    Record<string, string | undefined> {
   /**
    * Schema version number
    *
@@ -41,7 +42,7 @@ interface PlopdownFileHeaders
  * @export
  * @interface PlopdownFile
  */
-export interface PlopdownFile {
+export interface PlopdownFile extends Record<string, unknown> {
   headers: PlopdownFileHeaders;
   cues: Track['cues'];
   files?: string[];

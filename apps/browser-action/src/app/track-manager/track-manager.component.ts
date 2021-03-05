@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { WindowRefService } from '@plopdown/window-ref';
 import { RuntimeService } from '@plopdown/browser-ref';
 import { Component } from '@angular/core';
-import { LoggerService } from '@plopdown/logger';
 
 @Component({
   selector: 'plopdown-track-manager',
@@ -16,8 +15,7 @@ export class TrackManagerComponent {
   constructor(
     private runtime: RuntimeService,
     private window: WindowRefService,
-    private tracksService: TracksService,
-    logger: LoggerService
+    private tracksService: TracksService
   ) {
     this.tracks$ = tracksService.getTracks();
   }

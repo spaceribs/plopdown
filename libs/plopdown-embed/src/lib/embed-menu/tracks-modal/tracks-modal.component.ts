@@ -25,8 +25,6 @@ export class TracksModalComponent implements OnDestroy {
   @Output() public trackChange: EventEmitter<Track | null> = new EventEmitter();
   @Output() public closeModal: EventEmitter<void> = new EventEmitter();
 
-  constructor() {}
-
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { POSTS } from './blog.config';
 import { Routes, Route } from '@angular/router';
 
@@ -14,7 +14,7 @@ interface PostDateBucket {
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss'],
 })
-export class BlogComponent implements OnInit {
+export class BlogComponent {
   public dateArchives: PostDateBucket[];
 
   static comparePostDates(a: Route, b: Route) {
@@ -54,6 +54,4 @@ export class BlogComponent implements OnInit {
       return bDate.getTime() - aDate.getTime();
     });
   }
-
-  ngOnInit(): void {}
 }

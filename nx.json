@@ -95,9 +95,6 @@
       "tags": [],
       "implicitDependencies": ["plopdown-embed"]
     },
-    "storybook": {
-      "tags": []
-    },
     "permissions": {
       "tags": []
     },

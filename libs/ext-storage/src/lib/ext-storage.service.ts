@@ -54,7 +54,10 @@ export class ExtStorageService {
     return from(this.storage[area].get(keys));
   }
 
-  public set(area: ExtStorageAreaName, keys: object): Observable<void> {
+  public set(
+    area: ExtStorageAreaName,
+    keys: Record<string, unknown>
+  ): Observable<void> {
     return from(this.storage[area].set(keys));
   }
 

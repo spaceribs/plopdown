@@ -1,5 +1,5 @@
 import { PostModel } from './post.model';
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, SecurityContext } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
@@ -8,7 +8,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
   public routeData: PostModel;
   public routeContent: SafeHtml;
 
@@ -22,6 +22,4 @@ export class PostComponent implements OnInit {
       this.routeContent = sanitizer.bypassSecurityTrustHtml(sanitizedContent);
     }
   }
-
-  ngOnInit(): void {}
 }

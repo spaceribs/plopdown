@@ -32,7 +32,6 @@ import {
   shareReplay,
   switchMap,
 } from 'rxjs/operators';
-import { TrackService } from '@plopdown/tracks';
 
 @Component({
   selector: 'plopdown-audio',
@@ -40,7 +39,8 @@ import { TrackService } from '@plopdown/tracks';
   styleUrls: ['./audio.component.scss'],
   providers: [AudioEditsService, EditSkipService],
 })
-export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
+export class AudioComponent
+  extends PlopdownBaseComponent<PlopdownAudio>
   implements AfterViewInit, OnDestroy, OnChanges {
   public color = '#ffc09f';
   public audioMuted = false;
@@ -48,9 +48,9 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
   public mdiVolumeOff = mdiVolumeOff;
   public mdiAlert = mdiAlert;
 
-  public progressStyle$: Observable<object>;
+  public progressStyle$: Observable<Partial<CSSStyleDeclaration>>;
   public timeUpdate$: Observable<[number, number]>;
-  public audioUrl$: Observable<SafeUrl | undefined>;
+  public audioUrl: SafeUrl | undefined;
   public skipOffset$: Observable<number>;
 
   private videoNotPlaying$: Observable<null>;
@@ -80,8 +80,7 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
     private sanitizer: DomSanitizer,
     private audioEdits: AudioEditsService,
     private editSkip: EditSkipService,
-    private errorHandler: ErrorHandler,
-    private trackService: TrackService
+    private errorHandler: ErrorHandler
   ) {
     super();
     this.skipOffset$ = this.editSkip.getOffset().pipe(shareReplay(1));
@@ -264,16 +263,12 @@ export class AudioComponent extends PlopdownBaseComponent<PlopdownAudio>
         this.audioEdits.setEdits([]);
       }
 
-      this.audioUrl$ = combineLatest([
-        this.trackService.getTrackFiles(),
-        of(this.data.url),
-      ]).pipe(
-        map(([files, name]) => {
-          const blobUrl = files.get(name);
-          if (blobUrl != null) {
-            return this.sanitizer.bypassSecurityTrustUrl(blobUrl);
-          }
-        })
+      if (this.files == null) {
+        return;
+      }
+
+      this.audioUrl = this.sanitizer.bypassSecurityTrustUrl(
+        this.files[this.data.url]
       );
     }
   }

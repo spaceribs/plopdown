@@ -14,8 +14,6 @@ export class FileManagerComponent {
   @Output() save: EventEmitter<FullAttachments> = new EventEmitter();
   @Input() attachments?: FullAttachments;
 
-  constructor() {}
-
   onCancel() {
     this.cancel.emit();
   }
