@@ -46,7 +46,7 @@ export class PermissionsComponent implements OnDestroy {
   public mdiTestTube = mdiTestTube;
 
   public editingPermission: Permission | SavedPermission | null = null;
-  public showEditor: boolean;
+  public showEditor = false;
   private subs: Subscription = new Subscription();
   public testPattern$: Observable<string>;
 
@@ -71,6 +71,8 @@ export class PermissionsComponent implements OnDestroy {
       })
     );
 
+    this.loadingPermissions$ = permsService.getLoading();
+
     this.testPattern$ = http
       .get('/background/assets/test_pattern.vtt', { responseType: 'text' })
       .pipe(
@@ -94,8 +96,14 @@ export class PermissionsComponent implements OnDestroy {
     this.showEditor = true;
   }
 
+  private isSavedPermission(
+    permission: Permission | SavedPermission
+  ): permission is SavedPermission {
+    return '_id' in permission;
+  }
+
   public addOrUpdatePermission(permission: Permission | SavedPermission) {
-    if (permission['_id'] != null) {
+    if (this.isSavedPermission(permission)) {
       const updateSub = this.permsService
         .updatePermission(permission as SavedPermission)
         .subscribe({

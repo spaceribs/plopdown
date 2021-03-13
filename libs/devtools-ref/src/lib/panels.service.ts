@@ -35,11 +35,11 @@ export class PanelsService {
             observe.next(window);
           }
 
-          panel.onShown.addListener(callback);
+          panel.onShown.addListener(callback as any);
 
           return () => {
-            if (panel.onShown.hasListener(callback)) {
-              panel.onShown.removeListener(callback);
+            if (panel.onShown.hasListener(callback as any)) {
+              panel.onShown.removeListener(callback as any);
             }
           };
         });

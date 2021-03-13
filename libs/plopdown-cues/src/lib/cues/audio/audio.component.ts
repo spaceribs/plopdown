@@ -73,8 +73,8 @@ export class AudioComponent
     }
   }
 
-  @HostBinding('style.top.%') public top: number;
-  @HostBinding('style.left.%') public left: number;
+  @HostBinding('style.top.%') public top = 0;
+  @HostBinding('style.left.%') public left = 0;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -83,34 +83,8 @@ export class AudioComponent
     private errorHandler: ErrorHandler
   ) {
     super();
+
     this.skipOffset$ = this.editSkip.getOffset().pipe(shareReplay(1));
-  }
-
-  ngOnChanges(): void {
-    this.bindData();
-  }
-
-  ngAfterViewInit(): void {
-    this.bindData();
-
-    this.videoElem.pause();
-
-    this.videoNotPlaying$ = merge(
-      fromEvent(this.videoElem, 'suspend'),
-      fromEvent(this.videoElem, 'stop'),
-      fromEvent(this.videoElem, 'ended'),
-      fromEvent(this.videoElem, 'stalled'),
-      fromEvent(this.videoElem, 'pause')
-    ).pipe(mapTo(null));
-
-    const isPlaying$ = of(this.videoElem.paused).pipe(
-      filter((paused) => !paused)
-    );
-
-    this.videoPlaying$ = merge(
-      isPlaying$,
-      fromEvent(this.videoElem, 'playing')
-    ).pipe(mapTo(null));
 
     this.audioTimeUpdate$ = this.audioElem$.pipe(
       switchMap((elem) => {
@@ -133,14 +107,6 @@ export class AudioComponent
       })
     );
 
-    const audioElemSub = this.audioElem$.subscribe({
-      error: (err) => this.errorHandler.handleError(err),
-      next: (elem) => {
-        this.audioEdits.setAudioElem(elem.nativeElement);
-      },
-    });
-    this.subs.add(audioElemSub);
-
     this.timeUpdate$ = merge(
       this.audioTimeUpdate$,
       fromEvent(this.videoElem, 'timeupdate')
@@ -151,7 +117,7 @@ export class AudioComponent
       map(([elem, skipOffset]) => {
         return [
           elem.nativeElement.currentTime - skipOffset,
-          this.videoElem.currentTime,
+          this.videoElem?.currentTime || 0,
         ];
       })
     );
@@ -164,6 +130,41 @@ export class AudioComponent
       distinctUntilChanged(),
       filter((offset) => offset > 150 || offset < -150)
     );
+
+    this.videoNotPlaying$ = merge(
+      fromEvent(this.videoElem, 'suspend'),
+      fromEvent(this.videoElem, 'stop'),
+      fromEvent(this.videoElem, 'ended'),
+      fromEvent(this.videoElem, 'stalled'),
+      fromEvent(this.videoElem, 'pause')
+    ).pipe(mapTo(null));
+
+    const isPlaying$ = of(this.videoElem.paused).pipe(
+      filter((paused) => !paused)
+    );
+
+    this.videoPlaying$ = merge(
+      isPlaying$,
+      fromEvent(this.videoElem, 'playing')
+    ).pipe(mapTo(null));
+  }
+
+  ngOnChanges(): void {
+    this.bindData();
+  }
+
+  ngAfterViewInit(): void {
+    this.bindData();
+
+    this.videoElem.pause();
+
+    const audioElemSub = this.audioElem$.subscribe({
+      error: (err) => this.errorHandler.handleError(err),
+      next: (elem) => {
+        this.audioEdits.setAudioElem(elem.nativeElement);
+      },
+    });
+    this.subs.add(audioElemSub);
 
     const syncSub = combineLatest([
       this.syncOffset$,
@@ -237,7 +238,7 @@ export class AudioComponent
   }
 
   audioLoaded() {
-    this.videoElem.play();
+    this.videoElem?.play();
   }
 
   playAudio() {
@@ -267,9 +268,13 @@ export class AudioComponent
         return;
       }
 
-      this.audioUrl = this.sanitizer.bypassSecurityTrustUrl(
-        this.files[this.data.url]
-      );
+      const path = this.files.get(this.data.url);
+
+      if (path == null) {
+        return;
+      }
+
+      this.audioUrl = this.sanitizer.bypassSecurityTrustUrl(path);
     }
   }
 }

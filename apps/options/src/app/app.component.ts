@@ -1,7 +1,5 @@
-import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouteData } from './route-data.model';
 
 @Component({
   selector: 'plopdown-root',
@@ -12,7 +10,6 @@ export class AppComponent {
   title = 'options';
   showMenu = false;
   currentDate = new Date();
-  routeData$: Observable<RouteData>;
 
   constructor(private router: Router) {}
 

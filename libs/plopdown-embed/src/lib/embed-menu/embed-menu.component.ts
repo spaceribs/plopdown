@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 
 import { mdiClose, mdiTooltipEdit, mdiTooltipPlus } from '@mdi/js';
-import { SafeUrl } from '@angular/platform-browser';
 import {
   trigger,
   transition,
@@ -19,7 +18,7 @@ import {
   style,
   animate,
 } from '@angular/animations';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { TracksModalComponent } from './tracks-modal/tracks-modal.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Overlay } from '@angular/cdk/overlay';
@@ -71,14 +70,12 @@ export class EmbedMenuComponent implements OnDestroy {
   public mdiTooltipEdit = mdiTooltipEdit;
   public mdiTooltipPlus = mdiTooltipPlus;
   public overlayRef = this.overlay.create();
-
-  public plopdownLogo$: Observable<SafeUrl>;
   private toggleEditMode$: Subject<void> = new Subject();
 
   public slideoutShown = false;
 
-  @Input() tracks: Track[];
-  @Input() track: Track | null;
+  @Input() tracks: Track[] = [] as Track[];
+  @Input() track: Track | null = null;
   @Output() fullscreen: EventEmitter<void> = new EventEmitter();
   @Output() trackChange: EventEmitter<Track> = new EventEmitter();
   @Output() remove: EventEmitter<void> = new EventEmitter();

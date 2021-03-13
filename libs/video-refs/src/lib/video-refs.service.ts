@@ -9,6 +9,7 @@ import {
   switchMap,
   first,
   mapTo,
+  catchError,
 } from 'rxjs/operators';
 import { VideoRefsModule } from './video-refs.module';
 
@@ -80,6 +81,11 @@ export class VideoRefsService implements OnDestroy {
       switchMap((db) => {
         return VideoRefsService.createObservableChanges(db);
       })
+    );
+
+    this.error$ = changes$.pipe(
+      mapTo(null),
+      catchError((err: any) => of(err))
     );
 
     const loadVideoRefs$ = merge(

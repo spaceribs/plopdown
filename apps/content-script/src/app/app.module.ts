@@ -57,10 +57,9 @@ import { ContentScriptVideoRefsService } from './content-script-video-refs.servi
   ],
 })
 export class AppModule implements DoBootstrap {
-  private appElement: HTMLElement;
+  private appElement: HTMLElement = document.createElement('plopdown-cs');
 
   ngDoBootstrap(appRef: ApplicationRef): void {
-    this.appElement = document.createElement('plopdown-cs');
     document.body.appendChild(this.appElement);
     appRef.bootstrap(AppComponent);
   }

@@ -3,7 +3,6 @@ import { LoggerService } from '@plopdown/logger';
 import {
   BrowserActionPubService,
   BackgroundSubService,
-  BackgroundCheckAlive,
   BackgroundStatus,
 } from '@plopdown/messages';
 import { TracksService } from '@plopdown/tracks';
@@ -74,7 +73,6 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private subs: Subscription = new Subscription();
 
-  public checkedAlive$: Observable<BackgroundCheckAlive>;
   public bgStatus$: Observable<BackgroundStatus>;
 
   constructor(

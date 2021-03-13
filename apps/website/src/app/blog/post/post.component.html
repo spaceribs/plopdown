@@ -10,7 +10,7 @@
       }}</time>
     </p>
     <hr />
-    <div [innerHTML]="routeContent"></div>
+    <div *ngIf="routeContent" [innerHTML]="routeContent"></div>
   </section>
 </article>
 <footer class="footer">

@@ -9,7 +9,9 @@ if (environment.production) {
 }
 
 const CONTENT_SCRIPT_NAME = `${browser.runtime.id}:content-script`;
-const oldModule = document[CONTENT_SCRIPT_NAME] as NgModuleRef<AppModule>;
+const oldModule = (document as any)[
+  CONTENT_SCRIPT_NAME
+] as NgModuleRef<AppModule>;
 
 if (oldModule != null) {
   console.log('Replacing Previous content-script');
@@ -19,6 +21,6 @@ if (oldModule != null) {
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .then((module) => {
-    document[CONTENT_SCRIPT_NAME] = module;
+    (document as any)[CONTENT_SCRIPT_NAME] = module;
   })
   .catch((err) => console.error(err));

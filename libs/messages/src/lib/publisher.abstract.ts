@@ -4,7 +4,7 @@ import { Subject, Subscription, forkJoin } from 'rxjs';
 import { MessagesService } from './messages.service';
 import { LoggerService } from '@plopdown/logger';
 import { Source } from './messages.model';
-import { map, switchMap, tap, mapTo } from 'rxjs/operators';
+import { map, tap, mapTo, mergeMap } from 'rxjs/operators';
 
 // TODO: Add Angular decorator.
 @Injectable()
@@ -25,7 +25,7 @@ export abstract class PortPublisher<C extends Record<string, unknown>>
         map((command) => {
           return { source, ...command };
         }),
-        switchMap((message) => {
+        mergeMap((message) => {
           if (tabs) {
             return forkJoin([
               messages.sendMessage(message),

@@ -38,7 +38,7 @@ import { PlopdownShape } from './shape.model';
 export class ShapeComponent extends PlopdownBaseComponent<PlopdownShape> {
   public color = '#79addc';
 
-  @HostBinding('@infoFade') animate;
+  @HostBinding('@infoFade') animate = true;
 
   textPreview(data = this.data): string {
     return `${data?.title.text}`;

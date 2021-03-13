@@ -1,3 +1,4 @@
+import { LoggerConfig } from './../logger.model';
 import { Injectable, Inject, isDevMode } from '@angular/core';
 import { LoggerModule } from '../logger.module';
 import { LoggerConfigService } from '../logger.config';
@@ -11,7 +12,7 @@ export class LogConsoleService implements LogProvider {
   private css: string;
   private isDevMode: boolean;
 
-  constructor(@Inject(LoggerConfigService) config) {
+  constructor(@Inject(LoggerConfigService) config: LoggerConfig) {
     this.isDevMode = isDevMode();
     this.css = `color: ${config.color}; font-weight: bold;`;
     this.appName = `%c[${config.appName}]`;

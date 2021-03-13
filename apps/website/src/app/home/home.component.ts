@@ -37,8 +37,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   public subs: Subscription = new Subscription();
   public currentDate: Date;
 
-  @ViewChild('exampleVideo') exampleVideo: ElementRef<HTMLVideoElement>;
-  public plyr: Plyr;
+  @ViewChild('exampleVideo')
+  exampleVideo: ElementRef<HTMLVideoElement> | null = null;
+
+  public plyr: Plyr | null = null;
 
   private tracks$: Observable<Track[]>;
   private track$: Subject<Track | null> = new ReplaySubject(1);
@@ -90,7 +92,9 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         this.appRef.attachView(componentRef.hostView);
         componentRef.instance.tracks = tracks;
         componentRef.instance.track = tracks[0];
-        componentRef.instance.videoElem = this.exampleVideo.nativeElement;
+        if (this.exampleVideo != null) {
+          componentRef.instance.videoElem = this.exampleVideo.nativeElement;
+        }
         componentRef.changeDetectorRef.detectChanges();
 
         return componentRef;
@@ -119,7 +123,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       .subscribe({
         next: ([track, component]) => {
           component.instance.track = track;
-          this.track$.next(track);
         },
       });
     this.subs.add(setTrackSub);
@@ -170,6 +173,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    if (this.exampleVideo == null) {
+      return;
+    }
+
     this.plyr = this.plyrService.create(this.exampleVideo.nativeElement);
     this.initTrack();
   }

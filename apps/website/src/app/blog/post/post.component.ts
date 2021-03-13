@@ -10,7 +10,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 })
 export class PostComponent {
   public routeData: PostModel;
-  public routeContent: SafeHtml;
+  public routeContent: SafeHtml | null = null;
 
   constructor(route: ActivatedRoute, sanitizer: DomSanitizer) {
     this.routeData = route.snapshot.data as PostModel;

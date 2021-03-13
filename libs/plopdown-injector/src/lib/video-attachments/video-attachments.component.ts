@@ -10,5 +10,5 @@ import { Component, Input } from '@angular/core';
   `,
 })
 export class VideoAttachmentsComponent {
-  @Input() public videoElems: HTMLVideoElement[] | null;
+  @Input() public videoElems: HTMLVideoElement[] | null = null;
 }

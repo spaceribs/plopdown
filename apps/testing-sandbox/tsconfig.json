@@ -4,7 +4,6 @@
     "types": ["node", "jest"]
   },
   "files": [],
-  "include": [],
   "references": [
     {
       "path": "./tsconfig.app.json"

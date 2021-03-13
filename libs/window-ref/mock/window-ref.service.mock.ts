@@ -10,4 +10,5 @@ export class MockWindowRefService implements Partial<WindowRefService> {
   getPopStateChange = jest.fn().mockReturnValue(EMPTY);
   getHashValueFound = jest.fn().mockReturnValue(EMPTY);
   getDocumentMutation = jest.fn().mockReturnValue(EMPTY);
+  getLoaded = jest.fn().mockReturnValue(EMPTY);
 }

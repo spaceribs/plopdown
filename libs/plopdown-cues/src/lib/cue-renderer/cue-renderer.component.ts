@@ -1,6 +1,6 @@
 import { LoggerService } from '@plopdown/logger';
 import { map } from 'rxjs/operators';
-import { Observable, Subject, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import {
   Component,
   ChangeDetectionStrategy,
@@ -33,7 +33,7 @@ type PlopdownComponentFactory = ComponentFactory<
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CueRendererComponent implements AfterViewInit, OnDestroy {
-  private cues$: Subject<Cue[]> = new BehaviorSubject([]);
+  private cues$: BehaviorSubject<Cue[]> = new BehaviorSubject([] as Cue[]);
   private cueComponents$: Observable<[PlopdownComponentFactory | null, Cue][]>;
 
   private subs: Subscription = new Subscription();
@@ -41,7 +41,7 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   @HostBinding('attr.aria-live') public ariaLive = 'assertive';
 
   @ViewChild('cueOutlet', { read: ViewContainerRef })
-  public cueOutlet: ViewContainerRef;
+  public cueOutlet?: ViewContainerRef;
 
   public cueMap = new Map<
     Cue['id'],
@@ -56,7 +56,7 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   }
 
   @Input() files: Map<string, string> | null = null;
-  @Input() videoElem: HTMLVideoElement;
+  @Input() videoElem: HTMLVideoElement = document.createElement('video');
 
   constructor(
     componentFactoryResolver: ComponentFactoryResolver,
@@ -100,9 +100,13 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
             return;
           }
 
-          const componentRef = this.cueOutlet.createComponent<
+          const componentRef = this.cueOutlet?.createComponent<
             PlopdownBaseComponent<PlopdownTemplate>
           >(componentFactory);
+
+          if (componentRef == null) {
+            return;
+          }
 
           componentRef.instance.startTime = cue.startTime;
           componentRef.instance.endTime = cue.endTime;

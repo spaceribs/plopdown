@@ -34,9 +34,7 @@ export class LogViewerComponent implements OnInit, OnDestroy {
   constructor(
     private logStorage: LogStorageService,
     private santizer: DomSanitizer
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.logs$ = this.loadLogs$.pipe(
       switchMap(() => {
         return this.logStorage.getLogs();
@@ -57,7 +55,9 @@ export class LogViewerComponent implements OnInit, OnDestroy {
       this.loadLogs$.pipe(mapTo(true)),
       this.logs$.pipe(mapTo(false))
     );
+  }
 
+  ngOnInit(): void {
     this.refreshLogs();
   }
 

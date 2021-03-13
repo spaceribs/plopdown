@@ -41,11 +41,11 @@ export class WebNavigationService {
         observer.next(details);
       }
 
-      this.webNavigation.onCompleted.addListener(listener);
+      this.webNavigation.onCompleted.addListener(listener as any);
 
       return () => {
-        if (this.webNavigation.onCompleted.hasListener(listener)) {
-          this.webNavigation.onCompleted.removeListener(listener);
+        if (this.webNavigation.onCompleted.hasListener(listener as any)) {
+          this.webNavigation.onCompleted.removeListener(listener as any);
         }
       };
     }).pipe(share());

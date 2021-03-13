@@ -3,12 +3,12 @@ import { Cue } from './plopdown-cue.model';
 
 @Injectable()
 export abstract class PlopdownBaseComponent<T extends Cue['data']> {
-  @Input() public startTime: Cue['startTime'];
-  @Input() public endTime: Cue['endTime'];
+  @Input() public startTime: Cue['startTime'] = 0;
+  @Input() public endTime: Cue['endTime'] = 0;
   @Input() public id?: Cue['id'];
   @Input() public data?: T;
-  @Input() public videoElem: HTMLVideoElement;
-  @Input() public files: Map<string, string> | null;
+  @Input() public videoElem: HTMLVideoElement = document.createElement('video');
+  @Input() public files: Map<string, string> | null = null;
 
   @HostBinding('attr.aria-atomic') public ariaAtomic = true;
 

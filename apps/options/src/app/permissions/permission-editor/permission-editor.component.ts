@@ -24,7 +24,7 @@ import { Permission } from '@plopdown/permissions';
   styleUrls: ['./permission-editor.component.scss'],
 })
 export class PermissionEditorComponent implements OnDestroy {
-  public previousPerms: Permission;
+  public previousPerms: Permission | null = null;
   public permissionForm: FormGroup;
 
   private subs: Subscription = new Subscription();

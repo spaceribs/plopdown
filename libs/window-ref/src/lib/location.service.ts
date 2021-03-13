@@ -2,7 +2,7 @@ import { WindowRefService } from './window-ref.service';
 import { Injectable } from '@angular/core';
 import { WindowRefModule } from './window-ref.module';
 import { Observable } from 'rxjs';
-import { map, mapTo, shareReplay, startWith, tap } from 'rxjs/operators';
+import { map, mapTo, shareReplay, startWith } from 'rxjs/operators';
 
 @Injectable({
   providedIn: WindowRefModule,
@@ -29,7 +29,6 @@ export class LocationService {
   public getLocation(): Observable<Location> {
     return this.popStateChange$.pipe(
       mapTo(this.location),
-      tap((loc) => console.log('stateChange', loc)),
       startWith(this.location),
       shareReplay(1)
     );

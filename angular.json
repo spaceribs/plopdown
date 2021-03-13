@@ -53,7 +53,11 @@
             ],
             "styles": [],
             "scripts": [],
-            "vendorChunk": false
+            "vendorChunk": false,
+            "allowedCommonJsDependencies": [
+              "tld-extract",
+              "immediate"
+            ]
           },
           "configurations": {
             "production": {
@@ -255,7 +259,11 @@
             "styles": [
               "apps/options/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "lz-string",
+              "immediate"
+            ]
           },
           "configurations": {
             "production": {
@@ -361,7 +369,11 @@
             ],
             "scripts": [],
             "vendorChunk": false,
-            "extractCss": false
+            "extractCss": false,
+            "allowedCommonJsDependencies": [
+              "lz-string",
+              "immediate"
+            ]
           },
           "configurations": {
             "production": {
@@ -927,7 +939,11 @@
             "styles": [
               "apps/website/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "lz-string",
+              "immediate"
+            ]
           },
           "configurations": {
             "production": {

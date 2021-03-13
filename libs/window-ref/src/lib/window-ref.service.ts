@@ -9,6 +9,7 @@ import { Observable, fromEvent } from 'rxjs';
 export class WindowRefService {
   private window: Window & typeof globalThis;
   private documentModification$: Observable<MutationRecord[]>;
+  private loaded$: Observable<Event>;
 
   constructor() {
     this.window = window;
@@ -27,6 +28,8 @@ export class WindowRefService {
         observer.disconnect();
       };
     }).pipe(debounceTime(500), shareReplay(1));
+
+    this.loaded$ = fromEvent(window, 'load').pipe(shareReplay(1));
   }
 
   public getURL() {
@@ -35,6 +38,10 @@ export class WindowRefService {
 
   public getDocument() {
     return this.window.document;
+  }
+
+  public getLoaded() {
+    return this.loaded$;
   }
 
   public getDocumentMutation() {

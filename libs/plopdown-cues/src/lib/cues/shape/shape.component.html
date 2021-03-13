@@ -11,7 +11,6 @@
 >
   <g
     *ngFor="let element of data.elements"
-    [ngSwitch]="element.element"
     [style.opacity]="element.opacity"
     [style.stroke]="element.stroke?.color"
     [style.strokeOpacity]="element.stroke?.opacity"
@@ -27,29 +26,29 @@
     [style.transformOrigin]="element.transformOrigin"
   >
     <ellipse
-      *ngSwitchCase="'ellipse'"
-      [attr.cx]="element['cx']"
-      [attr.cy]="element['cy']"
-      [attr.rx]="element['rx']"
-      [attr.ry]="element['ry']"
+      *ngIf="element.element === 'ellipse'"
+      [attr.cx]="element.cx"
+      [attr.cy]="element.cy"
+      [attr.rx]="element.rx"
+      [attr.ry]="element.ry"
     ></ellipse>
     <rect
-      *ngSwitchCase="'rect'"
-      [attr.x]="element['x']"
-      [attr.y]="element['y']"
-      [attr.width]="element['width']"
-      [attr.height]="element['height']"
-      [attr.rx]="element['rx']"
-      [attr.ry]="element['ry']"
+      *ngIf="element.element === 'rect'"
+      [attr.x]="element.x"
+      [attr.y]="element.y"
+      [attr.width]="element.width"
+      [attr.height]="element.height"
+      [attr.rx]="element.rx"
+      [attr.ry]="element.ry"
     ></rect>
-    <path *ngSwitchCase="'path'" [attr.d]="element['d']"></path>
+    <path *ngIf="element.element === 'path'" [attr.d]="element.d"></path>
     <polygon
-      *ngSwitchCase="'polygon'"
-      [attr.points]="element['points']"
+      *ngIf="element.element === 'polygon'"
+      [attr.points]="element.points"
     ></polygon>
     <polyline
-      *ngSwitchCase="'polyline'"
-      [attr.points]="element['points']"
+      *ngIf="element.element === 'polyline'"
+      [attr.points]="element.points"
     ></polyline>
   </g>
 </svg>

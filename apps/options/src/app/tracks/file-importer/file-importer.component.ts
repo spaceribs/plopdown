@@ -29,10 +29,10 @@ export class FileImporterComponent implements OnInit, OnDestroy {
 
   private subs: Subscription = new Subscription();
 
-  public track: PouchDB.Core.PostDocument<Track>;
+  public track: PouchDB.Core.PostDocument<Track> | null = null;
   public fileLoaded$: Observable<PlopdownFile>;
-  public loading: boolean;
-  public fileRefs: string[];
+  public loading = true;
+  public fileRefs: string[] = [] as string[];
 
   constructor(
     private fileService: PlopdownFileService,
@@ -82,7 +82,7 @@ export class FileImporterComponent implements OnInit, OnDestroy {
   onAddFile(fileName: string, event: Event) {
     const files = (event.target as HTMLInputElement).files;
 
-    if (files == null) {
+    if (files == null || this.track == null) {
       return;
     }
 
@@ -121,7 +121,9 @@ export class FileImporterComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    this.save.emit(this.track);
+    if (this.track != null) {
+      this.save.emit(this.track);
+    }
   }
 
   isValid() {
