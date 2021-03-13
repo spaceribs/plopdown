@@ -87,7 +87,6 @@ export class PlopdownEmbedComponent implements OnDestroy, OnInit {
     wrapper: Record<string, unknown>;
     stage: Record<string, unknown>;
   }>;
-  public editMode$: Observable<boolean>;
   private subs: Subscription = new Subscription();
 
   private mouseMove$: Observable<Event>;
@@ -109,7 +108,7 @@ export class PlopdownEmbedComponent implements OnDestroy, OnInit {
     this.videoElem$.next(videoElem);
   }
 
-  @Input() public tracks: Track[];
+  @Input() public tracks: Track[] = [] as Track[];
 
   public trackAndVideoElem$: Observable<[Track | null, HTMLVideoElement]>;
 
@@ -342,7 +341,7 @@ export class PlopdownEmbedComponent implements OnDestroy, OnInit {
 
       let data: null | Cue['data'] = null;
       try {
-        data = JSON.parse(raw_cue['text']);
+        data = JSON.parse((raw_cue as any).text);
       } catch (err) {
         this.logger.error('Could not parse Cue JSON', err);
       }

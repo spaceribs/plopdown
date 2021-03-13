@@ -6,7 +6,6 @@ import {
   shareReplay,
   startWith,
   switchMap,
-  tap,
 } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
@@ -25,7 +24,11 @@ export class VideoScanService {
   constructor(window: WindowRefService) {
     this.document = window.getDocument();
 
-    this.videoElems$ = merge(window.getDocumentMutation(), this.refresh$).pipe(
+    this.videoElems$ = merge(
+      window.getDocumentMutation(),
+      window.getLoaded(),
+      this.refresh$
+    ).pipe(
       map(() => {
         return this.document.querySelectorAll<HTMLVideoElement>(
           'video:not([plopdown-ignore])'
@@ -58,13 +61,7 @@ export class VideoScanService {
           ...videos.map((video) => {
             return fromEvent(video, 'onplay');
           })
-        ).pipe(
-          tap((change) => {
-            console.log(change);
-          }),
-          mapTo(videos),
-          startWith(videos)
-        );
+        ).pipe(mapTo(videos), startWith(videos));
       }),
       shareReplay(1)
     );

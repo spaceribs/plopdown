@@ -70,9 +70,9 @@ export class CueTimelineComponent {
   @Input() public set track(track: Track | null) {
     this.track$.next(track);
   }
-  @Input() public activeCues: Cue[] | null;
+  @Input() public activeCues: Cue[] | null = null;
   @Output() public goTo: EventEmitter<number> = new EventEmitter();
-  @HostBinding('@infoFade') animate;
+  @HostBinding('@infoFade') animate = true;
   @HostListener('click', ['$event']) preventBubbling(event: Event) {
     event.stopPropagation();
   }

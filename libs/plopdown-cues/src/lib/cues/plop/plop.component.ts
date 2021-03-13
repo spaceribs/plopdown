@@ -34,13 +34,14 @@ import { rubberBand, zoomOut } from 'ng-animate';
     ]),
   ],
 })
-export class PlopComponent extends PlopdownBaseComponent<PlopdownPlop>
+export class PlopComponent
+  extends PlopdownBaseComponent<PlopdownPlop>
   implements OnChanges, AfterViewInit {
   public color = '#b2e7c1';
-  @HostBinding('@plopIn') public animate: boolean;
-  @HostBinding('style.top.%') top: number;
-  @HostBinding('style.left.%') left: number;
-  @HostBinding('style.width.%') width: number;
+  @HostBinding('@plopIn') public animate = true;
+  @HostBinding('style.top.%') top = 0;
+  @HostBinding('style.left.%') left = 0;
+  @HostBinding('style.width.%') width = 0;
 
   @HostListener('click', ['$event'])
   preventBubbling(event: Event) {

@@ -8,7 +8,7 @@ import { Injectable, Inject, Injector } from '@angular/core';
   providedIn: LoggerModule,
 })
 export class LoggerService implements LogProvider {
-  private devMode: boolean;
+  private devMode = true;
   private providers: LogProvider[];
 
   constructor(

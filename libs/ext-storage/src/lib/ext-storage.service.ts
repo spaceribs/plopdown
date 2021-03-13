@@ -29,11 +29,14 @@ export class ExtStorageService {
         });
       }
 
-      this.storage.onChanged.addListener(listener);
+      this.storage.onChanged.addListener(listener as any);
 
       return () => {
-        if (this.storage.onChanged.hasListener(listener)) {
-          this.storage.onChanged.removeListener(listener);
+        if (
+          listener != null &&
+          this.storage.onChanged.hasListener(listener as any)
+        ) {
+          this.storage.onChanged.removeListener(listener as any);
         }
       };
     }).pipe(share());

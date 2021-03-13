@@ -57,7 +57,14 @@
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "strictInjectionParameters": true,
+    "strictNullChecks": true,
+    "strictTemplates": true,
+    "noImplicitAny": true
   },
+  "include": ["types/**/*.d.ts"],
   "exclude": ["node_modules", "tmp"]
 }

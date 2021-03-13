@@ -37,7 +37,9 @@ export class RuntimeService {
       };
     }).pipe(share());
 
-    this.onMessage$ = new Observable((observer) => {
+    this.onMessage$ = new Observable<
+      [any, browser.runtime.MessageSender, () => void]
+    >((observer) => {
       function listener(
         msg: any,
         sender: browser.runtime.MessageSender,
@@ -48,11 +50,11 @@ export class RuntimeService {
         });
       }
 
-      this.runtime.onMessage.addListener(listener);
+      this.runtime.onMessage.addListener(listener as any);
 
       return () => {
-        if (this.runtime.onMessage.hasListener(listener)) {
-          this.runtime.onMessage.removeListener(listener);
+        if (this.runtime.onMessage.hasListener(listener as any)) {
+          this.runtime.onMessage.removeListener(listener as any);
         }
       };
     }).pipe(

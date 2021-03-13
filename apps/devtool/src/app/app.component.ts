@@ -14,12 +14,12 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private panels: PanelsService,
     private errorHandler: ErrorHandler
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.panelHidden$ = this.panels.getHidden();
     this.panelShown$ = this.panels.getShown();
+  }
 
+  ngOnInit(): void {
     const panelHiddenSub = this.panelHidden$.subscribe({
       next: () => {
         console.log('Panel Hidden');

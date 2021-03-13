@@ -15,7 +15,7 @@ export class MessagesService {
     source: Source
   ): Observable<C> {
     return this.runtime.getOnMessage().pipe(
-      filter<C>((msg) => {
+      filter((msg): msg is C => {
         return msg['source'] != null && msg['source'] === source;
       })
     );

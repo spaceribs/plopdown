@@ -24,8 +24,8 @@ export class FileManagerComponent {
     }
   }
 
-  formatBytes(data: PouchDB.Core.FullAttachment['data'], decimals = 2) {
-    if (data['size'] == null || data['size'] === 0) return '0 Bytes';
+  formatBytes(data: any | Blob, decimals = 2) {
+    if (data.size == null || data.size === 0) return '0 Bytes';
 
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
@@ -34,7 +34,7 @@ export class FileManagerComponent {
     const i = Math.floor(Math.log(data['size']) / Math.log(k));
 
     return (
-      parseFloat((data['size'] / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+      parseFloat((data.size / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
     );
   }
 

@@ -17,9 +17,9 @@ export class TracksModalComponent implements OnDestroy {
   private subs = new Subscription();
 
   public save = false;
-  @Input() public track: Track | null;
+  @Input() public track: Track | null = null;
 
-  @Input() public tracks: Track[];
+  @Input() public tracks: Track[] = [] as Track[];
 
   @Output() public saveVideoRef: EventEmitter<Track> = new EventEmitter();
   @Output() public trackChange: EventEmitter<Track | null> = new EventEmitter();

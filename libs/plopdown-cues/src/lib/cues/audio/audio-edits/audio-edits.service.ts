@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   Observable,
   EMPTY,
-  Subject,
   ReplaySubject,
   fromEvent,
   merge,
@@ -13,8 +12,10 @@ import { switchMap, map, startWith, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class AudioEditsService {
-  private audioElem$: Subject<HTMLAudioElement> = new ReplaySubject(1);
-  private edits$: Subject<AudioEdit[]> = new BehaviorSubject([]);
+  private audioElem$: ReplaySubject<HTMLAudioElement> = new ReplaySubject(1);
+  private edits$: BehaviorSubject<AudioEdit[]> = new BehaviorSubject(
+    [] as AudioEdit[]
+  );
 
   public setAudioElem(audioElem: HTMLAudioElement) {
     this.audioElem$.next(audioElem);
@@ -53,8 +54,8 @@ export class AudioEditsService {
 
         edits.forEach((edit) => {
           const cue = new VTTCue(
-            edit['startTime'],
-            edit['endTime'] || edit['startTime'],
+            edit.startTime,
+            edit.endTime,
             JSON.stringify(edit)
           );
           track.addCue(cue);

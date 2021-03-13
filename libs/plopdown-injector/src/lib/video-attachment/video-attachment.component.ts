@@ -50,7 +50,9 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
   private embedRef$: Observable<ComponentRef<PlopdownEmbedComponent>>;
   private embedRefDom$: Observable<HTMLElement>;
-  private track$: Subject<Track | null> = new BehaviorSubject(null);
+  private track$: BehaviorSubject<Track | null> = new BehaviorSubject<Track | null>(
+    null
+  );
   private tracks$: Observable<Track[]>;
   private hashVideoRef$: Observable<VideoRef>;
   private hashTrack$: Observable<Track>;
@@ -262,7 +264,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
 
     const match$ = combineLatest([this.videoRefs$, this.videoElemLoaded$]).pipe(
       map(([refs, elem]) => this.elemMatches(refs, elem)),
-      filter<VideoRef>((ref) => ref != null),
+      filter((ref): ref is VideoRef => ref != null),
       tap((ref) => {
         this.logger.info('VideoRef Matched Element', ref);
       })
@@ -275,7 +277,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
             return track._id === ref.track?._id;
           });
         }),
-        filter<Track>((track) => track != null)
+        filter((track): track is Track => track != null)
       )
       .subscribe({
         next: (track) => {
@@ -299,7 +301,9 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
           [null, null] as Array<ComponentRef<PlopdownEmbedComponent> | null>
         ),
         map((acc) => acc[0]),
-        filter<ComponentRef<PlopdownEmbedComponent>>((acc) => acc != null)
+        filter(
+          (acc): acc is ComponentRef<PlopdownEmbedComponent> => acc != null
+        )
       )
       .subscribe({
         next: (prevEmbed) => {

@@ -14,12 +14,14 @@ export interface SkipAudio {
 export interface StillAudio {
   type: AudioEditType.Still;
   startTime: number;
+  endTime: number;
   duration: number;
 }
 
 export interface PauseAudio {
   type: AudioEditType.Pause;
   startTime: number;
+  endTime: number;
   duration: number;
 }
 

@@ -91,7 +91,7 @@ export class PlopdownFileService {
   }
 
   private getHeaders(firstBlock: string): Record<string, unknown> {
-    const headerMatcher = /^([\w-]+):(.*)$/gm;
+    const headerMatcher = /^([\w-_]+):(.*)$/gm;
     const headerMatches = this.getAllMatches(firstBlock, headerMatcher);
 
     return headerMatches.reduce((memo, match) => {
@@ -102,15 +102,18 @@ export class PlopdownFileService {
     }, {} as any);
   }
 
-  private getAllMatches(str: string, regex: RegExp) {
-    const matches: string[] = [];
-    let m;
+  private getAllMatches(str: string, regex: RegExp): RegExpExecArray[] {
+    const matches: RegExpExecArray[] = [];
     // eslint-disable-next-line no-constant-condition
     while (1) {
-      m = regex.exec(str);
-      if (m) matches.push(m);
-      else break;
+      const m = regex.exec(str);
+      if (m != null) {
+        matches.push(m);
+      } else {
+        break;
+      }
     }
+
     return matches;
   }
 
@@ -153,10 +156,10 @@ export class PlopdownFileService {
 
       // If the block doesn't being with the start time
       // the block should start with an ID.
-      let id;
+      let id: string | null = null;
       if (block.indexOf(start) > 0) {
         const idMatch = block.match(/^(.*)/);
-        if (idMatch) {
+        if (idMatch != null) {
           id = idMatch[1].trim();
         }
       }
@@ -165,7 +168,9 @@ export class PlopdownFileService {
       const text = block.split(end)[1];
       const data = JSON.parse(text);
 
-      memo.push({ startTime, endTime, data, id });
+      if (id != null) {
+        memo.push({ startTime, endTime, data, id });
+      }
 
       return memo;
     }, [] as Cue[]);

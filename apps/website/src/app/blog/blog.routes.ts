@@ -6,8 +6,8 @@ import { PostModel } from './post/post.model';
 
 export const posts: Routes = [];
 
-function importAll(r) {
-  r.keys().forEach((key) => {
+function importAll(r: any) {
+  r.keys().forEach((key: string) => {
     const postData: PostModel = r(key);
 
     const route: Route = {
@@ -21,7 +21,11 @@ function importAll(r) {
 }
 
 importAll(
-  require.context('frontmatter-markdown-loader!./post-content/', true, /\.md$/)
+  (require as any).context(
+    'frontmatter-markdown-loader!./post-content/',
+    true,
+    /\.md$/
+  )
 );
 
 export const routes: Routes = [

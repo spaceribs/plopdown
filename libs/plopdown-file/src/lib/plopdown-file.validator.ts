@@ -6,6 +6,6 @@ export class PlopdownFileV1Validator {
   }
 
   public getLastErrors() {
-    return validateSchema['errors'];
+    return (validateSchema as any).errors;
   }
 }

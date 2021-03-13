@@ -67,16 +67,13 @@ export class LogStorageService implements LogProvider, OnDestroy {
     this.appendLogs('WARN', logData);
   }
 
-  private stringify(messages: Array<any>): string[] {
+  private stringify(messages: Array<unknown>): string[] {
     return messages.map((message) => {
       if (message instanceof Error) {
-        const error = Object.getOwnPropertyNames(message).reduce(
-          (memo, errorKey) => {
-            memo[errorKey] = message[errorKey];
-            return memo;
-          },
-          {}
-        );
+        const error = Object.keys(message).reduce((memo, errorKey) => {
+          memo[errorKey] = (message as any)[errorKey];
+          return memo;
+        }, {} as Record<string, unknown>);
 
         return JSON.stringify(error);
       }

@@ -44,6 +44,7 @@ export class TracksComponent implements OnDestroy {
     private windowRef: WindowRefService
   ) {
     this.tracks$ = tracksService.getTracks();
+    this.loadingTracks$ = tracksService.getLoading();
   }
 
   ngOnDestroy(): void {
