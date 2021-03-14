@@ -1,6 +1,6 @@
 {
   "name": "plopdown",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "AGPL3",
   "scripts": {
     "ng": "nx",
