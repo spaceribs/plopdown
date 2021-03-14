@@ -869,39 +869,6 @@
           "outputs": [
             "coverage/libs/plopdown-embed"
           ]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/angular",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/plopdown-embed/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/angular",
-            "outputPath": "docs/storybook/plopdown-embed",
-            "config": {
-              "configFolder": "libs/plopdown-embed/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": [
-            "{options.outputPath}"
-          ]
         }
       },
       "schematics": {
