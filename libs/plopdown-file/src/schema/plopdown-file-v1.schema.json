@@ -1,54 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "additionalProperties": false,
   "definitions": {
-    "AdjustVolumeAudio": {
-      "additionalProperties": false,
-      "properties": {
-        "audio": {
-          "type": "number"
-        },
-        "endTime": {
-          "type": "number"
-        },
-        "startTime": {
-          "type": "number"
-        },
-        "type": {
-          "enum": [
-            "VOLUME"
-          ],
-          "type": "string"
-        },
-        "video": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "type",
-        "startTime",
-        "endTime",
-        "audio",
-        "video"
-      ],
-      "type": "object"
-    },
-    "AudioEdit": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/SkipAudio"
-        },
-        {
-          "$ref": "#/definitions/StillAudio"
-        },
-        {
-          "$ref": "#/definitions/PauseAudio"
-        },
-        {
-          "$ref": "#/definitions/AdjustVolumeAudio"
-        }
-      ]
-    },
     "Author": {
       "description": "An author to attribute composition to.",
       "maxLength": 128,
@@ -56,7 +8,7 @@
       "type": "string"
     },
     "Color": {
-      "description": "A hex, hsl, hsla or rgba color string:\n#FA9, #FFAA99, rgba(1, 1, 2, 0.5)",
+      "description": "A hex, hsl, hsla or rgba color string: #FA9, #FFAA99, rgba(1, 1, 2, 0.5)",
       "pattern": "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$",
       "type": "string"
     },
@@ -76,6 +28,8 @@
           "type": "number"
         },
         "style": {
+          "additionalProperties": {
+          },
           "type": "object"
         }
       },
@@ -111,7 +65,7 @@
       "type": "string"
     },
     "Emoji": {
-      "description": "A single emoji character, ligatures mean the max length\ncan be up to 3 characters.",
+      "description": "A single emoji character, ligatures mean the max length can be up to 3 characters.",
       "maxLength": 32,
       "minLength": 1,
       "type": "string"
@@ -127,29 +81,6 @@
       "minimum": 0,
       "type": "number"
     },
-    "PauseAudio": {
-      "additionalProperties": false,
-      "properties": {
-        "duration": {
-          "type": "number"
-        },
-        "startTime": {
-          "type": "number"
-        },
-        "type": {
-          "enum": [
-            "PAUSE"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "startTime",
-        "duration"
-      ],
-      "type": "object"
-    },
     "Percentage": {
       "description": "A bounded percentage relative to the container.",
       "maximum": 1000,
@@ -159,14 +90,11 @@
     "PlopdownAudio": {
       "additionalProperties": false,
       "properties": {
-        "edits": {
-          "items": {
-            "$ref": "#/definitions/AudioEdit"
-          },
-          "type": "array"
-        },
         "left": {
           "$ref": "#/definitions/Percentage"
+        },
+        "offset_time": {
+          "$ref": "#/definitions/Seconds"
         },
         "title": {
           "$ref": "#/definitions/Title"
@@ -175,9 +103,7 @@
           "$ref": "#/definitions/Percentage"
         },
         "type": {
-          "enum": [
-            "AUDIO"
-          ],
+          "const": "AUDIO",
           "type": "string"
         },
         "url": {
@@ -206,9 +132,7 @@
           "$ref": "#/definitions/Title"
         },
         "type": {
-          "enum": [
-            "INFO"
-          ],
+          "const": "INFO",
           "type": "string"
         },
         "url": {
@@ -285,9 +209,7 @@
           "$ref": "#/definitions/Percentage"
         },
         "type": {
-          "enum": [
-            "PLOP"
-          ],
+          "const": "PLOP",
           "type": "string"
         },
         "width": {
@@ -376,9 +298,7 @@
           "$ref": "#/definitions/Percentage"
         },
         "type": {
-          "enum": [
-            "SHAPE"
-          ],
+          "const": "SHAPE",
           "type": "string"
         },
         "viewBox": {
@@ -410,9 +330,7 @@
           "$ref": "#/definitions/ViewportCoordinate"
         },
         "element": {
-          "enum": [
-            "ellipse"
-          ],
+          "const": "ellipse",
           "type": "string"
         },
         "fill": {
@@ -503,9 +421,7 @@
           "$ref": "#/definitions/ViewportPath"
         },
         "element": {
-          "enum": [
-            "path"
-          ],
+          "const": "path",
           "type": "string"
         },
         "fill": {
@@ -584,9 +500,7 @@
       "additionalProperties": false,
       "properties": {
         "element": {
-          "enum": [
-            "polygon"
-          ],
+          "const": "polygon",
           "type": "string"
         },
         "fill": {
@@ -668,9 +582,7 @@
       "additionalProperties": false,
       "properties": {
         "element": {
-          "enum": [
-            "polyline"
-          ],
+          "const": "polyline",
           "type": "string"
         },
         "fill": {
@@ -752,9 +664,7 @@
       "additionalProperties": false,
       "properties": {
         "element": {
-          "enum": [
-            "rect"
-          ],
+          "const": "rect",
           "type": "string"
         },
         "fill": {
@@ -872,51 +782,11 @@
     "PouchDB.Core.RevisionId": {
       "type": "string"
     },
-    "SkipAudio": {
-      "additionalProperties": false,
-      "properties": {
-        "endTime": {
-          "type": "number"
-        },
-        "startTime": {
-          "type": "number"
-        },
-        "type": {
-          "enum": [
-            "SKIP"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "startTime",
-        "endTime"
-      ],
-      "type": "object"
-    },
-    "StillAudio": {
-      "additionalProperties": false,
-      "properties": {
-        "duration": {
-          "type": "number"
-        },
-        "startTime": {
-          "type": "number"
-        },
-        "type": {
-          "enum": [
-            "STILL"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "startTime",
-        "duration"
-      ],
-      "type": "object"
+    "Seconds": {
+      "description": "Number representing duration in seconds, precision allowed down to milliseconds.",
+      "minimum": 0,
+      "multipleOf": 0.001,
+      "type": "number"
     },
     "Title": {
       "description": "A short statement.",
@@ -979,8 +849,18 @@
       "type": "array"
     },
     "headers": {
-      "additionalProperties": false,
-      "description": "Unofficially, WebVTT supports simple key/value storage at the top\nof the file. We use that to allow creators to hint which video the\nplopdown should be overlayed to, as well as other authorship info.",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "not": {
+            }
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "description": "Unofficially, WebVTT supports simple key/value storage at the top of the file. We use that to allow creators to hint which video the plopdown should be overlayed to, as well as other authorship info.",
       "properties": {
         "_id": {
           "$ref": "#/definitions/PouchDB.Core.DocumentId"
@@ -1016,7 +896,7 @@
           "type": "string"
         },
         "language": {
-          "description": "Language of the track in \"en-US\" format\nSee: https://gist.github.com/ndbroadbent/588fefab8e0f1b459fcec8181b41b39c",
+          "description": "Language of the track in \"en-US\" format See: https://gist.github.com/ndbroadbent/588fefab8e0f1b459fcec8181b41b39c",
           "type": "string"
         },
         "license": {
@@ -1024,7 +904,7 @@
           "type": "string"
         },
         "thumbnail": {
-          "description": "The thumbnail image of the track, usually packaged alongside\nthe track or fetched remotely.",
+          "description": "The thumbnail image of the track, usually packaged alongside the track or fetched remotely.",
           "type": "string"
         },
         "title": {
@@ -1032,10 +912,8 @@
           "type": "string"
         },
         "type": {
+          "const": "plopdown_v2",
           "description": "Schema version number",
-          "enum": [
-            "plopdown_v2"
-          ],
           "type": "string"
         },
         "updated": {

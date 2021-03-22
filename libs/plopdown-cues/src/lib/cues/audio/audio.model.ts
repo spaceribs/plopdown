@@ -2,12 +2,12 @@ import {
   Percentage,
   URIReference,
   Title,
+  Seconds,
 } from '../../models/plopdown-primitives.model';
 import {
   PlopdownBaseTemplate,
   PlopdownTemplateType,
 } from '../../models/plopdown-base.model';
-import { AudioEdit } from './audio-edits/audio-edits.model';
 
 export interface PlopdownAudio extends PlopdownBaseTemplate {
   type: PlopdownTemplateType.Audio;
@@ -15,5 +15,5 @@ export interface PlopdownAudio extends PlopdownBaseTemplate {
   left: Percentage;
   title: Title;
   url: URIReference;
-  edits?: AudioEdit[];
+  offset_time?: Seconds;
 }

@@ -1,36 +1,42 @@
 <video
   plopdown-ignore
-  (loadstart)="audioLoaded()"
+  *ngIf="audioUrl"
   #audioElem
   [src]="audioUrl"
   hidden="true"
 ></video>
 
-<div class="audio-indicator">
-  <svg class="progress-ring" viewbox="0 0 120 120">
-    <circle
-      [ngStyle]="progressStyle$ | async"
-      stroke="white"
-      stroke-width="8%"
-      stroke-dasharray="8% 8%"
-      fill="transparent"
-      class="progress-ring__circle"
-      cx="50%"
-      cy="50%"
-      r="45%"
-    ></circle>
-  </svg>
-  <a title="Mute/Unmute Audio" href="#" (click)="toggleMute($event)">
-    <plopdown-icon
-      *ngIf="audioMuted; else unmuted"
-      [path]="mdiVolumeOff"
-    ></plopdown-icon>
-    <ng-template #unmuted>
-      <plopdown-icon [path]="mdiVolumeHigh"></plopdown-icon>
-    </ng-template>
-  </a>
-</div>
+<div
+  class="indicator-container"
+  [ngStyle]="{ 'top.%': data.top, 'left.%': data.left }"
+  *ngIf="data"
+>
+  <div class="audio-indicator">
+    <svg class="progress-ring" viewbox="0 0 120 120">
+      <circle
+        [ngStyle]="progressStyle$ | async"
+        stroke="white"
+        stroke-width="8%"
+        stroke-dasharray="8% 8%"
+        fill="transparent"
+        class="progress-ring__circle"
+        cx="50%"
+        cy="50%"
+        r="45%"
+      ></circle>
+    </svg>
+    <a title="Mute/Unmute Audio" href="#" (click)="toggleMute($event)">
+      <plopdown-icon
+        *ngIf="audioMuted; else unmuted"
+        [path]="mdiVolumeOff"
+      ></plopdown-icon>
+      <ng-template #unmuted>
+        <plopdown-icon [path]="mdiVolumeHigh"></plopdown-icon>
+      </ng-template>
+    </a>
+  </div>
 
-<div class="title-box" *ngIf="data">
-  <div class="title">{{ data.title }}</div>
+  <div class="title-box" *ngIf="data">
+    <div class="title">{{ data.title }}</div>
+  </div>
 </div>

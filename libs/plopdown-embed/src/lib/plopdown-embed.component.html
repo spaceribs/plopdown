@@ -11,6 +11,7 @@
       (remove)="removeStage()"
       (saveVideoRef)="saveVideoRef.emit($event)"
       (trackChange)="trackChange.emit($event)"
+      *ngIf="showControls$ | async"
     ></plopdown-embed-menu>
     <ng-container *ngIf="trackAndVideoElem$ | async as trackAndVideo">
       <plopdown-cue-renderer

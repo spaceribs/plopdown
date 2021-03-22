@@ -58,7 +58,8 @@ var validate = (function() {
                 if (vErrors === null) vErrors = refVal2.errors;
                 else vErrors = vErrors.concat(refVal2.errors);
                 errors = vErrors.length;
-              }
+              } else {}
+              if (errors === errs_1) {}
               var valid1 = errors === errs_1;
             }
             if (valid1) {
@@ -76,7 +77,7 @@ var validate = (function() {
                 return false;
               } else {
                 var errs_1 = errors;
-                if (typeof data.endTime !== "number") {
+                if ((typeof data.endTime !== "number")) {
                   validate.errors = [{
                     keyword: 'type',
                     dataPath: (dataPath || '') + '.endTime',
@@ -134,7 +135,7 @@ var validate = (function() {
                     return false;
                   } else {
                     var errs_1 = errors;
-                    if (typeof data.startTime !== "number") {
+                    if ((typeof data.startTime !== "number")) {
                       validate.errors = [{
                         keyword: 'type',
                         dataPath: (dataPath || '') + '.startTime',
@@ -168,11 +169,13 @@ var validate = (function() {
                       }
                       var valid1 = errors === errs_1;
                     }
+                    if (valid1) {}
                   }
                 }
               }
             }
           }
+          if (errs__0 == errors) {}
         }
       } else {
         validate.errors = [{
@@ -186,6 +189,7 @@ var validate = (function() {
         }];
         return false;
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
@@ -231,7 +235,8 @@ var validate = (function() {
         if (vErrors === null) vErrors = refVal3.errors;
         else vErrors = vErrors.concat(refVal3.errors);
         errors = vErrors.length;
-      }
+      } else {}
+      if (errors === errs_1) {}
       var valid1 = errors === errs_1;
       valid0 = valid0 || valid1;
       if (!valid0) {
@@ -240,7 +245,8 @@ var validate = (function() {
           if (vErrors === null) vErrors = refVal7.errors;
           else vErrors = vErrors.concat(refVal7.errors);
           errors = vErrors.length;
-        }
+        } else {}
+        if (errors === errs_1) {}
         var valid1 = errors === errs_1;
         valid0 = valid0 || valid1;
         if (!valid0) {
@@ -249,18 +255,21 @@ var validate = (function() {
             if (vErrors === null) vErrors = refVal12.errors;
             else vErrors = vErrors.concat(refVal12.errors);
             errors = vErrors.length;
-          }
+          } else {}
+          if (errors === errs_1) {}
           var valid1 = errors === errs_1;
           valid0 = valid0 || valid1;
           if (!valid0) {
             var errs_1 = errors;
-            if (!refVal19(data, (dataPath || ''), parentData, parentDataProperty, rootData)) {
-              if (vErrors === null) vErrors = refVal19.errors;
-              else vErrors = vErrors.concat(refVal19.errors);
+            if (!refVal15(data, (dataPath || ''), parentData, parentDataProperty, rootData)) {
+              if (vErrors === null) vErrors = refVal15.errors;
+              else vErrors = vErrors.concat(refVal15.errors);
               errors = vErrors.length;
-            }
+            } else {}
+            if (errors === errs_1) {}
             var valid1 = errors === errs_1;
             valid0 = valid0 || valid1;
+            if (!valid0) {}
           }
         }
       }
@@ -284,6 +293,7 @@ var validate = (function() {
           else vErrors = null;
         }
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
@@ -310,6 +320,7 @@ var validate = (function() {
       'use strict';
       var vErrors = null;
       var errors = 0;
+      if (rootData === undefined) rootData = data;
       if ((data && typeof data === "object" && !Array.isArray(data))) {
         if (true) {
           var errs__0 = errors;
@@ -378,7 +389,7 @@ var validate = (function() {
                           message: 'should NOT be shorter than 2 characters'
                         }];
                         return false;
-                      }
+                      } else {}
                     }
                   } else {
                     validate.errors = [{
@@ -392,10 +403,14 @@ var validate = (function() {
                     }];
                     return false;
                   }
+                  if (errors === errs_3) {}
                   var valid3 = errors === errs_3;
+                  if (valid3) {}
+                  if (errors === errs_2) {}
                   var valid2 = errors === errs_2;
                   if (!valid2) break;
                 }
+                if (errs__1 == errors) {}
               } else {
                 validate.errors = [{
                   keyword: 'type',
@@ -408,6 +423,7 @@ var validate = (function() {
                 }];
                 return false;
               }
+              if (errors === errs_1) {}
               var valid1 = errors === errs_1;
             }
             if (valid1) {
@@ -451,7 +467,7 @@ var validate = (function() {
                         message: 'should NOT be shorter than 2 characters'
                       }];
                       return false;
-                    }
+                    } else {}
                   }
                 } else {
                   validate.errors = [{
@@ -465,7 +481,10 @@ var validate = (function() {
                   }];
                   return false;
                 }
+                if (errors === errs_2) {}
                 var valid2 = errors === errs_2;
+                if (valid2) {}
+                if (errors === errs_1) {}
                 var valid1 = errors === errs_1;
               }
               if (valid1) {
@@ -496,25 +515,21 @@ var validate = (function() {
                     }];
                     return false;
                   }
-                  var schema1 = validate.schema.properties.type.enum;
-                  var valid1;
-                  valid1 = false;
-                  for (var i1 = 0; i1 < schema1.length; i1++)
-                    if (equal(data1, schema1[i1])) {
-                      valid1 = true;
-                      break;
-                    } if (!valid1) {
+                  var schema1 = validate.schema.properties.type.const;
+                  var valid1 = equal(data1, schema1);
+                  if (!valid1) {
                     validate.errors = [{
-                      keyword: 'enum',
+                      keyword: 'const',
                       dataPath: (dataPath || '') + '.type',
-                      schemaPath: '#/properties/type/enum',
+                      schemaPath: '#/properties/type/const',
                       params: {
-                        allowedValues: schema1
+                        allowedValue: schema1
                       },
-                      message: 'should be equal to one of the allowed values'
+                      message: 'should be equal to constant'
                     }];
                     return false;
-                  }
+                  } else {}
+                  if (errors === errs_1) {}
                   var valid1 = errors === errs_1;
                 }
                 if (valid1) {
@@ -524,6 +539,9 @@ var validate = (function() {
                   } else {
                     var errs_1 = errors;
                     var errs_2 = errors;
+                    if ((typeof data1 === "number")) {
+                      if (true) {}
+                    }
                     if (errors === errs_2) {
                       if (typeof data1 === "string") {
                         if (!formats.uri.test(data1)) {
@@ -537,7 +555,7 @@ var validate = (function() {
                             message: 'should match format "uri"'
                           }];
                           return false;
-                        }
+                        } else {}
                       } else {
                         validate.errors = [{
                           keyword: 'type',
@@ -550,14 +568,19 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_2) {}
                     }
                     var valid2 = errors === errs_2;
+                    if (valid2) {}
+                    if (errors === errs_1) {}
                     var valid1 = errors === errs_1;
                   }
+                  if (valid1) {}
                 }
               }
             }
           }
+          if (errs__0 == errors) {}
         }
       } else {
         validate.errors = [{
@@ -571,6 +594,7 @@ var validate = (function() {
         }];
         return false;
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
@@ -588,7 +612,7 @@ var validate = (function() {
         "$ref": "#/definitions/Title"
       },
       "type": {
-        "enum": ["INFO"],
+        "const": "INFO",
         "type": "string"
       },
       "url": {
@@ -629,6 +653,7 @@ var validate = (function() {
       'use strict';
       var vErrors = null;
       var errors = 0;
+      if (rootData === undefined) rootData = data;
       if ((data && typeof data === "object" && !Array.isArray(data))) {
         if (true) {
           var errs__0 = errors;
@@ -691,7 +716,7 @@ var validate = (function() {
                       message: 'should NOT be shorter than 2 characters'
                     }];
                     return false;
-                  }
+                  } else {}
                 }
               } else {
                 validate.errors = [{
@@ -705,7 +730,10 @@ var validate = (function() {
                 }];
                 return false;
               }
+              if (errors === errs_2) {}
               var valid2 = errors === errs_2;
+              if (valid2) {}
+              if (errors === errs_1) {}
               var valid1 = errors === errs_1;
             }
             if (valid1) {
@@ -782,7 +810,7 @@ var validate = (function() {
                                     message: 'should NOT be shorter than 2 characters'
                                   }];
                                   return false;
-                                }
+                                } else {}
                               }
                             } else {
                               validate.errors = [{
@@ -796,7 +824,10 @@ var validate = (function() {
                               }];
                               return false;
                             }
+                            if (errors === errs_4) {}
                             var valid4 = errors === errs_4;
+                            if (valid4) {}
+                            if (errors === errs_3) {}
                             var valid3 = errors === errs_3;
                           }
                           if (valid3) {
@@ -816,6 +847,9 @@ var validate = (function() {
                             } else {
                               var errs_3 = errors;
                               var errs_4 = errors;
+                              if ((typeof data3 === "number")) {
+                                if (true) {}
+                              }
                               if (errors === errs_4) {
                                 if (typeof data3 === "string") {
                                   if (!formats.uri.test(data3)) {
@@ -829,7 +863,7 @@ var validate = (function() {
                                       message: 'should match format "uri"'
                                     }];
                                     return false;
-                                  }
+                                  } else {}
                                 } else {
                                   validate.errors = [{
                                     keyword: 'type',
@@ -842,12 +876,17 @@ var validate = (function() {
                                   }];
                                   return false;
                                 }
+                                if (errors === errs_4) {}
                               }
                               var valid4 = errors === errs_4;
+                              if (valid4) {}
+                              if (errors === errs_3) {}
                               var valid3 = errors === errs_3;
                             }
+                            if (valid3) {}
                           }
                         }
+                        if (errs__2 == errors) {}
                       }
                     } else {
                       validate.errors = [{
@@ -861,9 +900,11 @@ var validate = (function() {
                       }];
                       return false;
                     }
+                    if (errors === errs_2) {}
                     var valid2 = errors === errs_2;
                     if (!valid2) break;
                   }
+                  if (errs__1 == errors) {}
                 } else {
                   validate.errors = [{
                     keyword: 'type',
@@ -876,6 +917,7 @@ var validate = (function() {
                   }];
                   return false;
                 }
+                if (errors === errs_1) {}
                 var valid1 = errors === errs_1;
               }
               if (valid1) {
@@ -962,7 +1004,7 @@ var validate = (function() {
                                       message: 'should NOT be shorter than 1 characters'
                                     }];
                                     return false;
-                                  }
+                                  } else {}
                                 }
                               } else {
                                 validate.errors = [{
@@ -976,7 +1018,10 @@ var validate = (function() {
                                 }];
                                 return false;
                               }
+                              if (errors === errs_4) {}
                               var valid4 = errors === errs_4;
+                              if (valid4) {}
+                              if (errors === errs_3) {}
                               var valid3 = errors === errs_3;
                             }
                             if (valid3) {
@@ -996,7 +1041,7 @@ var validate = (function() {
                               } else {
                                 var errs_3 = errors;
                                 var errs_4 = errors;
-                                if (typeof data3 === "number") {
+                                if ((typeof data3 === "number")) {
                                   if (data3 > 1000 || data3 !== data3) {
                                     validate.errors = [{
                                       keyword: 'maximum',
@@ -1024,7 +1069,7 @@ var validate = (function() {
                                         message: 'should be >= -100'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
                                   }
                                 } else {
                                   validate.errors = [{
@@ -1038,7 +1083,10 @@ var validate = (function() {
                                   }];
                                   return false;
                                 }
+                                if (errors === errs_4) {}
                                 var valid4 = errors === errs_4;
+                                if (valid4) {}
+                                if (errors === errs_3) {}
                                 var valid3 = errors === errs_3;
                               }
                               if (valid3) {
@@ -1058,7 +1106,7 @@ var validate = (function() {
                                 } else {
                                   var errs_3 = errors;
                                   var errs_4 = errors;
-                                  if (typeof data3 === "number") {
+                                  if ((typeof data3 === "number")) {
                                     if (data3 > 360 || data3 !== data3) {
                                       validate.errors = [{
                                         keyword: 'maximum',
@@ -1086,7 +1134,7 @@ var validate = (function() {
                                           message: 'should be >= -360'
                                         }];
                                         return false;
-                                      }
+                                      } else {}
                                     }
                                   } else {
                                     validate.errors = [{
@@ -1100,7 +1148,10 @@ var validate = (function() {
                                     }];
                                     return false;
                                   }
+                                  if (errors === errs_4) {}
                                   var valid4 = errors === errs_4;
+                                  if (valid4) {}
+                                  if (errors === errs_3) {}
                                   var valid3 = errors === errs_3;
                                 }
                                 if (valid3) {
@@ -1120,7 +1171,7 @@ var validate = (function() {
                                   } else {
                                     var errs_3 = errors;
                                     var errs_4 = errors;
-                                    if (typeof data3 === "number") {
+                                    if ((typeof data3 === "number")) {
                                       if (data3 > 1000 || data3 !== data3) {
                                         validate.errors = [{
                                           keyword: 'maximum',
@@ -1148,7 +1199,7 @@ var validate = (function() {
                                             message: 'should be >= -100'
                                           }];
                                           return false;
-                                        }
+                                        } else {}
                                       }
                                     } else {
                                       validate.errors = [{
@@ -1162,7 +1213,10 @@ var validate = (function() {
                                       }];
                                       return false;
                                     }
+                                    if (errors === errs_4) {}
                                     var valid4 = errors === errs_4;
+                                    if (valid4) {}
+                                    if (errors === errs_3) {}
                                     var valid3 = errors === errs_3;
                                   }
                                   if (valid3) {
@@ -1182,7 +1236,7 @@ var validate = (function() {
                                     } else {
                                       var errs_3 = errors;
                                       var errs_4 = errors;
-                                      if (typeof data3 === "number") {
+                                      if ((typeof data3 === "number")) {
                                         if (data3 > 1000 || data3 !== data3) {
                                           validate.errors = [{
                                             keyword: 'maximum',
@@ -1210,7 +1264,7 @@ var validate = (function() {
                                               message: 'should be >= -100'
                                             }];
                                             return false;
-                                          }
+                                          } else {}
                                         }
                                       } else {
                                         validate.errors = [{
@@ -1224,14 +1278,19 @@ var validate = (function() {
                                         }];
                                         return false;
                                       }
+                                      if (errors === errs_4) {}
                                       var valid4 = errors === errs_4;
+                                      if (valid4) {}
+                                      if (errors === errs_3) {}
                                       var valid3 = errors === errs_3;
                                     }
+                                    if (valid3) {}
                                   }
                                 }
                               }
                             }
                           }
+                          if (errs__2 == errors) {}
                         }
                       } else {
                         validate.errors = [{
@@ -1245,9 +1304,11 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_2) {}
                       var valid2 = errors === errs_2;
                       if (!valid2) break;
                     }
+                    if (errs__1 == errors) {}
                   } else {
                     validate.errors = [{
                       keyword: 'type',
@@ -1260,6 +1321,7 @@ var validate = (function() {
                     }];
                     return false;
                   }
+                  if (errors === errs_1) {}
                   var valid1 = errors === errs_1;
                 }
                 if (valid1) {
@@ -1279,7 +1341,7 @@ var validate = (function() {
                   } else {
                     var errs_1 = errors;
                     var errs_2 = errors;
-                    if (typeof data1 === "number") {
+                    if ((typeof data1 === "number")) {
                       if (data1 > 1000 || data1 !== data1) {
                         validate.errors = [{
                           keyword: 'maximum',
@@ -1307,7 +1369,7 @@ var validate = (function() {
                             message: 'should be >= -100'
                           }];
                           return false;
-                        }
+                        } else {}
                       }
                     } else {
                       validate.errors = [{
@@ -1321,7 +1383,10 @@ var validate = (function() {
                       }];
                       return false;
                     }
+                    if (errors === errs_2) {}
                     var valid2 = errors === errs_2;
+                    if (valid2) {}
+                    if (errors === errs_1) {}
                     var valid1 = errors === errs_1;
                   }
                   if (valid1) {
@@ -1341,7 +1406,7 @@ var validate = (function() {
                     } else {
                       var errs_1 = errors;
                       var errs_2 = errors;
-                      if (typeof data1 === "number") {
+                      if ((typeof data1 === "number")) {
                         if (data1 > 1000 || data1 !== data1) {
                           validate.errors = [{
                             keyword: 'maximum',
@@ -1369,7 +1434,7 @@ var validate = (function() {
                               message: 'should be >= -100'
                             }];
                             return false;
-                          }
+                          } else {}
                         }
                       } else {
                         validate.errors = [{
@@ -1383,7 +1448,10 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_2) {}
                       var valid2 = errors === errs_2;
+                      if (valid2) {}
+                      if (errors === errs_1) {}
                       var valid1 = errors === errs_1;
                     }
                     if (valid1) {
@@ -1414,25 +1482,21 @@ var validate = (function() {
                           }];
                           return false;
                         }
-                        var schema1 = validate.schema.properties.type.enum;
-                        var valid1;
-                        valid1 = false;
-                        for (var i1 = 0; i1 < schema1.length; i1++)
-                          if (equal(data1, schema1[i1])) {
-                            valid1 = true;
-                            break;
-                          } if (!valid1) {
+                        var schema1 = validate.schema.properties.type.const;
+                        var valid1 = equal(data1, schema1);
+                        if (!valid1) {
                           validate.errors = [{
-                            keyword: 'enum',
+                            keyword: 'const',
                             dataPath: (dataPath || '') + '.type',
-                            schemaPath: '#/properties/type/enum',
+                            schemaPath: '#/properties/type/const',
                             params: {
-                              allowedValues: schema1
+                              allowedValue: schema1
                             },
-                            message: 'should be equal to one of the allowed values'
+                            message: 'should be equal to constant'
                           }];
                           return false;
-                        }
+                        } else {}
+                        if (errors === errs_1) {}
                         var valid1 = errors === errs_1;
                       }
                       if (valid1) {
@@ -1452,7 +1516,7 @@ var validate = (function() {
                         } else {
                           var errs_1 = errors;
                           var errs_2 = errors;
-                          if (typeof data1 === "number") {
+                          if ((typeof data1 === "number")) {
                             if (data1 > 1000 || data1 !== data1) {
                               validate.errors = [{
                                 keyword: 'maximum',
@@ -1480,7 +1544,7 @@ var validate = (function() {
                                   message: 'should be >= -100'
                                 }];
                                 return false;
-                              }
+                              } else {}
                             }
                           } else {
                             validate.errors = [{
@@ -1494,9 +1558,13 @@ var validate = (function() {
                             }];
                             return false;
                           }
+                          if (errors === errs_2) {}
                           var valid2 = errors === errs_2;
+                          if (valid2) {}
+                          if (errors === errs_1) {}
                           var valid1 = errors === errs_1;
                         }
+                        if (valid1) {}
                       }
                     }
                   }
@@ -1504,6 +1572,7 @@ var validate = (function() {
               }
             }
           }
+          if (errs__0 == errors) {}
         }
       } else {
         validate.errors = [{
@@ -1517,6 +1586,7 @@ var validate = (function() {
         }];
         return false;
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
@@ -1575,7 +1645,7 @@ var validate = (function() {
         "$ref": "#/definitions/Percentage"
       },
       "type": {
-        "enum": ["PLOP"],
+        "const": "PLOP",
         "type": "string"
       },
       "width": {
@@ -1595,7 +1665,7 @@ var validate = (function() {
   };
   refVal[8] = refVal8;
   var refVal9 = {
-    "description": "A single emoji character, ligatures mean the max length\ncan be up to 3 characters.",
+    "description": "A single emoji character, ligatures mean the max length can be up to 3 characters.",
     "maxLength": 32,
     "minLength": 1,
     "type": "string"
@@ -1630,7 +1700,7 @@ var validate = (function() {
           var errs__0 = errors;
           var valid1 = true;
           for (var key0 in data) {
-            var isAdditional0 = !(false || key0 == 'edits' || key0 == 'left' || key0 == 'title' || key0 == 'top' || key0 == 'type' || key0 == 'url');
+            var isAdditional0 = !(false || key0 == 'left' || key0 == 'offset_time' || key0 == 'title' || key0 == 'top' || key0 == 'type' || key0 == 'url');
             if (isAdditional0) {
               valid1 = false;
               validate.errors = [{
@@ -1647,90 +1717,111 @@ var validate = (function() {
             }
           }
           if (valid1) {
-            var data1 = data.edits;
+            var data1 = data.left;
             if (data1 === undefined) {
-              valid1 = true;
+              valid1 = false;
+              validate.errors = [{
+                keyword: 'required',
+                dataPath: (dataPath || '') + "",
+                schemaPath: '#/required',
+                params: {
+                  missingProperty: 'left'
+                },
+                message: 'should have required property \'left\''
+              }];
+              return false;
             } else {
               var errs_1 = errors;
-              if (Array.isArray(data1)) {
-                var errs__1 = errors;
-                var valid1;
-                for (var i1 = 0; i1 < data1.length; i1++) {
-                  var errs_2 = errors;
-                  if (!refVal13(data1[i1], (dataPath || '') + '.edits[' + i1 + ']', data1, i1, rootData)) {
-                    if (vErrors === null) vErrors = refVal13.errors;
-                    else vErrors = vErrors.concat(refVal13.errors);
-                    errors = vErrors.length;
-                  }
-                  var valid2 = errors === errs_2;
-                  if (!valid2) break;
+              var errs_2 = errors;
+              if ((typeof data1 === "number")) {
+                if (data1 > 1000 || data1 !== data1) {
+                  validate.errors = [{
+                    keyword: 'maximum',
+                    dataPath: (dataPath || '') + '.left',
+                    schemaPath: '#/definitions/Percentage/maximum',
+                    params: {
+                      comparison: '<=',
+                      limit: 1000,
+                      exclusive: false
+                    },
+                    message: 'should be <= 1000'
+                  }];
+                  return false;
+                } else {
+                  if (data1 < -100 || data1 !== data1) {
+                    validate.errors = [{
+                      keyword: 'minimum',
+                      dataPath: (dataPath || '') + '.left',
+                      schemaPath: '#/definitions/Percentage/minimum',
+                      params: {
+                        comparison: '>=',
+                        limit: -100,
+                        exclusive: false
+                      },
+                      message: 'should be >= -100'
+                    }];
+                    return false;
+                  } else {}
                 }
               } else {
                 validate.errors = [{
                   keyword: 'type',
-                  dataPath: (dataPath || '') + '.edits',
-                  schemaPath: '#/properties/edits/type',
+                  dataPath: (dataPath || '') + '.left',
+                  schemaPath: '#/definitions/Percentage/type',
                   params: {
-                    type: 'array'
+                    type: 'number'
                   },
-                  message: 'should be array'
+                  message: 'should be number'
                 }];
                 return false;
               }
+              if (errors === errs_2) {}
+              var valid2 = errors === errs_2;
+              if (valid2) {}
+              if (errors === errs_1) {}
               var valid1 = errors === errs_1;
             }
             if (valid1) {
-              var data1 = data.left;
+              var data1 = data.offset_time;
               if (data1 === undefined) {
-                valid1 = false;
-                validate.errors = [{
-                  keyword: 'required',
-                  dataPath: (dataPath || '') + "",
-                  schemaPath: '#/required',
-                  params: {
-                    missingProperty: 'left'
-                  },
-                  message: 'should have required property \'left\''
-                }];
-                return false;
+                valid1 = true;
               } else {
                 var errs_1 = errors;
                 var errs_2 = errors;
-                if (typeof data1 === "number") {
-                  if (data1 > 1000 || data1 !== data1) {
+                if ((typeof data1 === "number")) {
+                  if (data1 < 0 || data1 !== data1) {
                     validate.errors = [{
-                      keyword: 'maximum',
-                      dataPath: (dataPath || '') + '.left',
-                      schemaPath: '#/definitions/Percentage/maximum',
+                      keyword: 'minimum',
+                      dataPath: (dataPath || '') + '.offset_time',
+                      schemaPath: '#/definitions/Seconds/minimum',
                       params: {
-                        comparison: '<=',
-                        limit: 1000,
+                        comparison: '>=',
+                        limit: 0,
                         exclusive: false
                       },
-                      message: 'should be <= 1000'
+                      message: 'should be >= 0'
                     }];
                     return false;
                   } else {
-                    if (data1 < -100 || data1 !== data1) {
+                    var division2;
+                    if ((division2 = data1 / 0.001, division2 !== parseInt(division2))) {
                       validate.errors = [{
-                        keyword: 'minimum',
-                        dataPath: (dataPath || '') + '.left',
-                        schemaPath: '#/definitions/Percentage/minimum',
+                        keyword: 'multipleOf',
+                        dataPath: (dataPath || '') + '.offset_time',
+                        schemaPath: '#/definitions/Seconds/multipleOf',
                         params: {
-                          comparison: '>=',
-                          limit: -100,
-                          exclusive: false
+                          multipleOf: 0.001
                         },
-                        message: 'should be >= -100'
+                        message: 'should be multiple of 0.001'
                       }];
                       return false;
-                    }
+                    } else {}
                   }
                 } else {
                   validate.errors = [{
                     keyword: 'type',
-                    dataPath: (dataPath || '') + '.left',
-                    schemaPath: '#/definitions/Percentage/type',
+                    dataPath: (dataPath || '') + '.offset_time',
+                    schemaPath: '#/definitions/Seconds/type',
                     params: {
                       type: 'number'
                     },
@@ -1738,7 +1829,10 @@ var validate = (function() {
                   }];
                   return false;
                 }
+                if (errors === errs_2) {}
                 var valid2 = errors === errs_2;
+                if (valid2) {}
+                if (errors === errs_1) {}
                 var valid1 = errors === errs_1;
               }
               if (valid1) {
@@ -1782,7 +1876,7 @@ var validate = (function() {
                           message: 'should NOT be shorter than 2 characters'
                         }];
                         return false;
-                      }
+                      } else {}
                     }
                   } else {
                     validate.errors = [{
@@ -1796,7 +1890,10 @@ var validate = (function() {
                     }];
                     return false;
                   }
+                  if (errors === errs_2) {}
                   var valid2 = errors === errs_2;
+                  if (valid2) {}
+                  if (errors === errs_1) {}
                   var valid1 = errors === errs_1;
                 }
                 if (valid1) {
@@ -1816,7 +1913,7 @@ var validate = (function() {
                   } else {
                     var errs_1 = errors;
                     var errs_2 = errors;
-                    if (typeof data1 === "number") {
+                    if ((typeof data1 === "number")) {
                       if (data1 > 1000 || data1 !== data1) {
                         validate.errors = [{
                           keyword: 'maximum',
@@ -1844,7 +1941,7 @@ var validate = (function() {
                             message: 'should be >= -100'
                           }];
                           return false;
-                        }
+                        } else {}
                       }
                     } else {
                       validate.errors = [{
@@ -1858,7 +1955,10 @@ var validate = (function() {
                       }];
                       return false;
                     }
+                    if (errors === errs_2) {}
                     var valid2 = errors === errs_2;
+                    if (valid2) {}
+                    if (errors === errs_1) {}
                     var valid1 = errors === errs_1;
                   }
                   if (valid1) {
@@ -1889,25 +1989,21 @@ var validate = (function() {
                         }];
                         return false;
                       }
-                      var schema1 = validate.schema.properties.type.enum;
-                      var valid1;
-                      valid1 = false;
-                      for (var i1 = 0; i1 < schema1.length; i1++)
-                        if (equal(data1, schema1[i1])) {
-                          valid1 = true;
-                          break;
-                        } if (!valid1) {
+                      var schema1 = validate.schema.properties.type.const;
+                      var valid1 = equal(data1, schema1);
+                      if (!valid1) {
                         validate.errors = [{
-                          keyword: 'enum',
+                          keyword: 'const',
                           dataPath: (dataPath || '') + '.type',
-                          schemaPath: '#/properties/type/enum',
+                          schemaPath: '#/properties/type/const',
                           params: {
-                            allowedValues: schema1
+                            allowedValue: schema1
                           },
-                          message: 'should be equal to one of the allowed values'
+                          message: 'should be equal to constant'
                         }];
                         return false;
-                      }
+                      } else {}
+                      if (errors === errs_1) {}
                       var valid1 = errors === errs_1;
                     }
                     if (valid1) {
@@ -1927,6 +2023,9 @@ var validate = (function() {
                       } else {
                         var errs_1 = errors;
                         var errs_2 = errors;
+                        if ((typeof data1 === "number")) {
+                          if (true) {}
+                        }
                         if (errors === errs_2) {
                           if (typeof data1 === "string") {
                             if (!formats['uri-reference'].test(data1)) {
@@ -1940,7 +2039,7 @@ var validate = (function() {
                                 message: 'should match format "uri-reference"'
                               }];
                               return false;
-                            }
+                            } else {}
                           } else {
                             validate.errors = [{
                               keyword: 'type',
@@ -1953,16 +2052,21 @@ var validate = (function() {
                             }];
                             return false;
                           }
+                          if (errors === errs_2) {}
                         }
                         var valid2 = errors === errs_2;
+                        if (valid2) {}
+                        if (errors === errs_1) {}
                         var valid1 = errors === errs_1;
                       }
+                      if (valid1) {}
                     }
                   }
                 }
               }
             }
           }
+          if (errs__0 == errors) {}
         }
       } else {
         validate.errors = [{
@@ -1976,6 +2080,7 @@ var validate = (function() {
         }];
         return false;
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
@@ -1983,14 +2088,11 @@ var validate = (function() {
   refVal12.schema = {
     "additionalProperties": false,
     "properties": {
-      "edits": {
-        "items": {
-          "$ref": "#/definitions/AudioEdit"
-        },
-        "type": "array"
-      },
       "left": {
         "$ref": "#/definitions/Percentage"
+      },
+      "offset_time": {
+        "$ref": "#/definitions/Seconds"
       },
       "title": {
         "$ref": "#/definitions/Title"
@@ -1999,7 +2101,7 @@ var validate = (function() {
         "$ref": "#/definitions/Percentage"
       },
       "type": {
-        "enum": ["AUDIO"],
+        "const": "AUDIO",
         "type": "string"
       },
       "url": {
@@ -2011,881 +2113,20 @@ var validate = (function() {
   };
   refVal12.errors = null;
   refVal[12] = refVal12;
-  var refVal13 = (function() {
-    var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
-    var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
-    var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
-    var pattern3 = new RegExp('^([0-9]+\\s){3}[0-9]+$');
-    return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
-      'use strict';
-      var vErrors = null;
-      var errors = 0;
-      var errs__0 = errors;
-      var valid0 = false;
-      var errs_1 = errors;
-      var errs_2 = errors;
-      if ((data && typeof data === "object" && !Array.isArray(data))) {
-        if (true) {
-          var errs__2 = errors;
-          var valid3 = true;
-          for (var key2 in data) {
-            var isAdditional2 = !(false || key2 == 'endTime' || key2 == 'startTime' || key2 == 'type');
-            if (isAdditional2) {
-              valid3 = false;
-              var err = {
-                keyword: 'additionalProperties',
-                dataPath: (dataPath || '') + "",
-                schemaPath: '#/definitions/SkipAudio/additionalProperties',
-                params: {
-                  additionalProperty: '' + key2 + ''
-                },
-                message: 'should NOT have additional properties'
-              };
-              if (vErrors === null) vErrors = [err];
-              else vErrors.push(err);
-              errors++;
-              break;
-            }
-          }
-          if (valid3) {
-            if (data.endTime === undefined) {
-              valid3 = false;
-              var err = {
-                keyword: 'required',
-                dataPath: (dataPath || '') + "",
-                schemaPath: '#/definitions/SkipAudio/required',
-                params: {
-                  missingProperty: 'endTime'
-                },
-                message: 'should have required property \'endTime\''
-              };
-              if (vErrors === null) vErrors = [err];
-              else vErrors.push(err);
-              errors++;
-            } else {
-              var errs_3 = errors;
-              if (typeof data.endTime !== "number") {
-                var err = {
-                  keyword: 'type',
-                  dataPath: (dataPath || '') + '.endTime',
-                  schemaPath: '#/definitions/SkipAudio/properties/endTime/type',
-                  params: {
-                    type: 'number'
-                  },
-                  message: 'should be number'
-                };
-                if (vErrors === null) vErrors = [err];
-                else vErrors.push(err);
-                errors++;
-              }
-              var valid3 = errors === errs_3;
-            }
-            if (valid3) {
-              if (data.startTime === undefined) {
-                valid3 = false;
-                var err = {
-                  keyword: 'required',
-                  dataPath: (dataPath || '') + "",
-                  schemaPath: '#/definitions/SkipAudio/required',
-                  params: {
-                    missingProperty: 'startTime'
-                  },
-                  message: 'should have required property \'startTime\''
-                };
-                if (vErrors === null) vErrors = [err];
-                else vErrors.push(err);
-                errors++;
-              } else {
-                var errs_3 = errors;
-                if (typeof data.startTime !== "number") {
-                  var err = {
-                    keyword: 'type',
-                    dataPath: (dataPath || '') + '.startTime',
-                    schemaPath: '#/definitions/SkipAudio/properties/startTime/type',
-                    params: {
-                      type: 'number'
-                    },
-                    message: 'should be number'
-                  };
-                  if (vErrors === null) vErrors = [err];
-                  else vErrors.push(err);
-                  errors++;
-                }
-                var valid3 = errors === errs_3;
-              }
-              if (valid3) {
-                var data1 = data.type;
-                if (data1 === undefined) {
-                  valid3 = false;
-                  var err = {
-                    keyword: 'required',
-                    dataPath: (dataPath || '') + "",
-                    schemaPath: '#/definitions/SkipAudio/required',
-                    params: {
-                      missingProperty: 'type'
-                    },
-                    message: 'should have required property \'type\''
-                  };
-                  if (vErrors === null) vErrors = [err];
-                  else vErrors.push(err);
-                  errors++;
-                } else {
-                  var errs_3 = errors;
-                  if (typeof data1 !== "string") {
-                    var err = {
-                      keyword: 'type',
-                      dataPath: (dataPath || '') + '.type',
-                      schemaPath: '#/definitions/SkipAudio/properties/type/type',
-                      params: {
-                        type: 'string'
-                      },
-                      message: 'should be string'
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                  }
-                  var schema3 = refVal14.properties.type.enum;
-                  var valid3;
-                  valid3 = false;
-                  for (var i3 = 0; i3 < schema3.length; i3++)
-                    if (equal(data1, schema3[i3])) {
-                      valid3 = true;
-                      break;
-                    } if (!valid3) {
-                    var err = {
-                      keyword: 'enum',
-                      dataPath: (dataPath || '') + '.type',
-                      schemaPath: '#/definitions/SkipAudio/properties/type/enum',
-                      params: {
-                        allowedValues: schema3
-                      },
-                      message: 'should be equal to one of the allowed values'
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                  }
-                  var valid3 = errors === errs_3;
-                }
-              }
-            }
-          }
-        }
-      } else {
-        var err = {
-          keyword: 'type',
-          dataPath: (dataPath || '') + "",
-          schemaPath: '#/definitions/SkipAudio/type',
-          params: {
-            type: 'object'
-          },
-          message: 'should be object'
-        };
-        if (vErrors === null) vErrors = [err];
-        else vErrors.push(err);
-        errors++;
-      }
-      var valid2 = errors === errs_2;
-      var valid1 = errors === errs_1;
-      valid0 = valid0 || valid1;
-      if (!valid0) {
-        var errs_1 = errors;
-        var errs_2 = errors;
-        if ((data && typeof data === "object" && !Array.isArray(data))) {
-          if (true) {
-            var errs__2 = errors;
-            var valid3 = true;
-            for (var key2 in data) {
-              var isAdditional2 = !(false || key2 == 'duration' || key2 == 'startTime' || key2 == 'type');
-              if (isAdditional2) {
-                valid3 = false;
-                var err = {
-                  keyword: 'additionalProperties',
-                  dataPath: (dataPath || '') + "",
-                  schemaPath: '#/definitions/StillAudio/additionalProperties',
-                  params: {
-                    additionalProperty: '' + key2 + ''
-                  },
-                  message: 'should NOT have additional properties'
-                };
-                if (vErrors === null) vErrors = [err];
-                else vErrors.push(err);
-                errors++;
-                break;
-              }
-            }
-            if (valid3) {
-              if (data.duration === undefined) {
-                valid3 = false;
-                var err = {
-                  keyword: 'required',
-                  dataPath: (dataPath || '') + "",
-                  schemaPath: '#/definitions/StillAudio/required',
-                  params: {
-                    missingProperty: 'duration'
-                  },
-                  message: 'should have required property \'duration\''
-                };
-                if (vErrors === null) vErrors = [err];
-                else vErrors.push(err);
-                errors++;
-              } else {
-                var errs_3 = errors;
-                if (typeof data.duration !== "number") {
-                  var err = {
-                    keyword: 'type',
-                    dataPath: (dataPath || '') + '.duration',
-                    schemaPath: '#/definitions/StillAudio/properties/duration/type',
-                    params: {
-                      type: 'number'
-                    },
-                    message: 'should be number'
-                  };
-                  if (vErrors === null) vErrors = [err];
-                  else vErrors.push(err);
-                  errors++;
-                }
-                var valid3 = errors === errs_3;
-              }
-              if (valid3) {
-                if (data.startTime === undefined) {
-                  valid3 = false;
-                  var err = {
-                    keyword: 'required',
-                    dataPath: (dataPath || '') + "",
-                    schemaPath: '#/definitions/StillAudio/required',
-                    params: {
-                      missingProperty: 'startTime'
-                    },
-                    message: 'should have required property \'startTime\''
-                  };
-                  if (vErrors === null) vErrors = [err];
-                  else vErrors.push(err);
-                  errors++;
-                } else {
-                  var errs_3 = errors;
-                  if (typeof data.startTime !== "number") {
-                    var err = {
-                      keyword: 'type',
-                      dataPath: (dataPath || '') + '.startTime',
-                      schemaPath: '#/definitions/StillAudio/properties/startTime/type',
-                      params: {
-                        type: 'number'
-                      },
-                      message: 'should be number'
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                  }
-                  var valid3 = errors === errs_3;
-                }
-                if (valid3) {
-                  var data1 = data.type;
-                  if (data1 === undefined) {
-                    valid3 = false;
-                    var err = {
-                      keyword: 'required',
-                      dataPath: (dataPath || '') + "",
-                      schemaPath: '#/definitions/StillAudio/required',
-                      params: {
-                        missingProperty: 'type'
-                      },
-                      message: 'should have required property \'type\''
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                  } else {
-                    var errs_3 = errors;
-                    if (typeof data1 !== "string") {
-                      var err = {
-                        keyword: 'type',
-                        dataPath: (dataPath || '') + '.type',
-                        schemaPath: '#/definitions/StillAudio/properties/type/type',
-                        params: {
-                          type: 'string'
-                        },
-                        message: 'should be string'
-                      };
-                      if (vErrors === null) vErrors = [err];
-                      else vErrors.push(err);
-                      errors++;
-                    }
-                    var schema3 = refVal15.properties.type.enum;
-                    var valid3;
-                    valid3 = false;
-                    for (var i3 = 0; i3 < schema3.length; i3++)
-                      if (equal(data1, schema3[i3])) {
-                        valid3 = true;
-                        break;
-                      } if (!valid3) {
-                      var err = {
-                        keyword: 'enum',
-                        dataPath: (dataPath || '') + '.type',
-                        schemaPath: '#/definitions/StillAudio/properties/type/enum',
-                        params: {
-                          allowedValues: schema3
-                        },
-                        message: 'should be equal to one of the allowed values'
-                      };
-                      if (vErrors === null) vErrors = [err];
-                      else vErrors.push(err);
-                      errors++;
-                    }
-                    var valid3 = errors === errs_3;
-                  }
-                }
-              }
-            }
-          }
-        } else {
-          var err = {
-            keyword: 'type',
-            dataPath: (dataPath || '') + "",
-            schemaPath: '#/definitions/StillAudio/type',
-            params: {
-              type: 'object'
-            },
-            message: 'should be object'
-          };
-          if (vErrors === null) vErrors = [err];
-          else vErrors.push(err);
-          errors++;
-        }
-        var valid2 = errors === errs_2;
-        var valid1 = errors === errs_1;
-        valid0 = valid0 || valid1;
-        if (!valid0) {
-          var errs_1 = errors;
-          var errs_2 = errors;
-          if ((data && typeof data === "object" && !Array.isArray(data))) {
-            if (true) {
-              var errs__2 = errors;
-              var valid3 = true;
-              for (var key2 in data) {
-                var isAdditional2 = !(false || key2 == 'duration' || key2 == 'startTime' || key2 == 'type');
-                if (isAdditional2) {
-                  valid3 = false;
-                  var err = {
-                    keyword: 'additionalProperties',
-                    dataPath: (dataPath || '') + "",
-                    schemaPath: '#/definitions/PauseAudio/additionalProperties',
-                    params: {
-                      additionalProperty: '' + key2 + ''
-                    },
-                    message: 'should NOT have additional properties'
-                  };
-                  if (vErrors === null) vErrors = [err];
-                  else vErrors.push(err);
-                  errors++;
-                  break;
-                }
-              }
-              if (valid3) {
-                if (data.duration === undefined) {
-                  valid3 = false;
-                  var err = {
-                    keyword: 'required',
-                    dataPath: (dataPath || '') + "",
-                    schemaPath: '#/definitions/PauseAudio/required',
-                    params: {
-                      missingProperty: 'duration'
-                    },
-                    message: 'should have required property \'duration\''
-                  };
-                  if (vErrors === null) vErrors = [err];
-                  else vErrors.push(err);
-                  errors++;
-                } else {
-                  var errs_3 = errors;
-                  if (typeof data.duration !== "number") {
-                    var err = {
-                      keyword: 'type',
-                      dataPath: (dataPath || '') + '.duration',
-                      schemaPath: '#/definitions/PauseAudio/properties/duration/type',
-                      params: {
-                        type: 'number'
-                      },
-                      message: 'should be number'
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                  }
-                  var valid3 = errors === errs_3;
-                }
-                if (valid3) {
-                  if (data.startTime === undefined) {
-                    valid3 = false;
-                    var err = {
-                      keyword: 'required',
-                      dataPath: (dataPath || '') + "",
-                      schemaPath: '#/definitions/PauseAudio/required',
-                      params: {
-                        missingProperty: 'startTime'
-                      },
-                      message: 'should have required property \'startTime\''
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                  } else {
-                    var errs_3 = errors;
-                    if (typeof data.startTime !== "number") {
-                      var err = {
-                        keyword: 'type',
-                        dataPath: (dataPath || '') + '.startTime',
-                        schemaPath: '#/definitions/PauseAudio/properties/startTime/type',
-                        params: {
-                          type: 'number'
-                        },
-                        message: 'should be number'
-                      };
-                      if (vErrors === null) vErrors = [err];
-                      else vErrors.push(err);
-                      errors++;
-                    }
-                    var valid3 = errors === errs_3;
-                  }
-                  if (valid3) {
-                    var data1 = data.type;
-                    if (data1 === undefined) {
-                      valid3 = false;
-                      var err = {
-                        keyword: 'required',
-                        dataPath: (dataPath || '') + "",
-                        schemaPath: '#/definitions/PauseAudio/required',
-                        params: {
-                          missingProperty: 'type'
-                        },
-                        message: 'should have required property \'type\''
-                      };
-                      if (vErrors === null) vErrors = [err];
-                      else vErrors.push(err);
-                      errors++;
-                    } else {
-                      var errs_3 = errors;
-                      if (typeof data1 !== "string") {
-                        var err = {
-                          keyword: 'type',
-                          dataPath: (dataPath || '') + '.type',
-                          schemaPath: '#/definitions/PauseAudio/properties/type/type',
-                          params: {
-                            type: 'string'
-                          },
-                          message: 'should be string'
-                        };
-                        if (vErrors === null) vErrors = [err];
-                        else vErrors.push(err);
-                        errors++;
-                      }
-                      var schema3 = refVal16.properties.type.enum;
-                      var valid3;
-                      valid3 = false;
-                      for (var i3 = 0; i3 < schema3.length; i3++)
-                        if (equal(data1, schema3[i3])) {
-                          valid3 = true;
-                          break;
-                        } if (!valid3) {
-                        var err = {
-                          keyword: 'enum',
-                          dataPath: (dataPath || '') + '.type',
-                          schemaPath: '#/definitions/PauseAudio/properties/type/enum',
-                          params: {
-                            allowedValues: schema3
-                          },
-                          message: 'should be equal to one of the allowed values'
-                        };
-                        if (vErrors === null) vErrors = [err];
-                        else vErrors.push(err);
-                        errors++;
-                      }
-                      var valid3 = errors === errs_3;
-                    }
-                  }
-                }
-              }
-            }
-          } else {
-            var err = {
-              keyword: 'type',
-              dataPath: (dataPath || '') + "",
-              schemaPath: '#/definitions/PauseAudio/type',
-              params: {
-                type: 'object'
-              },
-              message: 'should be object'
-            };
-            if (vErrors === null) vErrors = [err];
-            else vErrors.push(err);
-            errors++;
-          }
-          var valid2 = errors === errs_2;
-          var valid1 = errors === errs_1;
-          valid0 = valid0 || valid1;
-          if (!valid0) {
-            var errs_1 = errors;
-            var errs_2 = errors;
-            if ((data && typeof data === "object" && !Array.isArray(data))) {
-              if (true) {
-                var errs__2 = errors;
-                var valid3 = true;
-                for (var key2 in data) {
-                  var isAdditional2 = !(false || key2 == 'audio' || key2 == 'endTime' || key2 == 'startTime' || key2 == 'type' || key2 == 'video');
-                  if (isAdditional2) {
-                    valid3 = false;
-                    var err = {
-                      keyword: 'additionalProperties',
-                      dataPath: (dataPath || '') + "",
-                      schemaPath: '#/definitions/AdjustVolumeAudio/additionalProperties',
-                      params: {
-                        additionalProperty: '' + key2 + ''
-                      },
-                      message: 'should NOT have additional properties'
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                    break;
-                  }
-                }
-                if (valid3) {
-                  if (data.audio === undefined) {
-                    valid3 = false;
-                    var err = {
-                      keyword: 'required',
-                      dataPath: (dataPath || '') + "",
-                      schemaPath: '#/definitions/AdjustVolumeAudio/required',
-                      params: {
-                        missingProperty: 'audio'
-                      },
-                      message: 'should have required property \'audio\''
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                  } else {
-                    var errs_3 = errors;
-                    if (typeof data.audio !== "number") {
-                      var err = {
-                        keyword: 'type',
-                        dataPath: (dataPath || '') + '.audio',
-                        schemaPath: '#/definitions/AdjustVolumeAudio/properties/audio/type',
-                        params: {
-                          type: 'number'
-                        },
-                        message: 'should be number'
-                      };
-                      if (vErrors === null) vErrors = [err];
-                      else vErrors.push(err);
-                      errors++;
-                    }
-                    var valid3 = errors === errs_3;
-                  }
-                  if (valid3) {
-                    if (data.endTime === undefined) {
-                      valid3 = false;
-                      var err = {
-                        keyword: 'required',
-                        dataPath: (dataPath || '') + "",
-                        schemaPath: '#/definitions/AdjustVolumeAudio/required',
-                        params: {
-                          missingProperty: 'endTime'
-                        },
-                        message: 'should have required property \'endTime\''
-                      };
-                      if (vErrors === null) vErrors = [err];
-                      else vErrors.push(err);
-                      errors++;
-                    } else {
-                      var errs_3 = errors;
-                      if (typeof data.endTime !== "number") {
-                        var err = {
-                          keyword: 'type',
-                          dataPath: (dataPath || '') + '.endTime',
-                          schemaPath: '#/definitions/AdjustVolumeAudio/properties/endTime/type',
-                          params: {
-                            type: 'number'
-                          },
-                          message: 'should be number'
-                        };
-                        if (vErrors === null) vErrors = [err];
-                        else vErrors.push(err);
-                        errors++;
-                      }
-                      var valid3 = errors === errs_3;
-                    }
-                    if (valid3) {
-                      if (data.startTime === undefined) {
-                        valid3 = false;
-                        var err = {
-                          keyword: 'required',
-                          dataPath: (dataPath || '') + "",
-                          schemaPath: '#/definitions/AdjustVolumeAudio/required',
-                          params: {
-                            missingProperty: 'startTime'
-                          },
-                          message: 'should have required property \'startTime\''
-                        };
-                        if (vErrors === null) vErrors = [err];
-                        else vErrors.push(err);
-                        errors++;
-                      } else {
-                        var errs_3 = errors;
-                        if (typeof data.startTime !== "number") {
-                          var err = {
-                            keyword: 'type',
-                            dataPath: (dataPath || '') + '.startTime',
-                            schemaPath: '#/definitions/AdjustVolumeAudio/properties/startTime/type',
-                            params: {
-                              type: 'number'
-                            },
-                            message: 'should be number'
-                          };
-                          if (vErrors === null) vErrors = [err];
-                          else vErrors.push(err);
-                          errors++;
-                        }
-                        var valid3 = errors === errs_3;
-                      }
-                      if (valid3) {
-                        var data1 = data.type;
-                        if (data1 === undefined) {
-                          valid3 = false;
-                          var err = {
-                            keyword: 'required',
-                            dataPath: (dataPath || '') + "",
-                            schemaPath: '#/definitions/AdjustVolumeAudio/required',
-                            params: {
-                              missingProperty: 'type'
-                            },
-                            message: 'should have required property \'type\''
-                          };
-                          if (vErrors === null) vErrors = [err];
-                          else vErrors.push(err);
-                          errors++;
-                        } else {
-                          var errs_3 = errors;
-                          if (typeof data1 !== "string") {
-                            var err = {
-                              keyword: 'type',
-                              dataPath: (dataPath || '') + '.type',
-                              schemaPath: '#/definitions/AdjustVolumeAudio/properties/type/type',
-                              params: {
-                                type: 'string'
-                              },
-                              message: 'should be string'
-                            };
-                            if (vErrors === null) vErrors = [err];
-                            else vErrors.push(err);
-                            errors++;
-                          }
-                          var schema3 = refVal17.properties.type.enum;
-                          var valid3;
-                          valid3 = false;
-                          for (var i3 = 0; i3 < schema3.length; i3++)
-                            if (equal(data1, schema3[i3])) {
-                              valid3 = true;
-                              break;
-                            } if (!valid3) {
-                            var err = {
-                              keyword: 'enum',
-                              dataPath: (dataPath || '') + '.type',
-                              schemaPath: '#/definitions/AdjustVolumeAudio/properties/type/enum',
-                              params: {
-                                allowedValues: schema3
-                              },
-                              message: 'should be equal to one of the allowed values'
-                            };
-                            if (vErrors === null) vErrors = [err];
-                            else vErrors.push(err);
-                            errors++;
-                          }
-                          var valid3 = errors === errs_3;
-                        }
-                        if (valid3) {
-                          if (data.video === undefined) {
-                            valid3 = false;
-                            var err = {
-                              keyword: 'required',
-                              dataPath: (dataPath || '') + "",
-                              schemaPath: '#/definitions/AdjustVolumeAudio/required',
-                              params: {
-                                missingProperty: 'video'
-                              },
-                              message: 'should have required property \'video\''
-                            };
-                            if (vErrors === null) vErrors = [err];
-                            else vErrors.push(err);
-                            errors++;
-                          } else {
-                            var errs_3 = errors;
-                            if (typeof data.video !== "number") {
-                              var err = {
-                                keyword: 'type',
-                                dataPath: (dataPath || '') + '.video',
-                                schemaPath: '#/definitions/AdjustVolumeAudio/properties/video/type',
-                                params: {
-                                  type: 'number'
-                                },
-                                message: 'should be number'
-                              };
-                              if (vErrors === null) vErrors = [err];
-                              else vErrors.push(err);
-                              errors++;
-                            }
-                            var valid3 = errors === errs_3;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            } else {
-              var err = {
-                keyword: 'type',
-                dataPath: (dataPath || '') + "",
-                schemaPath: '#/definitions/AdjustVolumeAudio/type',
-                params: {
-                  type: 'object'
-                },
-                message: 'should be object'
-              };
-              if (vErrors === null) vErrors = [err];
-              else vErrors.push(err);
-              errors++;
-            }
-            var valid2 = errors === errs_2;
-            var valid1 = errors === errs_1;
-            valid0 = valid0 || valid1;
-          }
-        }
-      }
-      if (!valid0) {
-        var err = {
-          keyword: 'anyOf',
-          dataPath: (dataPath || '') + "",
-          schemaPath: '#/anyOf',
-          params: {},
-          message: 'should match some schema in anyOf'
-        };
-        if (vErrors === null) vErrors = [err];
-        else vErrors.push(err);
-        errors++;
-        validate.errors = vErrors;
-        return false;
-      } else {
-        errors = errs__0;
-        if (vErrors !== null) {
-          if (errs__0) vErrors.length = errs__0;
-          else vErrors = null;
-        }
-      }
-      validate.errors = vErrors;
-      return errors === 0;
-    };
-  })();
-  refVal13.schema = {
-    "anyOf": [{
-      "$ref": "#/definitions/SkipAudio"
-    }, {
-      "$ref": "#/definitions/StillAudio"
-    }, {
-      "$ref": "#/definitions/PauseAudio"
-    }, {
-      "$ref": "#/definitions/AdjustVolumeAudio"
-    }]
+  var refVal13 = {
+    "description": "Number representing duration in seconds, precision allowed down to milliseconds.",
+    "minimum": 0,
+    "multipleOf": 0.001,
+    "type": "number"
   };
-  refVal13.errors = null;
   refVal[13] = refVal13;
   var refVal14 = {
-    "additionalProperties": false,
-    "properties": {
-      "endTime": {
-        "type": "number"
-      },
-      "startTime": {
-        "type": "number"
-      },
-      "type": {
-        "enum": ["SKIP"],
-        "type": "string"
-      }
-    },
-    "required": ["type", "startTime", "endTime"],
-    "type": "object"
-  };
-  refVal[14] = refVal14;
-  var refVal15 = {
-    "additionalProperties": false,
-    "properties": {
-      "duration": {
-        "type": "number"
-      },
-      "startTime": {
-        "type": "number"
-      },
-      "type": {
-        "enum": ["STILL"],
-        "type": "string"
-      }
-    },
-    "required": ["type", "startTime", "duration"],
-    "type": "object"
-  };
-  refVal[15] = refVal15;
-  var refVal16 = {
-    "additionalProperties": false,
-    "properties": {
-      "duration": {
-        "type": "number"
-      },
-      "startTime": {
-        "type": "number"
-      },
-      "type": {
-        "enum": ["PAUSE"],
-        "type": "string"
-      }
-    },
-    "required": ["type", "startTime", "duration"],
-    "type": "object"
-  };
-  refVal[16] = refVal16;
-  var refVal17 = {
-    "additionalProperties": false,
-    "properties": {
-      "audio": {
-        "type": "number"
-      },
-      "endTime": {
-        "type": "number"
-      },
-      "startTime": {
-        "type": "number"
-      },
-      "type": {
-        "enum": ["VOLUME"],
-        "type": "string"
-      },
-      "video": {
-        "type": "number"
-      }
-    },
-    "required": ["type", "startTime", "endTime", "audio", "video"],
-    "type": "object"
-  };
-  refVal[17] = refVal17;
-  var refVal18 = {
     "description": "The location of a file.",
     "format": "uri-reference",
     "type": "string"
   };
-  refVal[18] = refVal18;
-  var refVal19 = (function() {
+  refVal[14] = refVal14;
+  var refVal15 = (function() {
     var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
     var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
     var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
@@ -2952,7 +2193,8 @@ var validate = (function() {
                   message: 'should be equal to one of the allowed values'
                 }];
                 return false;
-              }
+              } else {}
+              if (errors === errs_1) {}
               var valid1 = errors === errs_1;
             }
             if (valid1) {
@@ -2980,49 +2222,55 @@ var validate = (function() {
                     var errs__2 = errors;
                     var valid2 = false;
                     var errs_3 = errors;
-                    if (!refVal20(data2, (dataPath || '') + '.elements[' + i1 + ']', data1, i1, rootData)) {
-                      if (vErrors === null) vErrors = refVal20.errors;
-                      else vErrors = vErrors.concat(refVal20.errors);
+                    if (!refVal16(data2, (dataPath || '') + '.elements[' + i1 + ']', data1, i1, rootData)) {
+                      if (vErrors === null) vErrors = refVal16.errors;
+                      else vErrors = vErrors.concat(refVal16.errors);
                       errors = vErrors.length;
-                    }
+                    } else {}
+                    if (errors === errs_3) {}
                     var valid3 = errors === errs_3;
                     valid2 = valid2 || valid3;
                     if (!valid2) {
                       var errs_3 = errors;
-                      if (!refVal28(data2, (dataPath || '') + '.elements[' + i1 + ']', data1, i1, rootData)) {
-                        if (vErrors === null) vErrors = refVal28.errors;
-                        else vErrors = vErrors.concat(refVal28.errors);
+                      if (!refVal24(data2, (dataPath || '') + '.elements[' + i1 + ']', data1, i1, rootData)) {
+                        if (vErrors === null) vErrors = refVal24.errors;
+                        else vErrors = vErrors.concat(refVal24.errors);
                         errors = vErrors.length;
-                      }
+                      } else {}
+                      if (errors === errs_3) {}
                       var valid3 = errors === errs_3;
                       valid2 = valid2 || valid3;
                       if (!valid2) {
                         var errs_3 = errors;
-                        if (!refVal29(data2, (dataPath || '') + '.elements[' + i1 + ']', data1, i1, rootData)) {
-                          if (vErrors === null) vErrors = refVal29.errors;
-                          else vErrors = vErrors.concat(refVal29.errors);
+                        if (!refVal25(data2, (dataPath || '') + '.elements[' + i1 + ']', data1, i1, rootData)) {
+                          if (vErrors === null) vErrors = refVal25.errors;
+                          else vErrors = vErrors.concat(refVal25.errors);
                           errors = vErrors.length;
-                        }
+                        } else {}
+                        if (errors === errs_3) {}
                         var valid3 = errors === errs_3;
                         valid2 = valid2 || valid3;
                         if (!valid2) {
                           var errs_3 = errors;
-                          if (!refVal31(data2, (dataPath || '') + '.elements[' + i1 + ']', data1, i1, rootData)) {
-                            if (vErrors === null) vErrors = refVal31.errors;
-                            else vErrors = vErrors.concat(refVal31.errors);
+                          if (!refVal27(data2, (dataPath || '') + '.elements[' + i1 + ']', data1, i1, rootData)) {
+                            if (vErrors === null) vErrors = refVal27.errors;
+                            else vErrors = vErrors.concat(refVal27.errors);
                             errors = vErrors.length;
-                          }
+                          } else {}
+                          if (errors === errs_3) {}
                           var valid3 = errors === errs_3;
                           valid2 = valid2 || valid3;
                           if (!valid2) {
                             var errs_3 = errors;
-                            if (!refVal33(data2, (dataPath || '') + '.elements[' + i1 + ']', data1, i1, rootData)) {
-                              if (vErrors === null) vErrors = refVal33.errors;
-                              else vErrors = vErrors.concat(refVal33.errors);
+                            if (!refVal29(data2, (dataPath || '') + '.elements[' + i1 + ']', data1, i1, rootData)) {
+                              if (vErrors === null) vErrors = refVal29.errors;
+                              else vErrors = vErrors.concat(refVal29.errors);
                               errors = vErrors.length;
-                            }
+                            } else {}
+                            if (errors === errs_3) {}
                             var valid3 = errors === errs_3;
                             valid2 = valid2 || valid3;
+                            if (!valid2) {}
                           }
                         }
                       }
@@ -3047,9 +2295,11 @@ var validate = (function() {
                         else vErrors = null;
                       }
                     }
+                    if (errors === errs_2) {}
                     var valid2 = errors === errs_2;
                     if (!valid2) break;
                   }
+                  if (errs__1 == errors) {}
                 } else {
                   validate.errors = [{
                     keyword: 'type',
@@ -3062,6 +2312,7 @@ var validate = (function() {
                   }];
                   return false;
                 }
+                if (errors === errs_1) {}
                 var valid1 = errors === errs_1;
               }
               if (valid1) {
@@ -3081,7 +2332,7 @@ var validate = (function() {
                 } else {
                   var errs_1 = errors;
                   var errs_2 = errors;
-                  if (typeof data1 === "number") {
+                  if ((typeof data1 === "number")) {
                     if (data1 > 1000 || data1 !== data1) {
                       validate.errors = [{
                         keyword: 'maximum',
@@ -3109,7 +2360,7 @@ var validate = (function() {
                           message: 'should be >= -100'
                         }];
                         return false;
-                      }
+                      } else {}
                     }
                   } else {
                     validate.errors = [{
@@ -3123,7 +2374,10 @@ var validate = (function() {
                     }];
                     return false;
                   }
+                  if (errors === errs_2) {}
                   var valid2 = errors === errs_2;
+                  if (valid2) {}
+                  if (errors === errs_1) {}
                   var valid1 = errors === errs_1;
                 }
                 if (valid1) {
@@ -3143,7 +2397,7 @@ var validate = (function() {
                   } else {
                     var errs_1 = errors;
                     var errs_2 = errors;
-                    if (typeof data1 === "number") {
+                    if ((typeof data1 === "number")) {
                       if (data1 > 1000 || data1 !== data1) {
                         validate.errors = [{
                           keyword: 'maximum',
@@ -3171,7 +2425,7 @@ var validate = (function() {
                             message: 'should be >= -100'
                           }];
                           return false;
-                        }
+                        } else {}
                       }
                     } else {
                       validate.errors = [{
@@ -3185,7 +2439,10 @@ var validate = (function() {
                       }];
                       return false;
                     }
+                    if (errors === errs_2) {}
                     var valid2 = errors === errs_2;
+                    if (valid2) {}
+                    if (errors === errs_1) {}
                     var valid1 = errors === errs_1;
                   }
                   if (valid1) {
@@ -3295,7 +2552,7 @@ var validate = (function() {
                                         message: 'should NOT be shorter than 2 characters'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
                                   }
                                 } else {
                                   validate.errors = [{
@@ -3309,11 +2566,16 @@ var validate = (function() {
                                   }];
                                   return false;
                                 }
+                                if (errors === errs_3) {}
                                 var valid3 = errors === errs_3;
+                                if (valid3) {}
+                                if (errors === errs_2) {}
                                 var valid2 = errors === errs_2;
                               }
+                              if (valid2) {}
                             }
                           }
+                          if (errs__1 == errors) {}
                         }
                       } else {
                         validate.errors = [{
@@ -3327,6 +2589,7 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_1) {}
                       var valid1 = errors === errs_1;
                     }
                     if (valid1) {
@@ -3346,7 +2609,7 @@ var validate = (function() {
                       } else {
                         var errs_1 = errors;
                         var errs_2 = errors;
-                        if (typeof data1 === "number") {
+                        if ((typeof data1 === "number")) {
                           if (data1 > 1000 || data1 !== data1) {
                             validate.errors = [{
                               keyword: 'maximum',
@@ -3374,7 +2637,7 @@ var validate = (function() {
                                 message: 'should be >= -100'
                               }];
                               return false;
-                            }
+                            } else {}
                           }
                         } else {
                           validate.errors = [{
@@ -3388,7 +2651,10 @@ var validate = (function() {
                           }];
                           return false;
                         }
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
+                        if (valid2) {}
+                        if (errors === errs_1) {}
                         var valid1 = errors === errs_1;
                       }
                       if (valid1) {
@@ -3419,25 +2685,21 @@ var validate = (function() {
                             }];
                             return false;
                           }
-                          var schema1 = validate.schema.properties.type.enum;
-                          var valid1;
-                          valid1 = false;
-                          for (var i1 = 0; i1 < schema1.length; i1++)
-                            if (equal(data1, schema1[i1])) {
-                              valid1 = true;
-                              break;
-                            } if (!valid1) {
+                          var schema1 = validate.schema.properties.type.const;
+                          var valid1 = equal(data1, schema1);
+                          if (!valid1) {
                             validate.errors = [{
-                              keyword: 'enum',
+                              keyword: 'const',
                               dataPath: (dataPath || '') + '.type',
-                              schemaPath: '#/properties/type/enum',
+                              schemaPath: '#/properties/type/const',
                               params: {
-                                allowedValues: schema1
+                                allowedValue: schema1
                               },
-                              message: 'should be equal to one of the allowed values'
+                              message: 'should be equal to constant'
                             }];
                             return false;
-                          }
+                          } else {}
+                          if (errors === errs_1) {}
                           var valid1 = errors === errs_1;
                         }
                         if (valid1) {
@@ -3469,7 +2731,7 @@ var validate = (function() {
                                   message: 'should match pattern "^([0-9]+\\s){3}[0-9]+$"'
                                 }];
                                 return false;
-                              }
+                              } else {}
                             } else {
                               validate.errors = [{
                                 keyword: 'type',
@@ -3482,7 +2744,10 @@ var validate = (function() {
                               }];
                               return false;
                             }
+                            if (errors === errs_2) {}
                             var valid2 = errors === errs_2;
+                            if (valid2) {}
+                            if (errors === errs_1) {}
                             var valid1 = errors === errs_1;
                           }
                           if (valid1) {
@@ -3502,7 +2767,7 @@ var validate = (function() {
                             } else {
                               var errs_1 = errors;
                               var errs_2 = errors;
-                              if (typeof data1 === "number") {
+                              if ((typeof data1 === "number")) {
                                 if (data1 > 1000 || data1 !== data1) {
                                   validate.errors = [{
                                     keyword: 'maximum',
@@ -3530,7 +2795,7 @@ var validate = (function() {
                                       message: 'should be >= -100'
                                     }];
                                     return false;
-                                  }
+                                  } else {}
                                 }
                               } else {
                                 validate.errors = [{
@@ -3544,9 +2809,13 @@ var validate = (function() {
                                 }];
                                 return false;
                               }
+                              if (errors === errs_2) {}
                               var valid2 = errors === errs_2;
+                              if (valid2) {}
+                              if (errors === errs_1) {}
                               var valid1 = errors === errs_1;
                             }
+                            if (valid1) {}
                           }
                         }
                       }
@@ -3556,6 +2825,7 @@ var validate = (function() {
               }
             }
           }
+          if (errs__0 == errors) {}
         }
       } else {
         validate.errors = [{
@@ -3569,11 +2839,12 @@ var validate = (function() {
         }];
         return false;
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
   })();
-  refVal19.schema = {
+  refVal15.schema = {
     "additionalProperties": false,
     "properties": {
       "blend": {
@@ -3619,7 +2890,7 @@ var validate = (function() {
         "$ref": "#/definitions/Percentage"
       },
       "type": {
-        "enum": ["SHAPE"],
+        "const": "SHAPE",
         "type": "string"
       },
       "viewBox": {
@@ -3632,9 +2903,9 @@ var validate = (function() {
     "required": ["elements", "height", "left", "title", "top", "type", "viewBox", "width"],
     "type": "object"
   };
-  refVal19.errors = null;
-  refVal[19] = refVal19;
-  var refVal20 = (function() {
+  refVal15.errors = null;
+  refVal[15] = refVal15;
+  var refVal16 = (function() {
     var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
     var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
     var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
@@ -3643,6 +2914,7 @@ var validate = (function() {
       'use strict';
       var vErrors = null;
       var errors = 0;
+      if (rootData === undefined) rootData = data;
       if ((data && typeof data === "object" && !Array.isArray(data))) {
         if (true) {
           var errs__0 = errors;
@@ -3681,7 +2953,7 @@ var validate = (function() {
             } else {
               var errs_1 = errors;
               var errs_2 = errors;
-              if (typeof data1 === "number") {
+              if ((typeof data1 === "number")) {
                 if (data1 < 0 || data1 !== data1) {
                   validate.errors = [{
                     keyword: 'minimum',
@@ -3695,7 +2967,7 @@ var validate = (function() {
                     message: 'should be >= 0'
                   }];
                   return false;
-                }
+                } else {}
               } else {
                 validate.errors = [{
                   keyword: 'type',
@@ -3708,7 +2980,10 @@ var validate = (function() {
                 }];
                 return false;
               }
+              if (errors === errs_2) {}
               var valid2 = errors === errs_2;
+              if (valid2) {}
+              if (errors === errs_1) {}
               var valid1 = errors === errs_1;
             }
             if (valid1) {
@@ -3728,7 +3003,7 @@ var validate = (function() {
               } else {
                 var errs_1 = errors;
                 var errs_2 = errors;
-                if (typeof data1 === "number") {
+                if ((typeof data1 === "number")) {
                   if (data1 < 0 || data1 !== data1) {
                     validate.errors = [{
                       keyword: 'minimum',
@@ -3742,7 +3017,7 @@ var validate = (function() {
                       message: 'should be >= 0'
                     }];
                     return false;
-                  }
+                  } else {}
                 } else {
                   validate.errors = [{
                     keyword: 'type',
@@ -3755,7 +3030,10 @@ var validate = (function() {
                   }];
                   return false;
                 }
+                if (errors === errs_2) {}
                 var valid2 = errors === errs_2;
+                if (valid2) {}
+                if (errors === errs_1) {}
                 var valid1 = errors === errs_1;
               }
               if (valid1) {
@@ -3786,25 +3064,21 @@ var validate = (function() {
                     }];
                     return false;
                   }
-                  var schema1 = validate.schema.properties.element.enum;
-                  var valid1;
-                  valid1 = false;
-                  for (var i1 = 0; i1 < schema1.length; i1++)
-                    if (equal(data1, schema1[i1])) {
-                      valid1 = true;
-                      break;
-                    } if (!valid1) {
+                  var schema1 = validate.schema.properties.element.const;
+                  var valid1 = equal(data1, schema1);
+                  if (!valid1) {
                     validate.errors = [{
-                      keyword: 'enum',
+                      keyword: 'const',
                       dataPath: (dataPath || '') + '.element',
-                      schemaPath: '#/properties/element/enum',
+                      schemaPath: '#/properties/element/const',
                       params: {
-                        allowedValues: schema1
+                        allowedValue: schema1
                       },
-                      message: 'should be equal to one of the allowed values'
+                      message: 'should be equal to constant'
                     }];
                     return false;
-                  }
+                  } else {}
+                  if (errors === errs_1) {}
                   var valid1 = errors === errs_1;
                 }
                 if (valid1) {
@@ -3852,7 +3126,7 @@ var validate = (function() {
                                 message: 'should match pattern "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$"'
                               }];
                               return false;
-                            }
+                            } else {}
                           } else {
                             validate.errors = [{
                               keyword: 'type',
@@ -3865,7 +3139,10 @@ var validate = (function() {
                             }];
                             return false;
                           }
+                          if (errors === errs_3) {}
                           var valid3 = errors === errs_3;
+                          if (valid3) {}
+                          if (errors === errs_2) {}
                           var valid2 = errors === errs_2;
                         }
                         if (valid2) {
@@ -3875,7 +3152,7 @@ var validate = (function() {
                           } else {
                             var errs_2 = errors;
                             var errs_3 = errors;
-                            if (typeof data2 === "number") {
+                            if ((typeof data2 === "number")) {
                               if (data2 > 1 || data2 !== data2) {
                                 validate.errors = [{
                                   keyword: 'maximum',
@@ -3903,7 +3180,7 @@ var validate = (function() {
                                     message: 'should be >= 0'
                                   }];
                                   return false;
-                                }
+                                } else {}
                               }
                             } else {
                               validate.errors = [{
@@ -3917,7 +3194,10 @@ var validate = (function() {
                               }];
                               return false;
                             }
+                            if (errors === errs_3) {}
                             var valid3 = errors === errs_3;
+                            if (valid3) {}
+                            if (errors === errs_2) {}
                             var valid2 = errors === errs_2;
                           }
                           if (valid2) {
@@ -3956,12 +3236,15 @@ var validate = (function() {
                                   message: 'should be equal to one of the allowed values'
                                 }];
                                 return false;
-                              }
+                              } else {}
+                              if (errors === errs_2) {}
                               var valid2 = errors === errs_2;
                             }
+                            if (valid2) {}
                           }
                         }
                       }
+                      if (errs__1 == errors) {}
                     } else {
                       validate.errors = [{
                         keyword: 'type',
@@ -3974,6 +3257,7 @@ var validate = (function() {
                       }];
                       return false;
                     }
+                    if (errors === errs_1) {}
                     var valid1 = errors === errs_1;
                   }
                   if (valid1) {
@@ -3983,7 +3267,7 @@ var validate = (function() {
                     } else {
                       var errs_1 = errors;
                       var errs_2 = errors;
-                      if (typeof data1 === "number") {
+                      if ((typeof data1 === "number")) {
                         if (data1 > 1 || data1 !== data1) {
                           validate.errors = [{
                             keyword: 'maximum',
@@ -4011,7 +3295,7 @@ var validate = (function() {
                               message: 'should be >= 0'
                             }];
                             return false;
-                          }
+                          } else {}
                         }
                       } else {
                         validate.errors = [{
@@ -4025,7 +3309,10 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_2) {}
                       var valid2 = errors === errs_2;
+                      if (valid2) {}
+                      if (errors === errs_1) {}
                       var valid1 = errors === errs_1;
                     }
                     if (valid1) {
@@ -4045,7 +3332,7 @@ var validate = (function() {
                       } else {
                         var errs_1 = errors;
                         var errs_2 = errors;
-                        if (typeof data1 === "number") {
+                        if ((typeof data1 === "number")) {
                           if (data1 < 0 || data1 !== data1) {
                             validate.errors = [{
                               keyword: 'minimum',
@@ -4059,7 +3346,7 @@ var validate = (function() {
                               message: 'should be >= 0'
                             }];
                             return false;
-                          }
+                          } else {}
                         } else {
                           validate.errors = [{
                             keyword: 'type',
@@ -4072,7 +3359,10 @@ var validate = (function() {
                           }];
                           return false;
                         }
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
+                        if (valid2) {}
+                        if (errors === errs_1) {}
                         var valid1 = errors === errs_1;
                       }
                       if (valid1) {
@@ -4092,7 +3382,7 @@ var validate = (function() {
                         } else {
                           var errs_1 = errors;
                           var errs_2 = errors;
-                          if (typeof data1 === "number") {
+                          if ((typeof data1 === "number")) {
                             if (data1 < 0 || data1 !== data1) {
                               validate.errors = [{
                                 keyword: 'minimum',
@@ -4106,7 +3396,7 @@ var validate = (function() {
                                 message: 'should be >= 0'
                               }];
                               return false;
-                            }
+                            } else {}
                           } else {
                             validate.errors = [{
                               keyword: 'type',
@@ -4119,7 +3409,10 @@ var validate = (function() {
                             }];
                             return false;
                           }
+                          if (errors === errs_2) {}
                           var valid2 = errors === errs_2;
+                          if (valid2) {}
+                          if (errors === errs_1) {}
                           var valid1 = errors === errs_1;
                         }
                         if (valid1) {
@@ -4167,7 +3460,7 @@ var validate = (function() {
                                         message: 'should match pattern "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$"'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
                                   } else {
                                     validate.errors = [{
                                       keyword: 'type',
@@ -4180,7 +3473,10 @@ var validate = (function() {
                                     }];
                                     return false;
                                   }
+                                  if (errors === errs_3) {}
                                   var valid3 = errors === errs_3;
+                                  if (valid3) {}
+                                  if (errors === errs_2) {}
                                   var valid2 = errors === errs_2;
                                 }
                                 if (valid2) {
@@ -4202,7 +3498,7 @@ var validate = (function() {
                                           message: 'should match pattern "^([0-9]+\\s)+[0-9]+$"'
                                         }];
                                         return false;
-                                      }
+                                      } else {}
                                     } else {
                                       validate.errors = [{
                                         keyword: 'type',
@@ -4215,7 +3511,10 @@ var validate = (function() {
                                       }];
                                       return false;
                                     }
+                                    if (errors === errs_3) {}
                                     var valid3 = errors === errs_3;
+                                    if (valid3) {}
+                                    if (errors === errs_2) {}
                                     var valid2 = errors === errs_2;
                                   }
                                   if (valid2) {
@@ -4237,7 +3536,7 @@ var validate = (function() {
                                         }];
                                         return false;
                                       }
-                                      if (typeof data2 === "number") {
+                                      if ((typeof data2 === "number")) {
                                         if (data2 > 100 || data2 !== data2) {
                                           validate.errors = [{
                                             keyword: 'maximum',
@@ -4265,10 +3564,13 @@ var validate = (function() {
                                               message: 'should be >= -100'
                                             }];
                                             return false;
-                                          }
+                                          } else {}
                                         }
                                       }
+                                      if (errors === errs_3) {}
                                       var valid3 = errors === errs_3;
+                                      if (valid3) {}
+                                      if (errors === errs_2) {}
                                       var valid2 = errors === errs_2;
                                     }
                                     if (valid2) {
@@ -4307,7 +3609,8 @@ var validate = (function() {
                                             message: 'should be equal to one of the allowed values'
                                           }];
                                           return false;
-                                        }
+                                        } else {}
+                                        if (errors === errs_2) {}
                                         var valid2 = errors === errs_2;
                                       }
                                       if (valid2) {
@@ -4346,7 +3649,8 @@ var validate = (function() {
                                               message: 'should be equal to one of the allowed values'
                                             }];
                                             return false;
-                                          }
+                                          } else {}
+                                          if (errors === errs_2) {}
                                           var valid2 = errors === errs_2;
                                         }
                                         if (valid2) {
@@ -4356,7 +3660,7 @@ var validate = (function() {
                                           } else {
                                             var errs_2 = errors;
                                             var errs_3 = errors;
-                                            if (typeof data2 === "number") {
+                                            if ((typeof data2 === "number")) {
                                               if (data2 > 1 || data2 !== data2) {
                                                 validate.errors = [{
                                                   keyword: 'maximum',
@@ -4384,7 +3688,7 @@ var validate = (function() {
                                                     message: 'should be >= 0'
                                                   }];
                                                   return false;
-                                                }
+                                                } else {}
                                               }
                                             } else {
                                               validate.errors = [{
@@ -4398,7 +3702,10 @@ var validate = (function() {
                                               }];
                                               return false;
                                             }
+                                            if (errors === errs_3) {}
                                             var valid3 = errors === errs_3;
+                                            if (valid3) {}
+                                            if (errors === errs_2) {}
                                             var valid2 = errors === errs_2;
                                           }
                                           if (valid2) {
@@ -4408,7 +3715,7 @@ var validate = (function() {
                                             } else {
                                               var errs_2 = errors;
                                               var errs_3 = errors;
-                                              if (typeof data2 === "number") {
+                                              if ((typeof data2 === "number")) {
                                                 if (data2 < 0 || data2 !== data2) {
                                                   validate.errors = [{
                                                     keyword: 'minimum',
@@ -4422,7 +3729,7 @@ var validate = (function() {
                                                     message: 'should be >= 0'
                                                   }];
                                                   return false;
-                                                }
+                                                } else {}
                                               } else {
                                                 validate.errors = [{
                                                   keyword: 'type',
@@ -4435,9 +3742,13 @@ var validate = (function() {
                                                 }];
                                                 return false;
                                               }
+                                              if (errors === errs_3) {}
                                               var valid3 = errors === errs_3;
+                                              if (valid3) {}
+                                              if (errors === errs_2) {}
                                               var valid2 = errors === errs_2;
                                             }
+                                            if (valid2) {}
                                           }
                                         }
                                       }
@@ -4445,6 +3756,7 @@ var validate = (function() {
                                   }
                                 }
                               }
+                              if (errs__1 == errors) {}
                             } else {
                               validate.errors = [{
                                 keyword: 'type',
@@ -4457,6 +3769,7 @@ var validate = (function() {
                               }];
                               return false;
                             }
+                            if (errors === errs_1) {}
                             var valid1 = errors === errs_1;
                           }
                           if (valid1) {
@@ -4490,7 +3803,7 @@ var validate = (function() {
                                       message: 'should NOT be shorter than 2 characters'
                                     }];
                                     return false;
-                                  }
+                                  } else {}
                                 }
                               } else {
                                 validate.errors = [{
@@ -4504,7 +3817,10 @@ var validate = (function() {
                                 }];
                                 return false;
                               }
+                              if (errors === errs_2) {}
                               var valid2 = errors === errs_2;
+                              if (valid2) {}
+                              if (errors === errs_1) {}
                               var valid1 = errors === errs_1;
                             }
                             if (valid1) {
@@ -4538,7 +3854,7 @@ var validate = (function() {
                                         message: 'should NOT be shorter than 2 characters'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
                                   }
                                 } else {
                                   validate.errors = [{
@@ -4552,9 +3868,13 @@ var validate = (function() {
                                   }];
                                   return false;
                                 }
+                                if (errors === errs_2) {}
                                 var valid2 = errors === errs_2;
+                                if (valid2) {}
+                                if (errors === errs_1) {}
                                 var valid1 = errors === errs_1;
                               }
+                              if (valid1) {}
                             }
                           }
                         }
@@ -4565,6 +3885,7 @@ var validate = (function() {
               }
             }
           }
+          if (errs__0 == errors) {}
         }
       } else {
         validate.errors = [{
@@ -4578,11 +3899,12 @@ var validate = (function() {
         }];
         return false;
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
   })();
-  refVal20.schema = {
+  refVal16.schema = {
     "additionalProperties": false,
     "properties": {
       "cx": {
@@ -4592,7 +3914,7 @@ var validate = (function() {
         "$ref": "#/definitions/ViewportCoordinate"
       },
       "element": {
-        "enum": ["ellipse"],
+        "const": "ellipse",
         "type": "string"
       },
       "fill": {
@@ -4659,55 +3981,55 @@ var validate = (function() {
     "required": ["cx", "cy", "element", "rx", "ry"],
     "type": "object"
   };
-  refVal20.errors = null;
-  refVal[20] = refVal20;
-  var refVal21 = {
+  refVal16.errors = null;
+  refVal[16] = refVal16;
+  var refVal17 = {
     "description": "An integer representing the dash offset of a stroke.",
     "minimum": 0,
     "type": "number"
   };
-  refVal[21] = refVal21;
-  var refVal22 = {
-    "description": "A hex, hsl, hsla or rgba color string:\n#FA9, #FFAA99, rgba(1, 1, 2, 0.5)",
+  refVal[17] = refVal17;
+  var refVal18 = {
+    "description": "A hex, hsl, hsla or rgba color string: #FA9, #FFAA99, rgba(1, 1, 2, 0.5)",
     "pattern": "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$",
     "type": "string"
   };
-  refVal[22] = refVal22;
-  var refVal23 = {
+  refVal[18] = refVal18;
+  var refVal19 = {
     "description": "A normalized opacity ranged between 0.0 and 1.0",
     "maximum": 1,
     "minimum": 0,
     "type": "number"
   };
-  refVal[23] = refVal23;
-  var refVal24 = {
+  refVal[19] = refVal19;
+  var refVal20 = {
     "description": "A dash array in the form of \"2 3 4\"",
     "pattern": "^([0-9]+\\s)+[0-9]+$",
     "type": "string"
   };
-  refVal[24] = refVal24;
-  var refVal25 = {
+  refVal[20] = refVal20;
+  var refVal21 = {
     "description": "An integer representing the dash offset of a stroke.",
     "maximum": 100,
     "minimum": -100,
     "type": "integer"
   };
-  refVal[25] = refVal25;
-  var refVal26 = {
+  refVal[21] = refVal21;
+  var refVal22 = {
     "description": "A short css transform string.",
     "maxLength": 128,
     "minLength": 2,
     "type": "string"
   };
-  refVal[26] = refVal26;
-  var refVal27 = {
+  refVal[22] = refVal22;
+  var refVal23 = {
     "description": "A transform origin string.",
     "maxLength": 128,
     "minLength": 2,
     "type": "string"
   };
-  refVal[27] = refVal27;
-  var refVal28 = (function() {
+  refVal[23] = refVal23;
+  var refVal24 = (function() {
     var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
     var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
     var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
@@ -4716,6 +4038,7 @@ var validate = (function() {
       'use strict';
       var vErrors = null;
       var errors = 0;
+      if (rootData === undefined) rootData = data;
       if ((data && typeof data === "object" && !Array.isArray(data))) {
         if (true) {
           var errs__0 = errors;
@@ -4765,25 +4088,21 @@ var validate = (function() {
                 }];
                 return false;
               }
-              var schema1 = validate.schema.properties.element.enum;
-              var valid1;
-              valid1 = false;
-              for (var i1 = 0; i1 < schema1.length; i1++)
-                if (equal(data1, schema1[i1])) {
-                  valid1 = true;
-                  break;
-                } if (!valid1) {
+              var schema1 = validate.schema.properties.element.const;
+              var valid1 = equal(data1, schema1);
+              if (!valid1) {
                 validate.errors = [{
-                  keyword: 'enum',
+                  keyword: 'const',
                   dataPath: (dataPath || '') + '.element',
-                  schemaPath: '#/properties/element/enum',
+                  schemaPath: '#/properties/element/const',
                   params: {
-                    allowedValues: schema1
+                    allowedValue: schema1
                   },
-                  message: 'should be equal to one of the allowed values'
+                  message: 'should be equal to constant'
                 }];
                 return false;
-              }
+              } else {}
+              if (errors === errs_1) {}
               var valid1 = errors === errs_1;
             }
             if (valid1) {
@@ -4831,7 +4150,7 @@ var validate = (function() {
                             message: 'should match pattern "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$"'
                           }];
                           return false;
-                        }
+                        } else {}
                       } else {
                         validate.errors = [{
                           keyword: 'type',
@@ -4844,7 +4163,10 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_3) {}
                       var valid3 = errors === errs_3;
+                      if (valid3) {}
+                      if (errors === errs_2) {}
                       var valid2 = errors === errs_2;
                     }
                     if (valid2) {
@@ -4854,7 +4176,7 @@ var validate = (function() {
                       } else {
                         var errs_2 = errors;
                         var errs_3 = errors;
-                        if (typeof data2 === "number") {
+                        if ((typeof data2 === "number")) {
                           if (data2 > 1 || data2 !== data2) {
                             validate.errors = [{
                               keyword: 'maximum',
@@ -4882,7 +4204,7 @@ var validate = (function() {
                                 message: 'should be >= 0'
                               }];
                               return false;
-                            }
+                            } else {}
                           }
                         } else {
                           validate.errors = [{
@@ -4896,7 +4218,10 @@ var validate = (function() {
                           }];
                           return false;
                         }
+                        if (errors === errs_3) {}
                         var valid3 = errors === errs_3;
+                        if (valid3) {}
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
                       }
                       if (valid2) {
@@ -4935,12 +4260,15 @@ var validate = (function() {
                               message: 'should be equal to one of the allowed values'
                             }];
                             return false;
-                          }
+                          } else {}
+                          if (errors === errs_2) {}
                           var valid2 = errors === errs_2;
                         }
+                        if (valid2) {}
                       }
                     }
                   }
+                  if (errs__1 == errors) {}
                 } else {
                   validate.errors = [{
                     keyword: 'type',
@@ -4953,6 +4281,7 @@ var validate = (function() {
                   }];
                   return false;
                 }
+                if (errors === errs_1) {}
                 var valid1 = errors === errs_1;
               }
               if (valid1) {
@@ -4972,7 +4301,7 @@ var validate = (function() {
                 } else {
                   var errs_1 = errors;
                   var errs_2 = errors;
-                  if (typeof data1 === "number") {
+                  if ((typeof data1 === "number")) {
                     if (data1 < 0 || data1 !== data1) {
                       validate.errors = [{
                         keyword: 'minimum',
@@ -4986,7 +4315,7 @@ var validate = (function() {
                         message: 'should be >= 0'
                       }];
                       return false;
-                    }
+                    } else {}
                   } else {
                     validate.errors = [{
                       keyword: 'type',
@@ -4999,7 +4328,10 @@ var validate = (function() {
                     }];
                     return false;
                   }
+                  if (errors === errs_2) {}
                   var valid2 = errors === errs_2;
+                  if (valid2) {}
+                  if (errors === errs_1) {}
                   var valid1 = errors === errs_1;
                 }
                 if (valid1) {
@@ -5009,7 +4341,7 @@ var validate = (function() {
                   } else {
                     var errs_1 = errors;
                     var errs_2 = errors;
-                    if (typeof data1 === "number") {
+                    if ((typeof data1 === "number")) {
                       if (data1 > 1 || data1 !== data1) {
                         validate.errors = [{
                           keyword: 'maximum',
@@ -5037,7 +4369,7 @@ var validate = (function() {
                             message: 'should be >= 0'
                           }];
                           return false;
-                        }
+                        } else {}
                       }
                     } else {
                       validate.errors = [{
@@ -5051,7 +4383,10 @@ var validate = (function() {
                       }];
                       return false;
                     }
+                    if (errors === errs_2) {}
                     var valid2 = errors === errs_2;
+                    if (valid2) {}
+                    if (errors === errs_1) {}
                     var valid1 = errors === errs_1;
                   }
                   if (valid1) {
@@ -5061,7 +4396,7 @@ var validate = (function() {
                     } else {
                       var errs_1 = errors;
                       var errs_2 = errors;
-                      if (typeof data1 === "number") {
+                      if ((typeof data1 === "number")) {
                         if (data1 < 0 || data1 !== data1) {
                           validate.errors = [{
                             keyword: 'minimum',
@@ -5075,7 +4410,7 @@ var validate = (function() {
                             message: 'should be >= 0'
                           }];
                           return false;
-                        }
+                        } else {}
                       } else {
                         validate.errors = [{
                           keyword: 'type',
@@ -5088,7 +4423,10 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_2) {}
                       var valid2 = errors === errs_2;
+                      if (valid2) {}
+                      if (errors === errs_1) {}
                       var valid1 = errors === errs_1;
                     }
                     if (valid1) {
@@ -5098,7 +4436,7 @@ var validate = (function() {
                       } else {
                         var errs_1 = errors;
                         var errs_2 = errors;
-                        if (typeof data1 === "number") {
+                        if ((typeof data1 === "number")) {
                           if (data1 < 0 || data1 !== data1) {
                             validate.errors = [{
                               keyword: 'minimum',
@@ -5112,7 +4450,7 @@ var validate = (function() {
                               message: 'should be >= 0'
                             }];
                             return false;
-                          }
+                          } else {}
                         } else {
                           validate.errors = [{
                             keyword: 'type',
@@ -5125,7 +4463,10 @@ var validate = (function() {
                           }];
                           return false;
                         }
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
+                        if (valid2) {}
+                        if (errors === errs_1) {}
                         var valid1 = errors === errs_1;
                       }
                       if (valid1) {
@@ -5173,7 +4514,7 @@ var validate = (function() {
                                       message: 'should match pattern "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$"'
                                     }];
                                     return false;
-                                  }
+                                  } else {}
                                 } else {
                                   validate.errors = [{
                                     keyword: 'type',
@@ -5186,7 +4527,10 @@ var validate = (function() {
                                   }];
                                   return false;
                                 }
+                                if (errors === errs_3) {}
                                 var valid3 = errors === errs_3;
+                                if (valid3) {}
+                                if (errors === errs_2) {}
                                 var valid2 = errors === errs_2;
                               }
                               if (valid2) {
@@ -5208,7 +4552,7 @@ var validate = (function() {
                                         message: 'should match pattern "^([0-9]+\\s)+[0-9]+$"'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
                                   } else {
                                     validate.errors = [{
                                       keyword: 'type',
@@ -5221,7 +4565,10 @@ var validate = (function() {
                                     }];
                                     return false;
                                   }
+                                  if (errors === errs_3) {}
                                   var valid3 = errors === errs_3;
+                                  if (valid3) {}
+                                  if (errors === errs_2) {}
                                   var valid2 = errors === errs_2;
                                 }
                                 if (valid2) {
@@ -5243,7 +4590,7 @@ var validate = (function() {
                                       }];
                                       return false;
                                     }
-                                    if (typeof data2 === "number") {
+                                    if ((typeof data2 === "number")) {
                                       if (data2 > 100 || data2 !== data2) {
                                         validate.errors = [{
                                           keyword: 'maximum',
@@ -5271,10 +4618,13 @@ var validate = (function() {
                                             message: 'should be >= -100'
                                           }];
                                           return false;
-                                        }
+                                        } else {}
                                       }
                                     }
+                                    if (errors === errs_3) {}
                                     var valid3 = errors === errs_3;
+                                    if (valid3) {}
+                                    if (errors === errs_2) {}
                                     var valid2 = errors === errs_2;
                                   }
                                   if (valid2) {
@@ -5313,7 +4663,8 @@ var validate = (function() {
                                           message: 'should be equal to one of the allowed values'
                                         }];
                                         return false;
-                                      }
+                                      } else {}
+                                      if (errors === errs_2) {}
                                       var valid2 = errors === errs_2;
                                     }
                                     if (valid2) {
@@ -5352,7 +4703,8 @@ var validate = (function() {
                                             message: 'should be equal to one of the allowed values'
                                           }];
                                           return false;
-                                        }
+                                        } else {}
+                                        if (errors === errs_2) {}
                                         var valid2 = errors === errs_2;
                                       }
                                       if (valid2) {
@@ -5362,7 +4714,7 @@ var validate = (function() {
                                         } else {
                                           var errs_2 = errors;
                                           var errs_3 = errors;
-                                          if (typeof data2 === "number") {
+                                          if ((typeof data2 === "number")) {
                                             if (data2 > 1 || data2 !== data2) {
                                               validate.errors = [{
                                                 keyword: 'maximum',
@@ -5390,7 +4742,7 @@ var validate = (function() {
                                                   message: 'should be >= 0'
                                                 }];
                                                 return false;
-                                              }
+                                              } else {}
                                             }
                                           } else {
                                             validate.errors = [{
@@ -5404,7 +4756,10 @@ var validate = (function() {
                                             }];
                                             return false;
                                           }
+                                          if (errors === errs_3) {}
                                           var valid3 = errors === errs_3;
+                                          if (valid3) {}
+                                          if (errors === errs_2) {}
                                           var valid2 = errors === errs_2;
                                         }
                                         if (valid2) {
@@ -5414,7 +4769,7 @@ var validate = (function() {
                                           } else {
                                             var errs_2 = errors;
                                             var errs_3 = errors;
-                                            if (typeof data2 === "number") {
+                                            if ((typeof data2 === "number")) {
                                               if (data2 < 0 || data2 !== data2) {
                                                 validate.errors = [{
                                                   keyword: 'minimum',
@@ -5428,7 +4783,7 @@ var validate = (function() {
                                                   message: 'should be >= 0'
                                                 }];
                                                 return false;
-                                              }
+                                              } else {}
                                             } else {
                                               validate.errors = [{
                                                 keyword: 'type',
@@ -5441,9 +4796,13 @@ var validate = (function() {
                                               }];
                                               return false;
                                             }
+                                            if (errors === errs_3) {}
                                             var valid3 = errors === errs_3;
+                                            if (valid3) {}
+                                            if (errors === errs_2) {}
                                             var valid2 = errors === errs_2;
                                           }
+                                          if (valid2) {}
                                         }
                                       }
                                     }
@@ -5451,6 +4810,7 @@ var validate = (function() {
                                 }
                               }
                             }
+                            if (errs__1 == errors) {}
                           } else {
                             validate.errors = [{
                               keyword: 'type',
@@ -5463,6 +4823,7 @@ var validate = (function() {
                             }];
                             return false;
                           }
+                          if (errors === errs_1) {}
                           var valid1 = errors === errs_1;
                         }
                         if (valid1) {
@@ -5496,7 +4857,7 @@ var validate = (function() {
                                     message: 'should NOT be shorter than 2 characters'
                                   }];
                                   return false;
-                                }
+                                } else {}
                               }
                             } else {
                               validate.errors = [{
@@ -5510,7 +4871,10 @@ var validate = (function() {
                               }];
                               return false;
                             }
+                            if (errors === errs_2) {}
                             var valid2 = errors === errs_2;
+                            if (valid2) {}
+                            if (errors === errs_1) {}
                             var valid1 = errors === errs_1;
                           }
                           if (valid1) {
@@ -5544,7 +4908,7 @@ var validate = (function() {
                                       message: 'should NOT be shorter than 2 characters'
                                     }];
                                     return false;
-                                  }
+                                  } else {}
                                 }
                               } else {
                                 validate.errors = [{
@@ -5558,7 +4922,10 @@ var validate = (function() {
                                 }];
                                 return false;
                               }
+                              if (errors === errs_2) {}
                               var valid2 = errors === errs_2;
+                              if (valid2) {}
+                              if (errors === errs_1) {}
                               var valid1 = errors === errs_1;
                             }
                             if (valid1) {
@@ -5578,7 +4945,7 @@ var validate = (function() {
                               } else {
                                 var errs_1 = errors;
                                 var errs_2 = errors;
-                                if (typeof data1 === "number") {
+                                if ((typeof data1 === "number")) {
                                   if (data1 < 0 || data1 !== data1) {
                                     validate.errors = [{
                                       keyword: 'minimum',
@@ -5592,7 +4959,7 @@ var validate = (function() {
                                       message: 'should be >= 0'
                                     }];
                                     return false;
-                                  }
+                                  } else {}
                                 } else {
                                   validate.errors = [{
                                     keyword: 'type',
@@ -5605,7 +4972,10 @@ var validate = (function() {
                                   }];
                                   return false;
                                 }
+                                if (errors === errs_2) {}
                                 var valid2 = errors === errs_2;
+                                if (valid2) {}
+                                if (errors === errs_1) {}
                                 var valid1 = errors === errs_1;
                               }
                               if (valid1) {
@@ -5625,7 +4995,7 @@ var validate = (function() {
                                 } else {
                                   var errs_1 = errors;
                                   var errs_2 = errors;
-                                  if (typeof data1 === "number") {
+                                  if ((typeof data1 === "number")) {
                                     if (data1 < 0 || data1 !== data1) {
                                       validate.errors = [{
                                         keyword: 'minimum',
@@ -5639,7 +5009,7 @@ var validate = (function() {
                                         message: 'should be >= 0'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
                                   } else {
                                     validate.errors = [{
                                       keyword: 'type',
@@ -5652,7 +5022,10 @@ var validate = (function() {
                                     }];
                                     return false;
                                   }
+                                  if (errors === errs_2) {}
                                   var valid2 = errors === errs_2;
+                                  if (valid2) {}
+                                  if (errors === errs_1) {}
                                   var valid1 = errors === errs_1;
                                 }
                                 if (valid1) {
@@ -5672,7 +5045,7 @@ var validate = (function() {
                                   } else {
                                     var errs_1 = errors;
                                     var errs_2 = errors;
-                                    if (typeof data1 === "number") {
+                                    if ((typeof data1 === "number")) {
                                       if (data1 < 0 || data1 !== data1) {
                                         validate.errors = [{
                                           keyword: 'minimum',
@@ -5686,7 +5059,7 @@ var validate = (function() {
                                           message: 'should be >= 0'
                                         }];
                                         return false;
-                                      }
+                                      } else {}
                                     } else {
                                       validate.errors = [{
                                         keyword: 'type',
@@ -5699,9 +5072,13 @@ var validate = (function() {
                                       }];
                                       return false;
                                     }
+                                    if (errors === errs_2) {}
                                     var valid2 = errors === errs_2;
+                                    if (valid2) {}
+                                    if (errors === errs_1) {}
                                     var valid1 = errors === errs_1;
                                   }
+                                  if (valid1) {}
                                 }
                               }
                             }
@@ -5714,6 +5091,7 @@ var validate = (function() {
               }
             }
           }
+          if (errs__0 == errors) {}
         }
       } else {
         validate.errors = [{
@@ -5727,15 +5105,16 @@ var validate = (function() {
         }];
         return false;
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
   })();
-  refVal28.schema = {
+  refVal24.schema = {
     "additionalProperties": false,
     "properties": {
       "element": {
-        "enum": ["rect"],
+        "const": "rect",
         "type": "string"
       },
       "fill": {
@@ -5814,9 +5193,9 @@ var validate = (function() {
     "required": ["element", "height", "width", "x", "y"],
     "type": "object"
   };
-  refVal28.errors = null;
-  refVal[28] = refVal28;
-  var refVal29 = (function() {
+  refVal24.errors = null;
+  refVal[24] = refVal24;
+  var refVal25 = (function() {
     var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
     var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
     var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
@@ -5825,6 +5204,7 @@ var validate = (function() {
       'use strict';
       var vErrors = null;
       var errors = 0;
+      if (rootData === undefined) rootData = data;
       if ((data && typeof data === "object" && !Array.isArray(data))) {
         if (true) {
           var errs__0 = errors;
@@ -5887,7 +5267,7 @@ var validate = (function() {
                       message: 'should NOT be shorter than 2 characters'
                     }];
                     return false;
-                  }
+                  } else {}
                 }
               } else {
                 validate.errors = [{
@@ -5901,7 +5281,10 @@ var validate = (function() {
                 }];
                 return false;
               }
+              if (errors === errs_2) {}
               var valid2 = errors === errs_2;
+              if (valid2) {}
+              if (errors === errs_1) {}
               var valid1 = errors === errs_1;
             }
             if (valid1) {
@@ -5932,25 +5315,21 @@ var validate = (function() {
                   }];
                   return false;
                 }
-                var schema1 = validate.schema.properties.element.enum;
-                var valid1;
-                valid1 = false;
-                for (var i1 = 0; i1 < schema1.length; i1++)
-                  if (equal(data1, schema1[i1])) {
-                    valid1 = true;
-                    break;
-                  } if (!valid1) {
+                var schema1 = validate.schema.properties.element.const;
+                var valid1 = equal(data1, schema1);
+                if (!valid1) {
                   validate.errors = [{
-                    keyword: 'enum',
+                    keyword: 'const',
                     dataPath: (dataPath || '') + '.element',
-                    schemaPath: '#/properties/element/enum',
+                    schemaPath: '#/properties/element/const',
                     params: {
-                      allowedValues: schema1
+                      allowedValue: schema1
                     },
-                    message: 'should be equal to one of the allowed values'
+                    message: 'should be equal to constant'
                   }];
                   return false;
-                }
+                } else {}
+                if (errors === errs_1) {}
                 var valid1 = errors === errs_1;
               }
               if (valid1) {
@@ -5998,7 +5377,7 @@ var validate = (function() {
                               message: 'should match pattern "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$"'
                             }];
                             return false;
-                          }
+                          } else {}
                         } else {
                           validate.errors = [{
                             keyword: 'type',
@@ -6011,7 +5390,10 @@ var validate = (function() {
                           }];
                           return false;
                         }
+                        if (errors === errs_3) {}
                         var valid3 = errors === errs_3;
+                        if (valid3) {}
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
                       }
                       if (valid2) {
@@ -6021,7 +5403,7 @@ var validate = (function() {
                         } else {
                           var errs_2 = errors;
                           var errs_3 = errors;
-                          if (typeof data2 === "number") {
+                          if ((typeof data2 === "number")) {
                             if (data2 > 1 || data2 !== data2) {
                               validate.errors = [{
                                 keyword: 'maximum',
@@ -6049,7 +5431,7 @@ var validate = (function() {
                                   message: 'should be >= 0'
                                 }];
                                 return false;
-                              }
+                              } else {}
                             }
                           } else {
                             validate.errors = [{
@@ -6063,7 +5445,10 @@ var validate = (function() {
                             }];
                             return false;
                           }
+                          if (errors === errs_3) {}
                           var valid3 = errors === errs_3;
+                          if (valid3) {}
+                          if (errors === errs_2) {}
                           var valid2 = errors === errs_2;
                         }
                         if (valid2) {
@@ -6102,12 +5487,15 @@ var validate = (function() {
                                 message: 'should be equal to one of the allowed values'
                               }];
                               return false;
-                            }
+                            } else {}
+                            if (errors === errs_2) {}
                             var valid2 = errors === errs_2;
                           }
+                          if (valid2) {}
                         }
                       }
                     }
+                    if (errs__1 == errors) {}
                   } else {
                     validate.errors = [{
                       keyword: 'type',
@@ -6120,6 +5508,7 @@ var validate = (function() {
                     }];
                     return false;
                   }
+                  if (errors === errs_1) {}
                   var valid1 = errors === errs_1;
                 }
                 if (valid1) {
@@ -6129,7 +5518,7 @@ var validate = (function() {
                   } else {
                     var errs_1 = errors;
                     var errs_2 = errors;
-                    if (typeof data1 === "number") {
+                    if ((typeof data1 === "number")) {
                       if (data1 > 1 || data1 !== data1) {
                         validate.errors = [{
                           keyword: 'maximum',
@@ -6157,7 +5546,7 @@ var validate = (function() {
                             message: 'should be >= 0'
                           }];
                           return false;
-                        }
+                        } else {}
                       }
                     } else {
                       validate.errors = [{
@@ -6171,7 +5560,10 @@ var validate = (function() {
                       }];
                       return false;
                     }
+                    if (errors === errs_2) {}
                     var valid2 = errors === errs_2;
+                    if (valid2) {}
+                    if (errors === errs_1) {}
                     var valid1 = errors === errs_1;
                   }
                   if (valid1) {
@@ -6219,7 +5611,7 @@ var validate = (function() {
                                   message: 'should match pattern "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$"'
                                 }];
                                 return false;
-                              }
+                              } else {}
                             } else {
                               validate.errors = [{
                                 keyword: 'type',
@@ -6232,7 +5624,10 @@ var validate = (function() {
                               }];
                               return false;
                             }
+                            if (errors === errs_3) {}
                             var valid3 = errors === errs_3;
+                            if (valid3) {}
+                            if (errors === errs_2) {}
                             var valid2 = errors === errs_2;
                           }
                           if (valid2) {
@@ -6254,7 +5649,7 @@ var validate = (function() {
                                     message: 'should match pattern "^([0-9]+\\s)+[0-9]+$"'
                                   }];
                                   return false;
-                                }
+                                } else {}
                               } else {
                                 validate.errors = [{
                                   keyword: 'type',
@@ -6267,7 +5662,10 @@ var validate = (function() {
                                 }];
                                 return false;
                               }
+                              if (errors === errs_3) {}
                               var valid3 = errors === errs_3;
+                              if (valid3) {}
+                              if (errors === errs_2) {}
                               var valid2 = errors === errs_2;
                             }
                             if (valid2) {
@@ -6289,7 +5687,7 @@ var validate = (function() {
                                   }];
                                   return false;
                                 }
-                                if (typeof data2 === "number") {
+                                if ((typeof data2 === "number")) {
                                   if (data2 > 100 || data2 !== data2) {
                                     validate.errors = [{
                                       keyword: 'maximum',
@@ -6317,10 +5715,13 @@ var validate = (function() {
                                         message: 'should be >= -100'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
                                   }
                                 }
+                                if (errors === errs_3) {}
                                 var valid3 = errors === errs_3;
+                                if (valid3) {}
+                                if (errors === errs_2) {}
                                 var valid2 = errors === errs_2;
                               }
                               if (valid2) {
@@ -6359,7 +5760,8 @@ var validate = (function() {
                                       message: 'should be equal to one of the allowed values'
                                     }];
                                     return false;
-                                  }
+                                  } else {}
+                                  if (errors === errs_2) {}
                                   var valid2 = errors === errs_2;
                                 }
                                 if (valid2) {
@@ -6398,7 +5800,8 @@ var validate = (function() {
                                         message: 'should be equal to one of the allowed values'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
+                                    if (errors === errs_2) {}
                                     var valid2 = errors === errs_2;
                                   }
                                   if (valid2) {
@@ -6408,7 +5811,7 @@ var validate = (function() {
                                     } else {
                                       var errs_2 = errors;
                                       var errs_3 = errors;
-                                      if (typeof data2 === "number") {
+                                      if ((typeof data2 === "number")) {
                                         if (data2 > 1 || data2 !== data2) {
                                           validate.errors = [{
                                             keyword: 'maximum',
@@ -6436,7 +5839,7 @@ var validate = (function() {
                                               message: 'should be >= 0'
                                             }];
                                             return false;
-                                          }
+                                          } else {}
                                         }
                                       } else {
                                         validate.errors = [{
@@ -6450,7 +5853,10 @@ var validate = (function() {
                                         }];
                                         return false;
                                       }
+                                      if (errors === errs_3) {}
                                       var valid3 = errors === errs_3;
+                                      if (valid3) {}
+                                      if (errors === errs_2) {}
                                       var valid2 = errors === errs_2;
                                     }
                                     if (valid2) {
@@ -6460,7 +5866,7 @@ var validate = (function() {
                                       } else {
                                         var errs_2 = errors;
                                         var errs_3 = errors;
-                                        if (typeof data2 === "number") {
+                                        if ((typeof data2 === "number")) {
                                           if (data2 < 0 || data2 !== data2) {
                                             validate.errors = [{
                                               keyword: 'minimum',
@@ -6474,7 +5880,7 @@ var validate = (function() {
                                               message: 'should be >= 0'
                                             }];
                                             return false;
-                                          }
+                                          } else {}
                                         } else {
                                           validate.errors = [{
                                             keyword: 'type',
@@ -6487,9 +5893,13 @@ var validate = (function() {
                                           }];
                                           return false;
                                         }
+                                        if (errors === errs_3) {}
                                         var valid3 = errors === errs_3;
+                                        if (valid3) {}
+                                        if (errors === errs_2) {}
                                         var valid2 = errors === errs_2;
                                       }
+                                      if (valid2) {}
                                     }
                                   }
                                 }
@@ -6497,6 +5907,7 @@ var validate = (function() {
                             }
                           }
                         }
+                        if (errs__1 == errors) {}
                       } else {
                         validate.errors = [{
                           keyword: 'type',
@@ -6509,6 +5920,7 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_1) {}
                       var valid1 = errors === errs_1;
                     }
                     if (valid1) {
@@ -6542,7 +5954,7 @@ var validate = (function() {
                                 message: 'should NOT be shorter than 2 characters'
                               }];
                               return false;
-                            }
+                            } else {}
                           }
                         } else {
                           validate.errors = [{
@@ -6556,7 +5968,10 @@ var validate = (function() {
                           }];
                           return false;
                         }
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
+                        if (valid2) {}
+                        if (errors === errs_1) {}
                         var valid1 = errors === errs_1;
                       }
                       if (valid1) {
@@ -6590,7 +6005,7 @@ var validate = (function() {
                                   message: 'should NOT be shorter than 2 characters'
                                 }];
                                 return false;
-                              }
+                              } else {}
                             }
                           } else {
                             validate.errors = [{
@@ -6604,9 +6019,13 @@ var validate = (function() {
                             }];
                             return false;
                           }
+                          if (errors === errs_2) {}
                           var valid2 = errors === errs_2;
+                          if (valid2) {}
+                          if (errors === errs_1) {}
                           var valid1 = errors === errs_1;
                         }
+                        if (valid1) {}
                       }
                     }
                   }
@@ -6614,6 +6033,7 @@ var validate = (function() {
               }
             }
           }
+          if (errs__0 == errors) {}
         }
       } else {
         validate.errors = [{
@@ -6627,18 +6047,19 @@ var validate = (function() {
         }];
         return false;
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
   })();
-  refVal29.schema = {
+  refVal25.schema = {
     "additionalProperties": false,
     "properties": {
       "d": {
         "$ref": "#/definitions/ViewportPath"
       },
       "element": {
-        "enum": ["path"],
+        "const": "path",
         "type": "string"
       },
       "fill": {
@@ -6699,16 +6120,16 @@ var validate = (function() {
     "required": ["d", "element"],
     "type": "object"
   };
-  refVal29.errors = null;
-  refVal[29] = refVal29;
-  var refVal30 = {
+  refVal25.errors = null;
+  refVal[25] = refVal25;
+  var refVal26 = {
     "description": "The \"d\" parameter of an svg path.",
     "maxLength": 1024,
     "minLength": 2,
     "type": "string"
   };
-  refVal[30] = refVal30;
-  var refVal31 = (function() {
+  refVal[26] = refVal26;
+  var refVal27 = (function() {
     var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
     var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
     var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
@@ -6717,6 +6138,7 @@ var validate = (function() {
       'use strict';
       var vErrors = null;
       var errors = 0;
+      if (rootData === undefined) rootData = data;
       if ((data && typeof data === "object" && !Array.isArray(data))) {
         if (true) {
           var errs__0 = errors;
@@ -6766,25 +6188,21 @@ var validate = (function() {
                 }];
                 return false;
               }
-              var schema1 = validate.schema.properties.element.enum;
-              var valid1;
-              valid1 = false;
-              for (var i1 = 0; i1 < schema1.length; i1++)
-                if (equal(data1, schema1[i1])) {
-                  valid1 = true;
-                  break;
-                } if (!valid1) {
+              var schema1 = validate.schema.properties.element.const;
+              var valid1 = equal(data1, schema1);
+              if (!valid1) {
                 validate.errors = [{
-                  keyword: 'enum',
+                  keyword: 'const',
                   dataPath: (dataPath || '') + '.element',
-                  schemaPath: '#/properties/element/enum',
+                  schemaPath: '#/properties/element/const',
                   params: {
-                    allowedValues: schema1
+                    allowedValue: schema1
                   },
-                  message: 'should be equal to one of the allowed values'
+                  message: 'should be equal to constant'
                 }];
                 return false;
-              }
+              } else {}
+              if (errors === errs_1) {}
               var valid1 = errors === errs_1;
             }
             if (valid1) {
@@ -6832,7 +6250,7 @@ var validate = (function() {
                             message: 'should match pattern "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$"'
                           }];
                           return false;
-                        }
+                        } else {}
                       } else {
                         validate.errors = [{
                           keyword: 'type',
@@ -6845,7 +6263,10 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_3) {}
                       var valid3 = errors === errs_3;
+                      if (valid3) {}
+                      if (errors === errs_2) {}
                       var valid2 = errors === errs_2;
                     }
                     if (valid2) {
@@ -6855,7 +6276,7 @@ var validate = (function() {
                       } else {
                         var errs_2 = errors;
                         var errs_3 = errors;
-                        if (typeof data2 === "number") {
+                        if ((typeof data2 === "number")) {
                           if (data2 > 1 || data2 !== data2) {
                             validate.errors = [{
                               keyword: 'maximum',
@@ -6883,7 +6304,7 @@ var validate = (function() {
                                 message: 'should be >= 0'
                               }];
                               return false;
-                            }
+                            } else {}
                           }
                         } else {
                           validate.errors = [{
@@ -6897,7 +6318,10 @@ var validate = (function() {
                           }];
                           return false;
                         }
+                        if (errors === errs_3) {}
                         var valid3 = errors === errs_3;
+                        if (valid3) {}
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
                       }
                       if (valid2) {
@@ -6936,12 +6360,15 @@ var validate = (function() {
                               message: 'should be equal to one of the allowed values'
                             }];
                             return false;
-                          }
+                          } else {}
+                          if (errors === errs_2) {}
                           var valid2 = errors === errs_2;
                         }
+                        if (valid2) {}
                       }
                     }
                   }
+                  if (errs__1 == errors) {}
                 } else {
                   validate.errors = [{
                     keyword: 'type',
@@ -6954,6 +6381,7 @@ var validate = (function() {
                   }];
                   return false;
                 }
+                if (errors === errs_1) {}
                 var valid1 = errors === errs_1;
               }
               if (valid1) {
@@ -6963,7 +6391,7 @@ var validate = (function() {
                 } else {
                   var errs_1 = errors;
                   var errs_2 = errors;
-                  if (typeof data1 === "number") {
+                  if ((typeof data1 === "number")) {
                     if (data1 > 1 || data1 !== data1) {
                       validate.errors = [{
                         keyword: 'maximum',
@@ -6991,7 +6419,7 @@ var validate = (function() {
                           message: 'should be >= 0'
                         }];
                         return false;
-                      }
+                      } else {}
                     }
                   } else {
                     validate.errors = [{
@@ -7005,7 +6433,10 @@ var validate = (function() {
                     }];
                     return false;
                   }
+                  if (errors === errs_2) {}
                   var valid2 = errors === errs_2;
+                  if (valid2) {}
+                  if (errors === errs_1) {}
                   var valid1 = errors === errs_1;
                 }
                 if (valid1) {
@@ -7037,7 +6468,7 @@ var validate = (function() {
                           message: 'should match pattern "^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$"'
                         }];
                         return false;
-                      }
+                      } else {}
                     } else {
                       validate.errors = [{
                         keyword: 'type',
@@ -7050,7 +6481,10 @@ var validate = (function() {
                       }];
                       return false;
                     }
+                    if (errors === errs_2) {}
                     var valid2 = errors === errs_2;
+                    if (valid2) {}
+                    if (errors === errs_1) {}
                     var valid1 = errors === errs_1;
                   }
                   if (valid1) {
@@ -7098,7 +6532,7 @@ var validate = (function() {
                                   message: 'should match pattern "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$"'
                                 }];
                                 return false;
-                              }
+                              } else {}
                             } else {
                               validate.errors = [{
                                 keyword: 'type',
@@ -7111,7 +6545,10 @@ var validate = (function() {
                               }];
                               return false;
                             }
+                            if (errors === errs_3) {}
                             var valid3 = errors === errs_3;
+                            if (valid3) {}
+                            if (errors === errs_2) {}
                             var valid2 = errors === errs_2;
                           }
                           if (valid2) {
@@ -7133,7 +6570,7 @@ var validate = (function() {
                                     message: 'should match pattern "^([0-9]+\\s)+[0-9]+$"'
                                   }];
                                   return false;
-                                }
+                                } else {}
                               } else {
                                 validate.errors = [{
                                   keyword: 'type',
@@ -7146,7 +6583,10 @@ var validate = (function() {
                                 }];
                                 return false;
                               }
+                              if (errors === errs_3) {}
                               var valid3 = errors === errs_3;
+                              if (valid3) {}
+                              if (errors === errs_2) {}
                               var valid2 = errors === errs_2;
                             }
                             if (valid2) {
@@ -7168,7 +6608,7 @@ var validate = (function() {
                                   }];
                                   return false;
                                 }
-                                if (typeof data2 === "number") {
+                                if ((typeof data2 === "number")) {
                                   if (data2 > 100 || data2 !== data2) {
                                     validate.errors = [{
                                       keyword: 'maximum',
@@ -7196,10 +6636,13 @@ var validate = (function() {
                                         message: 'should be >= -100'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
                                   }
                                 }
+                                if (errors === errs_3) {}
                                 var valid3 = errors === errs_3;
+                                if (valid3) {}
+                                if (errors === errs_2) {}
                                 var valid2 = errors === errs_2;
                               }
                               if (valid2) {
@@ -7238,7 +6681,8 @@ var validate = (function() {
                                       message: 'should be equal to one of the allowed values'
                                     }];
                                     return false;
-                                  }
+                                  } else {}
+                                  if (errors === errs_2) {}
                                   var valid2 = errors === errs_2;
                                 }
                                 if (valid2) {
@@ -7277,7 +6721,8 @@ var validate = (function() {
                                         message: 'should be equal to one of the allowed values'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
+                                    if (errors === errs_2) {}
                                     var valid2 = errors === errs_2;
                                   }
                                   if (valid2) {
@@ -7287,7 +6732,7 @@ var validate = (function() {
                                     } else {
                                       var errs_2 = errors;
                                       var errs_3 = errors;
-                                      if (typeof data2 === "number") {
+                                      if ((typeof data2 === "number")) {
                                         if (data2 > 1 || data2 !== data2) {
                                           validate.errors = [{
                                             keyword: 'maximum',
@@ -7315,7 +6760,7 @@ var validate = (function() {
                                               message: 'should be >= 0'
                                             }];
                                             return false;
-                                          }
+                                          } else {}
                                         }
                                       } else {
                                         validate.errors = [{
@@ -7329,7 +6774,10 @@ var validate = (function() {
                                         }];
                                         return false;
                                       }
+                                      if (errors === errs_3) {}
                                       var valid3 = errors === errs_3;
+                                      if (valid3) {}
+                                      if (errors === errs_2) {}
                                       var valid2 = errors === errs_2;
                                     }
                                     if (valid2) {
@@ -7339,7 +6787,7 @@ var validate = (function() {
                                       } else {
                                         var errs_2 = errors;
                                         var errs_3 = errors;
-                                        if (typeof data2 === "number") {
+                                        if ((typeof data2 === "number")) {
                                           if (data2 < 0 || data2 !== data2) {
                                             validate.errors = [{
                                               keyword: 'minimum',
@@ -7353,7 +6801,7 @@ var validate = (function() {
                                               message: 'should be >= 0'
                                             }];
                                             return false;
-                                          }
+                                          } else {}
                                         } else {
                                           validate.errors = [{
                                             keyword: 'type',
@@ -7366,9 +6814,13 @@ var validate = (function() {
                                           }];
                                           return false;
                                         }
+                                        if (errors === errs_3) {}
                                         var valid3 = errors === errs_3;
+                                        if (valid3) {}
+                                        if (errors === errs_2) {}
                                         var valid2 = errors === errs_2;
                                       }
+                                      if (valid2) {}
                                     }
                                   }
                                 }
@@ -7376,6 +6828,7 @@ var validate = (function() {
                             }
                           }
                         }
+                        if (errs__1 == errors) {}
                       } else {
                         validate.errors = [{
                           keyword: 'type',
@@ -7388,6 +6841,7 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_1) {}
                       var valid1 = errors === errs_1;
                     }
                     if (valid1) {
@@ -7421,7 +6875,7 @@ var validate = (function() {
                                 message: 'should NOT be shorter than 2 characters'
                               }];
                               return false;
-                            }
+                            } else {}
                           }
                         } else {
                           validate.errors = [{
@@ -7435,7 +6889,10 @@ var validate = (function() {
                           }];
                           return false;
                         }
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
+                        if (valid2) {}
+                        if (errors === errs_1) {}
                         var valid1 = errors === errs_1;
                       }
                       if (valid1) {
@@ -7469,7 +6926,7 @@ var validate = (function() {
                                   message: 'should NOT be shorter than 2 characters'
                                 }];
                                 return false;
-                              }
+                              } else {}
                             }
                           } else {
                             validate.errors = [{
@@ -7483,9 +6940,13 @@ var validate = (function() {
                             }];
                             return false;
                           }
+                          if (errors === errs_2) {}
                           var valid2 = errors === errs_2;
+                          if (valid2) {}
+                          if (errors === errs_1) {}
                           var valid1 = errors === errs_1;
                         }
+                        if (valid1) {}
                       }
                     }
                   }
@@ -7493,6 +6954,7 @@ var validate = (function() {
               }
             }
           }
+          if (errs__0 == errors) {}
         }
       } else {
         validate.errors = [{
@@ -7506,15 +6968,16 @@ var validate = (function() {
         }];
         return false;
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
   })();
-  refVal31.schema = {
+  refVal27.schema = {
     "additionalProperties": false,
     "properties": {
       "element": {
-        "enum": ["polygon"],
+        "const": "polygon",
         "type": "string"
       },
       "fill": {
@@ -7578,15 +7041,15 @@ var validate = (function() {
     "required": ["element", "points"],
     "type": "object"
   };
-  refVal31.errors = null;
-  refVal[31] = refVal31;
-  var refVal32 = {
+  refVal27.errors = null;
+  refVal[27] = refVal27;
+  var refVal28 = {
     "description": "A dash array in the form of \"2 3 4\"",
     "pattern": "^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$",
     "type": "string"
   };
-  refVal[32] = refVal32;
-  var refVal33 = (function() {
+  refVal[28] = refVal28;
+  var refVal29 = (function() {
     var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
     var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
     var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
@@ -7595,6 +7058,7 @@ var validate = (function() {
       'use strict';
       var vErrors = null;
       var errors = 0;
+      if (rootData === undefined) rootData = data;
       if ((data && typeof data === "object" && !Array.isArray(data))) {
         if (true) {
           var errs__0 = errors;
@@ -7644,25 +7108,21 @@ var validate = (function() {
                 }];
                 return false;
               }
-              var schema1 = validate.schema.properties.element.enum;
-              var valid1;
-              valid1 = false;
-              for (var i1 = 0; i1 < schema1.length; i1++)
-                if (equal(data1, schema1[i1])) {
-                  valid1 = true;
-                  break;
-                } if (!valid1) {
+              var schema1 = validate.schema.properties.element.const;
+              var valid1 = equal(data1, schema1);
+              if (!valid1) {
                 validate.errors = [{
-                  keyword: 'enum',
+                  keyword: 'const',
                   dataPath: (dataPath || '') + '.element',
-                  schemaPath: '#/properties/element/enum',
+                  schemaPath: '#/properties/element/const',
                   params: {
-                    allowedValues: schema1
+                    allowedValue: schema1
                   },
-                  message: 'should be equal to one of the allowed values'
+                  message: 'should be equal to constant'
                 }];
                 return false;
-              }
+              } else {}
+              if (errors === errs_1) {}
               var valid1 = errors === errs_1;
             }
             if (valid1) {
@@ -7710,7 +7170,7 @@ var validate = (function() {
                             message: 'should match pattern "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$"'
                           }];
                           return false;
-                        }
+                        } else {}
                       } else {
                         validate.errors = [{
                           keyword: 'type',
@@ -7723,7 +7183,10 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_3) {}
                       var valid3 = errors === errs_3;
+                      if (valid3) {}
+                      if (errors === errs_2) {}
                       var valid2 = errors === errs_2;
                     }
                     if (valid2) {
@@ -7733,7 +7196,7 @@ var validate = (function() {
                       } else {
                         var errs_2 = errors;
                         var errs_3 = errors;
-                        if (typeof data2 === "number") {
+                        if ((typeof data2 === "number")) {
                           if (data2 > 1 || data2 !== data2) {
                             validate.errors = [{
                               keyword: 'maximum',
@@ -7761,7 +7224,7 @@ var validate = (function() {
                                 message: 'should be >= 0'
                               }];
                               return false;
-                            }
+                            } else {}
                           }
                         } else {
                           validate.errors = [{
@@ -7775,7 +7238,10 @@ var validate = (function() {
                           }];
                           return false;
                         }
+                        if (errors === errs_3) {}
                         var valid3 = errors === errs_3;
+                        if (valid3) {}
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
                       }
                       if (valid2) {
@@ -7814,12 +7280,15 @@ var validate = (function() {
                               message: 'should be equal to one of the allowed values'
                             }];
                             return false;
-                          }
+                          } else {}
+                          if (errors === errs_2) {}
                           var valid2 = errors === errs_2;
                         }
+                        if (valid2) {}
                       }
                     }
                   }
+                  if (errs__1 == errors) {}
                 } else {
                   validate.errors = [{
                     keyword: 'type',
@@ -7832,6 +7301,7 @@ var validate = (function() {
                   }];
                   return false;
                 }
+                if (errors === errs_1) {}
                 var valid1 = errors === errs_1;
               }
               if (valid1) {
@@ -7841,7 +7311,7 @@ var validate = (function() {
                 } else {
                   var errs_1 = errors;
                   var errs_2 = errors;
-                  if (typeof data1 === "number") {
+                  if ((typeof data1 === "number")) {
                     if (data1 > 1 || data1 !== data1) {
                       validate.errors = [{
                         keyword: 'maximum',
@@ -7869,7 +7339,7 @@ var validate = (function() {
                           message: 'should be >= 0'
                         }];
                         return false;
-                      }
+                      } else {}
                     }
                   } else {
                     validate.errors = [{
@@ -7883,7 +7353,10 @@ var validate = (function() {
                     }];
                     return false;
                   }
+                  if (errors === errs_2) {}
                   var valid2 = errors === errs_2;
+                  if (valid2) {}
+                  if (errors === errs_1) {}
                   var valid1 = errors === errs_1;
                 }
                 if (valid1) {
@@ -7915,7 +7388,7 @@ var validate = (function() {
                           message: 'should match pattern "^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$"'
                         }];
                         return false;
-                      }
+                      } else {}
                     } else {
                       validate.errors = [{
                         keyword: 'type',
@@ -7928,7 +7401,10 @@ var validate = (function() {
                       }];
                       return false;
                     }
+                    if (errors === errs_2) {}
                     var valid2 = errors === errs_2;
+                    if (valid2) {}
+                    if (errors === errs_1) {}
                     var valid1 = errors === errs_1;
                   }
                   if (valid1) {
@@ -7976,7 +7452,7 @@ var validate = (function() {
                                   message: 'should match pattern "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$"'
                                 }];
                                 return false;
-                              }
+                              } else {}
                             } else {
                               validate.errors = [{
                                 keyword: 'type',
@@ -7989,7 +7465,10 @@ var validate = (function() {
                               }];
                               return false;
                             }
+                            if (errors === errs_3) {}
                             var valid3 = errors === errs_3;
+                            if (valid3) {}
+                            if (errors === errs_2) {}
                             var valid2 = errors === errs_2;
                           }
                           if (valid2) {
@@ -8011,7 +7490,7 @@ var validate = (function() {
                                     message: 'should match pattern "^([0-9]+\\s)+[0-9]+$"'
                                   }];
                                   return false;
-                                }
+                                } else {}
                               } else {
                                 validate.errors = [{
                                   keyword: 'type',
@@ -8024,7 +7503,10 @@ var validate = (function() {
                                 }];
                                 return false;
                               }
+                              if (errors === errs_3) {}
                               var valid3 = errors === errs_3;
+                              if (valid3) {}
+                              if (errors === errs_2) {}
                               var valid2 = errors === errs_2;
                             }
                             if (valid2) {
@@ -8046,7 +7528,7 @@ var validate = (function() {
                                   }];
                                   return false;
                                 }
-                                if (typeof data2 === "number") {
+                                if ((typeof data2 === "number")) {
                                   if (data2 > 100 || data2 !== data2) {
                                     validate.errors = [{
                                       keyword: 'maximum',
@@ -8074,10 +7556,13 @@ var validate = (function() {
                                         message: 'should be >= -100'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
                                   }
                                 }
+                                if (errors === errs_3) {}
                                 var valid3 = errors === errs_3;
+                                if (valid3) {}
+                                if (errors === errs_2) {}
                                 var valid2 = errors === errs_2;
                               }
                               if (valid2) {
@@ -8116,7 +7601,8 @@ var validate = (function() {
                                       message: 'should be equal to one of the allowed values'
                                     }];
                                     return false;
-                                  }
+                                  } else {}
+                                  if (errors === errs_2) {}
                                   var valid2 = errors === errs_2;
                                 }
                                 if (valid2) {
@@ -8155,7 +7641,8 @@ var validate = (function() {
                                         message: 'should be equal to one of the allowed values'
                                       }];
                                       return false;
-                                    }
+                                    } else {}
+                                    if (errors === errs_2) {}
                                     var valid2 = errors === errs_2;
                                   }
                                   if (valid2) {
@@ -8165,7 +7652,7 @@ var validate = (function() {
                                     } else {
                                       var errs_2 = errors;
                                       var errs_3 = errors;
-                                      if (typeof data2 === "number") {
+                                      if ((typeof data2 === "number")) {
                                         if (data2 > 1 || data2 !== data2) {
                                           validate.errors = [{
                                             keyword: 'maximum',
@@ -8193,7 +7680,7 @@ var validate = (function() {
                                               message: 'should be >= 0'
                                             }];
                                             return false;
-                                          }
+                                          } else {}
                                         }
                                       } else {
                                         validate.errors = [{
@@ -8207,7 +7694,10 @@ var validate = (function() {
                                         }];
                                         return false;
                                       }
+                                      if (errors === errs_3) {}
                                       var valid3 = errors === errs_3;
+                                      if (valid3) {}
+                                      if (errors === errs_2) {}
                                       var valid2 = errors === errs_2;
                                     }
                                     if (valid2) {
@@ -8217,7 +7707,7 @@ var validate = (function() {
                                       } else {
                                         var errs_2 = errors;
                                         var errs_3 = errors;
-                                        if (typeof data2 === "number") {
+                                        if ((typeof data2 === "number")) {
                                           if (data2 < 0 || data2 !== data2) {
                                             validate.errors = [{
                                               keyword: 'minimum',
@@ -8231,7 +7721,7 @@ var validate = (function() {
                                               message: 'should be >= 0'
                                             }];
                                             return false;
-                                          }
+                                          } else {}
                                         } else {
                                           validate.errors = [{
                                             keyword: 'type',
@@ -8244,9 +7734,13 @@ var validate = (function() {
                                           }];
                                           return false;
                                         }
+                                        if (errors === errs_3) {}
                                         var valid3 = errors === errs_3;
+                                        if (valid3) {}
+                                        if (errors === errs_2) {}
                                         var valid2 = errors === errs_2;
                                       }
+                                      if (valid2) {}
                                     }
                                   }
                                 }
@@ -8254,6 +7748,7 @@ var validate = (function() {
                             }
                           }
                         }
+                        if (errs__1 == errors) {}
                       } else {
                         validate.errors = [{
                           keyword: 'type',
@@ -8266,6 +7761,7 @@ var validate = (function() {
                         }];
                         return false;
                       }
+                      if (errors === errs_1) {}
                       var valid1 = errors === errs_1;
                     }
                     if (valid1) {
@@ -8299,7 +7795,7 @@ var validate = (function() {
                                 message: 'should NOT be shorter than 2 characters'
                               }];
                               return false;
-                            }
+                            } else {}
                           }
                         } else {
                           validate.errors = [{
@@ -8313,7 +7809,10 @@ var validate = (function() {
                           }];
                           return false;
                         }
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
+                        if (valid2) {}
+                        if (errors === errs_1) {}
                         var valid1 = errors === errs_1;
                       }
                       if (valid1) {
@@ -8347,7 +7846,7 @@ var validate = (function() {
                                   message: 'should NOT be shorter than 2 characters'
                                 }];
                                 return false;
-                              }
+                              } else {}
                             }
                           } else {
                             validate.errors = [{
@@ -8361,9 +7860,13 @@ var validate = (function() {
                             }];
                             return false;
                           }
+                          if (errors === errs_2) {}
                           var valid2 = errors === errs_2;
+                          if (valid2) {}
+                          if (errors === errs_1) {}
                           var valid1 = errors === errs_1;
                         }
+                        if (valid1) {}
                       }
                     }
                   }
@@ -8371,6 +7874,7 @@ var validate = (function() {
               }
             }
           }
+          if (errs__0 == errors) {}
         }
       } else {
         validate.errors = [{
@@ -8384,15 +7888,16 @@ var validate = (function() {
         }];
         return false;
       }
+      if (errors === 0) {}
       validate.errors = vErrors;
       return errors === 0;
     };
   })();
-  refVal33.schema = {
+  refVal29.schema = {
     "additionalProperties": false,
     "properties": {
       "element": {
-        "enum": ["polyline"],
+        "const": "polyline",
         "type": "string"
       },
       "fill": {
@@ -8456,1116 +7961,22 @@ var validate = (function() {
     "required": ["element", "points"],
     "type": "object"
   };
-  refVal33.errors = null;
-  refVal[33] = refVal33;
-  var refVal34 = {
+  refVal29.errors = null;
+  refVal[29] = refVal29;
+  var refVal30 = {
     "description": "An svg viewbox in the form of \"0 0 100 100\"",
     "pattern": "^([0-9]+\\s){3}[0-9]+$",
     "type": "string"
   };
-  refVal[34] = refVal34;
-  var refVal35 = (function() {
-    var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
-    var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
-    var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
-    var pattern3 = new RegExp('^([0-9]+\\s){3}[0-9]+$');
-    return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
-      'use strict';
-      var vErrors = null;
-      var errors = 0;
-      if (rootData === undefined) rootData = data;
-      if ((data && typeof data === "object" && !Array.isArray(data))) {
-        var errs__0 = errors;
-        var valid1 = true;
-        for (var key0 in data) {
-          var errs_1 = errors;
-          if (!refVal36(data[key0], (dataPath || '') + '[\'' + key0 + '\']', data, key0, rootData)) {
-            if (vErrors === null) vErrors = refVal36.errors;
-            else vErrors = vErrors.concat(refVal36.errors);
-            errors = vErrors.length;
-          }
-          var valid1 = errors === errs_1;
-          if (!valid1) break;
-        }
-      } else {
-        validate.errors = [{
-          keyword: 'type',
-          dataPath: (dataPath || '') + "",
-          schemaPath: '#/type',
-          params: {
-            type: 'object'
-          },
-          message: 'should be object'
-        }];
-        return false;
-      }
-      validate.errors = vErrors;
-      return errors === 0;
-    };
-  })();
-  refVal35.schema = {
-    "additionalProperties": {
-      "$ref": "#/definitions/PouchDB.Core.Attachment"
-    },
-    "type": "object"
-  };
-  refVal35.errors = null;
-  refVal[35] = refVal35;
-  var refVal36 = (function() {
-    var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
-    var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
-    var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
-    var pattern3 = new RegExp('^([0-9]+\\s){3}[0-9]+$');
-    return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
-      'use strict';
-      var vErrors = null;
-      var errors = 0;
-      if (rootData === undefined) rootData = data;
-      var errs__0 = errors;
-      var valid0 = false;
-      var errs_1 = errors;
-      var errs_2 = errors;
-      if ((data && typeof data === "object" && !Array.isArray(data))) {
-        if (true) {
-          var errs__2 = errors;
-          var valid3 = true;
-          for (var key2 in data) {
-            var isAdditional2 = !(false || key2 == 'content_type' || key2 == 'digest' || key2 == 'length' || key2 == 'stub');
-            if (isAdditional2) {
-              valid3 = false;
-              var err = {
-                keyword: 'additionalProperties',
-                dataPath: (dataPath || '') + "",
-                schemaPath: '#/definitions/PouchDB.Core.StubAttachment/additionalProperties',
-                params: {
-                  additionalProperty: '' + key2 + ''
-                },
-                message: 'should NOT have additional properties'
-              };
-              if (vErrors === null) vErrors = [err];
-              else vErrors.push(err);
-              errors++;
-              break;
-            }
-          }
-          if (valid3) {
-            if (data.content_type === undefined) {
-              valid3 = false;
-              var err = {
-                keyword: 'required',
-                dataPath: (dataPath || '') + "",
-                schemaPath: '#/definitions/PouchDB.Core.StubAttachment/required',
-                params: {
-                  missingProperty: 'content_type'
-                },
-                message: 'should have required property \'content_type\''
-              };
-              if (vErrors === null) vErrors = [err];
-              else vErrors.push(err);
-              errors++;
-            } else {
-              var errs_3 = errors;
-              if (typeof data.content_type !== "string") {
-                var err = {
-                  keyword: 'type',
-                  dataPath: (dataPath || '') + '.content_type',
-                  schemaPath: '#/definitions/PouchDB.Core.StubAttachment/properties/content_type/type',
-                  params: {
-                    type: 'string'
-                  },
-                  message: 'should be string'
-                };
-                if (vErrors === null) vErrors = [err];
-                else vErrors.push(err);
-                errors++;
-              }
-              var valid3 = errors === errs_3;
-            }
-            if (valid3) {
-              if (data.digest === undefined) {
-                valid3 = false;
-                var err = {
-                  keyword: 'required',
-                  dataPath: (dataPath || '') + "",
-                  schemaPath: '#/definitions/PouchDB.Core.StubAttachment/required',
-                  params: {
-                    missingProperty: 'digest'
-                  },
-                  message: 'should have required property \'digest\''
-                };
-                if (vErrors === null) vErrors = [err];
-                else vErrors.push(err);
-                errors++;
-              } else {
-                var errs_3 = errors;
-                if (typeof data.digest !== "string") {
-                  var err = {
-                    keyword: 'type',
-                    dataPath: (dataPath || '') + '.digest',
-                    schemaPath: '#/definitions/PouchDB.Core.StubAttachment/properties/digest/type',
-                    params: {
-                      type: 'string'
-                    },
-                    message: 'should be string'
-                  };
-                  if (vErrors === null) vErrors = [err];
-                  else vErrors.push(err);
-                  errors++;
-                }
-                var valid3 = errors === errs_3;
-              }
-              if (valid3) {
-                if (data.length === undefined) {
-                  valid3 = false;
-                  var err = {
-                    keyword: 'required',
-                    dataPath: (dataPath || '') + "",
-                    schemaPath: '#/definitions/PouchDB.Core.StubAttachment/required',
-                    params: {
-                      missingProperty: 'length'
-                    },
-                    message: 'should have required property \'length\''
-                  };
-                  if (vErrors === null) vErrors = [err];
-                  else vErrors.push(err);
-                  errors++;
-                } else {
-                  var errs_3 = errors;
-                  if (typeof data.length !== "number") {
-                    var err = {
-                      keyword: 'type',
-                      dataPath: (dataPath || '') + '.length',
-                      schemaPath: '#/definitions/PouchDB.Core.StubAttachment/properties/length/type',
-                      params: {
-                        type: 'number'
-                      },
-                      message: 'should be number'
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                  }
-                  var valid3 = errors === errs_3;
-                }
-                if (valid3) {
-                  var data1 = data.stub;
-                  if (data1 === undefined) {
-                    valid3 = false;
-                    var err = {
-                      keyword: 'required',
-                      dataPath: (dataPath || '') + "",
-                      schemaPath: '#/definitions/PouchDB.Core.StubAttachment/required',
-                      params: {
-                        missingProperty: 'stub'
-                      },
-                      message: 'should have required property \'stub\''
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                  } else {
-                    var errs_3 = errors;
-                    if (typeof data1 !== "boolean") {
-                      var err = {
-                        keyword: 'type',
-                        dataPath: (dataPath || '') + '.stub',
-                        schemaPath: '#/definitions/PouchDB.Core.StubAttachment/properties/stub/type',
-                        params: {
-                          type: 'boolean'
-                        },
-                        message: 'should be boolean'
-                      };
-                      if (vErrors === null) vErrors = [err];
-                      else vErrors.push(err);
-                      errors++;
-                    }
-                    var schema3 = refVal37.properties.stub.enum;
-                    var valid3;
-                    valid3 = false;
-                    for (var i3 = 0; i3 < schema3.length; i3++)
-                      if (equal(data1, schema3[i3])) {
-                        valid3 = true;
-                        break;
-                      } if (!valid3) {
-                      var err = {
-                        keyword: 'enum',
-                        dataPath: (dataPath || '') + '.stub',
-                        schemaPath: '#/definitions/PouchDB.Core.StubAttachment/properties/stub/enum',
-                        params: {
-                          allowedValues: schema3
-                        },
-                        message: 'should be equal to one of the allowed values'
-                      };
-                      if (vErrors === null) vErrors = [err];
-                      else vErrors.push(err);
-                      errors++;
-                    }
-                    var valid3 = errors === errs_3;
-                  }
-                }
-              }
-            }
-          }
-        }
-      } else {
-        var err = {
-          keyword: 'type',
-          dataPath: (dataPath || '') + "",
-          schemaPath: '#/definitions/PouchDB.Core.StubAttachment/type',
-          params: {
-            type: 'object'
-          },
-          message: 'should be object'
-        };
-        if (vErrors === null) vErrors = [err];
-        else vErrors.push(err);
-        errors++;
-      }
-      var valid2 = errors === errs_2;
-      var valid1 = errors === errs_1;
-      valid0 = valid0 || valid1;
-      if (!valid0) {
-        var errs_1 = errors;
-        if (!refVal38(data, (dataPath || ''), parentData, parentDataProperty, rootData)) {
-          if (vErrors === null) vErrors = refVal38.errors;
-          else vErrors = vErrors.concat(refVal38.errors);
-          errors = vErrors.length;
-        }
-        var valid1 = errors === errs_1;
-        valid0 = valid0 || valid1;
-      }
-      if (!valid0) {
-        var err = {
-          keyword: 'anyOf',
-          dataPath: (dataPath || '') + "",
-          schemaPath: '#/anyOf',
-          params: {},
-          message: 'should match some schema in anyOf'
-        };
-        if (vErrors === null) vErrors = [err];
-        else vErrors.push(err);
-        errors++;
-        validate.errors = vErrors;
-        return false;
-      } else {
-        errors = errs__0;
-        if (vErrors !== null) {
-          if (errs__0) vErrors.length = errs__0;
-          else vErrors = null;
-        }
-      }
-      validate.errors = vErrors;
-      return errors === 0;
-    };
-  })();
-  refVal36.schema = {
-    "anyOf": [{
-      "$ref": "#/definitions/PouchDB.Core.StubAttachment"
-    }, {
-      "$ref": "#/definitions/PouchDB.Core.FullAttachment"
-    }]
-  };
-  refVal36.errors = null;
-  refVal[36] = refVal36;
-  var refVal37 = {
-    "additionalProperties": false,
-    "description": "Stub attachments are returned by PouchDB by default (attachments option set to false)",
-    "properties": {
-      "content_type": {
-        "description": "Mime type of the attachment",
-        "type": "string"
-      },
-      "digest": {
-        "description": "Database digest of the attachment",
-        "type": "string"
-      },
-      "length": {
-        "description": "Length of the attachment",
-        "type": "number"
-      },
-      "stub": {
-        "description": "Attachment is a stub",
-        "enum": [true],
-        "type": "boolean"
-      }
-    },
-    "required": ["content_type", "digest", "stub", "length"],
-    "type": "object"
-  };
-  refVal[37] = refVal37;
-  var refVal38 = (function() {
-    var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
-    var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
-    var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
-    var pattern3 = new RegExp('^([0-9]+\\s){3}[0-9]+$');
-    return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
-      'use strict';
-      var vErrors = null;
-      var errors = 0;
-      if ((data && typeof data === "object" && !Array.isArray(data))) {
-        if (true) {
-          var errs__0 = errors;
-          var valid1 = true;
-          for (var key0 in data) {
-            var isAdditional0 = !(false || key0 == 'content_type' || key0 == 'data' || key0 == 'digest');
-            if (isAdditional0) {
-              valid1 = false;
-              validate.errors = [{
-                keyword: 'additionalProperties',
-                dataPath: (dataPath || '') + "",
-                schemaPath: '#/additionalProperties',
-                params: {
-                  additionalProperty: '' + key0 + ''
-                },
-                message: 'should NOT have additional properties'
-              }];
-              return false;
-              break;
-            }
-          }
-          if (valid1) {
-            if (data.content_type === undefined) {
-              valid1 = false;
-              validate.errors = [{
-                keyword: 'required',
-                dataPath: (dataPath || '') + "",
-                schemaPath: '#/required',
-                params: {
-                  missingProperty: 'content_type'
-                },
-                message: 'should have required property \'content_type\''
-              }];
-              return false;
-            } else {
-              var errs_1 = errors;
-              if (typeof data.content_type !== "string") {
-                validate.errors = [{
-                  keyword: 'type',
-                  dataPath: (dataPath || '') + '.content_type',
-                  schemaPath: '#/properties/content_type/type',
-                  params: {
-                    type: 'string'
-                  },
-                  message: 'should be string'
-                }];
-                return false;
-              }
-              var valid1 = errors === errs_1;
-            }
-            if (valid1) {
-              var data1 = data.data;
-              if (data1 === undefined) {
-                valid1 = false;
-                validate.errors = [{
-                  keyword: 'required',
-                  dataPath: (dataPath || '') + "",
-                  schemaPath: '#/required',
-                  params: {
-                    missingProperty: 'data'
-                  },
-                  message: 'should have required property \'data\''
-                }];
-                return false;
-              } else {
-                var errs_1 = errors;
-                var errs_2 = errors;
-                var errs__2 = errors;
-                var valid2 = false;
-                var errs_3 = errors;
-                if (typeof data1 !== "string") {
-                  var err = {
-                    keyword: 'type',
-                    dataPath: (dataPath || '') + '.data',
-                    schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/0/type',
-                    params: {
-                      type: 'string'
-                    },
-                    message: 'should be string'
-                  };
-                  if (vErrors === null) vErrors = [err];
-                  else vErrors.push(err);
-                  errors++;
-                }
-                var valid3 = errors === errs_3;
-                valid2 = valid2 || valid3;
-                if (!valid2) {
-                  var errs_3 = errors;
-                  if ((data1 && typeof data1 === "object" && !Array.isArray(data1))) {
-                    if (true) {
-                      var errs__3 = errors;
-                      var valid4 = true;
-                      for (var key3 in data1) {
-                        var isAdditional3 = !(false || key3 == 'size' || key3 == 'type');
-                        if (isAdditional3) {
-                          valid4 = false;
-                          var err = {
-                            keyword: 'additionalProperties',
-                            dataPath: (dataPath || '') + '.data',
-                            schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/1/additionalProperties',
-                            params: {
-                              additionalProperty: '' + key3 + ''
-                            },
-                            message: 'should NOT have additional properties'
-                          };
-                          if (vErrors === null) vErrors = [err];
-                          else vErrors.push(err);
-                          errors++;
-                          break;
-                        }
-                      }
-                      if (valid4) {
-                        if (data1.size === undefined) {
-                          valid4 = false;
-                          var err = {
-                            keyword: 'required',
-                            dataPath: (dataPath || '') + '.data',
-                            schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/1/required',
-                            params: {
-                              missingProperty: 'size'
-                            },
-                            message: 'should have required property \'size\''
-                          };
-                          if (vErrors === null) vErrors = [err];
-                          else vErrors.push(err);
-                          errors++;
-                        } else {
-                          var errs_4 = errors;
-                          if (typeof data1.size !== "number") {
-                            var err = {
-                              keyword: 'type',
-                              dataPath: (dataPath || '') + '.data.size',
-                              schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/1/properties/size/type',
-                              params: {
-                                type: 'number'
-                              },
-                              message: 'should be number'
-                            };
-                            if (vErrors === null) vErrors = [err];
-                            else vErrors.push(err);
-                            errors++;
-                          }
-                          var valid4 = errors === errs_4;
-                        }
-                        if (valid4) {
-                          if (data1.type === undefined) {
-                            valid4 = false;
-                            var err = {
-                              keyword: 'required',
-                              dataPath: (dataPath || '') + '.data',
-                              schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/1/required',
-                              params: {
-                                missingProperty: 'type'
-                              },
-                              message: 'should have required property \'type\''
-                            };
-                            if (vErrors === null) vErrors = [err];
-                            else vErrors.push(err);
-                            errors++;
-                          } else {
-                            var errs_4 = errors;
-                            if (typeof data1.type !== "string") {
-                              var err = {
-                                keyword: 'type',
-                                dataPath: (dataPath || '') + '.data.type',
-                                schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/1/properties/type/type',
-                                params: {
-                                  type: 'string'
-                                },
-                                message: 'should be string'
-                              };
-                              if (vErrors === null) vErrors = [err];
-                              else vErrors.push(err);
-                              errors++;
-                            }
-                            var valid4 = errors === errs_4;
-                          }
-                        }
-                      }
-                    }
-                  } else {
-                    var err = {
-                      keyword: 'type',
-                      dataPath: (dataPath || '') + '.data',
-                      schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/1/type',
-                      params: {
-                        type: 'object'
-                      },
-                      message: 'should be object'
-                    };
-                    if (vErrors === null) vErrors = [err];
-                    else vErrors.push(err);
-                    errors++;
-                  }
-                  var valid3 = errors === errs_3;
-                  valid2 = valid2 || valid3;
-                  if (!valid2) {
-                    var errs_3 = errors;
-                    if ((data1 && typeof data1 === "object" && !Array.isArray(data1))) {
-                      if (true) {
-                        var errs__3 = errors;
-                        var valid4 = true;
-                        for (var key3 in data1) {
-                          var isAdditional3 = !(false || key3 == 'BYTES_PER_ELEMENT' || key3 == 'buffer' || key3 == 'byteLength' || key3 == 'byteOffset' || key3 == 'length');
-                          if (isAdditional3) {
-                            var errs_4 = errors;
-                            if (typeof data1[key3] !== "number") {
-                              var err = {
-                                keyword: 'type',
-                                dataPath: (dataPath || '') + '.data[\'' + key3 + '\']',
-                                schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/additionalProperties/type',
-                                params: {
-                                  type: 'number'
-                                },
-                                message: 'should be number'
-                              };
-                              if (vErrors === null) vErrors = [err];
-                              else vErrors.push(err);
-                              errors++;
-                            }
-                            var valid4 = errors === errs_4;
-                            if (!valid4) break;
-                          }
-                        }
-                        if (valid4) {
-                          if (data1.BYTES_PER_ELEMENT === undefined) {
-                            valid4 = false;
-                            var err = {
-                              keyword: 'required',
-                              dataPath: (dataPath || '') + '.data',
-                              schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/required',
-                              params: {
-                                missingProperty: 'BYTES_PER_ELEMENT'
-                              },
-                              message: 'should have required property \'BYTES_PER_ELEMENT\''
-                            };
-                            if (vErrors === null) vErrors = [err];
-                            else vErrors.push(err);
-                            errors++;
-                          } else {
-                            var errs_4 = errors;
-                            if (typeof data1.BYTES_PER_ELEMENT !== "number") {
-                              var err = {
-                                keyword: 'type',
-                                dataPath: (dataPath || '') + '.data.BYTES_PER_ELEMENT',
-                                schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/properties/BYTES_PER_ELEMENT/type',
-                                params: {
-                                  type: 'number'
-                                },
-                                message: 'should be number'
-                              };
-                              if (vErrors === null) vErrors = [err];
-                              else vErrors.push(err);
-                              errors++;
-                            }
-                            var valid4 = errors === errs_4;
-                          }
-                          if (valid4) {
-                            var data2 = data1.buffer;
-                            if (data2 === undefined) {
-                              valid4 = false;
-                              var err = {
-                                keyword: 'required',
-                                dataPath: (dataPath || '') + '.data',
-                                schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/required',
-                                params: {
-                                  missingProperty: 'buffer'
-                                },
-                                message: 'should have required property \'buffer\''
-                              };
-                              if (vErrors === null) vErrors = [err];
-                              else vErrors.push(err);
-                              errors++;
-                            } else {
-                              var errs_4 = errors;
-                              if ((data2 && typeof data2 === "object" && !Array.isArray(data2))) {
-                                if (true) {
-                                  var errs__4 = errors;
-                                  var valid5 = true;
-                                  for (var key4 in data2) {
-                                    var isAdditional4 = !(false || key4 == 'byteLength');
-                                    if (isAdditional4) {
-                                      valid5 = false;
-                                      var err = {
-                                        keyword: 'additionalProperties',
-                                        dataPath: (dataPath || '') + '.data.buffer',
-                                        schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/properties/buffer/additionalProperties',
-                                        params: {
-                                          additionalProperty: '' + key4 + ''
-                                        },
-                                        message: 'should NOT have additional properties'
-                                      };
-                                      if (vErrors === null) vErrors = [err];
-                                      else vErrors.push(err);
-                                      errors++;
-                                      break;
-                                    }
-                                  }
-                                  if (valid5) {
-                                    if (data2.byteLength === undefined) {
-                                      valid5 = false;
-                                      var err = {
-                                        keyword: 'required',
-                                        dataPath: (dataPath || '') + '.data.buffer',
-                                        schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/properties/buffer/required',
-                                        params: {
-                                          missingProperty: 'byteLength'
-                                        },
-                                        message: 'should have required property \'byteLength\''
-                                      };
-                                      if (vErrors === null) vErrors = [err];
-                                      else vErrors.push(err);
-                                      errors++;
-                                    } else {
-                                      var errs_5 = errors;
-                                      if (typeof data2.byteLength !== "number") {
-                                        var err = {
-                                          keyword: 'type',
-                                          dataPath: (dataPath || '') + '.data.buffer.byteLength',
-                                          schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/properties/buffer/properties/byteLength/type',
-                                          params: {
-                                            type: 'number'
-                                          },
-                                          message: 'should be number'
-                                        };
-                                        if (vErrors === null) vErrors = [err];
-                                        else vErrors.push(err);
-                                        errors++;
-                                      }
-                                      var valid5 = errors === errs_5;
-                                    }
-                                  }
-                                }
-                              } else {
-                                var err = {
-                                  keyword: 'type',
-                                  dataPath: (dataPath || '') + '.data.buffer',
-                                  schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/properties/buffer/type',
-                                  params: {
-                                    type: 'object'
-                                  },
-                                  message: 'should be object'
-                                };
-                                if (vErrors === null) vErrors = [err];
-                                else vErrors.push(err);
-                                errors++;
-                              }
-                              var valid4 = errors === errs_4;
-                            }
-                            if (valid4) {
-                              if (data1.byteLength === undefined) {
-                                valid4 = false;
-                                var err = {
-                                  keyword: 'required',
-                                  dataPath: (dataPath || '') + '.data',
-                                  schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/required',
-                                  params: {
-                                    missingProperty: 'byteLength'
-                                  },
-                                  message: 'should have required property \'byteLength\''
-                                };
-                                if (vErrors === null) vErrors = [err];
-                                else vErrors.push(err);
-                                errors++;
-                              } else {
-                                var errs_4 = errors;
-                                if (typeof data1.byteLength !== "number") {
-                                  var err = {
-                                    keyword: 'type',
-                                    dataPath: (dataPath || '') + '.data.byteLength',
-                                    schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/properties/byteLength/type',
-                                    params: {
-                                      type: 'number'
-                                    },
-                                    message: 'should be number'
-                                  };
-                                  if (vErrors === null) vErrors = [err];
-                                  else vErrors.push(err);
-                                  errors++;
-                                }
-                                var valid4 = errors === errs_4;
-                              }
-                              if (valid4) {
-                                if (data1.byteOffset === undefined) {
-                                  valid4 = false;
-                                  var err = {
-                                    keyword: 'required',
-                                    dataPath: (dataPath || '') + '.data',
-                                    schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/required',
-                                    params: {
-                                      missingProperty: 'byteOffset'
-                                    },
-                                    message: 'should have required property \'byteOffset\''
-                                  };
-                                  if (vErrors === null) vErrors = [err];
-                                  else vErrors.push(err);
-                                  errors++;
-                                } else {
-                                  var errs_4 = errors;
-                                  if (typeof data1.byteOffset !== "number") {
-                                    var err = {
-                                      keyword: 'type',
-                                      dataPath: (dataPath || '') + '.data.byteOffset',
-                                      schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/properties/byteOffset/type',
-                                      params: {
-                                        type: 'number'
-                                      },
-                                      message: 'should be number'
-                                    };
-                                    if (vErrors === null) vErrors = [err];
-                                    else vErrors.push(err);
-                                    errors++;
-                                  }
-                                  var valid4 = errors === errs_4;
-                                }
-                                if (valid4) {
-                                  if (data1.length === undefined) {
-                                    valid4 = false;
-                                    var err = {
-                                      keyword: 'required',
-                                      dataPath: (dataPath || '') + '.data',
-                                      schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/required',
-                                      params: {
-                                        missingProperty: 'length'
-                                      },
-                                      message: 'should have required property \'length\''
-                                    };
-                                    if (vErrors === null) vErrors = [err];
-                                    else vErrors.push(err);
-                                    errors++;
-                                  } else {
-                                    var errs_4 = errors;
-                                    if (typeof data1.length !== "number") {
-                                      var err = {
-                                        keyword: 'type',
-                                        dataPath: (dataPath || '') + '.data.length',
-                                        schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/properties/length/type',
-                                        params: {
-                                          type: 'number'
-                                        },
-                                        message: 'should be number'
-                                      };
-                                      if (vErrors === null) vErrors = [err];
-                                      else vErrors.push(err);
-                                      errors++;
-                                    }
-                                    var valid4 = errors === errs_4;
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    } else {
-                      var err = {
-                        keyword: 'type',
-                        dataPath: (dataPath || '') + '.data',
-                        schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf/2/type',
-                        params: {
-                          type: 'object'
-                        },
-                        message: 'should be object'
-                      };
-                      if (vErrors === null) vErrors = [err];
-                      else vErrors.push(err);
-                      errors++;
-                    }
-                    var valid3 = errors === errs_3;
-                    valid2 = valid2 || valid3;
-                  }
-                }
-                if (!valid2) {
-                  var err = {
-                    keyword: 'anyOf',
-                    dataPath: (dataPath || '') + '.data',
-                    schemaPath: '#/definitions/PouchDB.Core.AttachmentData/anyOf',
-                    params: {},
-                    message: 'should match some schema in anyOf'
-                  };
-                  if (vErrors === null) vErrors = [err];
-                  else vErrors.push(err);
-                  errors++;
-                  validate.errors = vErrors;
-                  return false;
-                } else {
-                  errors = errs__2;
-                  if (vErrors !== null) {
-                    if (errs__2) vErrors.length = errs__2;
-                    else vErrors = null;
-                  }
-                }
-                var valid2 = errors === errs_2;
-                var valid1 = errors === errs_1;
-              }
-              if (valid1) {
-                if (data.digest === undefined) {
-                  valid1 = true;
-                } else {
-                  var errs_1 = errors;
-                  if (typeof data.digest !== "string") {
-                    validate.errors = [{
-                      keyword: 'type',
-                      dataPath: (dataPath || '') + '.digest',
-                      schemaPath: '#/properties/digest/type',
-                      params: {
-                        type: 'string'
-                      },
-                      message: 'should be string'
-                    }];
-                    return false;
-                  }
-                  var valid1 = errors === errs_1;
-                }
-              }
-            }
-          }
-        }
-      } else {
-        validate.errors = [{
-          keyword: 'type',
-          dataPath: (dataPath || '') + "",
-          schemaPath: '#/type',
-          params: {
-            type: 'object'
-          },
-          message: 'should be object'
-        }];
-        return false;
-      }
-      validate.errors = vErrors;
-      return errors === 0;
-    };
-  })();
-  refVal38.schema = {
-    "additionalProperties": false,
-    "description": "Full attachments are used to create new attachments or returned when the attachments option\nis true.",
-    "properties": {
-      "content_type": {
-        "description": "Mime type of the attachment",
-        "type": "string"
-      },
-      "data": {
-        "$ref": "#/definitions/PouchDB.Core.AttachmentData",
-        "description": "{string} if `binary` was `false`\n{Blob|Buffer} if `binary` was `true`"
-      },
-      "digest": {
-        "description": "MD5 hash, starts with \"md5-\" prefix; populated by PouchDB for new attachments",
-        "type": "string"
-      }
-    },
-    "required": ["content_type", "data"],
-    "type": "object"
-  };
-  refVal38.errors = null;
-  refVal[38] = refVal38;
-  var refVal39 = {
-    "anyOf": [{
-      "type": "string"
-    }, {
-      "additionalProperties": false,
-      "properties": {
-        "size": {
-          "type": "number"
-        },
-        "type": {
-          "type": "string"
-        }
-      },
-      "required": ["size", "type"],
-      "type": "object"
-    }, {
-      "additionalProperties": {
-        "type": "number"
-      },
-      "description": "Raw data is stored in instances of the Buffer class.\nA Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.\nValid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'",
-      "properties": {
-        "BYTES_PER_ELEMENT": {
-          "type": "number"
-        },
-        "buffer": {
-          "additionalProperties": false,
-          "properties": {
-            "byteLength": {
-              "type": "number"
-            }
-          },
-          "required": ["byteLength"],
-          "type": "object"
-        },
-        "byteLength": {
-          "type": "number"
-        },
-        "byteOffset": {
-          "type": "number"
-        },
-        "length": {
-          "type": "number"
-        }
-      },
-      "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-      "type": "object"
-    }]
-  };
-  refVal[39] = refVal39;
-  var refVal40 = {
+  refVal[30] = refVal30;
+  var refVal31 = {
     "type": "string"
   };
-  refVal[40] = refVal40;
-  var refVal41 = {
+  refVal[31] = refVal31;
+  var refVal32 = {
     "type": "string"
   };
-  refVal[41] = refVal41;
-  var refVal42 = (function() {
-    var pattern0 = new RegExp('^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$');
-    var pattern1 = new RegExp('^([0-9]+\\s)+[0-9]+$');
-    var pattern2 = new RegExp('^((-?[0-9]+),(-?[0-9]+)\\s)+(-?[0-9]+),(-?[0-9]+)$');
-    var pattern3 = new RegExp('^([0-9]+\\s){3}[0-9]+$');
-    return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
-      'use strict';
-      var vErrors = null;
-      var errors = 0;
-      if ((data && typeof data === "object" && !Array.isArray(data))) {
-        if (true) {
-          var errs__0 = errors;
-          var valid1 = true;
-          for (var key0 in data) {
-            var isAdditional0 = !(false || key0 == 'rev' || key0 == 'status');
-            if (isAdditional0) {
-              valid1 = false;
-              validate.errors = [{
-                keyword: 'additionalProperties',
-                dataPath: (dataPath || '') + "",
-                schemaPath: '#/additionalProperties',
-                params: {
-                  additionalProperty: '' + key0 + ''
-                },
-                message: 'should NOT have additional properties'
-              }];
-              return false;
-              break;
-            }
-          }
-          if (valid1) {
-            if (data.rev === undefined) {
-              valid1 = false;
-              validate.errors = [{
-                keyword: 'required',
-                dataPath: (dataPath || '') + "",
-                schemaPath: '#/required',
-                params: {
-                  missingProperty: 'rev'
-                },
-                message: 'should have required property \'rev\''
-              }];
-              return false;
-            } else {
-              var errs_1 = errors;
-              var errs_2 = errors;
-              if (typeof data.rev !== "string") {
-                validate.errors = [{
-                  keyword: 'type',
-                  dataPath: (dataPath || '') + '.rev',
-                  schemaPath: '#/definitions/PouchDB.Core.RevisionId/type',
-                  params: {
-                    type: 'string'
-                  },
-                  message: 'should be string'
-                }];
-                return false;
-              }
-              var valid2 = errors === errs_2;
-              var valid1 = errors === errs_1;
-            }
-            if (valid1) {
-              var data1 = data.status;
-              if (data1 === undefined) {
-                valid1 = false;
-                validate.errors = [{
-                  keyword: 'required',
-                  dataPath: (dataPath || '') + "",
-                  schemaPath: '#/required',
-                  params: {
-                    missingProperty: 'status'
-                  },
-                  message: 'should have required property \'status\''
-                }];
-                return false;
-              } else {
-                var errs_1 = errors;
-                var errs_2 = errors;
-                if (typeof data1 !== "string") {
-                  validate.errors = [{
-                    keyword: 'type',
-                    dataPath: (dataPath || '') + '.status',
-                    schemaPath: '#/definitions/PouchDB.Core.Availability/type',
-                    params: {
-                      type: 'string'
-                    },
-                    message: 'should be string'
-                  }];
-                  return false;
-                }
-                var schema2 = refVal43.enum;
-                var valid2;
-                valid2 = false;
-                for (var i2 = 0; i2 < schema2.length; i2++)
-                  if (equal(data1, schema2[i2])) {
-                    valid2 = true;
-                    break;
-                  } if (!valid2) {
-                  validate.errors = [{
-                    keyword: 'enum',
-                    dataPath: (dataPath || '') + '.status',
-                    schemaPath: '#/definitions/PouchDB.Core.Availability/enum',
-                    params: {
-                      allowedValues: schema2
-                    },
-                    message: 'should be equal to one of the allowed values'
-                  }];
-                  return false;
-                }
-                var valid2 = errors === errs_2;
-                var valid1 = errors === errs_1;
-              }
-            }
-          }
-        }
-      } else {
-        validate.errors = [{
-          keyword: 'type',
-          dataPath: (dataPath || '') + "",
-          schemaPath: '#/type',
-          params: {
-            type: 'object'
-          },
-          message: 'should be object'
-        }];
-        return false;
-      }
-      validate.errors = vErrors;
-      return errors === 0;
-    };
-  })();
-  refVal42.schema = {
-    "additionalProperties": false,
-    "properties": {
-      "rev": {
-        "$ref": "#/definitions/PouchDB.Core.RevisionId"
-      },
-      "status": {
-        "$ref": "#/definitions/PouchDB.Core.Availability"
-      }
-    },
-    "required": ["rev", "status"],
-    "type": "object"
-  };
-  refVal42.errors = null;
-  refVal[42] = refVal42;
-  var refVal43 = {
-    "enum": ["available", "compacted", "not compacted", "missing"],
-    "type": "string"
-  };
-  refVal[43] = refVal43;
+  refVal[32] = refVal32;
   return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
     'use strict';
     var vErrors = null;
@@ -9575,37 +7986,55 @@ var validate = (function() {
       if (true) {
         var errs__0 = errors;
         var valid1 = true;
-        for (var key0 in data) {
-          var isAdditional0 = !(false || key0 == 'cues' || key0 == 'files' || key0 == 'headers');
-          if (isAdditional0) {
-            valid1 = false;
+        var data1 = data.cues;
+        if (data1 === undefined) {
+          valid1 = false;
+          validate.errors = [{
+            keyword: 'required',
+            dataPath: (dataPath || '') + "",
+            schemaPath: '#/required',
+            params: {
+              missingProperty: 'cues'
+            },
+            message: 'should have required property \'cues\''
+          }];
+          return false;
+        } else {
+          var errs_1 = errors;
+          if (Array.isArray(data1)) {
+            var errs__1 = errors;
+            var valid1;
+            for (var i1 = 0; i1 < data1.length; i1++) {
+              var errs_2 = errors;
+              if (!refVal1(data1[i1], (dataPath || '') + '.cues[' + i1 + ']', data1, i1, rootData)) {
+                if (vErrors === null) vErrors = refVal1.errors;
+                else vErrors = vErrors.concat(refVal1.errors);
+                errors = vErrors.length;
+              } else {}
+              if (errors === errs_2) {}
+              var valid2 = errors === errs_2;
+              if (!valid2) break;
+            }
+            if (errs__1 == errors) {}
+          } else {
             validate.errors = [{
-              keyword: 'additionalProperties',
-              dataPath: (dataPath || '') + "",
-              schemaPath: '#/additionalProperties',
+              keyword: 'type',
+              dataPath: (dataPath || '') + '.cues',
+              schemaPath: '#/properties/cues/type',
               params: {
-                additionalProperty: '' + key0 + ''
+                type: 'array'
               },
-              message: 'should NOT have additional properties'
+              message: 'should be array'
             }];
             return false;
-            break;
           }
+          if (errors === errs_1) {}
+          var valid1 = errors === errs_1;
         }
         if (valid1) {
-          var data1 = data.cues;
+          var data1 = data.files;
           if (data1 === undefined) {
-            valid1 = false;
-            validate.errors = [{
-              keyword: 'required',
-              dataPath: (dataPath || '') + "",
-              schemaPath: '#/required',
-              params: {
-                missingProperty: 'cues'
-              },
-              message: 'should have required property \'cues\''
-            }];
-            return false;
+            valid1 = true;
           } else {
             var errs_1 = errors;
             if (Array.isArray(data1)) {
@@ -9613,19 +8042,27 @@ var validate = (function() {
               var valid1;
               for (var i1 = 0; i1 < data1.length; i1++) {
                 var errs_2 = errors;
-                if (!refVal1(data1[i1], (dataPath || '') + '.cues[' + i1 + ']', data1, i1, rootData)) {
-                  if (vErrors === null) vErrors = refVal1.errors;
-                  else vErrors = vErrors.concat(refVal1.errors);
-                  errors = vErrors.length;
+                if (typeof data1[i1] !== "string") {
+                  validate.errors = [{
+                    keyword: 'type',
+                    dataPath: (dataPath || '') + '.files[' + i1 + ']',
+                    schemaPath: '#/properties/files/items/type',
+                    params: {
+                      type: 'string'
+                    },
+                    message: 'should be string'
+                  }];
+                  return false;
                 }
                 var valid2 = errors === errs_2;
                 if (!valid2) break;
               }
+              if (errs__1 == errors) {}
             } else {
               validate.errors = [{
                 keyword: 'type',
-                dataPath: (dataPath || '') + '.cues',
-                schemaPath: '#/properties/cues/type',
+                dataPath: (dataPath || '') + '.files',
+                schemaPath: '#/properties/files/type',
                 params: {
                   type: 'array'
                 },
@@ -9633,160 +8070,200 @@ var validate = (function() {
               }];
               return false;
             }
+            if (errors === errs_1) {}
             var valid1 = errors === errs_1;
           }
           if (valid1) {
-            var data1 = data.files;
+            var data1 = data.headers;
             if (data1 === undefined) {
-              valid1 = true;
+              valid1 = false;
+              validate.errors = [{
+                keyword: 'required',
+                dataPath: (dataPath || '') + "",
+                schemaPath: '#/required',
+                params: {
+                  missingProperty: 'headers'
+                },
+                message: 'should have required property \'headers\''
+              }];
+              return false;
             } else {
               var errs_1 = errors;
-              if (Array.isArray(data1)) {
-                var errs__1 = errors;
-                var valid1;
-                for (var i1 = 0; i1 < data1.length; i1++) {
-                  var errs_2 = errors;
-                  if (typeof data1[i1] !== "string") {
-                    validate.errors = [{
-                      keyword: 'type',
-                      dataPath: (dataPath || '') + '.files[' + i1 + ']',
-                      schemaPath: '#/properties/files/items/type',
-                      params: {
-                        type: 'string'
-                      },
-                      message: 'should be string'
-                    }];
-                    return false;
+              if ((data1 && typeof data1 === "object" && !Array.isArray(data1))) {
+                if (true) {
+                  var errs__1 = errors;
+                  var valid2 = true;
+                  for (var key1 in data1) {
+                    var isAdditional1 = !(false || validate.schema.properties.headers.properties.hasOwnProperty(key1));
+                    if (isAdditional1) {
+                      var errs_2 = errors;
+                      var errs__2 = errors;
+                      var valid2 = false;
+                      var errs_3 = errors;
+                      var err = {
+                        keyword: 'not',
+                        dataPath: (dataPath || '') + '.headers[\'' + key1 + '\']',
+                        schemaPath: '#/properties/headers/additionalProperties/anyOf/0/not',
+                        params: {},
+                        message: 'should NOT be valid'
+                      };
+                      if (vErrors === null) vErrors = [err];
+                      else vErrors.push(err);
+                      errors++;
+                      if (false) {}
+                      if (errors === errs_3) {}
+                      var valid3 = errors === errs_3;
+                      valid2 = valid2 || valid3;
+                      if (!valid2) {
+                        var errs_3 = errors;
+                        if (typeof data1[key1] !== "string") {
+                          var err = {
+                            keyword: 'type',
+                            dataPath: (dataPath || '') + '.headers[\'' + key1 + '\']',
+                            schemaPath: '#/properties/headers/additionalProperties/anyOf/1/type',
+                            params: {
+                              type: 'string'
+                            },
+                            message: 'should be string'
+                          };
+                          if (vErrors === null) vErrors = [err];
+                          else vErrors.push(err);
+                          errors++;
+                        }
+                        var valid3 = errors === errs_3;
+                        valid2 = valid2 || valid3;
+                        if (!valid2) {}
+                      }
+                      if (!valid2) {
+                        var err = {
+                          keyword: 'anyOf',
+                          dataPath: (dataPath || '') + '.headers[\'' + key1 + '\']',
+                          schemaPath: '#/properties/headers/additionalProperties/anyOf',
+                          params: {},
+                          message: 'should match some schema in anyOf'
+                        };
+                        if (vErrors === null) vErrors = [err];
+                        else vErrors.push(err);
+                        errors++;
+                        validate.errors = vErrors;
+                        return false;
+                      } else {
+                        errors = errs__2;
+                        if (vErrors !== null) {
+                          if (errs__2) vErrors.length = errs__2;
+                          else vErrors = null;
+                        }
+                      }
+                      if (errors === errs_2) {}
+                      var valid2 = errors === errs_2;
+                      if (!valid2) break;
+                    }
                   }
-                  var valid2 = errors === errs_2;
-                  if (!valid2) break;
-                }
-              } else {
-                validate.errors = [{
-                  keyword: 'type',
-                  dataPath: (dataPath || '') + '.files',
-                  schemaPath: '#/properties/files/type',
-                  params: {
-                    type: 'array'
-                  },
-                  message: 'should be array'
-                }];
-                return false;
-              }
-              var valid1 = errors === errs_1;
-            }
-            if (valid1) {
-              var data1 = data.headers;
-              if (data1 === undefined) {
-                valid1 = false;
-                validate.errors = [{
-                  keyword: 'required',
-                  dataPath: (dataPath || '') + "",
-                  schemaPath: '#/required',
-                  params: {
-                    missingProperty: 'headers'
-                  },
-                  message: 'should have required property \'headers\''
-                }];
-                return false;
-              } else {
-                var errs_1 = errors;
-                if ((data1 && typeof data1 === "object" && !Array.isArray(data1))) {
-                  if (true) {
-                    var errs__1 = errors;
-                    var valid2 = true;
-                    for (var key1 in data1) {
-                      var isAdditional1 = !(false || validate.schema.properties.headers.properties.hasOwnProperty(key1));
-                      if (isAdditional1) {
-                        valid2 = false;
+                  if (valid2) {
+                    if (data1._id === undefined) {
+                      valid2 = false;
+                      validate.errors = [{
+                        keyword: 'required',
+                        dataPath: (dataPath || '') + '.headers',
+                        schemaPath: '#/properties/headers/required',
+                        params: {
+                          missingProperty: '_id'
+                        },
+                        message: 'should have required property \'_id\''
+                      }];
+                      return false;
+                    } else {
+                      var errs_2 = errors;
+                      var errs_3 = errors;
+                      if (typeof data1._id !== "string") {
                         validate.errors = [{
-                          keyword: 'additionalProperties',
-                          dataPath: (dataPath || '') + '.headers',
-                          schemaPath: '#/properties/headers/additionalProperties',
+                          keyword: 'type',
+                          dataPath: (dataPath || '') + '.headers._id',
+                          schemaPath: '#/definitions/PouchDB.Core.DocumentId/type',
                           params: {
-                            additionalProperty: '' + key1 + ''
+                            type: 'string'
                           },
-                          message: 'should NOT have additional properties'
+                          message: 'should be string'
                         }];
                         return false;
-                        break;
                       }
+                      var valid3 = errors === errs_3;
+                      if (valid3) {}
+                      if (errors === errs_2) {}
+                      var valid2 = errors === errs_2;
                     }
                     if (valid2) {
-                      if (data1._attachments === undefined) {
-                        valid2 = true;
+                      if (data1._rev === undefined) {
+                        valid2 = false;
+                        validate.errors = [{
+                          keyword: 'required',
+                          dataPath: (dataPath || '') + '.headers',
+                          schemaPath: '#/properties/headers/required',
+                          params: {
+                            missingProperty: '_rev'
+                          },
+                          message: 'should have required property \'_rev\''
+                        }];
+                        return false;
                       } else {
                         var errs_2 = errors;
-                        if (!refVal35(data1._attachments, (dataPath || '') + '.headers._attachments', data1, '_attachments', rootData)) {
-                          if (vErrors === null) vErrors = refVal35.errors;
-                          else vErrors = vErrors.concat(refVal35.errors);
-                          errors = vErrors.length;
+                        var errs_3 = errors;
+                        if (typeof data1._rev !== "string") {
+                          validate.errors = [{
+                            keyword: 'type',
+                            dataPath: (dataPath || '') + '.headers._rev',
+                            schemaPath: '#/definitions/PouchDB.Core.RevisionId/type',
+                            params: {
+                              type: 'string'
+                            },
+                            message: 'should be string'
+                          }];
+                          return false;
                         }
+                        var valid3 = errors === errs_3;
+                        if (valid3) {}
+                        if (errors === errs_2) {}
                         var valid2 = errors === errs_2;
                       }
                       if (valid2) {
-                        var data2 = data1._conflicts;
-                        if (data2 === undefined) {
+                        if (data1.authors === undefined) {
                           valid2 = true;
                         } else {
                           var errs_2 = errors;
-                          if (Array.isArray(data2)) {
-                            var errs__2 = errors;
-                            var valid2;
-                            for (var i2 = 0; i2 < data2.length; i2++) {
-                              var errs_3 = errors;
-                              var errs_4 = errors;
-                              if (typeof data2[i2] !== "string") {
-                                validate.errors = [{
-                                  keyword: 'type',
-                                  dataPath: (dataPath || '') + '.headers._conflicts[' + i2 + ']',
-                                  schemaPath: '#/definitions/PouchDB.Core.RevisionId/type',
-                                  params: {
-                                    type: 'string'
-                                  },
-                                  message: 'should be string'
-                                }];
-                                return false;
-                              }
-                              var valid4 = errors === errs_4;
-                              var valid3 = errors === errs_3;
-                              if (!valid3) break;
-                            }
-                          } else {
+                          if (typeof data1.authors !== "string") {
                             validate.errors = [{
                               keyword: 'type',
-                              dataPath: (dataPath || '') + '.headers._conflicts',
-                              schemaPath: '#/properties/headers/properties/_conflicts/type',
+                              dataPath: (dataPath || '') + '.headers.authors',
+                              schemaPath: '#/properties/headers/properties/authors/type',
                               params: {
-                                type: 'array'
+                                type: 'string'
                               },
-                              message: 'should be array'
+                              message: 'should be string'
                             }];
                             return false;
                           }
                           var valid2 = errors === errs_2;
                         }
                         if (valid2) {
-                          if (data1._id === undefined) {
+                          if (data1.created === undefined) {
                             valid2 = false;
                             validate.errors = [{
                               keyword: 'required',
                               dataPath: (dataPath || '') + '.headers',
                               schemaPath: '#/properties/headers/required',
                               params: {
-                                missingProperty: '_id'
+                                missingProperty: 'created'
                               },
-                              message: 'should have required property \'_id\''
+                              message: 'should have required property \'created\''
                             }];
                             return false;
                           } else {
                             var errs_2 = errors;
-                            var errs_3 = errors;
-                            if (typeof data1._id !== "string") {
+                            if (typeof data1.created !== "string") {
                               validate.errors = [{
                                 keyword: 'type',
-                                dataPath: (dataPath || '') + '.headers._id',
-                                schemaPath: '#/definitions/PouchDB.Core.DocumentId/type',
+                                dataPath: (dataPath || '') + '.headers.created',
+                                schemaPath: '#/properties/headers/properties/created/type',
                                 params: {
                                   type: 'string'
                                 },
@@ -9794,30 +8271,18 @@ var validate = (function() {
                               }];
                               return false;
                             }
-                            var valid3 = errors === errs_3;
                             var valid2 = errors === errs_2;
                           }
                           if (valid2) {
-                            if (data1._rev === undefined) {
-                              valid2 = false;
-                              validate.errors = [{
-                                keyword: 'required',
-                                dataPath: (dataPath || '') + '.headers',
-                                schemaPath: '#/properties/headers/required',
-                                params: {
-                                  missingProperty: '_rev'
-                                },
-                                message: 'should have required property \'_rev\''
-                              }];
-                              return false;
+                            if (data1.duration === undefined) {
+                              valid2 = true;
                             } else {
                               var errs_2 = errors;
-                              var errs_3 = errors;
-                              if (typeof data1._rev !== "string") {
+                              if (typeof data1.duration !== "string") {
                                 validate.errors = [{
                                   keyword: 'type',
-                                  dataPath: (dataPath || '') + '.headers._rev',
-                                  schemaPath: '#/definitions/PouchDB.Core.RevisionId/type',
+                                  dataPath: (dataPath || '') + '.headers.duration',
+                                  schemaPath: '#/properties/headers/properties/duration/type',
                                   params: {
                                     type: 'string'
                                   },
@@ -9825,177 +8290,66 @@ var validate = (function() {
                                 }];
                                 return false;
                               }
-                              var valid3 = errors === errs_3;
                               var valid2 = errors === errs_2;
                             }
                             if (valid2) {
-                              var data2 = data1._revisions;
-                              if (data2 === undefined) {
-                                valid2 = true;
+                              if (data1.for === undefined) {
+                                valid2 = false;
+                                validate.errors = [{
+                                  keyword: 'required',
+                                  dataPath: (dataPath || '') + '.headers',
+                                  schemaPath: '#/properties/headers/required',
+                                  params: {
+                                    missingProperty: 'for'
+                                  },
+                                  message: 'should have required property \'for\''
+                                }];
+                                return false;
                               } else {
                                 var errs_2 = errors;
-                                if ((data2 && typeof data2 === "object" && !Array.isArray(data2))) {
-                                  if (true) {
-                                    var errs__2 = errors;
-                                    var valid3 = true;
-                                    for (var key2 in data2) {
-                                      var isAdditional2 = !(false || key2 == 'ids' || key2 == 'start');
-                                      if (isAdditional2) {
-                                        valid3 = false;
-                                        validate.errors = [{
-                                          keyword: 'additionalProperties',
-                                          dataPath: (dataPath || '') + '.headers._revisions',
-                                          schemaPath: '#/properties/headers/properties/_revisions/additionalProperties',
-                                          params: {
-                                            additionalProperty: '' + key2 + ''
-                                          },
-                                          message: 'should NOT have additional properties'
-                                        }];
-                                        return false;
-                                        break;
-                                      }
-                                    }
-                                    if (valid3) {
-                                      var data3 = data2.ids;
-                                      if (data3 === undefined) {
-                                        valid3 = false;
-                                        validate.errors = [{
-                                          keyword: 'required',
-                                          dataPath: (dataPath || '') + '.headers._revisions',
-                                          schemaPath: '#/properties/headers/properties/_revisions/required',
-                                          params: {
-                                            missingProperty: 'ids'
-                                          },
-                                          message: 'should have required property \'ids\''
-                                        }];
-                                        return false;
-                                      } else {
-                                        var errs_3 = errors;
-                                        if (Array.isArray(data3)) {
-                                          var errs__3 = errors;
-                                          var valid3;
-                                          for (var i3 = 0; i3 < data3.length; i3++) {
-                                            var errs_4 = errors;
-                                            var errs_5 = errors;
-                                            if (typeof data3[i3] !== "string") {
-                                              validate.errors = [{
-                                                keyword: 'type',
-                                                dataPath: (dataPath || '') + '.headers._revisions.ids[' + i3 + ']',
-                                                schemaPath: '#/definitions/PouchDB.Core.RevisionId/type',
-                                                params: {
-                                                  type: 'string'
-                                                },
-                                                message: 'should be string'
-                                              }];
-                                              return false;
-                                            }
-                                            var valid5 = errors === errs_5;
-                                            var valid4 = errors === errs_4;
-                                            if (!valid4) break;
-                                          }
-                                        } else {
-                                          validate.errors = [{
-                                            keyword: 'type',
-                                            dataPath: (dataPath || '') + '.headers._revisions.ids',
-                                            schemaPath: '#/properties/headers/properties/_revisions/properties/ids/type',
-                                            params: {
-                                              type: 'array'
-                                            },
-                                            message: 'should be array'
-                                          }];
-                                          return false;
-                                        }
-                                        var valid3 = errors === errs_3;
-                                      }
-                                      if (valid3) {
-                                        if (data2.start === undefined) {
-                                          valid3 = false;
-                                          validate.errors = [{
-                                            keyword: 'required',
-                                            dataPath: (dataPath || '') + '.headers._revisions',
-                                            schemaPath: '#/properties/headers/properties/_revisions/required',
-                                            params: {
-                                              missingProperty: 'start'
-                                            },
-                                            message: 'should have required property \'start\''
-                                          }];
-                                          return false;
-                                        } else {
-                                          var errs_3 = errors;
-                                          if (typeof data2.start !== "number") {
-                                            validate.errors = [{
-                                              keyword: 'type',
-                                              dataPath: (dataPath || '') + '.headers._revisions.start',
-                                              schemaPath: '#/properties/headers/properties/_revisions/properties/start/type',
-                                              params: {
-                                                type: 'number'
-                                              },
-                                              message: 'should be number'
-                                            }];
-                                            return false;
-                                          }
-                                          var valid3 = errors === errs_3;
-                                        }
-                                      }
-                                    }
-                                  }
-                                } else {
+                                if (typeof data1.for !== "string") {
                                   validate.errors = [{
                                     keyword: 'type',
-                                    dataPath: (dataPath || '') + '.headers._revisions',
-                                    schemaPath: '#/properties/headers/properties/_revisions/type',
+                                    dataPath: (dataPath || '') + '.headers.for',
+                                    schemaPath: '#/properties/headers/properties/for/type',
                                     params: {
-                                      type: 'object'
+                                      type: 'string'
                                     },
-                                    message: 'should be object'
+                                    message: 'should be string'
                                   }];
                                   return false;
                                 }
                                 var valid2 = errors === errs_2;
                               }
                               if (valid2) {
-                                var data2 = data1._revs_info;
-                                if (data2 === undefined) {
+                                if (data1.frameOrigin === undefined) {
                                   valid2 = true;
                                 } else {
                                   var errs_2 = errors;
-                                  if (Array.isArray(data2)) {
-                                    var errs__2 = errors;
-                                    var valid2;
-                                    for (var i2 = 0; i2 < data2.length; i2++) {
-                                      var errs_3 = errors;
-                                      if (!refVal42(data2[i2], (dataPath || '') + '.headers._revs_info[' + i2 + ']', data2, i2, rootData)) {
-                                        if (vErrors === null) vErrors = refVal42.errors;
-                                        else vErrors = vErrors.concat(refVal42.errors);
-                                        errors = vErrors.length;
-                                      }
-                                      var valid3 = errors === errs_3;
-                                      if (!valid3) break;
-                                    }
-                                  } else {
+                                  if (typeof data1.frameOrigin !== "string") {
                                     validate.errors = [{
                                       keyword: 'type',
-                                      dataPath: (dataPath || '') + '.headers._revs_info',
-                                      schemaPath: '#/properties/headers/properties/_revs_info/type',
+                                      dataPath: (dataPath || '') + '.headers.frameOrigin',
+                                      schemaPath: '#/properties/headers/properties/frameOrigin/type',
                                       params: {
-                                        type: 'array'
+                                        type: 'string'
                                       },
-                                      message: 'should be array'
+                                      message: 'should be string'
                                     }];
                                     return false;
                                   }
                                   var valid2 = errors === errs_2;
                                 }
                                 if (valid2) {
-                                  if (data1.authors === undefined) {
+                                  if (data1.framePath === undefined) {
                                     valid2 = true;
                                   } else {
                                     var errs_2 = errors;
-                                    if (typeof data1.authors !== "string") {
+                                    if (typeof data1.framePath !== "string") {
                                       validate.errors = [{
                                         keyword: 'type',
-                                        dataPath: (dataPath || '') + '.headers.authors',
-                                        schemaPath: '#/properties/headers/properties/authors/type',
+                                        dataPath: (dataPath || '') + '.headers.framePath',
+                                        schemaPath: '#/properties/headers/properties/framePath/type',
                                         params: {
                                           type: 'string'
                                         },
@@ -10006,25 +8360,15 @@ var validate = (function() {
                                     var valid2 = errors === errs_2;
                                   }
                                   if (valid2) {
-                                    if (data1.created === undefined) {
-                                      valid2 = false;
-                                      validate.errors = [{
-                                        keyword: 'required',
-                                        dataPath: (dataPath || '') + '.headers',
-                                        schemaPath: '#/properties/headers/required',
-                                        params: {
-                                          missingProperty: 'created'
-                                        },
-                                        message: 'should have required property \'created\''
-                                      }];
-                                      return false;
+                                    if (data1.frameSearch === undefined) {
+                                      valid2 = true;
                                     } else {
                                       var errs_2 = errors;
-                                      if (typeof data1.created !== "string") {
+                                      if (typeof data1.frameSearch !== "string") {
                                         validate.errors = [{
                                           keyword: 'type',
-                                          dataPath: (dataPath || '') + '.headers.created',
-                                          schemaPath: '#/properties/headers/properties/created/type',
+                                          dataPath: (dataPath || '') + '.headers.frameSearch',
+                                          schemaPath: '#/properties/headers/properties/frameSearch/type',
                                           params: {
                                             type: 'string'
                                           },
@@ -10035,15 +8379,15 @@ var validate = (function() {
                                       var valid2 = errors === errs_2;
                                     }
                                     if (valid2) {
-                                      if (data1.duration === undefined) {
+                                      if (data1.frameTitle === undefined) {
                                         valid2 = true;
                                       } else {
                                         var errs_2 = errors;
-                                        if (typeof data1.duration !== "string") {
+                                        if (typeof data1.frameTitle !== "string") {
                                           validate.errors = [{
                                             keyword: 'type',
-                                            dataPath: (dataPath || '') + '.headers.duration',
-                                            schemaPath: '#/properties/headers/properties/duration/type',
+                                            dataPath: (dataPath || '') + '.headers.frameTitle',
+                                            schemaPath: '#/properties/headers/properties/frameTitle/type',
                                             params: {
                                               type: 'string'
                                             },
@@ -10054,25 +8398,15 @@ var validate = (function() {
                                         var valid2 = errors === errs_2;
                                       }
                                       if (valid2) {
-                                        if (data1.for === undefined) {
-                                          valid2 = false;
-                                          validate.errors = [{
-                                            keyword: 'required',
-                                            dataPath: (dataPath || '') + '.headers',
-                                            schemaPath: '#/properties/headers/required',
-                                            params: {
-                                              missingProperty: 'for'
-                                            },
-                                            message: 'should have required property \'for\''
-                                          }];
-                                          return false;
+                                        if (data1.language === undefined) {
+                                          valid2 = true;
                                         } else {
                                           var errs_2 = errors;
-                                          if (typeof data1.for !== "string") {
+                                          if (typeof data1.language !== "string") {
                                             validate.errors = [{
                                               keyword: 'type',
-                                              dataPath: (dataPath || '') + '.headers.for',
-                                              schemaPath: '#/properties/headers/properties/for/type',
+                                              dataPath: (dataPath || '') + '.headers.language',
+                                              schemaPath: '#/properties/headers/properties/language/type',
                                               params: {
                                                 type: 'string'
                                               },
@@ -10083,15 +8417,15 @@ var validate = (function() {
                                           var valid2 = errors === errs_2;
                                         }
                                         if (valid2) {
-                                          if (data1.frameOrigin === undefined) {
+                                          if (data1.license === undefined) {
                                             valid2 = true;
                                           } else {
                                             var errs_2 = errors;
-                                            if (typeof data1.frameOrigin !== "string") {
+                                            if (typeof data1.license !== "string") {
                                               validate.errors = [{
                                                 keyword: 'type',
-                                                dataPath: (dataPath || '') + '.headers.frameOrigin',
-                                                schemaPath: '#/properties/headers/properties/frameOrigin/type',
+                                                dataPath: (dataPath || '') + '.headers.license',
+                                                schemaPath: '#/properties/headers/properties/license/type',
                                                 params: {
                                                   type: 'string'
                                                 },
@@ -10102,15 +8436,15 @@ var validate = (function() {
                                             var valid2 = errors === errs_2;
                                           }
                                           if (valid2) {
-                                            if (data1.framePath === undefined) {
+                                            if (data1.thumbnail === undefined) {
                                               valid2 = true;
                                             } else {
                                               var errs_2 = errors;
-                                              if (typeof data1.framePath !== "string") {
+                                              if (typeof data1.thumbnail !== "string") {
                                                 validate.errors = [{
                                                   keyword: 'type',
-                                                  dataPath: (dataPath || '') + '.headers.framePath',
-                                                  schemaPath: '#/properties/headers/properties/framePath/type',
+                                                  dataPath: (dataPath || '') + '.headers.thumbnail',
+                                                  schemaPath: '#/properties/headers/properties/thumbnail/type',
                                                   params: {
                                                     type: 'string'
                                                   },
@@ -10121,15 +8455,25 @@ var validate = (function() {
                                               var valid2 = errors === errs_2;
                                             }
                                             if (valid2) {
-                                              if (data1.frameSearch === undefined) {
-                                                valid2 = true;
+                                              if (data1.title === undefined) {
+                                                valid2 = false;
+                                                validate.errors = [{
+                                                  keyword: 'required',
+                                                  dataPath: (dataPath || '') + '.headers',
+                                                  schemaPath: '#/properties/headers/required',
+                                                  params: {
+                                                    missingProperty: 'title'
+                                                  },
+                                                  message: 'should have required property \'title\''
+                                                }];
+                                                return false;
                                               } else {
                                                 var errs_2 = errors;
-                                                if (typeof data1.frameSearch !== "string") {
+                                                if (typeof data1.title !== "string") {
                                                   validate.errors = [{
                                                     keyword: 'type',
-                                                    dataPath: (dataPath || '') + '.headers.frameSearch',
-                                                    schemaPath: '#/properties/headers/properties/frameSearch/type',
+                                                    dataPath: (dataPath || '') + '.headers.title',
+                                                    schemaPath: '#/properties/headers/properties/title/type',
                                                     params: {
                                                       type: 'string'
                                                     },
@@ -10140,15 +8484,26 @@ var validate = (function() {
                                                 var valid2 = errors === errs_2;
                                               }
                                               if (valid2) {
-                                                if (data1.frameTitle === undefined) {
-                                                  valid2 = true;
+                                                var data2 = data1.type;
+                                                if (data2 === undefined) {
+                                                  valid2 = false;
+                                                  validate.errors = [{
+                                                    keyword: 'required',
+                                                    dataPath: (dataPath || '') + '.headers',
+                                                    schemaPath: '#/properties/headers/required',
+                                                    params: {
+                                                      missingProperty: 'type'
+                                                    },
+                                                    message: 'should have required property \'type\''
+                                                  }];
+                                                  return false;
                                                 } else {
                                                   var errs_2 = errors;
-                                                  if (typeof data1.frameTitle !== "string") {
+                                                  if (typeof data2 !== "string") {
                                                     validate.errors = [{
                                                       keyword: 'type',
-                                                      dataPath: (dataPath || '') + '.headers.frameTitle',
-                                                      schemaPath: '#/properties/headers/properties/frameTitle/type',
+                                                      dataPath: (dataPath || '') + '.headers.type',
+                                                      schemaPath: '#/properties/headers/properties/type/type',
                                                       params: {
                                                         type: 'string'
                                                       },
@@ -10156,18 +8511,33 @@ var validate = (function() {
                                                     }];
                                                     return false;
                                                   }
+                                                  var schema2 = validate.schema.properties.headers.properties.type.const;
+                                                  var valid2 = equal(data2, schema2);
+                                                  if (!valid2) {
+                                                    validate.errors = [{
+                                                      keyword: 'const',
+                                                      dataPath: (dataPath || '') + '.headers.type',
+                                                      schemaPath: '#/properties/headers/properties/type/const',
+                                                      params: {
+                                                        allowedValue: schema2
+                                                      },
+                                                      message: 'should be equal to constant'
+                                                    }];
+                                                    return false;
+                                                  } else {}
+                                                  if (errors === errs_2) {}
                                                   var valid2 = errors === errs_2;
                                                 }
                                                 if (valid2) {
-                                                  if (data1.language === undefined) {
+                                                  if (data1.updated === undefined) {
                                                     valid2 = true;
                                                   } else {
                                                     var errs_2 = errors;
-                                                    if (typeof data1.language !== "string") {
+                                                    if (typeof data1.updated !== "string") {
                                                       validate.errors = [{
                                                         keyword: 'type',
-                                                        dataPath: (dataPath || '') + '.headers.language',
-                                                        schemaPath: '#/properties/headers/properties/language/type',
+                                                        dataPath: (dataPath || '') + '.headers.updated',
+                                                        schemaPath: '#/properties/headers/properties/updated/type',
                                                         params: {
                                                           type: 'string'
                                                         },
@@ -10178,15 +8548,15 @@ var validate = (function() {
                                                     var valid2 = errors === errs_2;
                                                   }
                                                   if (valid2) {
-                                                    if (data1.license === undefined) {
+                                                    if (data1.url === undefined) {
                                                       valid2 = true;
                                                     } else {
                                                       var errs_2 = errors;
-                                                      if (typeof data1.license !== "string") {
+                                                      if (typeof data1.url !== "string") {
                                                         validate.errors = [{
                                                           keyword: 'type',
-                                                          dataPath: (dataPath || '') + '.headers.license',
-                                                          schemaPath: '#/properties/headers/properties/license/type',
+                                                          dataPath: (dataPath || '') + '.headers.url',
+                                                          schemaPath: '#/properties/headers/properties/url/type',
                                                           params: {
                                                             type: 'string'
                                                           },
@@ -10197,15 +8567,25 @@ var validate = (function() {
                                                       var valid2 = errors === errs_2;
                                                     }
                                                     if (valid2) {
-                                                      if (data1.thumbnail === undefined) {
-                                                        valid2 = true;
+                                                      if (data1.xpath === undefined) {
+                                                        valid2 = false;
+                                                        validate.errors = [{
+                                                          keyword: 'required',
+                                                          dataPath: (dataPath || '') + '.headers',
+                                                          schemaPath: '#/properties/headers/required',
+                                                          params: {
+                                                            missingProperty: 'xpath'
+                                                          },
+                                                          message: 'should have required property \'xpath\''
+                                                        }];
+                                                        return false;
                                                       } else {
                                                         var errs_2 = errors;
-                                                        if (typeof data1.thumbnail !== "string") {
+                                                        if (typeof data1.xpath !== "string") {
                                                           validate.errors = [{
                                                             keyword: 'type',
-                                                            dataPath: (dataPath || '') + '.headers.thumbnail',
-                                                            schemaPath: '#/properties/headers/properties/thumbnail/type',
+                                                            dataPath: (dataPath || '') + '.headers.xpath',
+                                                            schemaPath: '#/properties/headers/properties/xpath/type',
                                                             params: {
                                                               type: 'string'
                                                             },
@@ -10215,156 +8595,7 @@ var validate = (function() {
                                                         }
                                                         var valid2 = errors === errs_2;
                                                       }
-                                                      if (valid2) {
-                                                        if (data1.title === undefined) {
-                                                          valid2 = false;
-                                                          validate.errors = [{
-                                                            keyword: 'required',
-                                                            dataPath: (dataPath || '') + '.headers',
-                                                            schemaPath: '#/properties/headers/required',
-                                                            params: {
-                                                              missingProperty: 'title'
-                                                            },
-                                                            message: 'should have required property \'title\''
-                                                          }];
-                                                          return false;
-                                                        } else {
-                                                          var errs_2 = errors;
-                                                          if (typeof data1.title !== "string") {
-                                                            validate.errors = [{
-                                                              keyword: 'type',
-                                                              dataPath: (dataPath || '') + '.headers.title',
-                                                              schemaPath: '#/properties/headers/properties/title/type',
-                                                              params: {
-                                                                type: 'string'
-                                                              },
-                                                              message: 'should be string'
-                                                            }];
-                                                            return false;
-                                                          }
-                                                          var valid2 = errors === errs_2;
-                                                        }
-                                                        if (valid2) {
-                                                          var data2 = data1.type;
-                                                          if (data2 === undefined) {
-                                                            valid2 = false;
-                                                            validate.errors = [{
-                                                              keyword: 'required',
-                                                              dataPath: (dataPath || '') + '.headers',
-                                                              schemaPath: '#/properties/headers/required',
-                                                              params: {
-                                                                missingProperty: 'type'
-                                                              },
-                                                              message: 'should have required property \'type\''
-                                                            }];
-                                                            return false;
-                                                          } else {
-                                                            var errs_2 = errors;
-                                                            if (typeof data2 !== "string") {
-                                                              validate.errors = [{
-                                                                keyword: 'type',
-                                                                dataPath: (dataPath || '') + '.headers.type',
-                                                                schemaPath: '#/properties/headers/properties/type/type',
-                                                                params: {
-                                                                  type: 'string'
-                                                                },
-                                                                message: 'should be string'
-                                                              }];
-                                                              return false;
-                                                            }
-                                                            var schema2 = validate.schema.properties.headers.properties.type.enum;
-                                                            var valid2;
-                                                            valid2 = false;
-                                                            for (var i2 = 0; i2 < schema2.length; i2++)
-                                                              if (equal(data2, schema2[i2])) {
-                                                                valid2 = true;
-                                                                break;
-                                                              } if (!valid2) {
-                                                              validate.errors = [{
-                                                                keyword: 'enum',
-                                                                dataPath: (dataPath || '') + '.headers.type',
-                                                                schemaPath: '#/properties/headers/properties/type/enum',
-                                                                params: {
-                                                                  allowedValues: schema2
-                                                                },
-                                                                message: 'should be equal to one of the allowed values'
-                                                              }];
-                                                              return false;
-                                                            }
-                                                            var valid2 = errors === errs_2;
-                                                          }
-                                                          if (valid2) {
-                                                            if (data1.updated === undefined) {
-                                                              valid2 = true;
-                                                            } else {
-                                                              var errs_2 = errors;
-                                                              if (typeof data1.updated !== "string") {
-                                                                validate.errors = [{
-                                                                  keyword: 'type',
-                                                                  dataPath: (dataPath || '') + '.headers.updated',
-                                                                  schemaPath: '#/properties/headers/properties/updated/type',
-                                                                  params: {
-                                                                    type: 'string'
-                                                                  },
-                                                                  message: 'should be string'
-                                                                }];
-                                                                return false;
-                                                              }
-                                                              var valid2 = errors === errs_2;
-                                                            }
-                                                            if (valid2) {
-                                                              if (data1.url === undefined) {
-                                                                valid2 = true;
-                                                              } else {
-                                                                var errs_2 = errors;
-                                                                if (typeof data1.url !== "string") {
-                                                                  validate.errors = [{
-                                                                    keyword: 'type',
-                                                                    dataPath: (dataPath || '') + '.headers.url',
-                                                                    schemaPath: '#/properties/headers/properties/url/type',
-                                                                    params: {
-                                                                      type: 'string'
-                                                                    },
-                                                                    message: 'should be string'
-                                                                  }];
-                                                                  return false;
-                                                                }
-                                                                var valid2 = errors === errs_2;
-                                                              }
-                                                              if (valid2) {
-                                                                if (data1.xpath === undefined) {
-                                                                  valid2 = false;
-                                                                  validate.errors = [{
-                                                                    keyword: 'required',
-                                                                    dataPath: (dataPath || '') + '.headers',
-                                                                    schemaPath: '#/properties/headers/required',
-                                                                    params: {
-                                                                      missingProperty: 'xpath'
-                                                                    },
-                                                                    message: 'should have required property \'xpath\''
-                                                                  }];
-                                                                  return false;
-                                                                } else {
-                                                                  var errs_2 = errors;
-                                                                  if (typeof data1.xpath !== "string") {
-                                                                    validate.errors = [{
-                                                                      keyword: 'type',
-                                                                      dataPath: (dataPath || '') + '.headers.xpath',
-                                                                      schemaPath: '#/properties/headers/properties/xpath/type',
-                                                                      params: {
-                                                                        type: 'string'
-                                                                      },
-                                                                      message: 'should be string'
-                                                                    }];
-                                                                    return false;
-                                                                  }
-                                                                  var valid2 = errors === errs_2;
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
+                                                      if (valid2) {}
                                                     }
                                                   }
                                                 }
@@ -10383,23 +8614,27 @@ var validate = (function() {
                       }
                     }
                   }
-                } else {
-                  validate.errors = [{
-                    keyword: 'type',
-                    dataPath: (dataPath || '') + '.headers',
-                    schemaPath: '#/properties/headers/type',
-                    params: {
-                      type: 'object'
-                    },
-                    message: 'should be object'
-                  }];
-                  return false;
+                  if (errs__1 == errors) {}
                 }
-                var valid1 = errors === errs_1;
+              } else {
+                validate.errors = [{
+                  keyword: 'type',
+                  dataPath: (dataPath || '') + '.headers',
+                  schemaPath: '#/properties/headers/type',
+                  params: {
+                    type: 'object'
+                  },
+                  message: 'should be object'
+                }];
+                return false;
               }
+              if (errors === errs_1) {}
+              var valid1 = errors === errs_1;
             }
+            if (valid1) {}
           }
         }
+        if (errs__0 == errors) {}
       }
     } else {
       validate.errors = [{
@@ -10413,48 +8648,14 @@ var validate = (function() {
       }];
       return false;
     }
+    if (errors === 0) {}
     validate.errors = vErrors;
     return errors === 0;
   };
 })();
 validate.schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "additionalProperties": false,
   "definitions": {
-    "AdjustVolumeAudio": {
-      "additionalProperties": false,
-      "properties": {
-        "audio": {
-          "type": "number"
-        },
-        "endTime": {
-          "type": "number"
-        },
-        "startTime": {
-          "type": "number"
-        },
-        "type": {
-          "enum": ["VOLUME"],
-          "type": "string"
-        },
-        "video": {
-          "type": "number"
-        }
-      },
-      "required": ["type", "startTime", "endTime", "audio", "video"],
-      "type": "object"
-    },
-    "AudioEdit": {
-      "anyOf": [{
-        "$ref": "#/definitions/SkipAudio"
-      }, {
-        "$ref": "#/definitions/StillAudio"
-      }, {
-        "$ref": "#/definitions/PauseAudio"
-      }, {
-        "$ref": "#/definitions/AdjustVolumeAudio"
-      }]
-    },
     "Author": {
       "description": "An author to attribute composition to.",
       "maxLength": 128,
@@ -10462,7 +8663,7 @@ validate.schema = {
       "type": "string"
     },
     "Color": {
-      "description": "A hex, hsl, hsla or rgba color string:\n#FA9, #FFAA99, rgba(1, 1, 2, 0.5)",
+      "description": "A hex, hsl, hsla or rgba color string: #FA9, #FFAA99, rgba(1, 1, 2, 0.5)",
       "pattern": "^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\\((-?\\d+%?[,\\s]+){2,3}\\s*[\\d\\.]+%?\\))$",
       "type": "string"
     },
@@ -10512,7 +8713,7 @@ validate.schema = {
       "type": "string"
     },
     "Emoji": {
-      "description": "A single emoji character, ligatures mean the max length\ncan be up to 3 characters.",
+      "description": "A single emoji character, ligatures mean the max length can be up to 3 characters.",
       "maxLength": 32,
       "minLength": 1,
       "type": "string"
@@ -10528,23 +8729,6 @@ validate.schema = {
       "minimum": 0,
       "type": "number"
     },
-    "PauseAudio": {
-      "additionalProperties": false,
-      "properties": {
-        "duration": {
-          "type": "number"
-        },
-        "startTime": {
-          "type": "number"
-        },
-        "type": {
-          "enum": ["PAUSE"],
-          "type": "string"
-        }
-      },
-      "required": ["type", "startTime", "duration"],
-      "type": "object"
-    },
     "Percentage": {
       "description": "A bounded percentage relative to the container.",
       "maximum": 1000,
@@ -10554,14 +8738,11 @@ validate.schema = {
     "PlopdownAudio": {
       "additionalProperties": false,
       "properties": {
-        "edits": {
-          "items": {
-            "$ref": "#/definitions/AudioEdit"
-          },
-          "type": "array"
-        },
         "left": {
           "$ref": "#/definitions/Percentage"
+        },
+        "offset_time": {
+          "$ref": "#/definitions/Seconds"
         },
         "title": {
           "$ref": "#/definitions/Title"
@@ -10570,7 +8751,7 @@ validate.schema = {
           "$ref": "#/definitions/Percentage"
         },
         "type": {
-          "enum": ["AUDIO"],
+          "const": "AUDIO",
           "type": "string"
         },
         "url": {
@@ -10593,7 +8774,7 @@ validate.schema = {
           "$ref": "#/definitions/Title"
         },
         "type": {
-          "enum": ["INFO"],
+          "const": "INFO",
           "type": "string"
         },
         "url": {
@@ -10657,7 +8838,7 @@ validate.schema = {
           "$ref": "#/definitions/Percentage"
         },
         "type": {
-          "enum": ["PLOP"],
+          "const": "PLOP",
           "type": "string"
         },
         "width": {
@@ -10713,7 +8894,7 @@ validate.schema = {
           "$ref": "#/definitions/Percentage"
         },
         "type": {
-          "enum": ["SHAPE"],
+          "const": "SHAPE",
           "type": "string"
         },
         "viewBox": {
@@ -10736,7 +8917,7 @@ validate.schema = {
           "$ref": "#/definitions/ViewportCoordinate"
         },
         "element": {
-          "enum": ["ellipse"],
+          "const": "ellipse",
           "type": "string"
         },
         "fill": {
@@ -10810,7 +8991,7 @@ validate.schema = {
           "$ref": "#/definitions/ViewportPath"
         },
         "element": {
-          "enum": ["path"],
+          "const": "path",
           "type": "string"
         },
         "fill": {
@@ -10875,7 +9056,7 @@ validate.schema = {
       "additionalProperties": false,
       "properties": {
         "element": {
-          "enum": ["polygon"],
+          "const": "polygon",
           "type": "string"
         },
         "fill": {
@@ -10943,7 +9124,7 @@ validate.schema = {
       "additionalProperties": false,
       "properties": {
         "element": {
-          "enum": ["polyline"],
+          "const": "polyline",
           "type": "string"
         },
         "fill": {
@@ -11011,7 +9192,7 @@ validate.schema = {
       "additionalProperties": false,
       "properties": {
         "element": {
-          "enum": ["rect"],
+          "const": "rect",
           "type": "string"
         },
         "fill": {
@@ -11101,168 +9282,17 @@ validate.schema = {
         "$ref": "#/definitions/PlopdownShape"
       }]
     },
-    "PouchDB.Core.Attachment": {
-      "anyOf": [{
-        "$ref": "#/definitions/PouchDB.Core.StubAttachment"
-      }, {
-        "$ref": "#/definitions/PouchDB.Core.FullAttachment"
-      }]
-    },
-    "PouchDB.Core.AttachmentData": {
-      "anyOf": [{
-        "type": "string"
-      }, {
-        "additionalProperties": false,
-        "properties": {
-          "size": {
-            "type": "number"
-          },
-          "type": {
-            "type": "string"
-          }
-        },
-        "required": ["size", "type"],
-        "type": "object"
-      }, {
-        "additionalProperties": {
-          "type": "number"
-        },
-        "description": "Raw data is stored in instances of the Buffer class.\nA Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.\nValid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'",
-        "properties": {
-          "BYTES_PER_ELEMENT": {
-            "type": "number"
-          },
-          "buffer": {
-            "additionalProperties": false,
-            "properties": {
-              "byteLength": {
-                "type": "number"
-              }
-            },
-            "required": ["byteLength"],
-            "type": "object"
-          },
-          "byteLength": {
-            "type": "number"
-          },
-          "byteOffset": {
-            "type": "number"
-          },
-          "length": {
-            "type": "number"
-          }
-        },
-        "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-        "type": "object"
-      }]
-    },
-    "PouchDB.Core.Attachments": {
-      "additionalProperties": {
-        "$ref": "#/definitions/PouchDB.Core.Attachment"
-      },
-      "type": "object"
-    },
-    "PouchDB.Core.Availability": {
-      "enum": ["available", "compacted", "not compacted", "missing"],
-      "type": "string"
-    },
     "PouchDB.Core.DocumentId": {
       "type": "string"
-    },
-    "PouchDB.Core.FullAttachment": {
-      "additionalProperties": false,
-      "description": "Full attachments are used to create new attachments or returned when the attachments option\nis true.",
-      "properties": {
-        "content_type": {
-          "description": "Mime type of the attachment",
-          "type": "string"
-        },
-        "data": {
-          "$ref": "#/definitions/PouchDB.Core.AttachmentData",
-          "description": "{string} if `binary` was `false`\n{Blob|Buffer} if `binary` was `true`"
-        },
-        "digest": {
-          "description": "MD5 hash, starts with \"md5-\" prefix; populated by PouchDB for new attachments",
-          "type": "string"
-        }
-      },
-      "required": ["content_type", "data"],
-      "type": "object"
     },
     "PouchDB.Core.RevisionId": {
       "type": "string"
     },
-    "PouchDB.Core.RevisionInfo": {
-      "additionalProperties": false,
-      "properties": {
-        "rev": {
-          "$ref": "#/definitions/PouchDB.Core.RevisionId"
-        },
-        "status": {
-          "$ref": "#/definitions/PouchDB.Core.Availability"
-        }
-      },
-      "required": ["rev", "status"],
-      "type": "object"
-    },
-    "PouchDB.Core.StubAttachment": {
-      "additionalProperties": false,
-      "description": "Stub attachments are returned by PouchDB by default (attachments option set to false)",
-      "properties": {
-        "content_type": {
-          "description": "Mime type of the attachment",
-          "type": "string"
-        },
-        "digest": {
-          "description": "Database digest of the attachment",
-          "type": "string"
-        },
-        "length": {
-          "description": "Length of the attachment",
-          "type": "number"
-        },
-        "stub": {
-          "description": "Attachment is a stub",
-          "enum": [true],
-          "type": "boolean"
-        }
-      },
-      "required": ["content_type", "digest", "stub", "length"],
-      "type": "object"
-    },
-    "SkipAudio": {
-      "additionalProperties": false,
-      "properties": {
-        "endTime": {
-          "type": "number"
-        },
-        "startTime": {
-          "type": "number"
-        },
-        "type": {
-          "enum": ["SKIP"],
-          "type": "string"
-        }
-      },
-      "required": ["type", "startTime", "endTime"],
-      "type": "object"
-    },
-    "StillAudio": {
-      "additionalProperties": false,
-      "properties": {
-        "duration": {
-          "type": "number"
-        },
-        "startTime": {
-          "type": "number"
-        },
-        "type": {
-          "enum": ["STILL"],
-          "type": "string"
-        }
-      },
-      "required": ["type", "startTime", "duration"],
-      "type": "object"
+    "Seconds": {
+      "description": "Number representing duration in seconds, precision allowed down to milliseconds.",
+      "minimum": 0,
+      "multipleOf": 0.001,
+      "type": "number"
     },
     "Title": {
       "description": "A short statement.",
@@ -11325,49 +9355,20 @@ validate.schema = {
       "type": "array"
     },
     "headers": {
-      "additionalProperties": false,
-      "description": "Unofficially, WebVTT supports simple key/value storage at the top\nof the file. We use that to allow creators to hint which video the\nplopdown should be overlayed to, as well as other authorship info.",
+      "additionalProperties": {
+        "anyOf": [{
+          "not": {}
+        }, {
+          "type": "string"
+        }]
+      },
+      "description": "Unofficially, WebVTT supports simple key/value storage at the top of the file. We use that to allow creators to hint which video the plopdown should be overlayed to, as well as other authorship info.",
       "properties": {
-        "_attachments": {
-          "$ref": "#/definitions/PouchDB.Core.Attachments",
-          "description": "Attachments where index is attachmentId"
-        },
-        "_conflicts": {
-          "description": "Conflicting leaf revisions.\n\nOnly present if `GetOptions.conflicts` is `true`",
-          "items": {
-            "$ref": "#/definitions/PouchDB.Core.RevisionId"
-          },
-          "type": "array"
-        },
         "_id": {
           "$ref": "#/definitions/PouchDB.Core.DocumentId"
         },
         "_rev": {
           "$ref": "#/definitions/PouchDB.Core.RevisionId"
-        },
-        "_revisions": {
-          "additionalProperties": false,
-          "description": "Only present if `GetOptions.revs_info` is `true`",
-          "properties": {
-            "ids": {
-              "items": {
-                "$ref": "#/definitions/PouchDB.Core.RevisionId"
-              },
-              "type": "array"
-            },
-            "start": {
-              "type": "number"
-            }
-          },
-          "required": ["ids", "start"],
-          "type": "object"
-        },
-        "_revs_info": {
-          "description": "Only present if `GetOptions.revs` is `true`",
-          "items": {
-            "$ref": "#/definitions/PouchDB.Core.RevisionInfo"
-          },
-          "type": "array"
         },
         "authors": {
           "description": "Author names in whatever form makes sense",
@@ -11397,7 +9398,7 @@ validate.schema = {
           "type": "string"
         },
         "language": {
-          "description": "Language of the track in \"en-US\" format\nSee: https://gist.github.com/ndbroadbent/588fefab8e0f1b459fcec8181b41b39c",
+          "description": "Language of the track in \"en-US\" format See: https://gist.github.com/ndbroadbent/588fefab8e0f1b459fcec8181b41b39c",
           "type": "string"
         },
         "license": {
@@ -11405,7 +9406,7 @@ validate.schema = {
           "type": "string"
         },
         "thumbnail": {
-          "description": "The thumbnail image of the track, usually packaged alongside\nthe track or fetched remotely.",
+          "description": "The thumbnail image of the track, usually packaged alongside the track or fetched remotely.",
           "type": "string"
         },
         "title": {
@@ -11413,8 +9414,8 @@ validate.schema = {
           "type": "string"
         },
         "type": {
+          "const": "plopdown_v2",
           "description": "Schema version number",
-          "enum": ["plopdown_v2"],
           "type": "string"
         },
         "updated": {
