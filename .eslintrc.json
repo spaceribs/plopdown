@@ -22,9 +22,6 @@
     },
     {
       "files": ["*.ts"],
-      "parserOptions": {
-        "project": "./tsconfig.*?.json"
-      },
       "extends": ["plugin:@nrwl/nx/typescript"],
       "plugins": ["eslint-plugin-rxjs"],
       "rules": {
@@ -38,7 +35,9 @@
         ],
         "@typescript-eslint/no-unused-vars": [
           "error",
-          { "argsIgnorePattern": "^_" }
+          {
+            "argsIgnorePattern": "^_"
+          }
         ],
         "@typescript-eslint/no-explicit-any": "off",
         "id-blacklist": "off",
