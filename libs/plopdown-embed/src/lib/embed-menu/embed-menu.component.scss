@@ -4,19 +4,17 @@
   position: absolute;
   right: 0;
   top: 1em;
-  opacity: 0.2;
-  transition: opacity 0.2s ease-in-out;
-  pointer-events: all;
-  outline: none;
-  &:hover {
-    opacity: 1;
-  }
 }
 
 .pd-menu {
   display: block;
   position: relative;
   outline: none;
+  opacity: 0.2;
+  transition: opacity 0.2s ease-in-out;
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .pd-menu-container {

@@ -45,6 +45,7 @@ import {
   sequence,
   style,
   animate,
+  state,
 } from '@angular/animations';
 import { Cue } from '@plopdown/plopdown-cues';
 
@@ -55,6 +56,22 @@ import { Cue } from '@plopdown/plopdown-cues';
   styleUrls: ['./plopdown-embed.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
+    trigger('fadeInOut', [
+      state(
+        'in',
+        style({
+          opacity: 1,
+        })
+      ),
+      state(
+        'out',
+        style({
+          opacity: 0,
+        })
+      ),
+      transition('in => out', [animate('2s')]),
+      transition('out => in', [animate('0.2s')]),
+    ]),
     trigger('videoOutline', [
       transition(
         'void => *',

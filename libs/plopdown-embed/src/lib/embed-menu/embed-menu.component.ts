@@ -133,7 +133,6 @@ export class EmbedMenuComponent implements OnDestroy {
     const closeSub = trackModal.instance.closeModal.subscribe({
       next: () => {
         this.overlayRef.detach();
-        closeSub.unsubscribe();
       },
       error: (err: Error) => {
         this.errorHandler.handleError(err);
