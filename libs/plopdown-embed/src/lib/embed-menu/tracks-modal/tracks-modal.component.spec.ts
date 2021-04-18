@@ -1,3 +1,4 @@
+import { MockLoggerModule } from '@plopdown/logger/mock';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
@@ -7,12 +8,14 @@ describe('TrackSelectorComponent', () => {
   let component: TracksModalComponent;
   let fixture: ComponentFixture<TracksModalComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [FormsModule],
-      declarations: [TracksModalComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [FormsModule, MockLoggerModule],
+        declarations: [TracksModalComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TracksModalComponent);
