@@ -64,14 +64,15 @@
                           title="Plopdown can access this webpage."
                           >Ready to Scan</span
                         >
-                        <span
-                          (click)="authPermission(permission)"
+                        <a
+                          href="#"
+                          (click)="authPermission($event, permission)"
                           *ngIf="!permission.in_whitelist"
                           class="tag is-danger"
                           title="Plopdown cannot access this webpage."
                         >
                           Unauthorized
-                        </span>
+                        </a>
                       </div>
                     </td>
                     <td>
@@ -87,7 +88,7 @@
                           ></plopdown-icon>
                         </button>
                         <button
-                          (click)="authPermission(permission)"
+                          (click)="authPermission($event, permission)"
                           *ngIf="!permission.in_whitelist"
                           title="Authorize"
                           class="button is-success"

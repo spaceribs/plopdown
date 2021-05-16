@@ -161,7 +161,8 @@ export class PermissionsComponent implements OnDestroy {
     this.subs.add(unAuthPermSub);
   }
 
-  public authPermission(perm: SavedPermission) {
+  public authPermission(event: Event, perm: SavedPermission) {
+    event.preventDefault();
     const authPermSub = this.permsReqService
       .request({ origins: [perm.match] })
       .subscribe({

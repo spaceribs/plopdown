@@ -50,14 +50,15 @@
         </div>
         <div class="tile">
           <div class="tile is-parent is-vertical">
-            <article class="tile is-child notification is-light">
+            <article
+              class="tile is-child notification is-info"
+              [routerLink]="['/permissions']"
+            >
               <p class="title">Setup Autoplay</p>
               <p class="subtitle">No button pressing needed!</p>
               <div class="content">
                 If you provide us permission, we can immediately initialize your
-                track whenever you visit those videos. <br /><br /><b
-                  >(Coming Soon!)</b
-                >
+                track whenever you visit those videos.
               </div>
             </article>
           </div>
