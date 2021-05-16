@@ -1,3 +1,4 @@
+import { UnsavedVideoRef } from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
 import { PlopdownFileService, PlopdownFile } from '@plopdown/plopdown-file';
 import {
@@ -26,13 +27,18 @@ export class FileImporterComponent implements OnInit, OnDestroy {
   @Output() save: EventEmitter<
     PouchDB.Core.PostDocument<Track>
   > = new EventEmitter();
+  @Output() addVideoRef: EventEmitter<
+    PouchDB.Core.PostDocument<UnsavedVideoRef>
+  > = new EventEmitter();
 
   private subs: Subscription = new Subscription();
 
   public track: PouchDB.Core.PostDocument<Track> | null = null;
+  public videoRef: PouchDB.Core.PostDocument<UnsavedVideoRef> | null = null;
   public fileLoaded$: Observable<PlopdownFile>;
-  public loading = true;
+  public saving = false;
   public fileRefs: string[] = [] as string[];
+  public trackError: string | null = null;
 
   constructor(
     private fileService: PlopdownFileService,
@@ -64,6 +70,20 @@ export class FileImporterComponent implements OnInit, OnDestroy {
           cues: plopfile.cues,
         };
 
+        this.videoRef = {
+          title: plopfile.headers.title,
+          xpath: plopfile.headers.xpath,
+          track: {
+            title: plopfile.headers.title,
+            _id: plopfile.headers._id,
+          },
+          duration: plopfile.headers.duration,
+          frameTitle: plopfile.headers.frameTitle,
+          frameOrigin: plopfile.headers.frameOrigin,
+          framePath: plopfile.headers.framePath,
+          frameSearch: plopfile.headers.frameSearch,
+        };
+
         if (plopfile.files) {
           this.fileRefs = plopfile.files;
         }
@@ -77,6 +97,17 @@ export class FileImporterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  onAddTrack(event: Event) {
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files == null) {
+      return;
+    }
+
+    const trackFile = files[0];
+    this.fileReader.readAsText(trackFile);
   }
 
   onAddFile(fileName: string, event: Event) {
@@ -121,8 +152,10 @@ export class FileImporterComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    if (this.track != null) {
+    if (this.track != null && this.videoRef != null) {
       this.save.emit(this.track);
+      this.addVideoRef.emit(this.videoRef);
+      this.saving = true;
     }
   }
 

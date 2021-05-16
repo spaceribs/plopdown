@@ -16,7 +16,12 @@
       <ng-container *ngIf="track == null">
         <div class="file is-boxed is-large is-block">
           <label class="file-label">
-            <input class="file-input" accept=".vtt" type="file" />
+            <input
+              class="file-input"
+              (change)="onAddTrack($event)"
+              accept=".vtt"
+              type="file"
+            />
             <span class="file-cta">
               <span class="file-icon">
                 <img
@@ -26,9 +31,7 @@
                   alt="Plopdown"
                 />
               </span>
-              <span class="file-label">
-                Choose a Plopdown Track...
-              </span>
+              <span class="file-label"> Choose a Plopdown Track... </span>
             </span>
           </label>
         </div>
@@ -78,9 +81,7 @@
                           {{ getFileName(fileInput?.files) }}
                         </span>
                         <ng-template #noFileLabel>
-                          <span class="file-label">
-                            Select File...
-                          </span>
+                          <span class="file-label"> Select File... </span>
                         </ng-template>
                       </span>
                     </label>
@@ -98,10 +99,11 @@
       <button
         type="button"
         class="button is-primary"
-        [disabled]="!isValid()"
+        [disabled]="!isValid() || saving"
         (click)="onSave()"
       >
-        Upload Track
+        <ng-container *ngIf="saving">Saving Track...</ng-container>
+        <ng-container *ngIf="!saving">Save Track</ng-container>
       </button>
     </footer>
   </div>

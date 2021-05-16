@@ -5,4 +5,5 @@ Steps to Recreate:
 - Run `npm install`
 - Run `npm run build web-extension`
 - Run `npm run build:ext`
+- Run `npm run build plopdown-ext`
 - The extension should be available in `dist/extensions`

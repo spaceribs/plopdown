@@ -65,4 +65,21 @@ export class VideoManagerComponent implements OnDestroy {
       return `${videoRef.frameTitle}`;
     }
   }
+
+  public getVideoLink(videoRef: VideoRef): string {
+    if (videoRef.frameOrigin) {
+      const url = new URL(videoRef.frameOrigin);
+
+      if (videoRef.framePath) {
+        url.pathname = videoRef.framePath;
+      }
+
+      if (videoRef.frameSearch) {
+        url.search = videoRef.frameSearch;
+      }
+
+      return url.toString();
+    }
+    return '#';
+  }
 }

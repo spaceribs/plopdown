@@ -1,3 +1,4 @@
+import { UnsavedVideoRef, VideoRefsService } from '@plopdown/video-refs';
 import { WindowRefService } from '@plopdown/window-ref';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
@@ -39,6 +40,7 @@ export class TracksComponent implements OnDestroy {
 
   constructor(
     private tracksService: TracksService,
+    private videoRefsService: VideoRefsService,
     private logger: LoggerService,
     private sanitizer: DomSanitizer,
     private windowRef: WindowRefService
@@ -147,6 +149,18 @@ export class TracksComponent implements OnDestroy {
       });
       this.subs.add(addSub);
     }
+  }
+
+  public addVideoRef(videoRef: UnsavedVideoRef) {
+    const addSub = this.videoRefsService.addVideoRef(videoRef).subscribe({
+      next: (res) => {
+        this.logger.debug('Video Ref Added Added', res);
+      },
+      error: (err) => {
+        this.logger.error('Error Adding Video Ref', err);
+      },
+    });
+    this.subs.add(addSub);
   }
 
   public updateFiles(attachments: Track['_attachments']) {

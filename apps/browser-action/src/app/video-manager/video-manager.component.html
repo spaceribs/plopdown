@@ -21,7 +21,11 @@
             </td>
           </tr>
           <tr *ngFor="let videoRef of videoRefs">
-            <td>{{ getVideoTitle(videoRef) }}</td>
+            <td>
+              <a [href]="getVideoLink(videoRef)">{{
+                getVideoTitle(videoRef)
+              }}</a>
+            </td>
             <td class="has-text-right">
               <button class="button is-small" (click)="onRemoveVideo(videoRef)">
                 <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
