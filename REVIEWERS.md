@@ -4,5 +4,5 @@ Steps to Recreate:
   - This is tested with the `node:12` docker image.
 - Run `npm install`
 - Run `npm run build web-extension`
-- Run `npm run build:ext -- --prod`
+- Run `npm run build:ext`
 - The extension should be available in `dist/extensions`
