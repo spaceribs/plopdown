@@ -42,6 +42,11 @@ import {
 import { PlopdownEmbedComponent } from '@plopdown/plopdown-embed';
 import { VideoRef, VideoRefsService } from '@plopdown/video-refs';
 
+const INJECTION_MATCHES = [
+  // YouTube
+  '#movie_player.html5-video-player',
+];
+
 @Component({
   selector: 'plopdown-video-attachment',
   template: '',
@@ -173,7 +178,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     ]).subscribe({
       next: ([embedRef, videoElem, track, tracks, domRef]) => {
         this.appRef.attachView(embedRef.hostView);
-        videoElem?.offsetParent?.append(domRef);
+        this.attachmentPlacing(videoElem, domRef);
         embedRef.instance.videoElem = videoElem;
         embedRef.instance.tracks = tracks;
         embedRef.instance.track = track;
@@ -389,5 +394,36 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     return refs.find((ref) => {
       return this.elemMatch(ref, elem);
     });
+  }
+
+  private attachmentPlacing(videoElem: HTMLVideoElement, domRef: HTMLElement) {
+    // Original implementation put the stage next to the video:
+    // videoElem?.offsetParent?.append(domRef);
+    // For Netflix, a large clickable area is placed above the entire video
+    // to capture pressing play/pause.
+
+    const videoCoords = videoElem.getBoundingClientRect();
+    const halfWidth = Math.max(videoCoords.width / 2, 320);
+    const halfHeight = Math.max(videoCoords.height / 2, 240);
+    const videoX = Math.max(videoCoords.x, 0);
+    const videoY = Math.max(videoCoords.y, 0);
+    const stack = document.elementsFromPoint(
+      videoX + halfWidth,
+      videoY + halfHeight
+    );
+    console.log(stack, halfWidth);
+
+    const injectionParent =
+      stack.find((elem) => {
+        return (
+          INJECTION_MATCHES.find((match) => {
+            return elem.matches(match);
+          }) != null
+        );
+      }) ||
+      videoElem.offsetParent ||
+      document.body;
+
+    injectionParent.append(domRef);
   }
 }

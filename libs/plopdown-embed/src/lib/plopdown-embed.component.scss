@@ -8,6 +8,7 @@ plopdown-embed {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
   }
 
   .stage {
@@ -16,7 +17,7 @@ plopdown-embed {
   }
 
   plopdown-cue-timeline,
-  plopdown-injector-menu {
+  plopdown-embed-menu {
     pointer-events: all;
   }
 
