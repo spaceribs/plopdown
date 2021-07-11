@@ -24,7 +24,7 @@ importAll(
   (require as any).context(
     'frontmatter-markdown-loader!./post-content/',
     true,
-    /\.md$/
+    /^\.\/.+\.md$/
   )
 );
 
