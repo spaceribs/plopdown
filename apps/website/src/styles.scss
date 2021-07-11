@@ -33,3 +33,7 @@ $pre-background: $body-background-color;
 @import '~bulma/sass/layout/section.sass';
 
 @import '~plyr/src/sass/plyr.scss';
+
+.has-text-centered {
+  text-align: center;
+}
