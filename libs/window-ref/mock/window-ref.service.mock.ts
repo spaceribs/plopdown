@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { WindowRefService } from '@plopdown/window-ref';
 import { EMPTY } from 'rxjs';
+import { WindowRefService } from '../src/lib/window-ref.service';
 
 @Injectable()
 export class MockWindowRefService implements Partial<WindowRefService> {

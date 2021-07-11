@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PlopdownEmbedModule } from '@plopdown/plopdown-embed';
+import { PlopdownEmbedModule } from '../src/lib/plopdown-embed.module';
 
 @NgModule({
   imports: [PlopdownEmbedModule],

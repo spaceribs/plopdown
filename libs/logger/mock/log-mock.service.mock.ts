@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LogProvider } from '@plopdown/logger';
+import { LogProvider } from '../src/lib/log-providers/log-provider.model';
 
 @Injectable()
 export class LogMockService implements LogProvider {

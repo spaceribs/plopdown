@@ -1,4 +1,4 @@
-import { MockVideoRefsModule } from '@plopdown/video-refs/mock';
+import { MockVideoRefsModule } from '../../mock';
 import { TestBed } from '@angular/core/testing';
 
 import { VideoRefsService } from './video-refs.service';

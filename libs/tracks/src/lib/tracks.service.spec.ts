@@ -1,4 +1,4 @@
-import { MockTracksModule } from '@plopdown/tracks/mock';
+import { MockTracksModule } from '../../mock';
 import { TestBed } from '@angular/core/testing';
 
 import { TracksService } from './tracks.service';

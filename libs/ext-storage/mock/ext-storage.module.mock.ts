@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { ExtStorageModule, ExtStorageService } from '@plopdown/ext-storage';
+import { ExtStorageModule } from '../src/lib/ext-storage.module';
+import { ExtStorageService } from '../src/lib/ext-storage.service';
 import { MockExtStorageService } from './ext-storage.service.mock';
 
 @NgModule({

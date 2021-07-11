@@ -2,7 +2,7 @@ import { MockLoggerModule } from '@plopdown/logger/mock';
 import { TestBed } from '@angular/core/testing';
 
 import { BackgroundPubService } from './background-pub.service';
-import { MockMessagesModule } from '@plopdown/messages/mock';
+import { MockMessagesModule } from '../../../mock';
 
 describe('BackgroundPubService', () => {
   let service: BackgroundPubService;

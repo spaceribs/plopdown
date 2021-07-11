@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TracksService } from '@plopdown/tracks';
 import { EMPTY } from 'rxjs';
+import { TracksService } from '../src/lib/tracks.service';
 
 @Injectable()
 export class MockTracksService implements Partial<TracksService> {

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LoggerService } from '@plopdown/logger';
-import { Track } from '@plopdown/tracks';
 import { WindowRefService } from '@plopdown/window-ref';
 import { Subject, ReplaySubject, Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { Track } from './track.model';
 
 @Injectable()
 export class TrackService {

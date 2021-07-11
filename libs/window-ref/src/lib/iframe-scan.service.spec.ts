@@ -1,4 +1,4 @@
-import { MockWindowRefModule } from '@plopdown/window-ref/mock';
+import { MockWindowRefModule } from '../../mock';
 import { TestBed } from '@angular/core/testing';
 
 import { VideoScanService } from './video-scan.service';

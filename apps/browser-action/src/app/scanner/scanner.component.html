@@ -44,9 +44,7 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">No Permissions</h1>
-          <h2 class="subtitle">
-            Give permissions to one or more origins.
-          </h2>
+          <h2 class="subtitle">Give permissions to one or more origins.</h2>
           <button
             class="button is-dark is-inverted is-outlined"
             (click)="openExtensionsPage('/options/index.html#/permissions')"
@@ -91,13 +89,13 @@
           </h2>
           <ng-container *ngIf="bgStatus$ | async as bgStatus">
             <button
-              *ngIf="bgStatus.active_origin != null"
+              *ngIf="bgStatus.active_origin !== null"
               class="button is-dark is-inverted is-outlined"
               (click)="requestOrigin(bgStatus.active_origin)"
             >
               Request Access
             </button>
-            <p *ngIf="bgStatus.active_origin == null" class="help-text">
+            <p *ngIf="bgStatus.active_origin === null" class="help-text">
               Could not retrieve URL, please refresh the page.
             </p>
           </ng-container>

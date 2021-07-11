@@ -1,6 +1,7 @@
 import { MockPanelsService } from './panels.service.mock';
-import { DevtoolsRefModule, PanelsService } from '@plopdown/devtools-ref';
 import { NgModule } from '@angular/core';
+import { DevtoolsRefModule } from '../src/lib/devtools-ref.module';
+import { PanelsService } from '../src/lib/panels.service';
 
 @NgModule({
   imports: [DevtoolsRefModule],

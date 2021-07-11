@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { PermissionsRequestService } from './permissions-req.service';
-import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
+import { MockBrowserRefModule } from '../../mock';
 
 describe('PermissionsService', () => {
   let service: PermissionsRequestService;

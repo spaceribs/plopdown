@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { BrowserActionPubService } from './browser-action-pub.service';
-import { MockMessagesModule } from '@plopdown/messages/mock';
+import { MockMessagesModule } from '../../../mock';
 import { MockLoggerModule } from '@plopdown/logger/mock';
 
 describe('BrowserActionPubService', () => {

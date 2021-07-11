@@ -1,7 +1,7 @@
 import { EMPTY } from 'rxjs';
-import { PermissionsService } from '@plopdown/permissions';
 import { Injectable } from '@angular/core';
 import {} from '@plopdown/logger';
+import { PermissionsService } from '../src/lib/permissions.service';
 
 @Injectable()
 export class MockPermissionsService implements Partial<PermissionsService> {

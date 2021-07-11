@@ -1,4 +1,4 @@
-import { MockExtStorageModule } from '@plopdown/ext-storage/mock';
+import { MockExtStorageModule } from '../../mock';
 import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
 import { TestBed } from '@angular/core/testing';
 

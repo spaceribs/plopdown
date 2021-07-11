@@ -1,6 +1,6 @@
-import { RuntimeService } from '@plopdown/browser-ref';
 import { Injectable } from '@angular/core';
 import { EMPTY } from 'rxjs';
+import { RuntimeService } from '../src/lib/runtime.service';
 
 @Injectable()
 export class MockRuntimeService implements Partial<RuntimeService> {

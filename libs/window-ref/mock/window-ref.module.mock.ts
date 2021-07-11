@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
+import { WindowRefModule } from '../src/lib/window-ref.module';
+import { WindowRefService } from '../src/lib/window-ref.service';
+import { XPathService } from '../src/lib/xpath.service';
 import { MockWindowRefService } from './window-ref.service.mock';
-import {
-  WindowRefModule,
-  WindowRefService,
-  XPathService,
-} from '@plopdown/window-ref';
 import { MockXPathService } from './xpath.service.mock';
 
 @NgModule({

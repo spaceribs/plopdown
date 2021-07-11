@@ -1,4 +1,4 @@
-import { MockMessagesModule } from '@plopdown/messages/mock';
+import { MockMessagesModule } from '../../mock';
 import { TestBed } from '@angular/core/testing';
 
 import { MessagesService } from './messages.service';

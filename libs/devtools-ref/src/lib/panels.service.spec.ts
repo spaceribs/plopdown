@@ -1,4 +1,4 @@
-import { MockDevtoolsRefModule } from '@plopdown/devtools-ref/mock';
+import { MockDevtoolsRefModule } from '../../mock';
 import { TestBed } from '@angular/core/testing';
 
 import { PanelsService } from './panels.service';
