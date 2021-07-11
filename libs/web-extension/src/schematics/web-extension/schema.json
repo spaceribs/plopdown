@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "ext",
+  "$id": "ext",
   "title": "Web Extension",
   "type": "object",
   "properties": {
@@ -36,7 +36,5 @@
       "alias": "d"
     }
   },
-  "required": [
-    "name"
-  ]
+  "required": ["name"]
 }
