@@ -12,6 +12,58 @@
     ".eslintrc.json": "*"
   },
   "projects": {
+    "background": {
+      "tags": ["ext-dep"]
+    },
+    "browser-action": {
+      "tags": ["ext-dep"]
+    },
+    "browser-ref": {
+      "tags": []
+    },
+    "content-script": {
+      "tags": ["ext-dep"]
+    },
+    "devtool": {
+      "tags": []
+    },
+    "devtool-panels": {
+      "tags": []
+    },
+    "devtools-ref": {
+      "tags": []
+    },
+    "ext-storage": {
+      "tags": []
+    },
+    "icon": {
+      "tags": []
+    },
+    "logger": {
+      "tags": []
+    },
+    "lz-string": {
+      "tags": []
+    },
+    "messages": {
+      "tags": []
+    },
+    "options": {
+      "tags": ["ext-dep"]
+    },
+    "permissions": {
+      "tags": []
+    },
+    "plopdown-cues": {
+      "tags": []
+    },
+    "plopdown-embed": {
+      "tags": []
+    },
+    "plopdown-embed-e2e": {
+      "tags": [],
+      "implicitDependencies": ["plopdown-embed"]
+    },
     "plopdown-ext": {
       "tags": [],
       "implicitDependencies": [
@@ -24,64 +76,19 @@
         "web-extension"
       ]
     },
-    "background": {
-      "tags": ["ext-dep"]
-    },
-    "browser-action": {
-      "tags": ["ext-dep"]
-    },
-    "options": {
-      "tags": ["ext-dep"]
-    },
-    "content-script": {
-      "tags": ["ext-dep"]
-    },
-    "testing-sandbox": {
-      "tags": []
-    },
     "plopdown-file": {
-      "tags": []
-    },
-    "messages": {
-      "tags": []
-    },
-    "video-refs": {
-      "tags": []
-    },
-    "tracks": {
-      "tags": []
-    },
-    "logger": {
-      "tags": []
-    },
-    "window-ref": {
-      "tags": []
-    },
-    "browser-ref": {
-      "tags": []
-    },
-    "ext-storage": {
-      "tags": []
-    },
-    "icon": {
-      "tags": []
-    },
-    "plopdown-embed": {
-      "tags": []
-    },
-    "website": {
       "tags": []
     },
     "plopdown-injector": {
       "tags": []
     },
-    "devtool": {
+    "testing-sandbox": {
       "tags": []
     },
-    "devtool-panels": {
+    "tracks": {
       "tags": []
     },
-    "devtools-ref": {
+    "video-refs": {
       "tags": []
     },
     "web-extension": {
@@ -91,17 +98,10 @@
       "tags": [],
       "implicitDependencies": ["web-extension"]
     },
-    "plopdown-embed-e2e": {
-      "tags": [],
-      "implicitDependencies": ["plopdown-embed"]
-    },
-    "permissions": {
+    "website": {
       "tags": []
     },
-    "lz-string": {
-      "tags": []
-    },
-    "plopdown-cues": {
+    "window-ref": {
       "tags": []
     }
   },

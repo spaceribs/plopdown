@@ -19,8 +19,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "plugins": [{ "name": "typescript-tslint-plugin" }],
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin"
+      }
+    ],
     "paths": {
+      "@plopdown/browser-action-ref": ["libs/browser-action-ref/src/index.ts"],
       "@plopdown/browser-ref": ["libs/browser-ref/src/index.ts"],
       "@plopdown/browser-ref/mock": ["libs/browser-ref/mock/index.ts"],
       "@plopdown/devtools-ref": ["libs/devtools-ref/src/index.ts"],
@@ -31,8 +36,12 @@
       "@plopdown/icon/mock": ["libs/icon/mock/index.ts"],
       "@plopdown/logger": ["libs/logger/src/index.ts"],
       "@plopdown/logger/mock": ["libs/logger/mock/index.ts"],
+      "@plopdown/lz-string": ["libs/lz-string/src/index.ts"],
       "@plopdown/messages": ["libs/messages/src/index.ts"],
       "@plopdown/messages/mock": ["libs/messages/mock/index.ts"],
+      "@plopdown/permissions": ["libs/permissions/src/index.ts"],
+      "@plopdown/permissions/mock": ["libs/permissions/mock/index.ts"],
+      "@plopdown/plopdown-cues": ["libs/plopdown-cues/src/index.ts"],
       "@plopdown/plopdown-embed": ["libs/plopdown-embed/src/index.ts"],
       "@plopdown/plopdown-embed/mock": ["libs/plopdown-embed/mock/index.ts"],
       "@plopdown/plopdown-file": ["libs/plopdown-file/src/index.ts"],
@@ -47,12 +56,7 @@
       "@plopdown/video-refs/mock": ["libs/video-refs/mock/index.ts"],
       "@plopdown/web-extension": ["libs/web-extension/src/index.ts"],
       "@plopdown/window-ref": ["libs/window-ref/src/index.ts"],
-      "@plopdown/window-ref/mock": ["libs/window-ref/mock/index.ts"],
-      "@plopdown/permissions": ["libs/permissions/src/index.ts"],
-      "@plopdown/permissions/mock": ["libs/permissions/mock/index.ts"],
-      "@plopdown/lz-string": ["libs/lz-string/src/index.ts"],
-      "@plopdown/browser-action-ref": ["libs/browser-action-ref/src/index.ts"],
-      "@plopdown/plopdown-cues": ["libs/plopdown-cues/src/index.ts"]
+      "@plopdown/window-ref/mock": ["libs/window-ref/mock/index.ts"]
     }
   },
   "angularCompilerOptions": {
