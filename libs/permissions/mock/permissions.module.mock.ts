@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { PermissionsModule, PermissionsService } from '@plopdown/permissions';
+import { PermissionsModule } from '../src/lib/permissions.module';
+import { PermissionsService } from '../src/lib/permissions.service';
 import { MockPermissionsService } from './permissions.service.mock';
 
 @NgModule({

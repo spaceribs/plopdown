@@ -1,5 +1,5 @@
-import { BackgroundPubService } from '@plopdown/messages';
 import { Injectable } from '@angular/core';
+import { BackgroundPubService } from '../src/lib/background';
 
 @Injectable()
 export class MockBackgroundPubService implements Partial<BackgroundPubService> {

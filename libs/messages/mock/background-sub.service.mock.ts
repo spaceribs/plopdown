@@ -1,6 +1,6 @@
-import { BackgroundSubService } from '@plopdown/messages';
 import { Injectable } from '@angular/core';
 import { EMPTY } from 'rxjs';
+import { BackgroundSubService } from '../src/lib/background';
 
 @Injectable()
 export class MockBackgroundSubService implements Partial<BackgroundSubService> {

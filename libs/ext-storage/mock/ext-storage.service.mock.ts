@@ -1,6 +1,6 @@
 import { EMPTY } from 'rxjs';
-import { ExtStorageService } from '@plopdown/ext-storage';
 import { Injectable } from '@angular/core';
+import { ExtStorageService } from '../src/lib/ext-storage.service';
 
 @Injectable()
 export class MockExtStorageService implements Partial<ExtStorageService> {

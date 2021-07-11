@@ -1,5 +1,5 @@
-import { IconComponent } from '@plopdown/icon';
 import { Component, HostBinding, Input } from '@angular/core';
+import { IconComponent } from '../src/lib/icon/icon.component';
 
 @Component({
   selector: 'plopdown-icon',

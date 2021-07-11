@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { VideoRefsService } from '@plopdown/video-refs';
 import { EMPTY } from 'rxjs';
+import { VideoRefsService } from '../src/lib/video-refs.service';
 
 @Injectable()
 export class MockVideoRefsService implements Partial<VideoRefsService> {

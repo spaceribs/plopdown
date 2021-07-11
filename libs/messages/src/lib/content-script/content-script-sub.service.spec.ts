@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ContentScriptSubService } from './content-script-sub.service';
-import { MockMessagesModule } from '@plopdown/messages/mock';
+import { MockMessagesModule } from '../../../mock';
 import { MockLoggerModule } from '@plopdown/logger/mock';
 
 describe('ContentScriptSubService', () => {

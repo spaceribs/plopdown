@@ -1,5 +1,6 @@
-import { VideoRefsModule, VideoRefsService } from '@plopdown/video-refs';
 import { NgModule } from '@angular/core';
+import { VideoRefsModule } from '../src/lib/video-refs.module';
+import { VideoRefsService } from '../src/lib/video-refs.service';
 import { MockVideoRefsService } from './video-refs.service.mock';
 
 @NgModule({

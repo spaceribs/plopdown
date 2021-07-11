@@ -1,4 +1,4 @@
-import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
+import { MockBrowserRefModule } from '../../mock';
 import { TestBed } from '@angular/core/testing';
 
 import { BrowserRefService } from './browser-ref.service';

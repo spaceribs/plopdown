@@ -20,7 +20,7 @@
         [cues]="cues$ | async"
       ></plopdown-cue-renderer>
       <plopdown-cue-timeline
-        *ngIf="(showControls$ | async) && trackAndVideo[0] != null"
+        *ngIf="(showControls$ | async) && trackAndVideo[0] !== null"
         [videoElem]="trackAndVideo[1]"
         [track]="trackAndVideo[0]"
         [activeCues]="cues$ | async"

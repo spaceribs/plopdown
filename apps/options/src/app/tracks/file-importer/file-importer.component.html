@@ -4,16 +4,16 @@
     <section class="modal-card-body">
       <div class="tabs is-medium is-centered">
         <ul>
-          <li [ngClass]="{ 'is-active': track == null }">
+          <li [ngClass]="{ 'is-active': track === null }">
             <a>Upload Track</a>
           </li>
-          <li [ngClass]="{ 'is-active': track != null }">
+          <li [ngClass]="{ 'is-active': track !== null }">
             <a>Upload Track Files</a>
           </li>
         </ul>
       </div>
 
-      <ng-container *ngIf="track == null">
+      <ng-container *ngIf="track === null">
         <div class="file is-boxed is-large is-block">
           <label class="file-label">
             <input
@@ -37,7 +37,7 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="track != null">
+      <ng-container *ngIf="track !== null">
         <div class="table-container">
           <table class="table is-fullwidth is-hoverable">
             <thead>

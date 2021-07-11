@@ -24,8 +24,6 @@ export type Degree = number;
 
 /**
  * The location of a file.
- *
- * @format uri-reference
  */
 export type URIReference = string;
 
@@ -55,8 +53,6 @@ export type Author = string;
 
 /**
  * An external URL to get more information.
- *
- * @format uri
  */
 export type ExternalLink = string;
 

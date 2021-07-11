@@ -1,6 +1,6 @@
 import { TabsService } from './tabs.service';
 import { TestBed } from '@angular/core/testing';
-import { MockBrowserRefModule } from '@plopdown/browser-ref/mock';
+import { MockBrowserRefModule } from '../../mock';
 
 describe('TabsService', () => {
   let service: TabsService;

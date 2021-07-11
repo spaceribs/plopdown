@@ -1,5 +1,5 @@
-import { VideoAttachmentsComponent } from '@plopdown/plopdown-injector';
 import { Component, Input } from '@angular/core';
+import { VideoAttachmentsComponent } from '../src/lib/video-attachments/video-attachments.component';
 
 @Component({
   selector: 'plopdown-video-attachments',

@@ -72,7 +72,6 @@
     },
     "ExternalLink": {
       "description": "An external URL to get more information.",
-      "format": "uri",
       "type": "string"
     },
     "Opacity": {
@@ -808,7 +807,6 @@
     },
     "URIReference": {
       "description": "The location of a file.",
-      "format": "uri-reference",
       "type": "string"
     },
     "ViewBox": {
