@@ -7,4 +7,5 @@ module.exports = {
   coverageDirectory: '../../coverage/libs/web-extension',
   globals: { 'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' } },
   displayName: 'web-extension',
+  testEnvironment: 'node',
 };
