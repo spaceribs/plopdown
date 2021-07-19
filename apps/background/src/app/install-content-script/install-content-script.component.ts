@@ -113,8 +113,8 @@ export class InstallContentScriptComponent implements OnInit, OnDestroy {
       allFrames: true,
     });
 
-    const styles$ = this.tabs.executeScript({
-      file: 'content-script/styles.js',
+    const styles$ = this.tabs.insertCSS({
+      file: 'content-script/styles.css',
       allFrames: true,
     });
 

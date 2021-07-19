@@ -82,6 +82,12 @@
     "plopdown-injector": {
       "tags": []
     },
+    "pouchdb": {
+      "tags": []
+    },
+    "remotes": {
+      "tags": []
+    },
     "testing-sandbox": {
       "tags": []
     },

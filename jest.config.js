@@ -24,5 +24,7 @@ module.exports = {
     '<rootDir>/libs/permissions',
     '<rootDir>/libs/lz-string',
     '<rootDir>/libs/plopdown-cues',
+    '<rootDir>/libs/remotes',
+    '<rootDir>/libs/pouchdb',
   ],
 };

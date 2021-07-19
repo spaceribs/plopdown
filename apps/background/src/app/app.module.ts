@@ -17,6 +17,9 @@ import { PlopdownFileModule } from '@plopdown/plopdown-file';
 import { NewInstallComponent } from './new-install/new-install.component';
 import { InstallContentScriptComponent } from './install-content-script/install-content-script.component';
 import { GetStatusComponent } from './get-status/get-status.component';
+import { PouchDBModule } from '@plopdown/pouchdb';
+import { RemotesModule } from '@plopdown/remotes';
+import { SyncDatabasesComponent } from './sync-databases/sync-databases.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { GetStatusComponent } from './get-status/get-status.component';
     TracksRequestedComponent,
     VideoRefsRequestedComponent,
     GetStatusComponent,
+    SyncDatabasesComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +37,8 @@ import { GetStatusComponent } from './get-status/get-status.component';
     HttpClientModule,
     PlopdownFileModule,
     ExtStorageModule,
+    PouchDBModule,
+    RemotesModule,
     LoggerModule.forRoot({
       appName: 'Background',
       color: 'red',

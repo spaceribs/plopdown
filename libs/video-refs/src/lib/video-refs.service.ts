@@ -1,5 +1,15 @@
+import { Remote } from '@plopdown/remotes';
+import { PouchDBService } from '@plopdown/pouchdb';
 import { LoggerService } from '@plopdown/logger';
-import { Observable, merge, Subject, Subscription, from, of } from 'rxjs';
+import {
+  Observable,
+  merge,
+  Subject,
+  Subscription,
+  of,
+  combineLatest,
+  from,
+} from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { VideoRef, UnsavedVideoRef } from './video-ref.model';
 import {
@@ -13,10 +23,7 @@ import {
 } from 'rxjs/operators';
 import { VideoRefsModule } from './video-refs.module';
 
-import PouchDB from 'pouchdb';
-import PouchDBFind from 'pouchdb-find';
-
-const STORAGE_KEY = 'videoRefs';
+const STORAGE_KEY = 'video_refs';
 
 @Injectable({
   providedIn: VideoRefsModule,
@@ -30,56 +37,17 @@ export class VideoRefsService implements OnDestroy {
   private loading$: Observable<boolean>;
   private error$: Observable<Error>;
 
-  static createObservableDatabase() {
-    return new Observable<PouchDB.Database<UnsavedVideoRef>>((observer) => {
-      PouchDB.plugin(PouchDBFind);
-
-      const db = new PouchDB<UnsavedVideoRef>(STORAGE_KEY);
-
-      observer.next(db);
-
-      return () => {
-        db.close();
-      };
-    });
-  }
-
-  static createObservableChanges(
-    db: PouchDB.Database<UnsavedVideoRef>
-  ): Observable<PouchDB.Core.ChangesResponseChange<UnsavedVideoRef>> {
-    return new Observable<PouchDB.Core.ChangesResponseChange<UnsavedVideoRef>>(
-      (observer) => {
-        const changes = db.changes({
-          live: true,
-          since: 'now',
-          include_docs: true,
-        });
-
-        changes.on('change', (change) => {
-          observer.next(change);
-        });
-
-        changes.on('complete', () => {
-          observer.complete();
-        });
-
-        changes.on('error', (err) => {
-          observer.error(err);
-        });
-
-        return () => {
-          changes.cancel();
-        };
-      }
-    );
-  }
-
-  constructor(private logger: LoggerService) {
-    this.db$ = VideoRefsService.createObservableDatabase().pipe(shareReplay(1));
+  constructor(
+    private logger: LoggerService,
+    private readonly pouchdb: PouchDBService
+  ) {
+    this.db$ = pouchdb
+      .createObservableDatabase<UnsavedVideoRef>(STORAGE_KEY)
+      .pipe(shareReplay(1));
 
     const changes$ = this.db$.pipe(
       switchMap((db) => {
-        return VideoRefsService.createObservableChanges(db);
+        return pouchdb.createObservableChanges(db);
       })
     );
 
@@ -98,9 +66,7 @@ export class VideoRefsService implements OnDestroy {
       withLatestFrom(this.db$),
       switchMap(([source, db]) => {
         logger.debug('VideoRefs updated', source);
-        return from(
-          db.allDocs<VideoRef>({ include_docs: true })
-        );
+        return from(db.allDocs<VideoRef>({ include_docs: true }));
       }),
       map((res) => {
         return res.rows
@@ -224,6 +190,32 @@ export class VideoRefsService implements OnDestroy {
         return res.docs;
       }),
       first()
+    );
+  }
+
+  private getRemoteDB(remote: Remote) {
+    return this.pouchdb.createObservableDatabase<UnsavedVideoRef>(
+      `${remote.url}/${STORAGE_KEY}`,
+      remote.username,
+      remote.password
+    );
+  }
+
+  public syncronizeRemoteDB(remote: Remote) {
+    const remote$ = this.getRemoteDB(remote);
+    return combineLatest([this.db$, remote$]).pipe(
+      switchMap(([local, remote]) => {
+        return this.pouchdb.createObservableSync(local, remote);
+      })
+    );
+  }
+
+  public pullRemoteDB(remote: Remote) {
+    const remote$ = this.getRemoteDB(remote);
+    return combineLatest([this.db$, remote$]).pipe(
+      switchMap(([local, remote]) => {
+        return this.pouchdb.createObservablePull(local, remote);
+      })
     );
   }
 }

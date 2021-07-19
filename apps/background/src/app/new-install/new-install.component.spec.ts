@@ -1,3 +1,5 @@
+import { MockPouchDBModule } from '@plopdown/pouchdb/mock';
+import { MockRemotesModule } from '@plopdown/remotes/mock';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MockExtStorageModule } from '@plopdown/ext-storage/mock';
 import { MockPermissionsModule } from '@plopdown/permissions/mock';
@@ -13,20 +15,24 @@ describe('NewInstallComponent', () => {
   let component: NewInstallComponent;
   let fixture: ComponentFixture<NewInstallComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        MockBrowserRefModule,
-        MockLoggerModule,
-        MockPlopdownFileModule,
-        MockTracksModule,
-        MockPermissionsModule,
-        MockExtStorageModule,
-        HttpClientTestingModule,
-      ],
-      declarations: [NewInstallComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          MockBrowserRefModule,
+          MockLoggerModule,
+          MockPlopdownFileModule,
+          MockTracksModule,
+          MockPermissionsModule,
+          MockExtStorageModule,
+          MockPouchDBModule,
+          MockRemotesModule,
+          HttpClientTestingModule,
+        ],
+        declarations: [NewInstallComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NewInstallComponent);

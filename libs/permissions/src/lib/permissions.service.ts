@@ -1,8 +1,8 @@
+import { PouchDBService } from '@plopdown/pouchdb';
 import { LoggerService } from '@plopdown/logger';
 import { Injectable, OnDestroy } from '@angular/core';
 import { PermissionsModule } from './permissions.module';
 import { Subject, Observable, Subscription, merge, of, from } from 'rxjs';
-import PouchDB from 'pouchdb';
 import { SavedPermission, Permission } from './permissions.model';
 import {
   shareReplay,
@@ -25,57 +25,15 @@ export class PermissionsService implements OnDestroy {
   private subs: Subscription = new Subscription();
   private loading$: Observable<boolean>;
 
-  static createObservableDatabase() {
-    return new Observable<PouchDB.Database<SavedPermission>>((observer) => {
-      const db = new PouchDB<SavedPermission>(STORAGE_KEY);
-
-      observer.next(db);
-
-      return () => {
-        db.close();
-      };
-    });
-  }
-
-  static createObservableChanges(
-    db: PouchDB.Database<Permission>
-  ): Observable<PouchDB.Core.ChangesResponseChange<Permission>> {
-    return new Observable<PouchDB.Core.ChangesResponseChange<Permission>>(
-      (observer) => {
-        const changes = db.changes({
-          live: true,
-          since: 'now',
-          include_docs: false,
-        });
-
-        changes.on('change', (change) => {
-          observer.next(change);
-        });
-
-        changes.on('complete', () => {
-          observer.complete();
-        });
-
-        changes.on('error', (err) => {
-          observer.error(err);
-        });
-
-        return () => {
-          changes.cancel();
-        };
-      }
-    );
-  }
-
-  constructor(logger: LoggerService) {
-    this.db$ = PermissionsService.createObservableDatabase().pipe(
-      shareReplay(1)
-    );
+  constructor(logger: LoggerService, pouchdb: PouchDBService) {
+    this.db$ = pouchdb
+      .createObservableDatabase<SavedPermission>(STORAGE_KEY)
+      .pipe(shareReplay(1));
 
     const changes$ = this.db$
       .pipe(
         switchMap((db) => {
-          return PermissionsService.createObservableChanges(db);
+          return pouchdb.createObservableChanges(db);
         })
       )
       .pipe(shareReplay(1));

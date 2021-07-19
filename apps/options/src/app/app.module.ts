@@ -3,8 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { PermissionsModule } from '@plopdown/permissions';
 import { PlopdownFileModule } from '@plopdown/plopdown-file';
 import { TracksModule } from '@plopdown/tracks';
-import { IconModule } from '@plopdown/icon';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -17,51 +15,25 @@ import {
   LogStorageService,
 } from '@plopdown/logger';
 import { HomeComponent } from './home/home.component';
-import { SubnavComponent } from './subnav/subnav.component';
-import { VideosComponent } from './videos/videos.component';
-import { TracksComponent } from './tracks/tracks.component';
-import { SettingsComponent } from './settings/settings.component';
 import { VideoRefsModule } from '@plopdown/video-refs';
-import { VideoEditorComponent } from './videos/video-editor/video-editor.component';
-import { TrackSelectorComponent } from './videos/track-selector/track-selector.component';
 import { WindowRefModule } from '@plopdown/window-ref';
-import { TrackEditorComponent } from './tracks/track-editor/track-editor.component';
-import { FileManagerComponent } from './tracks/file-manager/file-manager/file-manager.component';
-import { FileImporterComponent } from './tracks/file-importer/file-importer.component';
-import { LogViewerComponent } from './log-viewer/log-viewer.component';
-import { PermissionsComponent } from './permissions/permissions.component';
-import { PermissionEditorComponent } from './permissions/permission-editor/permission-editor.component';
+import { PouchDBModule } from '@plopdown/pouchdb';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    SubnavComponent,
-    VideosComponent,
-    TracksComponent,
-    SettingsComponent,
-    VideoEditorComponent,
-    TrackSelectorComponent,
-    TrackEditorComponent,
-    FileManagerComponent,
-    FileImporterComponent,
-    LogViewerComponent,
-    PermissionsComponent,
-    PermissionEditorComponent,
-  ],
+  declarations: [AppComponent, HomeComponent],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserRefModule,
     VideoRefsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IconModule,
     TracksModule,
     WindowRefModule,
     PlopdownFileModule,
     PermissionsModule,
     HttpClientModule,
     LzStringModule,
+    PouchDBModule,
     LoggerModule.forRoot({
       appName: 'Options',
       color: 'orange',
@@ -75,23 +47,39 @@ import { PermissionEditorComponent } from './permissions/permission-editor/permi
         },
         {
           path: 'videos',
-          component: VideosComponent,
+          loadChildren: () =>
+            import('./videos/videos.module').then((m) => m.VideosViewModule),
         },
         {
           path: 'tracks',
-          component: TracksComponent,
+          loadChildren: () =>
+            import('./tracks/tracks.module').then((m) => m.TracksViewModule),
         },
         {
           path: 'settings',
-          component: SettingsComponent,
+          loadChildren: () =>
+            import('./settings/settings.module').then(
+              (m) => m.SettingsViewModule
+            ),
         },
         {
           path: 'logs',
-          component: LogViewerComponent,
+          loadChildren: () =>
+            import('./log-viewer/log-viewer.module').then(
+              (m) => m.LogViewerModule
+            ),
         },
         {
           path: 'permissions',
-          component: PermissionsComponent,
+          loadChildren: () =>
+            import('./permissions/permissions.module').then(
+              (m) => m.PermissionsViewModule
+            ),
+        },
+        {
+          path: 'remotes',
+          loadChildren: () =>
+            import('./remotes/remotes.module').then((m) => m.RemotesViewModule),
         },
         {
           path: '**',
@@ -99,10 +87,10 @@ import { PermissionEditorComponent } from './permissions/permission-editor/permi
         },
       ],
       {
-    useHash: true,
-    initialNavigation: 'enabledNonBlocking',
-    relativeLinkResolution: 'legacy'
-}
+        useHash: true,
+        initialNavigation: 'enabledNonBlocking',
+        relativeLinkResolution: 'legacy',
+      }
     ),
   ],
   bootstrap: [AppComponent],

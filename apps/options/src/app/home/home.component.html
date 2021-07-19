@@ -77,8 +77,11 @@
             </article>
           </div>
           <div class="tile is-parent">
-            <article class="tile is-child notification is-light">
-              <p class="title">Share with Followers</p>
+            <article
+              class="tile is-child notification is-warning new-feature"
+              [routerLink]="['/remotes']"
+            >
+              <p class="title">Share with Followers <b>NEW!</b></p>
               <p class="subtitle">
                 Broadcast you annotations to the world, or just your friends.
               </p>
@@ -86,7 +89,7 @@
                 Send links that install the plugin and redirect to your
                 annotated video. Send and recieve invites to automatically
                 suggest plopdowns when followers arrive at videos you've
-                annotated. <br /><br /><b>(Coming Soon!)</b>
+                annotated.
               </div>
             </article>
           </div>

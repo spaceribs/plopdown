@@ -1,3 +1,4 @@
+import { MockPouchDBModule } from '@plopdown/pouchdb/mock';
 import { MockLoggerModule } from '@plopdown/logger/mock';
 import { TestBed } from '@angular/core/testing';
 
@@ -8,7 +9,7 @@ describe('PermissionsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MockLoggerModule],
+      imports: [MockLoggerModule, MockPouchDBModule],
       providers: [PermissionsService],
     });
     service = TestBed.inject(PermissionsService);

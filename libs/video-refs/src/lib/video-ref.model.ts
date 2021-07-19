@@ -27,10 +27,3 @@ export interface VideoRef
   extends UnsavedVideoRef,
     PouchDB.Core.IdMeta,
     PouchDB.Core.GetMeta {}
-
-export interface VideoRefServiceStatus {
-  loading: number;
-  adding: number;
-  removing: number;
-  updating: number;
-}

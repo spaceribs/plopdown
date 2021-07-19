@@ -23,6 +23,7 @@ import { VideoManagerComponent } from './video-manager/video-manager.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { TrackManagerComponent } from './track-manager/track-manager.component';
 import { PermissionsManagerComponent } from './permissions-manager/permissions-manager.component';
+import { PouchDBModule } from '@plopdown/pouchdb';
 
 const appRoutes: Routes = [
   { path: '', component: ScannerComponent },
@@ -45,16 +46,17 @@ const appRoutes: Routes = [
     ExtStorageModule,
     FormsModule,
     IconModule,
+    PouchDBModule,
     LoggerModule.forRoot({
       appName: 'BrowserAction',
       color: 'green',
       providers: [LogConsoleService, LogStorageService],
     }),
     RouterModule.forRoot(appRoutes, {
-    useHash: true,
-    initialNavigation: 'enabled',
-    relativeLinkResolution: 'legacy'
-}),
+      useHash: true,
+      initialNavigation: 'enabled',
+      relativeLinkResolution: 'legacy',
+    }),
     BrowserAnimationsModule,
     MessagesModule,
     WindowRefModule,

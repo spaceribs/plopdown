@@ -12,6 +12,7 @@ import { merge, Observable, Subscription } from 'rxjs';
       <plopdown-install-content-script></plopdown-install-content-script>
       <plopdown-tracks-requested></plopdown-tracks-requested>
       <plopdown-video-refs-requested></plopdown-video-refs-requested>
+      <plopdown-sync-databases></plopdown-sync-databases>
     </ng-container>
   `,
   selector: 'plopdown-background',
