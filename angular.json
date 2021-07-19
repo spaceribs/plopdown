@@ -20,15 +20,10 @@
             "main": "apps/background/src/main.ts",
             "polyfills": "apps/background/src/polyfills.ts",
             "tsConfig": "apps/background/tsconfig.app.json",
-            "assets": [
-              "apps/background/src/assets"
-            ],
+            "assets": ["apps/background/src/assets"],
             "styles": [],
             "scripts": [],
-            "allowedCommonJsDependencies": [
-              "tld-extract",
-              "immediate"
-            ],
+            "allowedCommonJsDependencies": ["tld-extract", "immediate"],
             "extractLicenses": false,
             "buildOptimizer": false,
             "sourceMap": true,
@@ -63,9 +58,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "defaultConfiguration": ""
         },
         "serve": {
@@ -100,9 +93,7 @@
             "jestConfig": "apps/background/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/background"
-          ]
+          "outputs": ["coverage/apps/background"]
         }
       }
     },
@@ -130,9 +121,7 @@
               "apps/browser-action/src/favicon.ico",
               "apps/browser-action/src/assets"
             ],
-            "styles": [
-              "apps/browser-action/src/styles.scss"
-            ],
+            "styles": ["apps/browser-action/src/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -170,9 +159,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "defaultConfiguration": ""
         },
         "serve": {
@@ -207,9 +194,7 @@
             "jestConfig": "apps/browser-action/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/browser-action"
-          ]
+          "outputs": ["coverage/apps/browser-action"]
         }
       }
     },
@@ -234,9 +219,7 @@
             "jestConfig": "libs/browser-ref/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/browser-ref"
-          ]
+          "outputs": ["coverage/libs/browser-ref"]
         }
       },
       "schematics": {
@@ -273,16 +256,10 @@
               "apps/content-script/src/favicon.ico",
               "apps/content-script/src/assets"
             ],
-            "styles": [
-              "apps/content-script/src/styles.scss"
-            ],
+            "styles": ["apps/content-script/src/styles.scss"],
             "scripts": [],
             "vendorChunk": false,
-            "extractCss": false,
-            "allowedCommonJsDependencies": [
-              "lz-string",
-              "immediate"
-            ]
+            "allowedCommonJsDependencies": ["lz-string", "immediate"]
           },
           "configurations": {
             "production": {
@@ -295,7 +272,6 @@
               "optimization": true,
               "outputHashing": "none",
               "sourceMap": false,
-              "extractCss": false,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -346,9 +322,7 @@
             "jestConfig": "apps/content-script/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/content-script"
-          ]
+          "outputs": ["coverage/apps/content-script"]
         }
       }
     },
@@ -375,9 +349,7 @@
               "apps/devtool/src/favicon.ico",
               "apps/devtool/src/assets"
             ],
-            "styles": [
-              "apps/devtool/src/styles.scss"
-            ],
+            "styles": ["apps/devtool/src/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -415,9 +387,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "defaultConfiguration": ""
         },
         "serve": {
@@ -452,9 +422,7 @@
             "jestConfig": "apps/devtool/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/devtool"
-          ]
+          "outputs": ["coverage/apps/devtool"]
         }
       }
     },
@@ -481,9 +449,7 @@
               "apps/devtool-panels/src/favicon.ico",
               "apps/devtool-panels/src/assets"
             ],
-            "styles": [
-              "apps/devtool-panels/src/styles.scss"
-            ],
+            "styles": ["apps/devtool-panels/src/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -521,9 +487,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "defaultConfiguration": ""
         },
         "serve": {
@@ -558,9 +522,7 @@
             "jestConfig": "apps/devtool-panels/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/devtool-panels"
-          ]
+          "outputs": ["coverage/apps/devtool-panels"]
         }
       }
     },
@@ -585,9 +547,7 @@
             "jestConfig": "libs/devtools-ref/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/devtools-ref"
-          ]
+          "outputs": ["coverage/libs/devtools-ref"]
         }
       },
       "schematics": {
@@ -617,9 +577,7 @@
             "jestConfig": "libs/ext-storage/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/ext-storage"
-          ]
+          "outputs": ["coverage/libs/ext-storage"]
         }
       },
       "schematics": {
@@ -637,10 +595,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/icon/**/*.ts",
-              "libs/icon/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/icon/**/*.ts", "libs/icon/**/*.html"]
           }
         },
         "test": {
@@ -649,9 +604,7 @@
             "jestConfig": "libs/icon/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/icon"
-          ]
+          "outputs": ["coverage/libs/icon"]
         }
       },
       "schematics": {
@@ -669,10 +622,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/logger/**/*.ts",
-              "libs/logger/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/logger/**/*.ts", "libs/logger/**/*.html"]
           }
         },
         "test": {
@@ -681,9 +631,7 @@
             "jestConfig": "libs/logger/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/logger"
-          ]
+          "outputs": ["coverage/libs/logger"]
         }
       },
       "schematics": {
@@ -713,9 +661,7 @@
             "jestConfig": "libs/lz-string/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/lz-string"
-          ]
+          "outputs": ["coverage/libs/lz-string"]
         }
       },
       "schematics": {
@@ -745,9 +691,7 @@
             "jestConfig": "libs/messages/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/messages"
-          ]
+          "outputs": ["coverage/libs/messages"]
         }
       },
       "schematics": {
@@ -780,14 +724,9 @@
               "apps/options/src/favicon.ico",
               "apps/options/src/assets"
             ],
-            "styles": [
-              "apps/options/src/styles.scss"
-            ],
+            "styles": ["apps/options/src/styles.scss"],
             "scripts": [],
-            "allowedCommonJsDependencies": [
-              "lz-string",
-              "immediate"
-            ],
+            "allowedCommonJsDependencies": ["lz-string", "immediate"],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
@@ -824,9 +763,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "defaultConfiguration": ""
         },
         "serve": {
@@ -861,9 +798,7 @@
             "jestConfig": "apps/options/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/options"
-          ]
+          "outputs": ["coverage/apps/options"]
         }
       }
     },
@@ -888,9 +823,7 @@
             "jestConfig": "libs/permissions/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/permissions"
-          ]
+          "outputs": ["coverage/libs/permissions"]
         }
       },
       "schematics": {
@@ -920,9 +853,7 @@
             "jestConfig": "libs/plopdown-cues/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/plopdown-cues"
-          ]
+          "outputs": ["coverage/libs/plopdown-cues"]
         }
       },
       "schematics": {
@@ -952,9 +883,7 @@
             "jestConfig": "libs/plopdown-embed/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/plopdown-embed"
-          ]
+          "outputs": ["coverage/libs/plopdown-embed"]
         }
       },
       "schematics": {
@@ -1054,9 +983,7 @@
             "jestConfig": "libs/plopdown-file/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/plopdown-file"
-          ]
+          "outputs": ["coverage/libs/plopdown-file"]
         }
       },
       "schematics": {
@@ -1086,14 +1013,62 @@
             "jestConfig": "libs/plopdown-injector/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/plopdown-injector"
-          ]
+          "outputs": ["coverage/libs/plopdown-injector"]
         }
       },
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
+        }
+      }
+    },
+    "pouchdb": {
+      "projectType": "library",
+      "root": "libs/pouchdb",
+      "sourceRoot": "libs/pouchdb/src",
+      "prefix": "plopdown",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/pouchdb"],
+          "options": {
+            "jestConfig": "libs/pouchdb/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/pouchdb/src/**/*.ts",
+              "libs/pouchdb/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "remotes": {
+      "projectType": "library",
+      "root": "libs/remotes",
+      "sourceRoot": "libs/remotes/src",
+      "prefix": "plopdown",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/remotes"],
+          "options": {
+            "jestConfig": "libs/remotes/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/remotes/src/**/*.ts",
+              "libs/remotes/src/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -1120,9 +1095,7 @@
               "apps/testing-sandbox/src/favicon.ico",
               "apps/testing-sandbox/src/assets"
             ],
-            "styles": [
-              "apps/testing-sandbox/src/styles.scss"
-            ],
+            "styles": ["apps/testing-sandbox/src/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -1160,9 +1133,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "defaultConfiguration": ""
         },
         "serve": {
@@ -1197,9 +1168,7 @@
             "jestConfig": "apps/testing-sandbox/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/testing-sandbox"
-          ]
+          "outputs": ["coverage/apps/testing-sandbox"]
         }
       }
     },
@@ -1212,10 +1181,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/tracks/**/*.ts",
-              "libs/tracks/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/tracks/**/*.ts", "libs/tracks/**/*.html"]
           }
         },
         "test": {
@@ -1224,9 +1190,7 @@
             "jestConfig": "libs/tracks/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/tracks"
-          ]
+          "outputs": ["coverage/libs/tracks"]
         }
       },
       "schematics": {
@@ -1256,9 +1220,7 @@
             "jestConfig": "libs/video-refs/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/video-refs"
-          ]
+          "outputs": ["coverage/libs/video-refs"]
         }
       },
       "schematics": {
@@ -1288,9 +1250,7 @@
             "jestConfig": "libs/web-extension/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/web-extension"
-          ]
+          "outputs": ["coverage/libs/web-extension"]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -1319,9 +1279,7 @@
             ],
             "srcRootForCompilationRoot": "libs/web-extension"
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         }
       }
     },
@@ -1375,14 +1333,9 @@
               "apps/website/src/404.html",
               "apps/website/src/CNAME"
             ],
-            "styles": [
-              "apps/website/src/styles.scss"
-            ],
+            "styles": ["apps/website/src/styles.scss"],
             "scripts": [],
-            "allowedCommonJsDependencies": [
-              "lz-string",
-              "immediate"
-            ],
+            "allowedCommonJsDependencies": ["lz-string", "immediate"],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
@@ -1419,9 +1372,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "defaultConfiguration": ""
         },
         "serve": {
@@ -1456,9 +1407,7 @@
             "jestConfig": "apps/website/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/website"
-          ]
+          "outputs": ["coverage/apps/website"]
         }
       }
     },
@@ -1483,9 +1432,7 @@
             "jestConfig": "libs/window-ref/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/window-ref"
-          ]
+          "outputs": ["coverage/libs/window-ref"]
         }
       },
       "schematics": {
@@ -1500,12 +1447,15 @@
   },
   "schematics": {
     "@nrwl/angular:application": {
+      "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
     },
     "@nrwl/angular:library": {
+      "linter": "eslint",
       "unitTestRunner": "jest"
-    }
+    },
+    "@nrwl/angular:component": {}
   },
   "defaultProject": "plopdown-ext"
 }

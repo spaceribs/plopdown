@@ -47,6 +47,8 @@ const INJECTION_MATCHES = [
   '#movie_player.html5-video-player',
 ];
 
+const DURATION_FUZZ_SEC = 20;
+
 @Component({
   selector: 'plopdown-video-attachment',
   template: '',
@@ -55,9 +57,8 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
   private embedRef$: Observable<ComponentRef<PlopdownEmbedComponent>>;
   private embedRefDom$: Observable<HTMLElement>;
-  private track$: BehaviorSubject<Track | null> = new BehaviorSubject<Track | null>(
-    null
-  );
+  private track$: BehaviorSubject<Track | null> =
+    new BehaviorSubject<Track | null>(null);
   private tracks$: Observable<Track[]>;
   private hashVideoRef$: Observable<VideoRef>;
   private hashTrack$: Observable<Track>;
@@ -376,7 +377,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     if (ref.duration != null) {
       const duration = parseInt(ref.duration, 10);
 
-      if (duration !== elemDuration) {
+      if (Math.abs(elemDuration - duration) > DURATION_FUZZ_SEC) {
         this.logger.debug("Durations didn't match", ref.duration, elemDuration);
         return false;
       }
@@ -411,7 +412,6 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
       videoX + halfWidth,
       videoY + halfHeight
     );
-    console.log(stack, halfWidth);
 
     const injectionParent =
       stack.find((elem) => {

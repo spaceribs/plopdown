@@ -1,3 +1,4 @@
+import { Remote } from '@plopdown/remotes';
 import { LoggerService } from '@plopdown/logger';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Track } from './track.model';
@@ -9,9 +10,17 @@ import {
   mapTo,
   withLatestFrom,
 } from 'rxjs/operators';
-import { Observable, merge, Subscription, from, Subject, of } from 'rxjs';
+import {
+  Observable,
+  merge,
+  Subscription,
+  from,
+  Subject,
+  of,
+  combineLatest,
+} from 'rxjs';
 import { TracksModule } from './tracks.module';
-import PouchDB from 'pouchdb';
+import { PouchDBService } from '@plopdown/pouchdb';
 
 const STORAGE_KEY = 'tracks';
 
@@ -25,55 +34,15 @@ export class TracksService implements OnDestroy {
   private subs: Subscription = new Subscription();
   private loading$: Observable<boolean>;
 
-  static createObservableDatabase() {
-    return new Observable<PouchDB.Database<Track>>((observer) => {
-      const db = new PouchDB<Track>(STORAGE_KEY);
-
-      observer.next(db);
-
-      return () => {
-        db.close();
-      };
-    });
-  }
-
-  static createObservableChanges(
-    db: PouchDB.Database<Track>
-  ): Observable<PouchDB.Core.ChangesResponseChange<Track>> {
-    return new Observable<PouchDB.Core.ChangesResponseChange<Track>>(
-      (observer) => {
-        const changes = db.changes({
-          live: true,
-          since: 'now',
-          include_docs: false,
-        });
-
-        changes.on('change', (change) => {
-          observer.next(change);
-        });
-
-        changes.on('complete', () => {
-          observer.complete();
-        });
-
-        changes.on('error', (err) => {
-          observer.error(err);
-        });
-
-        return () => {
-          changes.cancel();
-        };
-      }
-    );
-  }
-
-  constructor(logger: LoggerService) {
-    this.db$ = TracksService.createObservableDatabase().pipe(shareReplay(1));
+  constructor(logger: LoggerService, private pouchdb: PouchDBService) {
+    this.db$ = pouchdb
+      .createObservableDatabase<Track>(STORAGE_KEY)
+      .pipe(shareReplay(1));
 
     const changes$ = this.db$
       .pipe(
         switchMap((db) => {
-          return TracksService.createObservableChanges(db);
+          return pouchdb.createObservableChanges(db);
         })
       )
       .pipe(shareReplay(1));
@@ -191,5 +160,31 @@ export class TracksService implements OnDestroy {
 
   public refreshTracks() {
     this.manualRefresh$.next();
+  }
+
+  private getRemoteDB(remote: Remote) {
+    return this.pouchdb.createObservableDatabase<Track>(
+      `${remote.url}/${STORAGE_KEY}`,
+      remote.username,
+      remote.password
+    );
+  }
+
+  public syncronizeRemoteDB(remote: Remote) {
+    const remote$ = this.getRemoteDB(remote);
+    return combineLatest([this.db$, remote$]).pipe(
+      switchMap(([local, remote]) => {
+        return this.pouchdb.createObservableSync(local, remote);
+      })
+    );
+  }
+
+  public pullRemoteDB(remote: Remote) {
+    const remote$ = this.getRemoteDB(remote);
+    return combineLatest([this.db$, remote$]).pipe(
+      switchMap(([local, remote]) => {
+        return this.pouchdb.createObservablePull(local, remote);
+      })
+    );
   }
 }

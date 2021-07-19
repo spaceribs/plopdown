@@ -1,0 +1,111 @@
+<div class="modal is-active">
+  <div class="modal-background" (click)="onCancel()"></div>
+  <form class="modal-card" [formGroup]="remoteForm" (submit)="onSave($event)">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Remote Editor</p>
+    </header>
+    <section class="modal-card-body">
+      <div class="section">
+        <fieldset>
+          <div class="field" *ngIf="remoteForm.controls.title as control">
+            <label class="label">Title*</label>
+            <div class="control">
+              <input
+                formControlName="title"
+                class="input"
+                [ngClass]="{
+                  'is-danger': control.invalid && control.dirty
+                }"
+                type="text"
+                placeholder="My Remote Feed"
+              />
+            </div>
+            <p class="help is-danger" *ngIf="control.invalid && control.dirty">
+              Please provide a title for this remote.
+            </p>
+          </div>
+
+          <div class="field" *ngIf="remoteForm.controls.username as control">
+            <label class="label">Username</label>
+            <div class="control">
+              <input
+                formControlName="username"
+                class="input"
+                type="text"
+                placeholder="admin"
+              />
+            </div>
+          </div>
+
+          <div class="field" *ngIf="remoteForm.controls.password as control">
+            <label class="label">Password</label>
+            <div class="control">
+              <input
+                formControlName="password"
+                class="input"
+                type="password"
+                placeholder="****"
+              />
+            </div>
+          </div>
+
+          <div class="field" *ngIf="remoteForm.controls.url as control">
+            <label class="label">URL*</label>
+            <div class="control has-icons-right">
+              <input
+                formControlName="url"
+                class="input"
+                [ngClass]="{
+                  'is-danger': control.invalid && control.dirty
+                }"
+                type="url"
+                placeholder="http://localhost:5984"
+              />
+              <plopdown-icon
+                *ngIf="control.status === 'PENDING'"
+                class="icon is-right"
+                [spin]="true"
+                [path]="mdiSync"
+              ></plopdown-icon>
+              <plopdown-icon
+                *ngIf="control.status === 'INVALID'"
+                class="icon has-text-danger is-right"
+                [path]="mdiAlertCircleOutline"
+              ></plopdown-icon>
+              <plopdown-icon
+                *ngIf="control.status === 'VALID'"
+                class="icon has-text-success is-right"
+                [path]="mdiCheckboxMarkedCircleOutline"
+              ></plopdown-icon>
+            </div>
+            <p class="help is-danger" *ngIf="control.invalid && control.dirty">
+              <ng-container *ngIf="control.errors?.invalidFeed as error">
+                {{ error.message }}
+              </ng-container>
+              <ng-container *ngIf="control.errors?.required">
+                A feed URL is required.
+              </ng-container>
+            </p>
+          </div>
+
+          <div class="field" *ngIf="remoteForm.controls.sync as control">
+            <label class="checkbox">
+              <input type="checkbox" formControlName="sync" />
+              Sync local changes to this remote server (Read/Write).
+            </label>
+          </div>
+        </fieldset>
+      </div>
+    </section>
+    <footer class="modal-card-foot buttons is-right">
+      <button type="button" class="button" (click)="onCancel()">Cancel</button>
+      <button
+        type="submit"
+        [disabled]="remoteForm.invalid"
+        class="button is-primary is-pulled-right"
+      >
+        {{ remoteForm.value['_id'] ? 'Save Remote' : 'Add Remote' }}
+      </button>
+    </footer>
+  </form>
+</div>

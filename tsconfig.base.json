@@ -50,6 +50,10 @@
       "@plopdown/plopdown-injector/mock": [
         "libs/plopdown-injector/mock/index.ts"
       ],
+      "@plopdown/pouchdb": ["libs/pouchdb/src/index.ts"],
+      "@plopdown/pouchdb/mock": ["libs/pouchdb/mock/index.ts"],
+      "@plopdown/remotes": ["libs/remotes/src/index.ts"],
+      "@plopdown/remotes/mock": ["libs/remotes/mock/index.ts"],
       "@plopdown/tracks": ["libs/tracks/src/index.ts"],
       "@plopdown/tracks/mock": ["libs/tracks/mock/index.ts"],
       "@plopdown/video-refs": ["libs/video-refs/src/index.ts"],

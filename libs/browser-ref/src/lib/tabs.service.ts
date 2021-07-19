@@ -41,6 +41,20 @@ export class TabsService {
     });
   }
 
+  public insertCSS(details: browser.extensionTypes.InjectDetails) {
+    return new Observable((observer) => {
+      this.tabs
+        .insertCSS(details)
+        .then((res: any) => {
+          observer.next(res);
+          observer.complete();
+        })
+        .catch((err: Error) => {
+          observer.error(err);
+        });
+    });
+  }
+
   public executeScript(details: browser.extensionTypes.InjectDetails) {
     return new Observable((observer) => {
       this.tabs
