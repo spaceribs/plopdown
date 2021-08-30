@@ -20,8 +20,7 @@ This project is currently in alpha.
 | [browser-action](apps/browser-action)   | extension      | Activate extension and select videos for attaching tracks                 |
 | [background](apps/background)           | extension      | Install and Listen to content scripts and forward to browser action popup |
 | [options](apps/options)                 | extension      | Configure global options and manage permissions                           |
-| [devtool](apps/devtool)                 | extension      | The app for showing the devtool (currently disabled)                      |
-| [devtool-panels](apps/devtool)          | extension      | The panels app underlying the devtool                                     |
+| [devtool](apps/devtool)                 | extension      | The app for developing plopdown tracks                                    |
 | [plopdown-ext](apps/plopdown-ext)       | extension      | Manifest.json and static assets for the extension                         |
 | [testing-sandbox](apps/testing-sandbox) | experiments    | Test out different kinds of video elements and embeds                     |
 
@@ -61,7 +60,6 @@ $ npm run start:ext
   - content-script
   - background
   - devtool
-  - devtool-panels
   - options
 
   With flags:

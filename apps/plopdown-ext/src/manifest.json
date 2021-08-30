@@ -9,6 +9,7 @@
     "storage",
     "unlimitedStorage",
     "webNavigation",
+    "devtools",
     "https://plopdown.video/*"
   ],
   "optional_permissions": ["*://*/*"],
@@ -34,7 +35,7 @@
     "open_in_tab": true
   },
   // Devtools disabled until fully developed:
-  // "devtools_page": "devtool/index.html",
+  "devtools_page": "devtool/index.html#/panel-manager/",
   "browser_action": {
     "default_popup": "browser-action/index.html",
     "default_title": "__MSG_extName__",

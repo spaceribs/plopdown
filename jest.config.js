@@ -18,7 +18,6 @@ module.exports = {
     '<rootDir>/apps/website',
     '<rootDir>/libs/plopdown-injector',
     '<rootDir>/apps/devtool',
-    '<rootDir>/apps/devtool-panels',
     '<rootDir>/libs/devtools-ref',
     '<rootDir>/libs/web-extension',
     '<rootDir>/libs/permissions',
