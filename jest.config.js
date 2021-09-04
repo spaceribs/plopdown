@@ -26,5 +26,6 @@ module.exports = {
     '<rootDir>/libs/remotes',
     '<rootDir>/libs/pouchdb',
     '<rootDir>/libs/track-editor',
+    '<rootDir>/apps/storybook',
   ],
 };

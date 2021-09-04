@@ -80,6 +80,9 @@
     "remotes": {
       "tags": []
     },
+    "storybook": {
+      "tags": []
+    },
     "testing-sandbox": {
       "tags": []
     },
