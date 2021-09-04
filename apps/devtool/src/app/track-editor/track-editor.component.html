@@ -1,1 +1,11 @@
-<p>track-editor works!</p>
+<div class="columns">
+  <aside class="column is-one-quarter">
+    <select>
+      <option *ngFor="let track of tracks$ | async">{{ track.title }}</option>
+    </select>
+  </aside>
+
+  <main class="column">
+    <plopdown-timeline-editor></plopdown-timeline-editor>
+  </main>
+</div>

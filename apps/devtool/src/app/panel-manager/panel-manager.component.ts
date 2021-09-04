@@ -31,7 +31,6 @@ export class PanelManagerComponent implements OnInit, OnDestroy {
         this.errorHandler.handleError(err);
       },
     });
-
     this.subs.add(panelHiddenSub);
 
     const panelShownSub = this.panelShown$.subscribe({
@@ -42,7 +41,6 @@ export class PanelManagerComponent implements OnInit, OnDestroy {
         this.errorHandler.handleError(err);
       },
     });
-
     this.subs.add(panelShownSub);
 
     this.panels.create(

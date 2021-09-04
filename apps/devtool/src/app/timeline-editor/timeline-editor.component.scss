@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  border: 1px solid #999;
+  height: 50px;
+  position: relative;
+  overflow: hidden;
+  background: #aaa;
+}
+
+.range {
+  position: absolute;
+  left: 20%;
+  right: 60%;
+  background-color: rgb(255, 185, 197);
+  top: 0;
+  bottom: 0;
+  display: flex;
+  cursor: cell;
+  .expand-left {
+    position: absolute;
+    left: 0;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    background-color: rgb(255, 185, 197);
+    width: 10px;
+    cursor: col-resize;
+  }
+  .expand-right {
+    position: absolute;
+    left: auto;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgb(255, 185, 197);
+    width: 10px;
+    cursor: col-resize;
+  }
+  .content {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    cursor: grab;
+  }
+}

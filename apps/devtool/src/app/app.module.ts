@@ -1,3 +1,8 @@
+import {
+  LogConsoleService,
+  LoggerModule,
+  LogStorageService,
+} from '@plopdown/logger';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -27,6 +32,11 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     DevtoolsRefModule,
+    LoggerModule.forRoot({
+      appName: 'devtool',
+      color: 'black',
+      providers: [LogConsoleService, LogStorageService],
+    }),
     RouterModule.forRoot(routes, {
       useHash: true,
       initialNavigation: 'enabledNonBlocking',
