@@ -827,35 +827,6 @@
         }
       }
     },
-    "plopdown-embed-e2e": {
-      "root": "apps/plopdown-embed-e2e",
-      "sourceRoot": "apps/plopdown-embed-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/plopdown-embed-e2e/cypress.json",
-            "tsConfig": "apps/plopdown-embed-e2e/tsconfig.e2e.json",
-            "devServerTarget": "plopdown-embed:storybook"
-          },
-          "configurations": {
-            "ci": {
-              "devServerTarget": "plopdown-embed:storybook:ci"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/plopdown-embed-e2e/**/*.ts",
-              "apps/plopdown-embed-e2e/**/*.html"
-            ]
-          }
-        }
-      }
-    },
     "plopdown-ext": {
       "projectType": "application",
       "root": "apps/plopdown-ext",
@@ -1114,6 +1085,62 @@
         }
       }
     },
+    "track-editor": {
+      "projectType": "library",
+      "root": "libs/track-editor",
+      "sourceRoot": "libs/track-editor/src",
+      "prefix": "plopdown",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/track-editor"],
+          "options": {
+            "jestConfig": "libs/track-editor/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/track-editor/src/**/*.ts",
+              "libs/track-editor/src/**/*.html"
+            ]
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/track-editor/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "outputPath": "dist/storybook/track-editor",
+            "config": {
+              "configFolder": "libs/track-editor/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
     "tracks": {
       "projectType": "library",
       "root": "libs/tracks",
@@ -1222,31 +1249,6 @@
             "srcRootForCompilationRoot": "libs/web-extension"
           },
           "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
-    "web-extension-e2e": {
-      "projectType": "application",
-      "root": "apps/web-extension-e2e",
-      "sourceRoot": "apps/web-extension-e2e/src",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "web-extension:build",
-            "npmPackageName": "@plopdown/web-extension",
-            "pluginOutputPath": "dist/libs/web-extension",
-            "jestConfig": "apps/web-extension-e2e/jest.config.js"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/web-extension-e2e/**/*.ts",
-              "apps/web-extension-e2e/**/*.html"
-            ]
-          }
         }
       }
     },

@@ -57,10 +57,6 @@
     "plopdown-embed": {
       "tags": []
     },
-    "plopdown-embed-e2e": {
-      "tags": [],
-      "implicitDependencies": ["plopdown-embed"]
-    },
     "plopdown-ext": {
       "tags": [],
       "implicitDependencies": [
@@ -87,6 +83,9 @@
     "testing-sandbox": {
       "tags": []
     },
+    "track-editor": {
+      "tags": []
+    },
     "tracks": {
       "tags": []
     },
@@ -95,10 +94,6 @@
     },
     "web-extension": {
       "tags": []
-    },
-    "web-extension-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web-extension"]
     },
     "website": {
       "tags": []
