@@ -5,5 +5,6 @@ export interface Cue {
   endTime: number;
   id: string;
   data: PlopdownTemplate;
+  layer?: number;
   style?: Record<string, unknown>;
 }

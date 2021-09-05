@@ -24,6 +24,9 @@
         "id": {
           "type": "string"
         },
+        "layer": {
+          "type": "number"
+        },
         "startTime": {
           "type": "number"
         },

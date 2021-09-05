@@ -8,7 +8,7 @@
     "inlineSources": false,
     "baseUrl": ".",
     "experimentalDecorators": true,
-    "types": ["firefox-webext-browser"],
+    "types": ["firefox-webext-browser", "pouchdb-node"],
     "paths": {
       "@plopdown/icon": ["../icon/src/index.ts"],
       "@plopdown/logger": ["../logger/src/index.ts"],
@@ -16,7 +16,9 @@
       "@plopdown/video-refs": ["../video-refs/src/index.ts"],
       "@plopdown/tracks": ["../tracks/src/index.ts"],
       "@plopdown/plopdown-cues": ["../plopdown-cues/src/index.ts"],
-      "@plopdown/window-ref": ["../window-ref/src/index.ts"]
+      "@plopdown/window-ref": ["../window-ref/src/index.ts"],
+      "@plopdown/remotes": ["../remotes/src/index.ts"],
+      "@plopdown/pouchdb": ["../pouchdb/src/index.ts"]
     }
   },
   "include": ["**/*.ts"],

@@ -20,7 +20,8 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["firefox-webext-browser"]
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

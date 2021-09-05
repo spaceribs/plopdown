@@ -7,7 +7,7 @@ export default {
   decorators: [
     moduleMetadata({
       imports: [],
-    })
+    }),
   ],
 } as Meta<TrackEditorComponent>;
 
@@ -16,7 +16,5 @@ const Template: Story<TrackEditorComponent> = (args: TrackEditorComponent) => ({
   props: args,
 });
 
-
 export const Primary = Template.bind({});
-Primary.args = {
-}
+Primary.args = {};

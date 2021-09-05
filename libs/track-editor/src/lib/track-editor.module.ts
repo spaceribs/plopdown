@@ -4,11 +4,7 @@ import { TrackEditorComponent } from './track-editor/track-editor.component';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [
-    TrackEditorComponent
-  ],
-  exports: [
-    TrackEditorComponent
-  ],
+  declarations: [TrackEditorComponent],
+  exports: [TrackEditorComponent],
 })
 export class TrackEditorModule {}

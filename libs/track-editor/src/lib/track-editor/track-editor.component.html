@@ -1,1 +1,19 @@
-<p>track-editor works!</p>
+<div class="ruler">
+  <div class="tick">{{ startTime | date: 'H:mm:ss.SSS':'+0000' }}</div>
+  <div class="tick" style="left: 80%">
+    {{ endTime | date: 'H:mm:ss.SSS':'+0000' }}
+  </div>
+</div>
+
+<div class="layers">
+  <div class="layer">
+    <div class="element" style="left: 0; right: 20%">video</div>
+  </div>
+  <div class="layer">
+    <div class="element" style="left: 20%; right: 70%">plop</div>
+  </div>
+</div>
+
+<div class="current-time">
+  <div class="indicator">{{ currentTime | date: 'H:mm:ss.SSS':'+0000' }}</div>
+</div>
