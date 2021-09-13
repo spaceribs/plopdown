@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class TrackEditorComponent {
   tracks$: Observable<Track[]>;
 
-  constructor(private trackService: TracksService) {
+  constructor(trackService: TracksService) {
     this.tracks$ = trackService.getTracks();
   }
 }

@@ -20,6 +20,7 @@ import { GetStatusComponent } from './get-status/get-status.component';
 import { PouchDBModule } from '@plopdown/pouchdb';
 import { RemotesModule } from '@plopdown/remotes';
 import { SyncDatabasesComponent } from './sync-databases/sync-databases.component';
+import { DevtoolContentScriptComponent } from './devtool-content-script/devtool-content-script.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { SyncDatabasesComponent } from './sync-databases/sync-databases.componen
     VideoRefsRequestedComponent,
     GetStatusComponent,
     SyncDatabasesComponent,
+    DevtoolContentScriptComponent,
   ],
   imports: [
     BrowserModule,

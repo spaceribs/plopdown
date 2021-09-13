@@ -3,11 +3,12 @@ import { MessagesService } from '../messages.service';
 import { Injectable } from '@angular/core';
 import {
   BackgroundCommand,
-  BackgroundCheckAlive,
+  BackgroundGetDevRefs,
   BackgroundPublishStatus,
   BackgroundTracksFound,
   BackgroundVideoRefsFound,
   BackgroundVideoRefAdded,
+  BackgroundDevRefsFound,
 } from './background.model';
 import { PortSubscriber } from '../subscriber.abstract';
 import { MessagesModule } from '../messages.module';
@@ -20,8 +21,11 @@ export class BackgroundSubService extends PortSubscriber<BackgroundCommand> {
   constructor(ports: MessagesService, logger: LoggerService) {
     super(Source.Background, ports, logger);
   }
-  public getCheckAlive() {
-    return super.filterCommand<BackgroundCheckAlive>('BG_CHECK_ALIVE');
+  public getDevRefs() {
+    return super.filterCommand<BackgroundGetDevRefs>('BG_GET_DEV_REFS');
+  }
+  public devRefsFound() {
+    return super.filterCommand<BackgroundDevRefsFound>('BG_DEV_REFS_FOUND');
   }
   public getTracksFound() {
     return super.filterCommand<BackgroundTracksFound>('BG_TRACKS_FOUND');

@@ -1,3 +1,4 @@
+import { MessagesModule } from '@plopdown/messages';
 import {
   LogConsoleService,
   LoggerModule,
@@ -32,9 +33,10 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     DevtoolsRefModule,
+    MessagesModule,
     LoggerModule.forRoot({
-      appName: 'devtool',
-      color: 'black',
+      appName: 'Devtool',
+      color: 'green',
       providers: [LogConsoleService, LogStorageService],
     }),
     RouterModule.forRoot(routes, {

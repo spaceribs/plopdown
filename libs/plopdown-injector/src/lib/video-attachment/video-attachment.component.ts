@@ -17,6 +17,8 @@ import {
   ComponentFactoryResolver,
   ErrorHandler,
   ComponentRef,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import {
   Subscription,
@@ -40,7 +42,11 @@ import {
   tap,
 } from 'rxjs/operators';
 import { PlopdownEmbedComponent } from '@plopdown/plopdown-embed';
-import { VideoRef, VideoRefsService } from '@plopdown/video-refs';
+import {
+  VideoRef,
+  VideoRefsService,
+  UnsavedVideoRef,
+} from '@plopdown/video-refs';
 
 const INJECTION_MATCHES = [
   // YouTube
@@ -70,9 +76,13 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     this.videoElem$.next(videoElem);
   }
 
-  private videoElemLoaded$: Observable<HTMLVideoElement>;
-  private videoRef$: Observable<Partial<VideoRef>>;
+  private videoElemChanged$: Observable<HTMLVideoElement>;
+  private videoElemReady$: Observable<HTMLVideoElement>;
+  private videoRef$: Observable<UnsavedVideoRef>;
   private videoRefs$: Observable<VideoRef[]>;
+
+  @Output() public attached: EventEmitter<UnsavedVideoRef> = new EventEmitter();
+  @Output() public detached: EventEmitter<UnsavedVideoRef> = new EventEmitter();
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -80,7 +90,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
     private appRef: ApplicationRef,
     private hashService: HashVideoRefsService,
     private windowRef: WindowRefService,
-    private location: LocationService,
+    location: LocationService,
     private injector: Injector,
     private logger: LoggerService,
     private videoRefService: VideoRefsService,
@@ -105,7 +115,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
 
     this.hashTrack$ = this.hashService.getTrack$();
 
-    this.videoElemLoaded$ = this.videoElem$.pipe(
+    this.videoElemChanged$ = this.videoElem$.pipe(
       filter((videoElem) => videoElem != null),
       switchMap((videoElem) =>
         merge(
@@ -113,7 +123,10 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
           fromEvent(videoElem, 'onplay').pipe(mapTo(videoElem)),
           of(videoElem)
         )
-      ),
+      )
+    );
+
+    this.videoElemReady$ = this.videoElemChanged$.pipe(
       distinctUntilChanged(),
       shareReplay(1)
     );
@@ -122,7 +135,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
       PlopdownEmbedComponent
     );
 
-    this.embedRef$ = this.videoElemLoaded$.pipe(
+    this.embedRef$ = this.videoElemReady$.pipe(
       map(() => {
         return embedFactory.create(this.injector);
       }),
@@ -137,25 +150,20 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
       shareReplay(1)
     );
 
-    this.videoRef$ = this.videoElemLoaded$.pipe(
+    this.videoRef$ = this.videoElemReady$.pipe(
       map((elem) => {
         const doc = this.windowRef.getDocument();
         const loc = this.windowRef.getLocation();
         return {
           xpath: this.xpath.getXPath(elem) as string,
           title: elem.title || doc.title || 'Untitled',
+          track: null,
           duration: elem.duration.toString(),
           frameTitle: doc.title,
           frameOrigin: loc.origin,
           framePath: loc.pathname,
           frameSearch: loc.search,
         };
-      })
-    );
-
-    this.videoRefs$ = this.videoRef$.pipe(
-      switchMap((videoRef) => {
-        return this.videoRefService.findVideoRefs(videoRef);
       })
     );
 
@@ -172,9 +180,43 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const publishAttachSub = combineLatest([
+      this.videoElemChanged$,
+      this.track$,
+    ])
+      .pipe(
+        map(([elem, track]) => {
+          const doc = this.windowRef.getDocument();
+          const loc = this.windowRef.getLocation();
+          const xpath = this.xpath.getXPath(elem) as string;
+          const title = elem.title || doc.title || 'Untitled';
+
+          const videoRef: UnsavedVideoRef = {
+            xpath,
+            title,
+            track,
+            duration: elem.duration.toString(),
+            frameTitle: doc.title,
+            frameOrigin: loc.origin,
+            framePath: loc.pathname,
+            frameSearch: loc.search,
+          };
+          return videoRef;
+        })
+      )
+      .subscribe({
+        next: (attachData) => {
+          this.attached.emit(attachData);
+        },
+        error: (err) => {
+          this.errorHandler.handleError(err);
+        },
+      });
+    this.subs.add(publishAttachSub);
+
     const attachSub = combineLatest([
       this.embedRef$,
-      this.videoElemLoaded$,
+      this.videoElemReady$,
       this.track$,
       this.tracks$,
       this.embedRefDom$,
@@ -270,7 +312,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
       });
     this.subs.add(autoHashTrackSub);
 
-    const match$ = combineLatest([this.videoRefs$, this.videoElemLoaded$]).pipe(
+    const match$ = combineLatest([this.videoRefs$, this.videoElemReady$]).pipe(
       map(([refs, elem]) => this.elemMatches(refs, elem)),
       filter((ref): ref is VideoRef => ref != null),
       tap((ref) => {

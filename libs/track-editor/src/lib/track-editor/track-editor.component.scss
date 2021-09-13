@@ -1,24 +1,35 @@
 :host {
   display: block;
-  position: relative;
+  overflow: hidden;
   user-select: none;
   font-size: 10px;
+  line-height: 14px;
+  .actions {
+    margin-bottom: 0;
+  }
+  .scroll-box {
+    overflow: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    position: relative;
+    box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
+  }
   .ruler {
-    box-shadow: 0 0 0 1px inset #333;
+    box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
     overflow: hidden;
     height: 15px;
     position: relative;
   }
   .tick {
     position: absolute;
-    box-shadow: 1px 0 0 0 inset #333;
+    box-shadow: 1px 0 0 0 inset rgba(0, 0, 0, 0.2);
     padding-left: 5px;
     padding-right: 10px;
   }
   .layer {
     height: 50px;
     position: relative;
-    box-shadow: 0 0 0 1px inset #333;
+    box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
     margin-top: -1px;
     .element {
       position: absolute;
@@ -39,11 +50,20 @@
     bottom: 0;
     padding-left: 6px;
     cursor: col-resize;
+    z-index: 1;
     .indicator {
-      top: 0px;
+      top: 0;
+      left: 0;
       position: absolute;
+      background-color: white;
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+      line-height: 13px;
+      border-left: 2px solid rgb(79, 226, 53);
+      color: rgb(49, 141, 33);
+      padding: 0 10px;
+      z-index: -1;
     }
-    &::before {
+    &::after {
       content: '';
       border-width: 6px;
       border-style: solid;

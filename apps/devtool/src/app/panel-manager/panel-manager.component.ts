@@ -1,6 +1,8 @@
+import { DevtoolPubService } from './../../../../../libs/messages/src/lib/devtool/devtool-pub.service';
 import { Component, ErrorHandler, OnDestroy, OnInit } from '@angular/core';
 import { PanelsService } from '@plopdown/devtools-ref';
 import { Observable, Subscription } from 'rxjs';
+import { BackgroundSubService } from '@plopdown/messages';
 
 @Component({
   selector: 'plopdown-panel-manager',
@@ -14,7 +16,9 @@ export class PanelManagerComponent implements OnInit, OnDestroy {
 
   constructor(
     private panels: PanelsService,
-    private errorHandler: ErrorHandler
+    private errorHandler: ErrorHandler,
+    private dtPub: DevtoolPubService,
+    private bgSub: BackgroundSubService
   ) {
     this.panelHidden$ = this.panels.getHidden();
     this.panelShown$ = this.panels.getShown();
@@ -35,7 +39,7 @@ export class PanelManagerComponent implements OnInit, OnDestroy {
 
     const panelShownSub = this.panelShown$.subscribe({
       next: () => {
-        console.log('Panel Shown');
+        this.dtPub.getDevRefs();
       },
       error: (err) => {
         this.errorHandler.handleError(err);

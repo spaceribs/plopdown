@@ -1,3 +1,4 @@
+import { TrackEditorModule } from '../track-editor.module';
 import { moduleMetadata, Story, Meta } from '@storybook/angular';
 import { TrackEditorComponent } from './track-editor.component';
 
@@ -6,7 +7,7 @@ export default {
   component: TrackEditorComponent,
   decorators: [
     moduleMetadata({
-      imports: [],
+      imports: [TrackEditorModule],
     }),
   ],
 } as Meta<TrackEditorComponent>;

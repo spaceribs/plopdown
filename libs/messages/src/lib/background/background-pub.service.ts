@@ -7,7 +7,7 @@ import { LoggerService } from '@plopdown/logger';
 import { Source } from '../messages.model';
 import { PortPublisher } from '../publisher.abstract';
 import { MessagesModule } from '../messages.module';
-import { VideoRef } from '@plopdown/video-refs';
+import { UnsavedVideoRef, VideoRef } from '@plopdown/video-refs';
 
 @Injectable({
   providedIn: MessagesModule,
@@ -19,10 +19,6 @@ export class BackgroundPubService extends PortPublisher<BackgroundCommand> {
     tabs: TabsService
   ) {
     super(Source.Background, messages, logger, tabs);
-  }
-
-  public checkAlive() {
-    this.command$.next({ command: 'BG_CHECK_ALIVE', args: null });
   }
 
   public publishStatus(status: BackgroundStatus) {
@@ -50,6 +46,20 @@ export class BackgroundPubService extends PortPublisher<BackgroundCommand> {
     this.command$.next({
       command: 'BG_VIDEO_REF_ADDED',
       args: [videoRef],
+    });
+  }
+
+  public getDevRefs() {
+    this.command$.next({
+      command: 'BG_GET_DEV_REFS',
+      args: null,
+    });
+  }
+
+  public devRefsFound(devRefs: UnsavedVideoRef[]) {
+    this.command$.next({
+      command: 'BG_DEV_REFS_FOUND',
+      args: [devRefs],
     });
   }
 }
