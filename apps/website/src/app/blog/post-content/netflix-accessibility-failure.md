@@ -18,14 +18,14 @@ in testing, it appears that the changes go much deeper than I realized.
 When seeking the video to annotations in the plopdown timeline, a new
 error appears:
 
-![Netflix Error Page](/assets/blog-content/netflix-error.png)
+![Netflix Error Page](/assets/blog-content/netflix-error.jpeg)
 
 That's pretty odd behavior! Seeking the video element shouldn't cause
 an entire app to crash, yet here we are with this wonderfully vague
 unexpected error. Very interesting stuff! Let's take a look at the
 source code causing this error to appear:
 
-![Netflix Error Page when Debugging](/assets/blog-content/breakpoint-error.png)
+![Netflix Error Page when Debugging](/assets/blog-content/breakpoint-error.jpeg)
 
 Even more interesting! Putting a breakpoint on this listener causes
 the app to crash on startup. This indicates some sort of timing check
