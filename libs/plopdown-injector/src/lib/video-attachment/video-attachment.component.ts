@@ -45,6 +45,8 @@ import { VideoRef, VideoRefsService } from '@plopdown/video-refs';
 const INJECTION_MATCHES = [
   // YouTube
   '#movie_player.html5-video-player',
+  // Netflix
+  'div.watch-video--player-view',
 ];
 
 const DURATION_FUZZ_SEC = 20;
