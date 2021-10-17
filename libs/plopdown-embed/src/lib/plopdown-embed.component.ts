@@ -255,11 +255,13 @@ export class PlopdownEmbedComponent implements OnDestroy, OnInit {
 
     const overlayStyle$ = combineLatest([positionOverlay$, fontSize$]).pipe(
       map(([elem, fontSize]) => {
+        const videoStyles = window.getComputedStyle(elem);
         return {
           'width.px': elem.offsetWidth,
           'height.px': elem.offsetHeight,
           'left.px': elem.offsetLeft,
           'top.px': elem.offsetTop,
+          transform: videoStyles.getPropertyValue('transform'),
           'font-size.px': fontSize,
         };
       })
