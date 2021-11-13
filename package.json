@@ -90,6 +90,7 @@
     "@nrwl/node": "12.5.7",
     "@nrwl/nx-plugin": "12.5.7",
     "@nrwl/tao": "12.5.7",
+    "@nrwl/web": "^12.5.7",
     "@nrwl/workspace": "12.5.7",
     "@types/firefox-webext-browser": "^70.0.1",
     "@types/fs-extra": "^8.1.0",
