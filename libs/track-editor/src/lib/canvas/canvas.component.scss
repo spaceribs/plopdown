@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  flex-direction: row;
+}
+
+.layer-labels {
+  box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
+  flex: 0 0 100px;
+  width: 100px;
+  margin-right: -1px;
+  padding-top: 15px;
+}
+
+.scroll-box {
+  overflow: auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  position: relative;
+  box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
+  overscroll-behavior: none;
+  cursor: text;
+  padding-bottom: 15px;
+}

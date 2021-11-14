@@ -1,0 +1,15 @@
+:host {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  background-color: rgb(87, 34, 173);
+  color: white;
+  border-radius: 8px;
+  padding: 3px 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.54);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:focus {
+    box-shadow: 0 0 0px 1px rgb(255, 255, 255), 0 0 0px 3px rgb(0, 102, 255);
+  }
+}

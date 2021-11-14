@@ -10,6 +10,15 @@ export default {
       imports: [TrackEditorModule],
     }),
   ],
+  args: {
+    time: new Date(30000),
+    endTime: new Date(60000),
+    zoom: 10,
+  },
+  argTypes: {
+    timeChange: { action: 'timeChange' },
+    zoomChange: { action: 'zoomChange' },
+  },
 } as Meta<TrackEditorComponent>;
 
 const Template: Story<TrackEditorComponent> = (args: TrackEditorComponent) => ({
@@ -18,4 +27,5 @@ const Template: Story<TrackEditorComponent> = (args: TrackEditorComponent) => ({
 });
 
 export const Primary = Template.bind({});
+
 Primary.args = {};

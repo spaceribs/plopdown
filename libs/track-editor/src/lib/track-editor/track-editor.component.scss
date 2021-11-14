@@ -7,71 +7,12 @@
   .actions {
     margin-bottom: 0;
   }
-  .scroll-box {
-    overflow: auto;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    position: relative;
-    box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
-  }
-  .ruler {
-    box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    height: 15px;
-    position: relative;
-  }
-  .tick {
-    position: absolute;
-    box-shadow: 1px 0 0 0 inset rgba(0, 0, 0, 0.2);
-    padding-left: 5px;
-    padding-right: 10px;
-  }
-  .layer {
-    height: 50px;
-    position: relative;
-    box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
-    margin-top: -1px;
-    .element {
-      position: absolute;
-      top: 3px;
-      bottom: 3px;
-      background-color: rgb(87, 34, 173);
-      color: white;
-      border-radius: 8px;
-      padding: 3px 5px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.54);
-    }
-  }
-  .current-time {
-    box-shadow: 2px 0 0 0 inset rgb(79, 226, 53);
-    position: absolute;
-    top: 0;
-    left: 40%;
-    bottom: 0;
-    padding-left: 6px;
-    cursor: col-resize;
-    z-index: 1;
-    .indicator {
-      top: 0;
-      left: 0;
-      position: absolute;
-      background-color: white;
-      border-top: 1px solid rgba(0, 0, 0, 0.2);
-      line-height: 13px;
-      border-left: 2px solid rgb(79, 226, 53);
-      color: rgb(49, 141, 33);
-      padding: 0 10px;
-      z-index: -1;
-    }
-    &::after {
-      content: '';
-      border-width: 6px;
-      border-style: solid;
-      border-color: transparent;
-      border-top-color: rgb(79, 226, 53);
-      position: absolute;
-      top: 0px;
-      left: -5px;
-    }
-  }
+}
+
+.layer-label {
+  height: 50px;
+  margin-top: -1px;
+  box-shadow: 0 1px 0 0px inset rgba(0, 0, 0, 0.2);
+  font-size: 10px;
+  padding: 3px 5px;
 }

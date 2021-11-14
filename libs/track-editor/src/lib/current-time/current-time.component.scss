@@ -1,0 +1,39 @@
+:host {
+  box-shadow: 2px 0 0 0 inset rgb(79, 226, 53);
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  padding-left: 3px;
+  pointer-events: none;
+  cursor: col-resize;
+  z-index: 1;
+  .indicator {
+    top: 0;
+    left: 0;
+    position: absolute;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 1) 85%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    line-height: 13px;
+    border-left: 2px solid rgb(79, 226, 53);
+    color: rgb(67, 175, 48);
+    padding: 0 20px 0 6px;
+    font-weight: bold;
+    z-index: -1;
+  }
+  &::after {
+    content: '';
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: rgb(79, 226, 53);
+    position: absolute;
+    top: 0px;
+    left: -5px;
+  }
+}

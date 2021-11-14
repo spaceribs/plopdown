@@ -1,0 +1,16 @@
+<div class="layer-labels">
+  <ng-content select=".layer-label"></ng-content>
+</div>
+
+<div class="scroll-box" #scrollBox (click)="setTime($event)">
+  <plopdown-ruler [width]="scrollWidth" [zoom]="zoom"></plopdown-ruler>
+
+  <plopdown-layers [width]="scrollWidth">
+    <ng-content select="plopdown-layer"></ng-content>
+  </plopdown-layers>
+
+  <plopdown-current-time
+    [left]="timePosition"
+    [time]="time"
+  ></plopdown-current-time>
+</div>

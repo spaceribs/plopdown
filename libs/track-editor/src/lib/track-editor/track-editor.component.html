@@ -1,29 +1,22 @@
 <plopdown-actions></plopdown-actions>
 
-<div class="scroll-box">
-  <div class="ruler" [ngStyle]="{ 'width.px': tracksWidth }">
-    <div
-      class="tick"
-      *ngFor="let tick of ticks"
-      [ngStyle]="{ 'left.px': tick.left }"
+<plopdown-canvas [(time)]="time" [(zoom)]="zoom" [endTime]="endTime">
+  <div
+    *ngFor="let layer of layers"
+    [attr.title]="layer.title"
+    class="layer-label"
+  >
+    {{ layer.title }}
+  </div>
+  <plopdown-layer *ngFor="let layer of layers" [title]="layer.title">
+    <plopdown-element
+      *ngFor="let elem of layer.elements"
+      [totalTime]="endTime"
+      [start]="elem.start"
+      [end]="elem.end"
+      [color]="elem.color"
     >
-      {{ tick.time | date: 'H:mm:ss.SSS':'+0000' }}
-    </div>
-    <!-- <div class="tick" style="left: 80%">
-      {{ endTime | date: 'H:mm:ss.SSS':'+0000' }}
-    </div> -->
-  </div>
-
-  <div class="layers" [ngStyle]="{ 'width.px': tracksWidth }">
-    <div class="layer">
-      <div class="element" style="left: 0; right: 20%">video</div>
-    </div>
-    <div class="layer">
-      <div class="element" style="left: 20%; right: 70%">plop</div>
-    </div>
-  </div>
-
-  <div class="current-time">
-    <div class="indicator">{{ time | date: 'H:mm:ss.SSS':'+0000' }}</div>
-  </div>
-</div>
+      {{ elem.title }}
+    </plopdown-element>
+  </plopdown-layer>
+</plopdown-canvas>
