@@ -11,9 +11,10 @@
   <plopdown-layer *ngFor="let layer of layers" [title]="layer.title">
     <plopdown-element
       *ngFor="let elem of layer.elements"
+      [zoom]="zoom"
       [totalTime]="endTime"
-      [start]="elem.start"
-      [end]="elem.end"
+      [(start)]="elem.start"
+      [(end)]="elem.end"
       [color]="elem.color"
     >
       {{ elem.title }}
