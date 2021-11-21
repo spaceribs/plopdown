@@ -5,15 +5,14 @@
   background-color: rgb(87, 34, 173);
   color: white;
   border-radius: 8px;
-  padding: 3px 15px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.54);
-  cursor: pointer;
   box-sizing: border-box;
-  // transition: all 0.2s ease-in-out;
+  min-width: 3px;
 
   &:focus {
     box-shadow: 0 0 0px 1px rgb(255, 255, 255), 0 0 0px 3px rgb(0, 102, 255);
+    z-index: 1;
   }
 
   .drag {
@@ -49,5 +48,17 @@
 
   .drag-right {
     right: 0;
+  }
+
+  .drag-content {
+    cursor: move;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    overflow: hidden;
+    padding: 3px 5px;
   }
 }

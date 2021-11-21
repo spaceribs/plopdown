@@ -1,3 +1,4 @@
+import { Layer } from './../layer/layer.models';
 import {
   Component,
   ElementRef,
@@ -13,6 +14,9 @@ import {
   styleUrls: ['./canvas.component.scss'],
 })
 export class CanvasComponent {
+  @Input() public layers: Layer[] = [];
+  @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
+
   public startTime: Date = new Date(0);
   @Input() public endTime: Date = new Date(10000);
 

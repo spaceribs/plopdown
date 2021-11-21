@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
   selector: 'plopdown-layer',
@@ -7,4 +13,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LayerComponent {
   @Input() public title: string = '';
+  @Output() public layerDrop: EventEmitter<void> = new EventEmitter();
 }

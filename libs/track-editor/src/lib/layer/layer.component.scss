@@ -5,6 +5,12 @@
   margin-top: -1px;
   display: block;
   &:focus-within {
-    background-color: #eef;
+    background-color: rgb(226, 226, 226);
+  }
+}
+
+:host {
+  &.dropping-over .layer {
+    background-color: rgb(226, 237, 255);
   }
 }

@@ -1,23 +1,8 @@
 <plopdown-actions></plopdown-actions>
 
-<plopdown-canvas [(time)]="time" [(zoom)]="zoom" [endTime]="endTime">
-  <div
-    *ngFor="let layer of layers"
-    [attr.title]="layer.title"
-    class="layer-label"
-  >
-    {{ layer.title }}
-  </div>
-  <plopdown-layer *ngFor="let layer of layers" [title]="layer.title">
-    <plopdown-element
-      *ngFor="let elem of layer.elements"
-      [zoom]="zoom"
-      [totalTime]="endTime"
-      [(start)]="elem.start"
-      [(end)]="elem.end"
-      [color]="elem.color"
-    >
-      {{ elem.title }}
-    </plopdown-element>
-  </plopdown-layer>
-</plopdown-canvas>
+<plopdown-canvas
+  [(layers)]="layers"
+  [(time)]="time"
+  [(zoom)]="zoom"
+  [endTime]="endTime"
+></plopdown-canvas>

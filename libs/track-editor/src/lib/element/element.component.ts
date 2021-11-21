@@ -24,6 +24,7 @@ import {
   mapTo,
   sample,
   distinctUntilChanged,
+  tap,
 } from 'rxjs/operators';
 
 @Component({
@@ -66,10 +67,13 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
   }
 
   @ViewChild('dragLeft')
-  private dragLeft: ElementRef<HTMLAnchorElement> | null = null;
+  private dragLeft: ElementRef<HTMLSpanElement> | null = null;
 
   @ViewChild('dragRight')
-  private dragRight: ElementRef<HTMLAnchorElement> | null = null;
+  private dragRight: ElementRef<HTMLSpanElement> | null = null;
+
+  @ViewChild('dragAll')
+  private dragAll: ElementRef<HTMLDivElement> | null = null;
 
   public ngOnDestroy(): void {
     this.subs.unsubscribe();
@@ -82,12 +86,17 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   public ngAfterViewInit(): void {
-    if (this.dragLeft == null || this.dragRight == null) {
-      return;
+    if (
+      this.dragLeft == null ||
+      this.dragRight == null ||
+      this.dragAll == null
+    ) {
+      throw new Error('Drag Elements not found');
     }
 
     const dragLeftElem = this.dragLeft.nativeElement;
     const dragRightElem = this.dragRight.nativeElement;
+    const dragAllElem = this.dragAll.nativeElement;
 
     this.zone.runOutsideAngular(() => {
       const drag$ = fromEvent<MouseEvent>(document, 'mousemove').pipe(
@@ -100,10 +109,21 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
       const dragLeftStart$ = fromEvent<MouseEvent>(
         dragLeftElem,
         'mousedown'
-      ).pipe(pluck<MouseEvent, number>('clientX'));
+      ).pipe(
+        tap((event) => event.stopPropagation),
+        pluck<MouseEvent, number>('clientX')
+      );
 
       const dragRightStart$ = fromEvent<MouseEvent>(
         dragRightElem,
+        'mousedown'
+      ).pipe(
+        tap((event) => event.stopPropagation),
+        pluck<MouseEvent, number>('clientX')
+      );
+
+      const dragElemStart$ = fromEvent<MouseEvent>(
+        dragAllElem,
         'mousedown'
       ).pipe(pluck<MouseEvent, number>('clientX'));
 
@@ -133,16 +153,39 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
         })
       );
 
+      const dragElemMove$ = dragElemStart$.pipe(
+        switchMap((startX) => {
+          return drag$.pipe(
+            map((dragX) => {
+              let dragPos = startX - dragX;
+              return dragPos;
+            }),
+            takeUntil(dragEnd$)
+          );
+        })
+      );
+
       const finalLeftPos$ = dragLeftMove$.pipe(
         sample(dragEnd$),
         map((offset) => {
           return new Date(this.start.getTime() + offset * this.zoom);
         })
       );
+
       const finalRightPos$ = dragRightMove$.pipe(
         sample(dragEnd$),
         map((offset) => {
           return new Date(this.end.getTime() - offset * this.zoom);
+        })
+      );
+
+      const finalElemPos$ = dragElemMove$.pipe(
+        sample(dragEnd$),
+        map((offset) => {
+          return [
+            new Date(this.start.getTime() - offset * this.zoom),
+            new Date(this.end.getTime() - offset * this.zoom),
+          ];
         })
       );
 
@@ -164,17 +207,35 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
       });
       this.subs.add(dragRightSub);
 
+      const dragElemSub = dragElemMove$.subscribe((offset) => {
+        this.renderer.setStyle(
+          this.element.nativeElement,
+          'transform',
+          `translateX(${-offset}px)`
+        );
+      });
+      this.subs.add(dragElemSub);
+
       const finalLeftSub = finalLeftPos$.subscribe((finalLeft) => {
         this.renderer.setStyle(this.element.nativeElement, 'margin-left', null);
-        this.startChange.emit(new Date(finalLeft));
+        this.startChange.emit(finalLeft);
       });
       this.subs.add(finalLeftSub);
 
       const finalRightSub = finalRightPos$.subscribe((finalRight) => {
         this.renderer.removeStyle(this.element.nativeElement, 'margin-right');
-        this.endChange.emit(new Date(finalRight));
+        this.endChange.emit(finalRight);
       });
       this.subs.add(finalRightSub);
+
+      const finalElemSub = finalElemPos$.subscribe(
+        ([finalLeft, finalRight]) => {
+          this.renderer.removeStyle(this.element.nativeElement, 'transform');
+          this.startChange.emit(finalLeft);
+          this.endChange.emit(finalRight);
+        }
+      );
+      this.subs.add(finalElemSub);
     });
   }
 

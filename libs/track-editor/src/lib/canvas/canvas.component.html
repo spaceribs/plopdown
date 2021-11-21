@@ -1,12 +1,22 @@
 <div class="layer-labels">
-  <ng-content select=".layer-label"></ng-content>
+  <div
+    *ngFor="let layer of layers"
+    [attr.title]="layer.title"
+    class="layer-label"
+  >
+    {{ layer.title }}
+  </div>
 </div>
 
 <div class="scroll-box" #scrollBox (click)="setTime($event)">
   <plopdown-ruler [width]="scrollWidth" [zoom]="zoom"></plopdown-ruler>
 
-  <plopdown-layers [width]="scrollWidth">
-    <ng-content select="plopdown-layer"></ng-content>
+  <plopdown-layers
+    [width]="scrollWidth"
+    [zoom]="zoom"
+    [totalTime]="endTime"
+    [(layers)]="layers"
+  >
   </plopdown-layers>
 
   <plopdown-current-time

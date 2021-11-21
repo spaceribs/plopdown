@@ -4,7 +4,7 @@
   overflow: hidden;
   height: 15px;
   position: relative;
-  pointer-events: none;
+  cursor: text;
 }
 
 .tick {
@@ -12,4 +12,5 @@
   box-shadow: 1px 0 0 0 inset rgba(0, 0, 0, 0.2);
   padding-left: 5px;
   padding-right: 10px;
+  pointer-events: none;
 }
