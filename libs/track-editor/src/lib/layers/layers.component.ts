@@ -6,6 +6,7 @@ import {
   Output,
   EventEmitter,
   OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Layer } from '../layer/layer.models';
 import { filter, map, switchMap, takeUntil, startWith } from 'rxjs/operators';
@@ -15,6 +16,7 @@ import { LayerElement } from '../element/element.models';
   selector: 'plopdown-layers',
   templateUrl: './layers.component.html',
   styleUrls: ['./layers.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayersComponent implements OnDestroy {
   private readonly subs: Subscription = new Subscription();
@@ -24,7 +26,7 @@ export class LayersComponent implements OnDestroy {
   public width: number = 0;
 
   @Input() public zoom: number = 0;
-  @Input() public totalTime: Date = new Date(0);
+  @Input() public totalTime: number = 0;
 
   @Input() public layers: Layer[] = [];
   @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
@@ -84,5 +86,13 @@ export class LayersComponent implements OnDestroy {
 
   public layerOver(layer: Layer) {
     this.layerOver$.next(layer);
+  }
+
+  public elemTrackBy(_: number, elem: LayerElement) {
+    return elem.id;
+  }
+
+  public layerTrackBy(_: number, layer: Layer) {
+    return layer.title;
   }
 }

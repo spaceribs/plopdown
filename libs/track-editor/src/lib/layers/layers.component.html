@@ -1,20 +1,20 @@
 <plopdown-layer
   (mouseup)="layerDrop(layer)"
   (mouseover)="layerOver(layer)"
-  *ngFor="let layer of layers"
-  [title]="layer.title"
+  *ngFor="let layer of layers; trackBy: layerTrackBy"
+  [title]="layer.title || 'Undefined'"
   [class.dropping-over]="(overLayer$ | async) === layer"
 >
   <plopdown-element
     autofocus
-    *ngFor="let elem of layer.elements"
+    *ngFor="let elem of layer.elements; trackBy: elemTrackBy"
     (mousedown)="elemDragStart($event, elem, layer)"
     [zoom]="zoom"
     [totalTime]="totalTime"
-    [(start)]="elem.start"
-    [(end)]="elem.end"
-    [color]="elem.color"
+    [(start)]="elem.startTime"
+    [(end)]="elem.endTime"
+    color="#666"
   >
-    {{ elem.title }}
+    test
   </plopdown-element>
 </plopdown-layer>

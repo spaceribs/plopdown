@@ -1,48 +1,63 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Layer } from '../layer/layer.models';
+import { Layer } from './../layer/layer.models';
+import { PlopdownFile } from '@plopdown/plopdown-file';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { VideoStatus } from '../track-editor.models';
 
 @Component({
   selector: 'plopdown-track-editor',
   templateUrl: './track-editor.component.html',
   styleUrls: ['./track-editor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrackEditorComponent {
-  @Input() public endTime: Date = new Date(10000);
-
   @Input() public zoom: number = 10;
   @Output() public zoomChange: EventEmitter<Date> = new EventEmitter();
 
-  @Input() public time: Date = new Date(5000);
-  @Output() public timeChange: EventEmitter<Date> = new EventEmitter();
+  @Input() public video: VideoStatus | null = null;
 
-  public layers: Layer[] = [
-    {
-      title: 'Layer 1',
-      elements: [
-        {
-          start: new Date(2000),
-          end: new Date(4000),
-          title: 'plop',
-          color: '#F00',
-        },
-        {
-          start: new Date(5000),
-          end: new Date(7000),
-          title: 'audio',
-          color: '#F0F',
-        },
-      ],
-    },
-    {
-      title: 'Layer 2',
-      elements: [
-        {
-          start: new Date(3000),
-          end: new Date(7000),
-          title: 'shape',
-          color: '#0a0',
-        },
-      ],
-    },
-  ];
+  @Input() public plopdownFile: PlopdownFile | null = null;
+  @Output() public plopdownFileChange: EventEmitter<PlopdownFile> =
+    new EventEmitter();
+
+  public get layers(): Layer[] {
+    const layers: Layer[] = [];
+
+    if (this.video != null) {
+      layers.push({
+        readonly: true,
+        title: 'Video',
+        elements: [this.video],
+      });
+    }
+
+    if (this.plopdownFile != null) {
+      const newLayers = this.plopdownFile.cues.reduce((layers, cue) => {
+        const existingLayer = layers.find((layer) => layer.title === cue.layer);
+
+        if (existingLayer == null) {
+          layers.push({
+            readonly: false,
+            title: cue.layer,
+            elements: [cue],
+          });
+        } else {
+          existingLayer.elements.push(cue);
+        }
+
+        return layers;
+      }, [] as Layer[]);
+
+      layers.push(...newLayers);
+    }
+
+    return layers;
+  }
+
+  public set layers(value: Layer[]) {}
 }

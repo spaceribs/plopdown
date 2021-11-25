@@ -9,13 +9,6 @@
     "types": [],
     "lib": ["dom", "es2018"]
   },
-  "exclude": [
-    "src/test-setup.ts",
-    "**/*.spec.ts",
-    "**/*.stories.ts",
-    "**/*.stories.js",
-    "**/*.stories.ts",
-    "**/*.stories.js"
-  ],
+  "exclude": ["src/test-setup.ts", "**/*.spec.ts"],
   "include": ["**/*.ts"]
 }

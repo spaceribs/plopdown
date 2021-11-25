@@ -37,13 +37,13 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
   private subs: Subscription = new Subscription();
 
   @Input() public zoom: number = 0;
-  @Input() public totalTime: Date = new Date(0);
+  @Input() public totalTime: number = 0;
 
-  @Input() public start: Date = new Date(0);
-  @Output() public startChange: EventEmitter<Date> = new EventEmitter();
+  @Input() public start: number = 0;
+  @Output() public startChange: EventEmitter<number> = new EventEmitter();
 
-  @Input() public end: Date = new Date(0);
-  @Output() public endChange: EventEmitter<Date> = new EventEmitter();
+  @Input() public end: number = 0;
+  @Output() public endChange: EventEmitter<number> = new EventEmitter();
 
   @HostBinding('attr.tabindex') public tabIndex = 0;
 
@@ -53,12 +53,12 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
 
   @HostBinding('style.left.px')
   public get left(): number {
-    return this.start.getTime() / this.zoom;
+    return this.start / this.zoom;
   }
 
   @HostBinding('style.right.px')
   public get right(): number {
-    return (this.totalTime.getTime() - this.end.getTime()) / this.zoom;
+    return (this.totalTime - this.end) / this.zoom;
   }
 
   @HostListener('click', ['$event'])
@@ -127,7 +127,7 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
         'mousedown'
       ).pipe(pluck<MouseEvent, number>('clientX'));
 
-      const dragEnd$ = fromEvent(document, 'mouseup').pipe(mapTo(null));
+      const dragEnd$ = fromEvent(document, 'mouseup');
 
       const dragLeftMove$ = dragLeftStart$.pipe(
         switchMap((startX) => {
@@ -168,14 +168,14 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
       const finalLeftPos$ = dragLeftMove$.pipe(
         sample(dragEnd$),
         map((offset) => {
-          return new Date(this.start.getTime() + offset * this.zoom);
+          return this.start + offset * this.zoom;
         })
       );
 
       const finalRightPos$ = dragRightMove$.pipe(
         sample(dragEnd$),
         map((offset) => {
-          return new Date(this.end.getTime() - offset * this.zoom);
+          return this.end - offset * this.zoom;
         })
       );
 
@@ -183,8 +183,8 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
         sample(dragEnd$),
         map((offset) => {
           return [
-            new Date(this.start.getTime() - offset * this.zoom),
-            new Date(this.end.getTime() - offset * this.zoom),
+            this.start - offset * this.zoom,
+            this.end - offset * this.zoom,
           ];
         })
       );
@@ -238,47 +238,4 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
       this.subs.add(finalElemSub);
     });
   }
-
-  public dragLeftStart($event: MouseEvent) {
-    // if (this.dragLeft == null) {
-    //   return;
-    // }
-    // const draggableElement = this.dragLeft.nativeElement;
-    // const mouseDown$ = fromEvent<MouseEvent>(draggableElement, 'mousedown');
-    // const mouseMove$ = fromEvent<MouseEvent>(draggableElement, 'mousemove');
-    // const mouseUp$ = fromEvent<MouseEvent>(draggableElement, 'mouseup');
-    // const mouseLeave$ = fromEvent<MouseEvent>(draggableElement, 'mouseleave');
-    // const dragMove$ = mouseDown$.pipe(
-    //   switchMap((start) =>
-    //     mouseMove$.pipe(
-    //       // we transform the mouseDown and mouseMove event to get the necessary information
-    //       map((moveEvent) => ({
-    //         originalEvent: moveEvent,
-    //         deltaX: moveEvent.pageX - start.pageX,
-    //         deltaY: moveEvent.pageY - start.pageY,
-    //         startOffsetX: start.offsetX,
-    //         startOffsetY: start.offsetY,
-    //       })),
-    //       takeUntil(mouseUp$),
-    //       takeUntil(mouseLeave$)
-    //     )
-    //   )
-    // );
-    // dragMove$.subscribe((move) => {
-    //   const offsetX = move.originalEvent.x - move.startOffsetX;
-    //   const offsetY = move.originalEvent.y - move.startOffsetY;
-    //   // draggableElement.style.left = offsetX + 'px';
-    //   // draggableElement.style.top = offsetY + 'px';
-    //   console.log(offsetX, offsetY);
-    // });
-  }
-
-  public dragLeftEnd() {}
-
-  public dragRightStart($event: MouseEvent) {
-    // console.log(this.end);
-    // this.endChange.emit(new Date(0));
-  }
-
-  public dragRightEnd() {}
 }

@@ -1,10 +1,16 @@
 import { Tick } from './ruler.models';
-import { Component, Input, OnInit, HostBinding } from '@angular/core';
+import {
+  Component,
+  Input,
+  HostBinding,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'plopdown-ruler',
   templateUrl: './ruler.component.html',
   styleUrls: ['./ruler.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RulerComponent {
   @HostBinding('style.width.px')

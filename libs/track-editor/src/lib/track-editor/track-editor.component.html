@@ -1,8 +1,9 @@
 <plopdown-actions></plopdown-actions>
 
 <plopdown-canvas
+  *ngIf="video"
   [(layers)]="layers"
-  [(time)]="time"
+  [(time)]="video.currentTime"
   [(zoom)]="zoom"
-  [endTime]="endTime"
+  [endTime]="video.endTime"
 ></plopdown-canvas>

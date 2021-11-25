@@ -1,4 +1,10 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   mdiSkipNext,
   mdiSkipPrevious,
@@ -14,6 +20,7 @@ import {
   selector: 'plopdown-actions',
   templateUrl: './actions.component.html',
   styleUrls: ['./actions.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionsComponent {
   public mdiPlus = mdiPlus;

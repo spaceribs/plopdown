@@ -1,6 +1,7 @@
 import { LayerElement } from '../element/element.models';
 
 export interface Layer {
-  title: string;
+  title?: string;
+  readonly: boolean;
   elements: LayerElement[];
 }

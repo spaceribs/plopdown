@@ -8,7 +8,12 @@
   </div>
 </div>
 
-<div class="scroll-box" #scrollBox (click)="setTime($event)">
+<div
+  class="scroll-box"
+  #scrollBox
+  (click)="setTime($event)"
+  (wheel)="zoomScroll($event)"
+>
   <plopdown-ruler [width]="scrollWidth" [zoom]="zoom"></plopdown-ruler>
 
   <plopdown-layers
