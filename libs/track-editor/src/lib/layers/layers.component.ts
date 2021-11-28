@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { Layer } from '../layer/layer.models';
 import {
-  filter,
   map,
   switchMap,
   takeUntil,
@@ -40,6 +39,9 @@ export class LayersComponent implements OnDestroy {
   @Input() public layerElements: LayerElement[] = [];
   @Output() public layerElementsChange: EventEmitter<LayerElement[]> =
     new EventEmitter();
+
+  @Input() public layers: Layer[] = [];
+  @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
 
   private readonly elemDragStart$: Subject<[LayerElement, Layer]> =
     new Subject();
@@ -73,7 +75,7 @@ export class LayersComponent implements OnDestroy {
         if (dropLayer == null) {
           return;
         }
-        elem.layer = dropLayer.title;
+        elem.layer = dropLayer.id;
         this.layerElementsChange.emit(this.layerElements);
       });
     this.subs.add(layerDropSub);
@@ -83,30 +85,10 @@ export class LayersComponent implements OnDestroy {
     this.subs.unsubscribe();
   }
 
-  public get layers(): Layer[] {
-    const layers: Layer[] = [];
-
-    if (this.layerElements != null) {
-      const newLayers = this.layerElements.reduce((layers, cue) => {
-        const existingLayer = layers.find((layer) => layer.title === cue.layer);
-
-        if (existingLayer == null) {
-          layers.push({
-            readonly: false,
-            title: cue.layer,
-            elements: [cue],
-          });
-        } else {
-          existingLayer.elements.push(cue);
-        }
-
-        return layers;
-      }, [] as Layer[]);
-
-      layers.push(...newLayers);
-    }
-
-    return layers;
+  public elemLayer(layer: Layer): LayerElement[] {
+    return this.layerElements.filter((elem) => {
+      return elem.layer === layer.id;
+    });
   }
 
   public elemDragStart(elem: LayerElement, layer: Layer) {
@@ -122,6 +104,6 @@ export class LayersComponent implements OnDestroy {
   }
 
   public layerTrackBy(_: number, layer: Layer) {
-    return layer.title;
+    return layer.id;
   }
 }

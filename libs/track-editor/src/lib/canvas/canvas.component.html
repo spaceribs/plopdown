@@ -1,10 +1,6 @@
 <div class="layer-labels">
-  <div
-    *ngFor="let layerLabel of layerLabels"
-    [attr.title]="layerLabel"
-    class="layer-label"
-  >
-    {{ layerLabel }}
+  <div *ngFor="let layer of layers" [attr.title]="layer.id" class="layer-label">
+    {{ layer.id || 'Undefined' }}
   </div>
 </div>
 
@@ -20,6 +16,7 @@
     [width]="scrollWidth"
     [zoom]="zoom"
     [totalTime]="endTime"
+    [(layers)]="layers"
     [(layerElements)]="layerElements"
   >
   </plopdown-layers>

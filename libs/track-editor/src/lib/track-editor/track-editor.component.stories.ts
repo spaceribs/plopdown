@@ -17,7 +17,23 @@ export default {
       startTime: 0,
       endTime: 60000,
       currentTime: 30000,
+      id: 'video',
+      layer: 'Video',
     },
+    layers: [
+      {
+        id: 'Video',
+        readonly: true,
+      },
+      {
+        id: 'Layer 1',
+        readonly: false,
+      },
+      {
+        id: 'Layer 2',
+        readonly: false,
+      },
+    ],
     plopdownFile: {
       headers: {
         type: 'plopdown_v2',

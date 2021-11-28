@@ -1,3 +1,4 @@
+import { Layer } from './../layer/layer.models';
 import { LayerElement } from './../element/element.models';
 import { PlopdownFile } from '@plopdown/plopdown-file';
 import {
@@ -24,6 +25,9 @@ export class TrackEditorComponent {
   @Input() public plopdownFile: PlopdownFile | null = null;
   @Output() public plopdownFileChange: EventEmitter<PlopdownFile> =
     new EventEmitter();
+
+  @Input() public layers: Layer[] = [];
+  @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
 
   public get layerElements(): LayerElement[] {
     const layerElements: LayerElement[] = [];

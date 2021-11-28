@@ -26,6 +26,9 @@ export class CanvasComponent implements OnDestroy {
   @Output() public layerElementsChange: EventEmitter<LayerElement[]> =
     new EventEmitter();
 
+  @Input() public layers: Layer[] = [];
+  @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
+
   @Input() public startTime: number = 0;
   @Input() public endTime: number = 0;
 
@@ -68,13 +71,6 @@ export class CanvasComponent implements OnDestroy {
 
   public get scrollWidth(): number {
     return this.endTime / this.zoom;
-  }
-
-  public get layerLabels(): Set<string | undefined> {
-    return this.layerElements.reduce((memo, label) => {
-      memo.add(label.layer);
-      return memo;
-    }, new Set<string | undefined>());
   }
 
   public setTime(event: MouseEvent) {
