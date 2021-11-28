@@ -75,6 +75,8 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
   @ViewChild('dragAll')
   private dragAll: ElementRef<HTMLDivElement> | null = null;
 
+  @Output() public draggingElement: EventEmitter<null> = new EventEmitter();
+
   public ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
@@ -236,6 +238,11 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
         }
       );
       this.subs.add(finalElemSub);
+
+      const emitDraggingStartSub = dragElemStart$.subscribe(() => {
+        this.draggingElement.emit();
+      });
+      this.subs.add(emitDraggingStartSub);
     });
   }
 }

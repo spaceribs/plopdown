@@ -11,6 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subject, animationFrameScheduler, Subscription } from 'rxjs';
+import { LayerElement } from '../element/element.models';
 
 @Component({
   selector: 'plopdown-canvas',
@@ -21,8 +22,9 @@ import { Subject, animationFrameScheduler, Subscription } from 'rxjs';
 export class CanvasComponent implements OnDestroy {
   private readonly subs: Subscription = new Subscription();
 
-  @Input() public layers: Layer[] = [];
-  @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
+  @Input() public layerElements: LayerElement[] = [];
+  @Output() public layerElementsChange: EventEmitter<LayerElement[]> =
+    new EventEmitter();
 
   @Input() public startTime: number = 0;
   @Input() public endTime: number = 0;
@@ -66,6 +68,13 @@ export class CanvasComponent implements OnDestroy {
 
   public get scrollWidth(): number {
     return this.endTime / this.zoom;
+  }
+
+  public get layerLabels(): Set<string | undefined> {
+    return this.layerElements.reduce((memo, label) => {
+      memo.add(label.layer);
+      return memo;
+    }, new Set<string | undefined>());
   }
 
   public setTime(event: MouseEvent) {

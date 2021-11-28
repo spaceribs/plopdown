@@ -1,4 +1,4 @@
-import { Layer } from './../layer/layer.models';
+import { LayerElement } from './../element/element.models';
 import { PlopdownFile } from '@plopdown/plopdown-file';
 import {
   Component,
@@ -25,39 +25,21 @@ export class TrackEditorComponent {
   @Output() public plopdownFileChange: EventEmitter<PlopdownFile> =
     new EventEmitter();
 
-  public get layers(): Layer[] {
-    const layers: Layer[] = [];
+  public get layerElements(): LayerElement[] {
+    const layerElements: LayerElement[] = [];
 
     if (this.video != null) {
-      layers.push({
-        readonly: true,
-        title: 'Video',
-        elements: [this.video],
-      });
+      layerElements.push(this.video);
     }
 
-    if (this.plopdownFile != null) {
-      const newLayers = this.plopdownFile.cues.reduce((layers, cue) => {
-        const existingLayer = layers.find((layer) => layer.title === cue.layer);
-
-        if (existingLayer == null) {
-          layers.push({
-            readonly: false,
-            title: cue.layer,
-            elements: [cue],
-          });
-        } else {
-          existingLayer.elements.push(cue);
-        }
-
-        return layers;
-      }, [] as Layer[]);
-
-      layers.push(...newLayers);
+    if (this.plopdownFile?.cues != null) {
+      layerElements.push(...this.plopdownFile.cues);
     }
 
-    return layers;
+    return layerElements;
   }
 
-  public set layers(value: Layer[]) {}
+  public set layerElements(layerElements: LayerElement[]) {
+    console.log(layerElements);
+  }
 }

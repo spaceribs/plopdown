@@ -9,7 +9,16 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { Layer } from '../layer/layer.models';
-import { filter, map, switchMap, takeUntil, startWith } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  switchMap,
+  takeUntil,
+  startWith,
+  distinctUntilChanged,
+  share,
+  sample,
+} from 'rxjs/operators';
 import { LayerElement } from '../element/element.models';
 
 @Component({
@@ -28,15 +37,15 @@ export class LayersComponent implements OnDestroy {
   @Input() public zoom: number = 0;
   @Input() public totalTime: number = 0;
 
-  @Input() public layers: Layer[] = [];
-  @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
+  @Input() public layerElements: LayerElement[] = [];
+  @Output() public layerElementsChange: EventEmitter<LayerElement[]> =
+    new EventEmitter();
 
   private readonly elemDragStart$: Subject<[LayerElement, Layer]> =
     new Subject();
-  private readonly layerDrop$: Subject<Layer> = new Subject();
   private readonly layerOver$: Subject<Layer> = new Subject();
 
-  public overLayer$: Observable<Layer | null>;
+  public overLayer$: Observable<Layer>;
 
   constructor() {
     this.overLayer$ = this.elemDragStart$.pipe(
@@ -46,27 +55,26 @@ export class LayersComponent implements OnDestroy {
           startWith(elemLayer)
         );
       }),
-      startWith(null)
+      distinctUntilChanged(),
+      share()
     );
 
     const layerDropSub = this.elemDragStart$
       .pipe(
-        switchMap(([elem, elemLayer]) => {
-          return this.layerDrop$.pipe(
-            takeUntil(fromEvent(document, 'mouseup')),
-            filter((dropLayer) => dropLayer !== elemLayer),
-            map<Layer, [[LayerElement, Layer], Layer]>((dropLayer) => [
-              [elem, elemLayer],
-              dropLayer,
-            ])
+        switchMap(([elem, layer]) => {
+          return this.overLayer$.pipe(
+            sample(fromEvent(document, 'mouseup')),
+            // filter((dropLayer) => dropLayer?.title === elem),
+            map<Layer, [LayerElement, Layer]>((dropLayer) => [elem, dropLayer])
           );
         })
       )
-      .subscribe(([[elem, elemLayer], dropLayer]) => {
-        const currentIndex = elemLayer.elements.indexOf(elem);
-        elemLayer.elements.splice(currentIndex, 1);
-        dropLayer.elements.push(elem);
-        this.layersChange.emit(this.layers);
+      .subscribe(([elem, dropLayer]) => {
+        if (dropLayer == null) {
+          return;
+        }
+        elem.layer = dropLayer.title;
+        this.layerElementsChange.emit(this.layerElements);
       });
     this.subs.add(layerDropSub);
   }
@@ -75,13 +83,34 @@ export class LayersComponent implements OnDestroy {
     this.subs.unsubscribe();
   }
 
-  public elemDragStart($event: MouseEvent, elem: LayerElement, layer: Layer) {
-    $event.stopPropagation();
-    this.elemDragStart$.next([elem, layer]);
+  public get layers(): Layer[] {
+    const layers: Layer[] = [];
+
+    if (this.layerElements != null) {
+      const newLayers = this.layerElements.reduce((layers, cue) => {
+        const existingLayer = layers.find((layer) => layer.title === cue.layer);
+
+        if (existingLayer == null) {
+          layers.push({
+            readonly: false,
+            title: cue.layer,
+            elements: [cue],
+          });
+        } else {
+          existingLayer.elements.push(cue);
+        }
+
+        return layers;
+      }, [] as Layer[]);
+
+      layers.push(...newLayers);
+    }
+
+    return layers;
   }
 
-  public layerDrop(layer: Layer) {
-    this.layerDrop$.next(layer);
+  public elemDragStart(elem: LayerElement, layer: Layer) {
+    this.elemDragStart$.next([elem, layer]);
   }
 
   public layerOver(layer: Layer) {
