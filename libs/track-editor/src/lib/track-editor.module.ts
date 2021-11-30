@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IconModule } from '@plopdown/icon';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,11 +8,11 @@ import { RulerComponent } from './ruler/ruler.component';
 import { CurrentTimeComponent } from './current-time/current-time.component';
 import { LayersComponent } from './layers/layers.component';
 import { LayerComponent } from './layer/layer.component';
-import { ElementComponent } from './element/element.component';
+import { LayerCueComponent } from './layer-cue/layer-cue.component';
 import { CanvasComponent } from './canvas/canvas.component';
 
 @NgModule({
-  imports: [CommonModule, IconModule],
+  imports: [CommonModule, IconModule, FormsModule, ReactiveFormsModule],
   declarations: [
     TrackEditorComponent,
     ActionsComponent,
@@ -19,7 +20,7 @@ import { CanvasComponent } from './canvas/canvas.component';
     CurrentTimeComponent,
     LayersComponent,
     LayerComponent,
-    ElementComponent,
+    LayerCueComponent,
     CanvasComponent,
   ],
   exports: [TrackEditorComponent],

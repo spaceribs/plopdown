@@ -18,7 +18,7 @@ import {
   share,
   sample,
 } from 'rxjs/operators';
-import { LayerElement } from '../element/element.models';
+import { Cue } from '@plopdown/plopdown-cues';
 
 @Component({
   selector: 'plopdown-layers',
@@ -36,47 +36,45 @@ export class LayersComponent implements OnDestroy {
   @Input() public zoom: number = 0;
   @Input() public totalTime: number = 0;
 
-  @Input() public layerElements: LayerElement[] = [];
-  @Output() public layerElementsChange: EventEmitter<LayerElement[]> =
-    new EventEmitter();
+  @Input() public cues: Cue[] = [];
+  @Output() public cuesChange: EventEmitter<Cue[]> = new EventEmitter();
 
   @Input() public layers: Layer[] = [];
   @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
 
-  private readonly elemDragStart$: Subject<[LayerElement, Layer]> =
-    new Subject();
+  private readonly cueDragStart$: Subject<[Cue, Layer]> = new Subject();
   private readonly layerOver$: Subject<Layer> = new Subject();
 
   public overLayer$: Observable<Layer>;
 
   constructor() {
-    this.overLayer$ = this.elemDragStart$.pipe(
-      switchMap(([_, elemLayer]) => {
+    this.overLayer$ = this.cueDragStart$.pipe(
+      switchMap(([_, cueLayer]) => {
         return this.layerOver$.pipe(
           takeUntil(fromEvent(document, 'mouseup')),
-          startWith(elemLayer)
+          startWith(cueLayer)
         );
       }),
       distinctUntilChanged(),
       share()
     );
 
-    const layerDropSub = this.elemDragStart$
+    const layerDropSub = this.cueDragStart$
       .pipe(
-        switchMap(([elem, layer]) => {
+        switchMap(([cue, layer]) => {
           return this.overLayer$.pipe(
             sample(fromEvent(document, 'mouseup')),
-            // filter((dropLayer) => dropLayer?.title === elem),
-            map<Layer, [LayerElement, Layer]>((dropLayer) => [elem, dropLayer])
+            // filter((dropLayer) => dropLayer?.title === cue),
+            map<Layer, [Cue, Layer]>((dropLayer) => [cue, dropLayer])
           );
         })
       )
-      .subscribe(([elem, dropLayer]) => {
+      .subscribe(([cue, dropLayer]) => {
         if (dropLayer == null) {
           return;
         }
-        elem.layer = dropLayer.id;
-        this.layerElementsChange.emit(this.layerElements);
+        cue.layer = dropLayer.id;
+        this.cuesChange.emit(this.cues);
       });
     this.subs.add(layerDropSub);
   }
@@ -85,22 +83,22 @@ export class LayersComponent implements OnDestroy {
     this.subs.unsubscribe();
   }
 
-  public elemLayer(layer: Layer): LayerElement[] {
-    return this.layerElements.filter((elem) => {
-      return elem.layer === layer.id;
+  public cueLayer(layer: Layer): Cue[] {
+    return this.cues.filter((cue) => {
+      return cue.layer === layer.id;
     });
   }
 
-  public elemDragStart(elem: LayerElement, layer: Layer) {
-    this.elemDragStart$.next([elem, layer]);
+  public cueDragStart(cue: Cue, layer: Layer) {
+    this.cueDragStart$.next([cue, layer]);
   }
 
   public layerOver(layer: Layer) {
     this.layerOver$.next(layer);
   }
 
-  public elemTrackBy(_: number, elem: LayerElement) {
-    return elem.id;
+  public cueTrackBy(_: number, cue: Cue) {
+    return cue.id;
   }
 
   public layerTrackBy(_: number, layer: Layer) {

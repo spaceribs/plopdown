@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ElementComponent } from './element.component';
+import { LayerCueComponent } from './layer-cue.component';
 
-describe('ElementComponent', () => {
-  let component: ElementComponent;
-  let fixture: ComponentFixture<ElementComponent>;
+describe('LayerCueComponent', () => {
+  let component: LayerCueComponent;
+  let fixture: ComponentFixture<LayerCueComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ElementComponent ]
-    })
-    .compileComponents();
+      declarations: [LayerCueComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ElementComponent);
+    fixture = TestBed.createComponent(LayerCueComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

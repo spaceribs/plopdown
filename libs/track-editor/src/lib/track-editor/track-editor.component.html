@@ -1,8 +1,8 @@
 <plopdown-actions></plopdown-actions>
 
 <plopdown-canvas
-  *ngIf="video"
-  [(layerElements)]="layerElements"
+  *ngIf="plopdownFile"
+  [(cues)]="plopdownFile.cues"
   [(layers)]="layers"
   [(time)]="video.currentTime"
   [(zoom)]="zoom"

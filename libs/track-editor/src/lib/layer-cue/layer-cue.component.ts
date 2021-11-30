@@ -21,19 +21,18 @@ import {
   throttleTime,
   pluck,
   filter,
-  mapTo,
   sample,
   distinctUntilChanged,
   tap,
 } from 'rxjs/operators';
 
 @Component({
-  selector: 'plopdown-element',
-  templateUrl: './element.component.html',
-  styleUrls: ['./element.component.scss'],
+  selector: 'plopdown-layer-cue',
+  templateUrl: './layer-cue.component.html',
+  styleUrls: ['./layer-cue.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ElementComponent implements AfterViewInit, OnDestroy {
+export class LayerCueComponent implements AfterViewInit, OnDestroy {
   private subs: Subscription = new Subscription();
 
   @Input() public zoom: number = 0;
@@ -75,7 +74,7 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
   @ViewChild('dragAll')
   private dragAll: ElementRef<HTMLDivElement> | null = null;
 
-  @Output() public draggingElement: EventEmitter<null> = new EventEmitter();
+  @Output() public draggingCue: EventEmitter<null> = new EventEmitter();
 
   public ngOnDestroy(): void {
     this.subs.unsubscribe();
@@ -240,7 +239,7 @@ export class ElementComponent implements AfterViewInit, OnDestroy {
       this.subs.add(finalElemSub);
 
       const emitDraggingStartSub = dragElemStart$.subscribe(() => {
-        this.draggingElement.emit();
+        this.draggingCue.emit();
       });
       this.subs.add(emitDraggingStartSub);
     });

@@ -4,16 +4,16 @@
   [title]="layer.id || 'Undefined'"
   [class.dropping-over]="(overLayer$ | async)?.id === layer.id"
 >
-  <plopdown-element
+  <plopdown-layer-cue
     autofocus
-    *ngFor="let elem of elemLayer(layer); trackBy: elemTrackBy"
-    (draggingElement)="elemDragStart(elem, layer)"
+    *ngFor="let cue of cueLayer(layer); trackBy: cueTrackBy"
+    (draggingCue)="cueDragStart(cue, layer)"
     [zoom]="zoom"
     [totalTime]="totalTime"
-    [(start)]="elem.startTime"
-    [(end)]="elem.endTime"
+    [(start)]="cue.startTime"
+    [(end)]="cue.endTime"
     color="#666"
   >
     test
-  </plopdown-element>
+  </plopdown-layer-cue>
 </plopdown-layer>

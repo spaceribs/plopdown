@@ -1,3 +1,4 @@
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { filter, throttleTime } from 'rxjs/operators';
 import { Layer } from './../layer/layer.models';
 import {
@@ -11,7 +12,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subject, animationFrameScheduler, Subscription } from 'rxjs';
-import { LayerElement } from '../element/element.models';
+import { mdiArrowDown, mdiArrowUp, mdiClose } from '@mdi/js';
+import { Cue } from '@plopdown/plopdown-cues';
 
 @Component({
   selector: 'plopdown-canvas',
@@ -22,9 +24,12 @@ import { LayerElement } from '../element/element.models';
 export class CanvasComponent implements OnDestroy {
   private readonly subs: Subscription = new Subscription();
 
-  @Input() public layerElements: LayerElement[] = [];
-  @Output() public layerElementsChange: EventEmitter<LayerElement[]> =
-    new EventEmitter();
+  public mdiClose = mdiClose;
+  public mdiArrowUp = mdiArrowUp;
+  public mdiArrowDown = mdiArrowDown;
+
+  @Input() public cues: Cue[] = [];
+  @Output() public cuesChange: EventEmitter<Cue[]> = new EventEmitter();
 
   @Input() public layers: Layer[] = [];
   @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
@@ -40,6 +45,14 @@ export class CanvasComponent implements OnDestroy {
 
   @ViewChild('scrollBox')
   public scrollBox: ElementRef<HTMLDivElement> | null = null;
+
+  public addLayerForm: FormGroup = new FormGroup({
+    id: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(40),
+    ]),
+  });
 
   private readonly zoomUpdate$: Subject<number> = new Subject();
 
@@ -84,5 +97,67 @@ export class CanvasComponent implements OnDestroy {
 
   public zoomScroll(event: WheelEvent) {
     this.zoomUpdate$.next(event.deltaY);
+  }
+
+  public addLayer(event: Event) {
+    event.preventDefault();
+
+    if (this.addLayerForm.valid != true) {
+      return;
+    }
+
+    this.layers.push({
+      id: this.addLayerForm.value.id,
+      readonly: false,
+    });
+
+    this.addLayerForm.reset();
+  }
+
+  public setLayerId(layer: Layer, event: Event) {
+    event.preventDefault();
+
+    if (event.target == null) {
+      return;
+    }
+
+    const newId = (event.target as any).innerText.trim();
+
+    this.cues
+      .filter((elem) => elem.layer === layer.id)
+      .forEach((elem) => {
+        elem.layer = newId;
+      });
+
+    layer.id = newId;
+
+    if (layer.id === '') {
+      this.removeLayer(layer);
+    }
+
+    this.cuesChange.emit(this.cues);
+    this.layersChange.emit(this.layers);
+  }
+
+  public removeLayer(layer: Layer) {
+    const index = this.layers.indexOf(layer);
+    this.layers.splice(index, 1);
+    this.layersChange.emit(this.layers);
+  }
+
+  public moveLayerUp(layer: Layer) {
+    const fromIndex = this.layers.indexOf(layer);
+    const toIndex = fromIndex - 1;
+    this.layers.splice(fromIndex, 1);
+    this.layers.splice(toIndex, 0, layer);
+    this.layersChange.emit(this.layers);
+  }
+
+  public moveLayerDown(layer: Layer) {
+    const fromIndex = this.layers.indexOf(layer);
+    const toIndex = fromIndex + 1;
+    this.layers.splice(fromIndex, 1);
+    this.layers.splice(toIndex, 0, layer);
+    this.layersChange.emit(this.layers);
   }
 }
