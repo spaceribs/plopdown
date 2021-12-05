@@ -1,5 +1,4 @@
 import { Layer } from './../layer/layer.models';
-import { LayerElement } from '../layer-cue/element.models';
 import { PlopdownFile } from '@plopdown/plopdown-file';
 import {
   Component,
@@ -8,6 +7,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { Cue } from '@plopdown/plopdown-cues';
 
 @Component({
   selector: 'plopdown-track-editor',
@@ -16,6 +16,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrackEditorComponent {
+  @Input() public currentTime: number = 0;
+  @Input() public endTime: number = 0;
+
   @Input() public zoom: number = 10;
   @Output() public zoomChange: EventEmitter<Date> = new EventEmitter();
 
@@ -25,4 +28,8 @@ export class TrackEditorComponent {
 
   @Input() public layers: Layer[] = [];
   @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
+
+  cuesUpdate(cues: Cue[]) {
+    console.log(cues);
+  }
 }

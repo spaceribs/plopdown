@@ -40,7 +40,6 @@ export class LayersComponent implements OnDestroy {
   @Output() public cuesChange: EventEmitter<Cue[]> = new EventEmitter();
 
   @Input() public layers: Layer[] = [];
-  @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
 
   private readonly cueDragStart$: Subject<[Cue, Layer]> = new Subject();
   private readonly layerOver$: Subject<Layer> = new Subject();
@@ -103,5 +102,15 @@ export class LayersComponent implements OnDestroy {
 
   public layerTrackBy(_: number, layer: Layer) {
     return layer.id;
+  }
+
+  public startTimeUpdate(cue: Cue, startTime: number) {
+    cue.startTime = startTime;
+    this.cuesChange.emit(this.cues);
+  }
+
+  public endTimeUpdate(cue: Cue, endTime: number) {
+    cue.endTime = endTime;
+    this.cuesChange.emit(this.cues);
   }
 }

@@ -13,13 +13,8 @@ export default {
   ],
   args: {
     zoom: 10,
-    video: {
-      startTime: 0,
-      endTime: 60000,
-      currentTime: 30000,
-      id: 'video',
-      layer: 'Video',
-    },
+    endTime: 60000,
+    currentTime: 30000,
     layers: [
       {
         id: 'Video',
@@ -108,6 +103,8 @@ export default {
   argTypes: {
     timeChange: { action: 'timeChange' },
     zoomChange: { action: 'zoomChange' },
+    plopdownFileChange: { action: 'plopdownFileChange' },
+    layersChange: { action: 'layersChange' },
   },
 } as Meta<TrackEditorComponent>;
 

@@ -2,9 +2,11 @@
 
 <plopdown-canvas
   *ngIf="plopdownFile"
-  [(cues)]="plopdownFile.cues"
-  [(layers)]="layers"
-  [(time)]="video.currentTime"
+  [cues]="plopdownFile.cues"
+  (cuesChange)="plopdownFileChange.emit(plopdownFile)"
+  [layers]="layers"
+  (layersChange)="layersChange.emit($event)"
+  [(time)]="currentTime"
   [(zoom)]="zoom"
-  [endTime]="video.endTime"
+  [endTime]="endTime"
 ></plopdown-canvas>

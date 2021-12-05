@@ -10,8 +10,10 @@
     (draggingCue)="cueDragStart(cue, layer)"
     [zoom]="zoom"
     [totalTime]="totalTime"
-    [(start)]="cue.startTime"
-    [(end)]="cue.endTime"
+    [start]="cue.startTime"
+    (startChange)="startTimeUpdate(cue, $event)"
+    [end]="cue.endTime"
+    (endChange)="endTimeUpdate(cue, $event)"
     color="#666"
   >
     test

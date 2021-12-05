@@ -71,8 +71,9 @@
     [width]="scrollWidth"
     [zoom]="zoom"
     [totalTime]="endTime"
-    [(layers)]="layers"
-    [(cues)]="cues"
+    [layers]="layers"
+    [cues]="cues"
+    (cuesChange)="this.cuesChange.emit($event)"
   >
   </plopdown-layers>
 

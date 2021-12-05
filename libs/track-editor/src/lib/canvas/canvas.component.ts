@@ -3,6 +3,7 @@ import { filter, throttleTime } from 'rxjs/operators';
 import { Layer } from './../layer/layer.models';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -140,24 +141,39 @@ export class CanvasComponent implements OnDestroy {
   }
 
   public removeLayer(layer: Layer) {
+    console.log(layer);
+
     const index = this.layers.indexOf(layer);
+
+    this.cues
+      .filter((cue) => cue.layer === layer.id)
+      .forEach((cue) => {
+        cue.layer = this.layers[index - 1].id;
+      });
+
     this.layers.splice(index, 1);
+
+    this.cuesChange.emit(this.cues);
     this.layersChange.emit(this.layers);
   }
 
   public moveLayerUp(layer: Layer) {
     const fromIndex = this.layers.indexOf(layer);
     const toIndex = fromIndex - 1;
+
     this.layers.splice(fromIndex, 1);
     this.layers.splice(toIndex, 0, layer);
+
     this.layersChange.emit(this.layers);
   }
 
   public moveLayerDown(layer: Layer) {
     const fromIndex = this.layers.indexOf(layer);
     const toIndex = fromIndex + 1;
+
     this.layers.splice(fromIndex, 1);
     this.layers.splice(toIndex, 0, layer);
+
     this.layersChange.emit(this.layers);
   }
 }
