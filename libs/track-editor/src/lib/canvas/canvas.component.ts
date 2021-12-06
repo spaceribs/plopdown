@@ -3,7 +3,6 @@ import { filter, throttleTime } from 'rxjs/operators';
 import { Layer } from './../layer/layer.models';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -107,73 +106,94 @@ export class CanvasComponent implements OnDestroy {
       return;
     }
 
-    this.layers.push({
+    const layers = [...this.layers];
+
+    layers.push({
       id: this.addLayerForm.value.id,
       readonly: false,
     });
 
     this.addLayerForm.reset();
+
+    this.layersChange.emit(layers);
   }
 
-  public setLayerId(layer: Layer, event: Event) {
+  public setLayerId(oldLayer: Layer, event: Event) {
     event.preventDefault();
 
     if (event.target == null) {
       return;
     }
 
+    const layers = [...this.layers];
+    const index = layers.indexOf(oldLayer);
+    const layer = { ...oldLayer };
+
+    layers.splice(index, 1, layer);
+
     const newId = (event.target as any).innerText.trim();
 
-    this.cues
-      .filter((elem) => elem.layer === layer.id)
-      .forEach((elem) => {
-        elem.layer = newId;
-      });
+    const cues = this.cues.map((oldCue) => {
+      if (oldCue.layer === layer.id) {
+        const cue = { ...oldCue };
+        cue.layer = newId;
+        return cue;
+      }
+      return oldCue;
+    });
 
     layer.id = newId;
 
     if (layer.id === '') {
       this.removeLayer(layer);
+      return;
     }
 
-    this.cuesChange.emit(this.cues);
-    this.layersChange.emit(this.layers);
+    this.cuesChange.emit(cues);
+    this.layersChange.emit(layers);
   }
 
   public removeLayer(layer: Layer) {
-    console.log(layer);
+    const layers = [...this.layers];
 
-    const index = this.layers.indexOf(layer);
+    const index = layers.indexOf(layer);
 
-    this.cues
-      .filter((cue) => cue.layer === layer.id)
-      .forEach((cue) => {
-        cue.layer = this.layers[index - 1].id;
-      });
+    const cues = this.cues.map((oldCue) => {
+      if (oldCue.layer === layer.id) {
+        const cue = { ...oldCue };
+        cue.layer = layers[index - 1].id;
+        return cue;
+      }
+      return oldCue;
+    });
 
-    this.layers.splice(index, 1);
+    layers.splice(index, 1);
 
-    this.cuesChange.emit(this.cues);
-    this.layersChange.emit(this.layers);
+    this.cuesChange.emit(cues);
+    this.layersChange.emit(layers);
   }
 
   public moveLayerUp(layer: Layer) {
-    const fromIndex = this.layers.indexOf(layer);
+    const layers = [...this.layers];
+
+    const fromIndex = layers.indexOf(layer);
     const toIndex = fromIndex - 1;
 
-    this.layers.splice(fromIndex, 1);
-    this.layers.splice(toIndex, 0, layer);
+    layers.splice(fromIndex, 1);
+    layers.splice(toIndex, 0, layer);
 
-    this.layersChange.emit(this.layers);
+    this.layersChange.emit(layers);
   }
 
   public moveLayerDown(layer: Layer) {
-    const fromIndex = this.layers.indexOf(layer);
+    const layers = [...this.layers];
+
+    const fromIndex = layers.indexOf(layer);
     const toIndex = fromIndex + 1;
 
-    this.layers.splice(fromIndex, 1);
-    this.layers.splice(toIndex, 0, layer);
+    layers.splice(fromIndex, 1);
+    layers.splice(toIndex, 0, layer);
 
-    this.layersChange.emit(this.layers);
+    this.layersChange.emit(layers);
   }
 }

@@ -13,6 +13,5 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayerComponent {
-  @Input() public title: string = '';
   @Output() public layerDrop: EventEmitter<void> = new EventEmitter();
 }
