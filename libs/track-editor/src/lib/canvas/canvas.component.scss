@@ -44,7 +44,12 @@
   }
 }
 
+plopdown-current-time.hint {
+  display: none;
+}
+
 .scroll-box {
+  will-change: scroll-position;
   overflow: auto;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -52,4 +57,9 @@
   box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
   overscroll-behavior: none;
   padding-bottom: 15px;
+  &:hover {
+    plopdown-current-time.hint {
+      display: block;
+    }
+  }
 }

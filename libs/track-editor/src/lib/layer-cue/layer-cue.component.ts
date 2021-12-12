@@ -1,16 +1,21 @@
+import { Cue, PLOPDOWN_TEMPLATES } from '@plopdown/plopdown-cues';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ComponentFactoryResolver,
   ElementRef,
   EventEmitter,
   HostBinding,
   HostListener,
+  Injector,
   Input,
   NgZone,
+  OnChanges,
   OnDestroy,
   Output,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { animationFrameScheduler, fromEvent, Subscription } from 'rxjs';
@@ -32,8 +37,10 @@ import {
   styleUrls: ['./layer-cue.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayerCueComponent implements AfterViewInit, OnDestroy {
+export class LayerCueComponent implements AfterViewInit, OnDestroy, OnChanges {
   private subs: Subscription = new Subscription();
+
+  @Input() public cue: Cue | null = null;
 
   @Input() public zoom: number = 0;
   @Input() public totalTime: number = 0;
@@ -44,11 +51,20 @@ export class LayerCueComponent implements AfterViewInit, OnDestroy {
   @Input() public end: number = 0;
   @Output() public endChange: EventEmitter<number> = new EventEmitter();
 
+  @Input() public cueSelected: Cue | null = null;
+  @Output() public cueSelectedChange: EventEmitter<Cue | null> =
+    new EventEmitter();
+
   @HostBinding('attr.tabindex') public tabIndex = 0;
 
-  @Input()
+  @HostListener('focus')
+  public onFocus() {
+    this.cueSelectedChange.emit(this.cue);
+  }
+
   @HostBinding('style.background-color')
-  public color: string = '#0F0';
+  public color: string = '#666';
+  public text: string = '[Undefined]';
 
   @HostBinding('style.left.px')
   public get left(): number {
@@ -58,6 +74,11 @@ export class LayerCueComponent implements AfterViewInit, OnDestroy {
   @HostBinding('style.right.px')
   public get right(): number {
     return (this.totalTime - this.end) / this.zoom;
+  }
+
+  @HostBinding('class.focused')
+  public get focused(): boolean {
+    return this.cue === this.cueSelected;
   }
 
   @HostListener('click', ['$event'])
@@ -83,6 +104,8 @@ export class LayerCueComponent implements AfterViewInit, OnDestroy {
   constructor(
     private renderer: Renderer2,
     private element: ElementRef,
+    private cfr: ComponentFactoryResolver,
+    private injector: Injector,
     private zone: NgZone
   ) {}
 
@@ -243,5 +266,22 @@ export class LayerCueComponent implements AfterViewInit, OnDestroy {
       });
       this.subs.add(emitDraggingStartSub);
     });
+  }
+
+  public ngOnChanges() {
+    if (this.cue == null) {
+      this.color = '#666';
+      this.text = '[Undefined]';
+      return;
+    }
+
+    const componentFactory = this.cfr.resolveComponentFactory(
+      PLOPDOWN_TEMPLATES[this.cue.data.type]
+    );
+
+    const component = componentFactory.create(this.injector).instance;
+
+    this.text = component.textPreview(this.cue.data);
+    this.color = component.color;
   }
 }

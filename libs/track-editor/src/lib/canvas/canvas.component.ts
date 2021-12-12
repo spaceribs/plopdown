@@ -37,11 +37,17 @@ export class CanvasComponent implements OnDestroy {
   @Input() public startTime: number = 0;
   @Input() public endTime: number = 0;
 
+  @Input() public cueSelected: Cue | null = null;
+  @Output() public cueSelectedChange: EventEmitter<Cue | null> =
+    new EventEmitter();
+
   @Input() public zoom: number = 10;
   @Output() public zoomChange: EventEmitter<number> = new EventEmitter();
 
   @Input() public time: number = 0;
   @Output() public timeChange: EventEmitter<number> = new EventEmitter();
+
+  public hintTime: number = 0;
 
   @ViewChild('scrollBox')
   public scrollBox: ElementRef<HTMLDivElement> | null = null;
@@ -78,12 +84,28 @@ export class CanvasComponent implements OnDestroy {
     this.subs.unsubscribe();
   }
 
+  public get hintTimePosition(): number {
+    return this.hintTime / this.zoom;
+  }
+
   public get timePosition(): number {
     return this.time / this.zoom;
   }
 
   public get scrollWidth(): number {
     return this.endTime / this.zoom;
+  }
+
+  public setHintTime(event: MouseEvent) {
+    const relativeLeft = event.pageX;
+
+    const boxRect = this.scrollBox?.nativeElement.getBoundingClientRect();
+    const scrollWidth = this.scrollBox?.nativeElement.scrollWidth;
+
+    if (scrollWidth != null && boxRect != null) {
+      const ratio = (relativeLeft - boxRect.x) / scrollWidth;
+      this.hintTime = this.endTime * ratio;
+    }
   }
 
   public setTime(event: MouseEvent) {
@@ -195,5 +217,13 @@ export class CanvasComponent implements OnDestroy {
     layers.splice(toIndex, 0, layer);
 
     this.layersChange.emit(layers);
+  }
+
+  public layerTrackBy(_: number, layer: Layer) {
+    return layer.id;
+  }
+
+  public deselectCue(event: MouseEvent) {
+    this.cueSelectedChange.emit(null);
   }
 }

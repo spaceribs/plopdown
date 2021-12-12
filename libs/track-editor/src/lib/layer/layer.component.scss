@@ -4,6 +4,7 @@
   box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
   margin-top: -1px;
   display: block;
+  cursor: text;
   &:focus-within {
     background-color: rgb(226, 226, 226);
   }

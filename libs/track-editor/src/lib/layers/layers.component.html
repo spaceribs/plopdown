@@ -14,8 +14,9 @@
     (startChange)="startTimeUpdate(cue, $event)"
     [end]="cue.endTime"
     (endChange)="endTimeUpdate(cue, $event)"
-    color="#666"
+    [cue]="cue"
+    [cueSelected]="cueSelected"
+    (cueSelectedChange)="cueSelectedChange.emit(cue)"
   >
-    test
   </plopdown-layer-cue>
 </plopdown-layer>

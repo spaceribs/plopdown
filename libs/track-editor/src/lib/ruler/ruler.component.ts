@@ -17,6 +17,9 @@ export class RulerComponent {
   @Input()
   public width: number = 0;
 
+  @Input() public viewStart: number = 0;
+  @Input() public viewEnd: number = 0;
+
   @Input() public zoom: number = 0;
 
   public get numOfTicks(): number {
@@ -30,5 +33,9 @@ export class RulerComponent {
         left: index * 100,
       };
     });
+  }
+
+  public trackTicks(_: number, tick: Tick) {
+    return tick.left;
   }
 }

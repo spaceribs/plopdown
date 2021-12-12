@@ -1,6 +1,11 @@
 <div class="layer-labels">
   <div
-    *ngFor="let layer of layers; let first = first; let last = last"
+    *ngFor="
+      let layer of layers;
+      trackBy: layerTrackBy;
+      let first = first;
+      let last = last
+    "
     [attr.title]="layer.id"
     class="layer-label"
   >
@@ -62,23 +67,33 @@
 <div
   class="scroll-box"
   #scrollBox
+  (mousemove)="setHintTime($event)"
   (click)="setTime($event)"
   (wheel)="zoomScroll($event)"
 >
   <plopdown-ruler [width]="scrollWidth" [zoom]="zoom"></plopdown-ruler>
 
   <plopdown-layers
+    (click)="deselectCue($event)"
     [width]="scrollWidth"
     [zoom]="zoom"
     [totalTime]="endTime"
     [layers]="layers"
     [cues]="cues"
     (cuesChange)="this.cuesChange.emit($event)"
+    [cueSelected]="cueSelected"
+    (cueSelectedChange)="cueSelectedChange.emit($event)"
   >
   </plopdown-layers>
 
   <plopdown-current-time
     [left]="timePosition"
     [time]="time"
+  ></plopdown-current-time>
+
+  <plopdown-current-time
+    class="hint"
+    [left]="hintTimePosition"
+    [time]="hintTime"
   ></plopdown-current-time>
 </div>

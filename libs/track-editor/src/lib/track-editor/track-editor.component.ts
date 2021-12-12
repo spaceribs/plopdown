@@ -29,7 +29,7 @@ export class TrackEditorComponent {
   @Input() public layers: Layer[] = [];
   @Output() public layersChange: EventEmitter<Layer[]> = new EventEmitter();
 
-  cuesUpdate(cues: Cue[]) {
-    console.log(cues);
-  }
+  @Input() public cueSelected: Cue | null = null;
+  @Output() public cueSelectedChange: EventEmitter<Cue | null> =
+    new EventEmitter();
 }

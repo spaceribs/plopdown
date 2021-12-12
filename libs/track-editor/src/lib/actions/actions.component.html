@@ -1,34 +1,65 @@
 <div class="actions columns is-mobile">
   <div class="column is-narrow">
     <div class="buttons has-addons">
-      <button class="button is-light is-small">
+      <button class="button is-light is-small" (click)="timeChange.emit(0)">
         <plopdown-icon [path]="mdiSkipPrevious"></plopdown-icon>
       </button>
-      <button class="button is-light is-small">
+      <button
+        class="button is-light is-small"
+        (click)="timeChange.emit(time - 10)"
+      >
         <plopdown-icon [path]="mdiRewind10"></plopdown-icon>
       </button>
-      <button class="button is-light is-small">
+      <button class="button is-light is-small" (click)="playPause.emit()">
         <plopdown-icon *ngIf="playing" [path]="mdiPause"></plopdown-icon>
         <plopdown-icon *ngIf="!playing" [path]="mdiPlay"></plopdown-icon>
       </button>
-      <button class="button is-light is-small">
+      <button
+        class="button is-light is-small"
+        (click)="timeChange.emit(time + 10)"
+      >
         <plopdown-icon [path]="mdiFastForward10"></plopdown-icon>
       </button>
-      <button class="button is-light is-small">
+      <button
+        class="button is-light is-small"
+        (click)="timeChange.emit(endTime)"
+      >
         <plopdown-icon [path]="mdiSkipNext"></plopdown-icon>
       </button>
     </div>
   </div>
 
   <div class="column is-narrow">
-    <div class="buttons has-addons">
-      <button class="button is-small">
-        <plopdown-icon [path]="mdiMinus"></plopdown-icon>
-      </button>
-      <button class="button is-small" disabled>Reset</button>
-      <button class="button is-small">
-        <plopdown-icon [path]="mdiPlus"></plopdown-icon>
-      </button>
+    <div class="field has-addons">
+      <p class="control">
+        <button
+          (click)="zoomChange.emit(zoom - 1)"
+          [disabled]="this.zoom <= 2"
+          class="button is-small"
+        >
+          <plopdown-icon [path]="mdiMagnify"></plopdown-icon>
+        </button>
+      </p>
+      <p class="control">
+        <input
+          class="input is-small"
+          type="number"
+          [ngModel]="this.zoom"
+          (ngModelChange)="this.zoomChange.emit($event)"
+          step="1"
+          min="2"
+          max="100"
+        />
+      </p>
+      <p class="control">
+        <button
+          class="button is-small"
+          (click)="zoomChange.emit(10)"
+          [disabled]="this.zoom === 10"
+        >
+          Reset
+        </button>
+      </p>
     </div>
   </div>
 </div>

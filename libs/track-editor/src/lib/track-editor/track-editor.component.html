@@ -1,4 +1,8 @@
-<plopdown-actions></plopdown-actions>
+<plopdown-actions
+  [(time)]="currentTime"
+  [(zoom)]="zoom"
+  [endTime]="endTime"
+></plopdown-actions>
 
 <plopdown-canvas
   *ngIf="plopdownFile"
@@ -6,5 +10,6 @@
   [(layers)]="layers"
   [(time)]="currentTime"
   [(zoom)]="zoom"
+  [(cueSelected)]="cueSelected"
   [endTime]="endTime"
 ></plopdown-canvas>

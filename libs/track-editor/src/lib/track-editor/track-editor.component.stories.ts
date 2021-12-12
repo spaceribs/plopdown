@@ -104,6 +104,7 @@ export default {
     timeChange: { action: 'timeChange' },
     zoomChange: { action: 'zoomChange' },
     plopdownFileChange: { action: 'plopdownFileChange' },
+    cueSelectedChange: { action: 'cueSelectedChange' },
     layersChange: { action: 'layersChange' },
   },
 } as Meta<TrackEditorComponent>;

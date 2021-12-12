@@ -37,3 +37,15 @@
     left: -5px;
   }
 }
+
+:host-context(.hint) {
+  box-shadow: 1px 0 0 0 inset rgba(0, 0, 0, 0.2);
+  .indicator {
+    border-left-width: 1px;
+    border-left-color: rgba(226, 226, 226);
+    color: inherit;
+  }
+  &::after {
+    display: none;
+  }
+}

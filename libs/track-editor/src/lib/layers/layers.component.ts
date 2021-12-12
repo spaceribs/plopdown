@@ -39,6 +39,10 @@ export class LayersComponent implements OnDestroy {
   @Input() public cues: Cue[] = [];
   @Output() public cuesChange: EventEmitter<Cue[]> = new EventEmitter();
 
+  @Input() public cueSelected: Cue | null = null;
+  @Output() public cueSelectedChange: EventEmitter<Cue | null> =
+    new EventEmitter();
+
   @Input() public layers: Layer[] = [];
 
   private readonly cueDragStart$: Subject<[Cue, Layer]> = new Subject();

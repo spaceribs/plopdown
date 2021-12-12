@@ -2,15 +2,14 @@
   position: absolute;
   top: 3px;
   bottom: 3px;
-  background-color: rgb(87, 34, 173);
-  color: white;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.54);
   box-sizing: border-box;
   min-width: 3px;
 
-  &:focus {
+  &:focus,
+  &.focused {
     box-shadow: 0 0 0px 1px rgb(255, 255, 255), 0 0 0px 3px rgb(0, 102, 255);
     z-index: 1;
   }

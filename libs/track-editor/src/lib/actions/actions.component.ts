@@ -14,6 +14,7 @@ import {
   mdiPlus,
   mdiMinus,
   mdiPause,
+  mdiMagnify,
 } from '@mdi/js';
 
 @Component({
@@ -23,8 +24,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionsComponent {
-  public mdiPlus = mdiPlus;
-  public mdiMinus = mdiMinus;
+  public mdiMagnify = mdiMagnify;
 
   public mdiSkipNext = mdiSkipNext;
   public mdiRewind10 = mdiRewind10;
@@ -35,13 +35,13 @@ export class ActionsComponent {
 
   @Input() playing: boolean = false;
 
-  @Output() gotoStart: EventEmitter<void> = new EventEmitter();
-  @Output() rewind: EventEmitter<number> = new EventEmitter();
-  @Output() playPause: EventEmitter<void> = new EventEmitter();
-  @Output() fastForward: EventEmitter<number> = new EventEmitter();
-  @Output() gotoEnd: EventEmitter<void> = new EventEmitter();
+  @Input() endTime: number = 0;
 
-  @Output() zoomIn: EventEmitter<void> = new EventEmitter();
-  @Output() zoomReset: EventEmitter<void> = new EventEmitter();
-  @Output() zoomOut: EventEmitter<void> = new EventEmitter();
+  @Input() zoom: number = 0;
+  @Output() zoomChange: EventEmitter<number> = new EventEmitter();
+
+  @Input() time: number = 0;
+  @Output() timeChange: EventEmitter<number> = new EventEmitter();
+
+  @Output() playPause: EventEmitter<void> = new EventEmitter();
 }
