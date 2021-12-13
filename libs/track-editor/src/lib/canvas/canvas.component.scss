@@ -1,12 +1,15 @@
 :host {
-  display: flex;
-  flex-direction: row;
+  position: relative;
+  display: block;
+  min-height: 300px;
 }
 
 .layer-labels {
   box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
-  flex: 0 0 100px;
   width: 100px;
+  top: 0;
+  left: 0;
+  position: absolute;
   margin-right: -1px;
   padding-top: 15px;
 
@@ -50,13 +53,16 @@ plopdown-current-time.hint {
 
 .scroll-box {
   will-change: scroll-position;
+  top: 0;
+  left: 99px;
+  right: 0;
+  position: absolute;
   overflow: auto;
   overflow-x: scroll;
   overflow-y: hidden;
-  position: relative;
   box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
   overscroll-behavior: none;
-  padding-bottom: 15px;
+  padding-bottom: 65px;
   &:hover {
     plopdown-current-time.hint {
       display: block;

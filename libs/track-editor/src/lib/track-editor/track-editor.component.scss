@@ -1,10 +1,25 @@
 :host {
   display: block;
-  overflow: hidden;
+  position: relative;
   user-select: none;
   font-size: 10px;
   line-height: 14px;
-  .actions {
-    margin-bottom: 0;
-  }
+}
+
+.actions {
+  margin-bottom: 0;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 300px;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  width: 301px;
+  right: 0;
 }

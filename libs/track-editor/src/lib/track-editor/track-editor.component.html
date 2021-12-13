@@ -1,15 +1,24 @@
-<plopdown-actions
-  [(time)]="currentTime"
-  [(zoom)]="zoom"
-  [endTime]="endTime"
-></plopdown-actions>
+<div class="content">
+  <plopdown-actions
+    [(time)]="currentTime"
+    [(zoom)]="zoom"
+    [endTime]="endTime"
+  ></plopdown-actions>
 
-<plopdown-canvas
-  *ngIf="plopdownFile"
-  [(cues)]="plopdownFile.cues"
-  [(layers)]="layers"
-  [(time)]="currentTime"
-  [(zoom)]="zoom"
-  [(cueSelected)]="cueSelected"
-  [endTime]="endTime"
-></plopdown-canvas>
+  <plopdown-canvas
+    *ngIf="plopdownFile"
+    [(cues)]="plopdownFile.cues"
+    [(layers)]="layers"
+    [(time)]="currentTime"
+    [(zoom)]="zoom"
+    [(cueSelected)]="cueSelected"
+    [endTime]="endTime"
+  ></plopdown-canvas>
+</div>
+
+<div class="sidebar" *ngIf="plopdownFile !== null">
+  <plopdown-inspector
+    [(cueSelected)]="cueSelected"
+    [(header)]="plopdownFile.headers"
+  ></plopdown-inspector>
+</div>

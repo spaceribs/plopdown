@@ -8,7 +8,7 @@ import { VideoRef } from '@plopdown/video-refs';
  *
  * @interface PlopdownFileHeaders
  */
-interface PlopdownFileHeaders
+export interface PlopdownFileHeaders
   extends PouchDB.Core.IdMeta,
     PouchDB.Core.RevisionIdMeta,
     Record<string, string | undefined> {

@@ -1,0 +1,18 @@
+<section>
+  <h3>Headers</h3>
+  <div class="content"></div>
+</section>
+
+<section>
+  <h3>Selected Cue</h3>
+  <div class="content">
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <formly-form
+        [model]="model"
+        [fields]="fields"
+        [options]="options"
+        [form]="form"
+      ></formly-form>
+    </form>
+  </div>
+</section>

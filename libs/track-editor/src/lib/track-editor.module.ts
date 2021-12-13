@@ -10,9 +10,22 @@ import { LayersComponent } from './layers/layers.component';
 import { LayerComponent } from './layer/layer.component';
 import { LayerCueComponent } from './layer-cue/layer-cue.component';
 import { CanvasComponent } from './canvas/canvas.component';
+import { InspectorModule } from './inspector/inspector.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormlyModule } from '@ngx-formly/core';
 
 @NgModule({
-  imports: [CommonModule, IconModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    IconModule,
+    InspectorModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FormlyModule.forRoot({
+      types: [],
+    }),
+  ],
   declarations: [
     TrackEditorComponent,
     ActionsComponent,
