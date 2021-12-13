@@ -3,9 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { Cue } from '@plopdown/plopdown-cues';
-import { PlopdownFileHeaders } from '@plopdown/plopdown-file';
-
-import * as testSchema from './test.json';
+import { PlopdownFileHeaders, PlopdownSchema } from '@plopdown/plopdown-file';
 
 @Component({
   selector: 'plopdown-inspector',
@@ -17,7 +15,12 @@ export class InspectorComponent implements OnInit {
   model: any = {};
   options: FormlyFormOptions = {};
   fields: FormlyFieldConfig[] = [
-    this.formlyJsonschema.toFieldConfig({ ...(testSchema as any) }),
+    this.formlyJsonschema.toFieldConfig({
+      ...(PlopdownSchema as any),
+      properties: {
+        ...(PlopdownSchema.definitions.PlopdownFileHeaders.properties as any),
+      },
+    }),
   ];
 
   @Input() public header: PlopdownFileHeaders | null = null;

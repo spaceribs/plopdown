@@ -22,9 +22,7 @@ import { FormlyModule } from '@ngx-formly/core';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    FormlyModule.forRoot({
-      types: [],
-    }),
+    FormlyModule.forRoot({}),
   ],
   declarations: [
     TrackEditorComponent,

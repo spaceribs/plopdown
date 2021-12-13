@@ -1,0 +1,17 @@
+<div class="field is-horizontal">
+  <div class="field-label is-small">
+    <label class="label">{{ to.label }}</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <p class="control">
+        <input
+          class="input is-small"
+          [formControl]="formControl"
+          [formlyAttributes]="field"
+        />
+      </p>
+      <p *ngIf="to.description" class="help">{{ to.description }}</p>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,15 @@
 <section>
   <h3>Headers</h3>
-  <div class="content"></div>
+  <div class="content">
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <formly-form
+        [model]="model"
+        [fields]="fields"
+        [options]="options"
+        [form]="form"
+      ></formly-form>
+    </form>
+  </div>
 </section>
 
 <section>

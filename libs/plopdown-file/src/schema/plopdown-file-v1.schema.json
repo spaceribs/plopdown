@@ -25,7 +25,7 @@
           "type": "string"
         },
         "layer": {
-          "type": "number"
+          "type": "string"
         },
         "startTime": {
           "type": "number"
@@ -119,6 +119,119 @@
         "type",
         "url"
       ],
+      "type": "object"
+    },
+    "PlopdownFileHeaders": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "not": {
+            }
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "description": "Unofficially, WebVTT supports simple key/value storage at the top of the file. We use that to allow creators to hint which video the plopdown should be overlayed to, as well as other authorship info.",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/PouchDB.Core.DocumentId"
+        },
+        "_rev": {
+          "$ref": "#/definitions/PouchDB.Core.RevisionId"
+        },
+        "authors": {
+          "description": "The list of authors or author who wrote this track",
+          "title": "Author(s)",
+          "type": "string"
+        },
+        "created": {
+          "description": "The date in which this track was created.",
+          "title": "Created",
+          "type": "string"
+        },
+        "duration": {
+          "description": "Hint of the total duration of the matching video in seconds",
+          "title": "Duration",
+          "type": "string"
+        },
+        "for": {
+          "description": "The name of the video this track is intended for.",
+          "title": "Intended Video",
+          "type": "string"
+        },
+        "frameOrigin": {
+          "description": "Hint of where the video file is hosted: \"https://netflix.com\"",
+          "title": "Frame Origin",
+          "type": "string"
+        },
+        "framePath": {
+          "description": "Hint of the path to the video: \"/video/123\"",
+          "title": "Frame Path",
+          "type": "string"
+        },
+        "frameSearch": {
+          "description": "Hint of the search parameters to the video: \"id=123\"",
+          "title": "Frame Search",
+          "type": "string"
+        },
+        "frameTitle": {
+          "description": "Hint of the title of the page hosting the video \"Netflix - The Shining\"",
+          "title": "Title",
+          "type": "string"
+        },
+        "language": {
+          "description": "The localization in \"en-US\" format.",
+          "title": "Language",
+          "type": "string"
+        },
+        "license": {
+          "description": "The abbreviated license type \"CC0\"",
+          "title": "License",
+          "type": "string"
+        },
+        "thumbnail": {
+          "description": "The filename of the thumbnail file uploaded alongside the track.",
+          "title": "Thumbnail",
+          "type": "string"
+        },
+        "title": {
+          "description": "Name of the plopdown",
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "const": "plopdown_v2",
+          "description": "Schema version number",
+          "title": "Type",
+          "type": "string"
+        },
+        "updated": {
+          "title": "Last Updated",
+          "type": "string"
+        },
+        "url": {
+          "description": "The external link where more information about this track is available.",
+          "title": "URL",
+          "type": "string"
+        },
+        "xpath": {
+          "description": "Hint of XPath to the video in the page: \"/HTML[1]/BODY[1]//VIDEO[1]\"",
+          "title": "XPath",
+          "type": "string"
+        }
+      },
+      "required": [
+        "_id",
+        "_rev",
+        "created",
+        "for",
+        "title",
+        "type",
+        "xpath"
+      ],
+      "title": "File Headers",
       "type": "object"
     },
     "PlopdownInfo": {
@@ -850,95 +963,7 @@
       "type": "array"
     },
     "headers": {
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "not": {
-            }
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "description": "Unofficially, WebVTT supports simple key/value storage at the top of the file. We use that to allow creators to hint which video the plopdown should be overlayed to, as well as other authorship info.",
-      "properties": {
-        "_id": {
-          "$ref": "#/definitions/PouchDB.Core.DocumentId"
-        },
-        "_rev": {
-          "$ref": "#/definitions/PouchDB.Core.RevisionId"
-        },
-        "authors": {
-          "description": "Author names in whatever form makes sense",
-          "type": "string"
-        },
-        "created": {
-          "description": "The date in which this track was created.",
-          "type": "string"
-        },
-        "duration": {
-          "type": "string"
-        },
-        "for": {
-          "description": "Name of the video this track was intended for.",
-          "type": "string"
-        },
-        "frameOrigin": {
-          "type": "string"
-        },
-        "framePath": {
-          "type": "string"
-        },
-        "frameSearch": {
-          "type": "string"
-        },
-        "frameTitle": {
-          "type": "string"
-        },
-        "language": {
-          "description": "Language of the track in \"en-US\" format See: https://gist.github.com/ndbroadbent/588fefab8e0f1b459fcec8181b41b39c",
-          "type": "string"
-        },
-        "license": {
-          "description": "Capitalized license associated with this file",
-          "type": "string"
-        },
-        "thumbnail": {
-          "description": "The thumbnail image of the track, usually packaged alongside the track or fetched remotely.",
-          "type": "string"
-        },
-        "title": {
-          "description": "Name of the plopdown",
-          "type": "string"
-        },
-        "type": {
-          "const": "plopdown_v2",
-          "description": "Schema version number",
-          "type": "string"
-        },
-        "updated": {
-          "description": "The date in which this track was last updated.",
-          "type": "string"
-        },
-        "url": {
-          "description": "URL of this track's homepage.",
-          "type": "string"
-        },
-        "xpath": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "_id",
-        "_rev",
-        "created",
-        "for",
-        "title",
-        "type",
-        "xpath"
-      ],
-      "type": "object"
+      "$ref": "#/definitions/PlopdownFileHeaders"
     }
   },
   "required": [

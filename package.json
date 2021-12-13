@@ -37,7 +37,8 @@
     "json2ts": "json2ts",
     "webpack-bundle-analyzer": "webpack-bundle-analyzer",
     "workspace-generator": "nx workspace-generator",
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main"
+    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
+    "ngcc": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -136,7 +137,7 @@
     "rxjs-spy": "^7.5.1",
     "svg-inline-loader": "^0.8.2",
     "ts-jest": "27.0.3",
-    "ts-json-schema-generator": "^0.89.0",
+    "ts-json-schema-generator": "^0.89.3",
     "ts-loader": "^7.0.5",
     "ts-node": "9.1.1",
     "typescript": "4.2.4",

@@ -8,6 +8,7 @@
     "firstName": {
       "type": "string",
       "title": "First name",
+      "description": "A first name.",
       "default": "Chuck"
     },
     "lastName": {
