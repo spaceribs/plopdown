@@ -36,7 +36,7 @@ export default {
         for: 'test',
         created: '2020-10-08T11:47:46.376Z',
         updated: '2020-10-08T11:47:46.376Z',
-        thumbnail: 'something.png',
+        thumbnail: 'plopdown-attachment://something.png',
         url: 'test.com',
         language: 'en-us',
         license: 'MIT',

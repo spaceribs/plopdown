@@ -1,26 +1,26 @@
-<section>
-  <h3>Headers</h3>
+<section *ngIf="cueSelected">
+  <h3>Selected Cue</h3>
   <div class="content">
-    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <form [formGroup]="cueForm" (keyup)="submitCue()" novalidate>
       <formly-form
-        [model]="model"
-        [fields]="fields"
-        [options]="options"
-        [form]="form"
+        [model]="cueSelected"
+        [fields]="cueFields"
+        [options]="cueOptions"
+        [form]="cueForm"
       ></formly-form>
     </form>
   </div>
 </section>
 
-<section>
-  <h3>Selected Cue</h3>
+<section *ngIf="header">
+  <h3>Headers</h3>
   <div class="content">
-    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <form [formGroup]="headerForm" (keyup)="submitHeader()" novalidate>
       <formly-form
-        [model]="model"
-        [fields]="fields"
-        [options]="options"
-        [form]="form"
+        [model]="header"
+        [fields]="headerFields"
+        [options]="headerOptions"
+        [form]="headerForm"
       ></formly-form>
     </form>
   </div>

@@ -1,5 +1,5 @@
 import { Layer } from './../layer/layer.models';
-import { PlopdownFile } from '@plopdown/plopdown-file';
+import { PlopdownFile, PlopdownFileHeaders } from '@plopdown/plopdown-file';
 import {
   Component,
   Input,
@@ -32,4 +32,25 @@ export class TrackEditorComponent {
   @Input() public cueSelected: Cue | null = null;
   @Output() public cueSelectedChange: EventEmitter<Cue | null> =
     new EventEmitter();
+
+  public updateHeaders(headers: PlopdownFileHeaders) {
+    if (this.plopdownFile != null) {
+      this.plopdownFileChange.emit({ ...this.plopdownFile, headers });
+    }
+  }
+
+  public updateCue(cue: Cue) {
+    if (this.plopdownFile != null) {
+      const cueIndex = this.plopdownFile.cues.indexOf(cue);
+      const cues = [ ...this.plopdownFile.cues ];
+
+      if (cueIndex !== -1) {
+        cues[cueIndex] = { ...cue };
+      }
+
+      const file = { ...this.plopdownFile, cues };
+      this.plopdownFileChange.emit(file);
+      this.plopdownFile = file;
+    }
+  }
 }

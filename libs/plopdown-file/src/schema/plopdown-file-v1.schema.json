@@ -16,23 +16,34 @@
       "additionalProperties": false,
       "properties": {
         "data": {
-          "$ref": "#/definitions/PlopdownTemplate"
+          "$ref": "#/definitions/PlopdownTemplate",
+          "description": "The type specific cue data",
+          "title": "Cue Data"
         },
         "endTime": {
+          "description": "The end time of the cue in seconds",
+          "title": "Cue End",
           "type": "number"
         },
         "id": {
+          "description": "The unique identifier of the cue",
+          "title": "Cue ID",
           "type": "string"
         },
         "layer": {
+          "description": "Name of the layer this cue is on",
+          "title": "Layer",
           "type": "string"
         },
         "startTime": {
+          "description": "The start time of the cue in seconds",
+          "title": "Cue Start",
           "type": "number"
         },
         "style": {
-          "additionalProperties": {
-          },
+          "additionalProperties": {},
+          "description": "Special styles to apply",
+          "title": "Cue Styles",
           "type": "object"
         }
       },
@@ -125,8 +136,7 @@
       "additionalProperties": {
         "anyOf": [
           {
-            "not": {
-            }
+            "not": {}
           },
           {
             "type": "string"
@@ -136,10 +146,14 @@
       "description": "Unofficially, WebVTT supports simple key/value storage at the top of the file. We use that to allow creators to hint which video the plopdown should be overlayed to, as well as other authorship info.",
       "properties": {
         "_id": {
-          "$ref": "#/definitions/PouchDB.Core.DocumentId"
+          "format": "readonly",
+          "title": "ID",
+          "type": "string"
         },
         "_rev": {
-          "$ref": "#/definitions/PouchDB.Core.RevisionId"
+          "format": "readonly",
+          "title": "Revision",
+          "type": "string"
         },
         "authors": {
           "description": "The list of authors or author who wrote this track",
@@ -148,12 +162,14 @@
         },
         "created": {
           "description": "The date in which this track was created.",
+          "format": "readonly",
           "title": "Created",
           "type": "string"
         },
         "duration": {
           "description": "Hint of the total duration of the matching video in seconds",
-          "title": "Duration",
+          "pattern": "\\d+",
+          "title": "Video Duration",
           "type": "string"
         },
         "for": {
@@ -163,6 +179,7 @@
         },
         "frameOrigin": {
           "description": "Hint of where the video file is hosted: \"https://netflix.com\"",
+          "format": "uri",
           "title": "Frame Origin",
           "type": "string"
         },
@@ -208,11 +225,13 @@
           "type": "string"
         },
         "updated": {
+          "format": "readonly",
           "title": "Last Updated",
           "type": "string"
         },
         "url": {
           "description": "The external link where more information about this track is available.",
+          "format": "uri",
           "title": "URL",
           "type": "string"
         },
@@ -889,13 +908,9 @@
         {
           "$ref": "#/definitions/PlopdownShape"
         }
-      ]
-    },
-    "PouchDB.Core.DocumentId": {
-      "type": "string"
-    },
-    "PouchDB.Core.RevisionId": {
-      "type": "string"
+      ],
+      "description": "Type of plopdown cue",
+      "title": "Plopdown Template"
     },
     "Seconds": {
       "description": "Number representing duration in seconds, precision allowed down to milliseconds.",

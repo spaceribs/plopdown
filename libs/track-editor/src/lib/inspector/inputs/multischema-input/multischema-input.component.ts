@@ -3,10 +3,10 @@ import { FieldType } from '@ngx-formly/core';
 
 @Component({
   selector: 'plopdown-field-input',
-  templateUrl: `field-input.component.html`,
-  styleUrls: [`field-input.component.scss`],
+  templateUrl: `multischema-input.component.html`,
+  styleUrls: [`multischema-input.component.scss`],
 })
-export class FieldInputComponent extends FieldType {
+export class MultischemaInputComponent extends FieldType {
   public get fieldType() {
     switch (this.field.type) {
       case 'datetime-local':

@@ -869,7 +869,7 @@
                 "command": "ts-json-schema-generator --no-top-ref --tsconfig=tsconfig.ts2json.json --path=src/lib/plopdown-file.model.ts --type=PlopdownFile --out=src/schema/plopdown-file-v1.schema.json"
               },
               {
-                "command": "ajv compile -s src/schema/plopdown-file-v1.schema.json -o src/schema/plopdown-file-v1.schema.js"
+                "command": "ajv compile -s src/schema/plopdown-file-v1.schema.json -o src/schema/plopdown-file-v1.schema.js --strict=false"
               }
             ]
           }

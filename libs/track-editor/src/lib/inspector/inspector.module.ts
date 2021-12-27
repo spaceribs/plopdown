@@ -8,6 +8,7 @@ import { InspectorComponent } from './inspector.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { ObjectInputComponent } from './inputs/object-input/object-input.component';
 import { ArrayInputComponent } from './inputs/array-input/array-input.component';
+import { MultischemaInputComponent } from './inputs/multischema-input/multischema-input.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,9 @@ import { ArrayInputComponent } from './inputs/array-input/array-input.component'
       types: [
         { name: 'input', component: FieldInputComponent },
         { name: 'string', extends: 'input' },
+        { name: 'text', extends: 'input' },
+        { name: 'datetime-local', extends: 'input' },
+        { name: 'url', extends: 'input' },
         {
           name: 'number',
           extends: 'input',
@@ -40,6 +44,7 @@ import { ArrayInputComponent } from './inputs/array-input/array-input.component'
         },
         { name: 'object', component: ObjectInputComponent },
         { name: 'array', component: ArrayInputComponent },
+        { name: 'multischema', component: MultischemaInputComponent },
       ],
     }),
   ],
@@ -48,6 +53,7 @@ import { ArrayInputComponent } from './inputs/array-input/array-input.component'
     ObjectInputComponent,
     FieldInputComponent,
     ArrayInputComponent,
+    MultischemaInputComponent,
   ],
   exports: [InspectorComponent],
 })

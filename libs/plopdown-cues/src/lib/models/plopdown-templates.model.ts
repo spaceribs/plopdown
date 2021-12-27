@@ -11,6 +11,12 @@ import { Type } from '@angular/core';
 import { PlopdownShape } from '../cues/shape/shape.model';
 import { ShapeComponent } from '../cues/shape/shape.component';
 
+/**
+ * Type of plopdown cue
+ * 
+ * @title Plopdown Template
+ * @type object
+ */
 export type PlopdownTemplate =
   | PlopdownInfo
   | PlopdownPlop

@@ -6,11 +6,14 @@
     <div class="field">
       <p class="control">
         <input
+          [ngClass]="{ 'is-danger': formControl.invalid }"
           class="input is-small"
+          [type]="fieldType"
           [formControl]="formControl"
           [formlyAttributes]="field"
         />
       </p>
+      <p *ngIf="formControl.errors?.pattern" class="help is-danger">Invalid value set.</p>
       <p *ngIf="to.description" class="help">{{ to.description }}</p>
     </div>
   </div>
