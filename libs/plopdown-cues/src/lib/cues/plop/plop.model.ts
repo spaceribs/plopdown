@@ -11,7 +11,7 @@ import {
   PlopdownTemplateType,
 } from '../../models/plopdown-base.model';
 
-interface Icon {
+export interface PlopIcon {
   top: Percentage;
   left: Percentage;
   size: Percentage;
@@ -19,7 +19,7 @@ interface Icon {
   emoji: Emoji;
 }
 
-interface Footnote {
+export interface PlopFootnote {
   title: Title;
   url: ExternalLink;
 }
@@ -30,6 +30,6 @@ export interface PlopdownPlop extends PlopdownBaseTemplate {
   left: Percentage;
   width: Percentage;
   desc: Description;
-  footnotes?: Footnote[];
-  icons: Icon[];
+  footnotes?: PlopFootnote[];
+  icons: PlopIcon[];
 }

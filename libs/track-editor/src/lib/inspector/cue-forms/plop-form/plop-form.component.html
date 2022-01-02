@@ -1,0 +1,197 @@
+<div [formGroup]="templateGroup">
+  <div class="field">
+    <label for="cue_data_top" class="label is-small">Top</label>
+    <div class="control">
+      <input
+        id="cue_data_top"
+        formControlName="top"
+        class="input is-small"
+        type="number"
+        min="0"
+      />
+    </div>
+  </div>
+  <div class="field">
+    <label for="cue_data_left" class="label is-small">Left</label>
+    <div class="control">
+      <input
+        id="cue_data_left"
+        formControlName="left"
+        class="input is-small"
+        type="number"
+        min="0"
+      />
+    </div>
+  </div>
+  <div class="field">
+    <label for="cue_data_width" class="label is-small">Width</label>
+    <div class="control">
+      <input
+        id="cue_data_width"
+        formControlName="width"
+        class="input is-small"
+        type="number"
+        min="0"
+      />
+    </div>
+  </div>
+  <div class="field">
+    <label for="cue_data_desc" class="label is-small">Description</label>
+    <div class="control">
+      <textarea
+        id="cue_data_desc"
+        formControlName="desc"
+        class="textarea is-small"
+      ></textarea>
+    </div>
+  </div>
+  <ng-container *ngIf="templateGroup.controls.footnotes as array">
+    <div
+      class="card"
+      *ngFor="let footnote of array.controls; let i = index"
+      [formGroup]="footnote"
+    >
+      <header class="card-header">
+        <p class="card-header-title">Footnote #{{ i + 1 }}</p>
+      </header>
+      <div class="card-content">
+        <div class="field">
+          <label [for]="'cue_data_footnote_' + i" class="label is-small"
+            >Title</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_footnote_title_' + i"
+              formControlName="title"
+              class="input is-small"
+              type="text"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label [for]="'cue_data_footnote_url_' + i" class="label is-small"
+            >URL</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_url_' + i"
+              formControlName="url"
+              class="input is-small"
+              type="text"
+            />
+          </div>
+        </div>
+
+        <button (click)="removeFootnote(array, i)" class="button is-small">
+          Remove Footnote
+        </button>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button (click)="addFootnote(array)" class="button is-small is-fullwidth">
+        + Add Footnote
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="templateGroup.controls.icons as array">
+    <div
+      class="card"
+      *ngFor="let icon of array.controls; let i = index"
+      [formGroup]="icon"
+    >
+      <header class="card-header">
+        <p class="card-header-title">Icon #{{ i + 1 }}</p>
+      </header>
+
+      <div class="card-content">
+        <div class="field" *ngIf="icon.controls.emoji as emoji">
+          <label [for]="'cue_data_icon_emoji_' + i" class="label is-small"
+            >Emoji</label
+          >
+          <div class="control">
+            <div class="selected-emoji" *ngIf="emoji.value">
+              {{ emoji.value || 'None' }}
+            </div>
+            <emoji-mart
+              [darkMode]="false"
+              [emojiSize]="20"
+              [perLine]="5"
+              [isNative]="true"
+              [showPreview]="false"
+              (emojiSelect)="emoji.setValue($event.emoji.native)"
+            ></emoji-mart>
+          </div>
+        </div>
+
+        <div class="field">
+          <label [for]="'cue_data_icon_top_' + i" class="label is-small"
+            >Top</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_icon_top_' + i"
+              formControlName="top"
+              class="input is-small"
+              type="number"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label [for]="'cue_data_icon_left_' + i" class="label is-small"
+            >Left</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_icon_left_' + i"
+              formControlName="left"
+              class="input is-small"
+              type="number"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label [for]="'cue_data_icon_size_' + i" class="label is-small"
+            >Size</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_icon_size_' + i"
+              formControlName="size"
+              class="input is-small"
+              type="number"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label [for]="'cue_data_icon_rotate_' + i" class="label is-small"
+            >Rotate</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_icon_rotate_' + i"
+              formControlName="rotate"
+              class="input is-small"
+              type="number"
+            />
+          </div>
+        </div>
+
+        <button (click)="removeIcon(array, i)" class="button is-small">
+          Remove Icon
+        </button>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button (click)="addIcon(array)" class="button is-small is-fullwidth">
+        + Add Icon
+      </button>
+    </div>
+  </ng-container>
+</div>

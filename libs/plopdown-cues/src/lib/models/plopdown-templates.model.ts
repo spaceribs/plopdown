@@ -1,19 +1,24 @@
 import { PlopdownAudio } from '../cues/audio/audio.model';
 import { AudioComponent } from '../cues/audio/audio.component';
-import { PlopComponent } from '../cues/plop/plop.component';
-import { InfoComponent } from '../cues/info/info.component';
 import { PlopdownPlop } from '../cues/plop/plop.model';
+import { PlopComponent } from '../cues/plop/plop.component';
 import { PlopdownInfo } from '../cues/info/info.model';
+import { InfoComponent } from '../cues/info/info.component';
+import { PlopdownShape } from '../cues/shape/shape.model';
+import { ShapeComponent } from '../cues/shape/shape.component';
 
 import { PlopdownTemplateType } from './plopdown-base.model';
 import { PlopdownBaseComponent } from './plopdown-base.component';
 import { Type } from '@angular/core';
-import { PlopdownShape } from '../cues/shape/shape.model';
-import { ShapeComponent } from '../cues/shape/shape.component';
+
+export * from '../cues/audio/audio.model';
+export * from '../cues/plop/plop.model';
+export * from '../cues/info/info.model';
+export * from '../cues/shape/shape.model';
 
 /**
  * Type of plopdown cue
- * 
+ *
  * @title Plopdown Template
  * @type object
  */

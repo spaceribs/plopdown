@@ -998,7 +998,10 @@
               "apps/storybook/src/favicon.ico",
               "apps/storybook/src/assets"
             ],
-            "styles": ["apps/storybook/src/styles.scss"],
+            "styles": [
+              "apps/storybook/src/styles.scss", 
+              "node_modules/@ctrl/ngx-emoji-mart/picker.css"
+            ],
             "scripts": []
           },
           "configurations": {

@@ -1,11 +1,96 @@
-<section *ngIf="cueSelected">
+<section *ngIf="cueSelectedModel">
   <h3>Selected Cue</h3>
-  <div class="content">
-    <form [formGroup]="cueForm" (keyup)="submitCue()" novalidate></form>
+  <div class="box">
+    <form [formGroup]="cueForm" (keyup)="submitCue()" novalidate>
+      <div class="box">
+        <h4 class="is-size-6">Cue Info</h4>
+        <hr />
+        <div>
+          <div class="field">
+            <label for="cue_id" class="label is-small">ID</label>
+            <div class="control">
+              <input
+                id="cue_id"
+                formControlName="id"
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="cue_layer" class="label is-small">Layer</label>
+            <div class="control">
+              <input
+                id="cue_layer"
+                formControlName="layer"
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="cue_start_time" class="label is-small"
+              >Start Time</label
+            >
+            <div class="control">
+              <input
+                id="cue_start_time"
+                formControlName="startTime"
+                class="input is-small"
+                type="number"
+                min="0"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="cue_end_time" class="label is-small">End Time</label>
+            <div class="control">
+              <input
+                id="cue_end_time"
+                formControlName="endTime"
+                class="input is-small"
+                type="number"
+                min="0"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <h4 class="is-size-6">Cue Type</h4>
+        <hr />
+        <div
+          class="field"
+          *ngIf="cueForm.controls.data.controls.type as control"
+        >
+          <label for="cue_template_type" class="label is-small"
+            >Template Type</label
+          >
+          <div class="control">
+            <div class="select is-small">
+              <select [formControl]="control" id="cue_template_type">
+                <option
+                  [ngValue]="type.value"
+                  *ngFor="let type of PlopdownTemplateType | keyvalue"
+                >
+                  {{ type.value }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div [ngSwitch]="cueForm.controls.data.value.type">
+          <plopdown-plop-form
+            *ngSwitchCase="PlopdownTemplateType.Plop"
+            [templateGroup]="$any(cueForm.controls.data)"
+          ></plopdown-plop-form>
+        </div>
+      </div>
+    </form>
   </div>
 </section>
 
-<section *ngIf="headerForm">
+<section *ngIf="headerModel">
   <h3>Headers</h3>
   <div class="box">
     <form [formGroup]="headerForm" (keyup)="submitHeader()" novalidate>
@@ -77,11 +162,18 @@
           <div class="field">
             <label for="header_for" class="label is-small">For</label>
             <div class="control">
-              <input id="header_for" formControlName="for" class="input is-small" type="text" />
+              <input
+                id="header_for"
+                formControlName="for"
+                class="input is-small"
+                type="text"
+              />
             </div>
           </div>
           <div class="field">
-            <label for="header_thumbnail" class="label is-small">Thumbnail</label>
+            <label for="header_thumbnail" class="label is-small"
+              >Thumbnail</label
+            >
             <div class="control">
               <input
                 formControlName="thumbnail"
@@ -93,25 +185,45 @@
           <div class="field">
             <label for="header_url" class="label is-small">Track URL</label>
             <div class="control">
-              <input formControlName="url" id="header_url" class="input is-small" type="url" />
+              <input
+                formControlName="url"
+                id="header_url"
+                class="input is-small"
+                type="url"
+              />
             </div>
           </div>
           <div class="field">
             <label for="header_language" class="label is-small">Language</label>
             <div class="control">
-              <input formControlName="language" id="header_language" class="input is-small" type="url" />
+              <input
+                formControlName="language"
+                id="header_language"
+                class="input is-small"
+                type="url"
+              />
             </div>
           </div>
           <div class="field">
             <label for="header_license" class="label is-small">License</label>
             <div class="control">
-              <input formControlName="license" id="header_license" class="input is-small" type="url" />
+              <input
+                formControlName="license"
+                id="header_license"
+                class="input is-small"
+                type="url"
+              />
             </div>
           </div>
           <div class="field">
             <label for="header_authors" class="label is-small">Author(s)</label>
             <div class="control">
-              <input formControlName="authors" id="header_authors" class="input is-small" type="url" />
+              <input
+                formControlName="authors"
+                id="header_authors"
+                class="input is-small"
+                type="url"
+              />
             </div>
           </div>
         </div>
@@ -121,7 +233,9 @@
         <hr />
         <div>
           <div class="field">
-            <label for="header_frame_origin" class="label is-small">Frame Origin</label>
+            <label for="header_frame_origin" class="label is-small"
+              >Frame Origin</label
+            >
             <div class="control">
               <input
                 id="header_frame_origin"
@@ -132,7 +246,9 @@
             </div>
           </div>
           <div class="field">
-            <label for="header_frame_path" class="label is-small">Frame Path</label>
+            <label for="header_frame_path" class="label is-small"
+              >Frame Path</label
+            >
             <div class="control">
               <input
                 id="header_frame_path"
@@ -143,7 +259,9 @@
             </div>
           </div>
           <div class="field">
-            <label for="header_frame_search" class="label is-small">Frame Search</label>
+            <label for="header_frame_search" class="label is-small"
+              >Frame Search</label
+            >
             <div class="control">
               <input
                 id="header_frame_search"
@@ -154,7 +272,9 @@
             </div>
           </div>
           <div class="field">
-            <label for="header_frame_title" class="label is-small">Frame Title</label>
+            <label for="header_frame_title" class="label is-small"
+              >Frame Title</label
+            >
             <div class="control">
               <input
                 id="header_frame_title"
@@ -176,7 +296,9 @@
             </div>
           </div>
           <div class="field">
-            <label for="header_frame_xpath" class="label is-small">Duration</label>
+            <label for="header_frame_xpath" class="label is-small"
+              >Duration</label
+            >
             <div class="control">
               <input
                 id="header_frame_xpath"
