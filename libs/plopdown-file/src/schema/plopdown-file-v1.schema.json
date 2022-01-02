@@ -146,12 +146,10 @@
       "description": "Unofficially, WebVTT supports simple key/value storage at the top of the file. We use that to allow creators to hint which video the plopdown should be overlayed to, as well as other authorship info.",
       "properties": {
         "_id": {
-          "format": "readonly",
           "title": "ID",
           "type": "string"
         },
         "_rev": {
-          "format": "readonly",
           "title": "Revision",
           "type": "string"
         },
@@ -162,7 +160,6 @@
         },
         "created": {
           "description": "The date in which this track was created.",
-          "format": "readonly",
           "title": "Created",
           "type": "string"
         },
@@ -179,7 +176,6 @@
         },
         "frameOrigin": {
           "description": "Hint of where the video file is hosted: \"https://netflix.com\"",
-          "format": "uri",
           "title": "Frame Origin",
           "type": "string"
         },
@@ -225,13 +221,11 @@
           "type": "string"
         },
         "updated": {
-          "format": "readonly",
           "title": "Last Updated",
           "type": "string"
         },
         "url": {
           "description": "The external link where more information about this track is available.",
-          "format": "uri",
           "title": "URL",
           "type": "string"
         },

@@ -1,14 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { FieldInputComponent } from './inputs/field-input/field-input.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { NgStackFormsModule } from '@ng-stack/forms';
 import { IconModule } from '@plopdown/icon';
 import { NgModule } from '@angular/core';
-import { FormlyModule } from '@ngx-formly/core';
 import { InspectorComponent } from './inspector.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { ObjectInputComponent } from './inputs/object-input/object-input.component';
-import { ArrayInputComponent } from './inputs/array-input/array-input.component';
-import { MultischemaInputComponent } from './inputs/multischema-input/multischema-input.component';
 
 @NgModule({
   imports: [
@@ -16,44 +12,10 @@ import { MultischemaInputComponent } from './inputs/multischema-input/multischem
     CommonModule,
     IconModule,
     FormsModule,
-    ReactiveFormsModule,
-    FormlyModule.forChild({
-      types: [
-        { name: 'input', component: FieldInputComponent },
-        { name: 'string', extends: 'input' },
-        { name: 'text', extends: 'input' },
-        { name: 'datetime-local', extends: 'input' },
-        { name: 'url', extends: 'input' },
-        {
-          name: 'number',
-          extends: 'input',
-          defaultOptions: {
-            templateOptions: {
-              type: 'number',
-            },
-          },
-        },
-        {
-          name: 'integer',
-          extends: 'input',
-          defaultOptions: {
-            templateOptions: {
-              type: 'number',
-            },
-          },
-        },
-        { name: 'object', component: ObjectInputComponent },
-        { name: 'array', component: ArrayInputComponent },
-        { name: 'multischema', component: MultischemaInputComponent },
-      ],
-    }),
+    NgStackFormsModule
   ],
   declarations: [
     InspectorComponent,
-    ObjectInputComponent,
-    FieldInputComponent,
-    ArrayInputComponent,
-    MultischemaInputComponent,
   ],
   exports: [InspectorComponent],
 })

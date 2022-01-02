@@ -1,14 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup, FormControl } from '@ng-stack/forms';
 import { Cue } from '@plopdown/plopdown-cues';
-import { PlopdownFileHeaders, PlopdownSchema } from '@plopdown/plopdown-file';
-import { JSONSchema7, JSONSchema7Definition } from 'json-schema';
-
-type JSONSchemaProperties = {
-  [key: string]: JSONSchema7Definition;
-};
+import { PlopdownFileHeaders } from '@plopdown/plopdown-file';
 
 @Component({
   selector: 'plopdown-inspector',
@@ -16,71 +9,45 @@ type JSONSchemaProperties = {
   styleUrls: ['./inspector.component.scss'],
 })
 export class InspectorComponent {
-  headerForm: FormGroup = new FormGroup({});
+  public readonly headerForm: FormGroup<PlopdownFileHeaders> = new FormGroup<PlopdownFileHeaders>({
+    _id: new FormControl(),
+    _rev: new FormControl(),
+    type: new FormControl(),
+    title: new FormControl(),
+    for: new FormControl(),
+    created: new FormControl(),
+    updated: new FormControl(),
+    thumbnail: new FormControl(),
+    url: new FormControl(),
+    language: new FormControl(),
+    license: new FormControl(),
+    authors: new FormControl(),
+    frameOrigin: new FormControl(),
+    framePath: new FormControl(),
+    frameSearch: new FormControl(),
+    frameTitle: new FormControl(),
+    xpath: new FormControl(),
+    duration: new FormControl(),
+  });
+
   cueForm: FormGroup = new FormGroup({});
 
-  headerOptions: FormlyFormOptions = {};
-  cueOptions: FormlyFormOptions = {};
+  @Input()
+  public set header(val: PlopdownFileHeaders | null) {
+    this.headerForm.reset();
 
-  headerFields: FormlyFieldConfig[];
-  cueFields: FormlyFieldConfig[];
-
-  @Input() public header: PlopdownFileHeaders | null = null;
+    if (val == null) {
+      return;
+    }
+    
+    this.headerForm.patchValue(val);
+  }
   @Output() public headerChange: EventEmitter<PlopdownFileHeaders> =
     new EventEmitter();
 
   @Input() public cueSelected: Cue | null = null;
   @Output() public cueSelectedChange: EventEmitter<Cue> =
     new EventEmitter();
-
-  constructor(formlyJsonschema: FormlyJsonschema) {
-    const fileHeaderSchema = {
-      ...(PlopdownSchema as JSONSchema7),
-      properties: {
-        ...(PlopdownSchema.definitions.PlopdownFileHeaders
-          .properties as JSONSchemaProperties),
-      },
-    };
-
-    const fileCuesSchema = {
-      ...(PlopdownSchema as JSONSchema7),
-      properties: {
-        ...(PlopdownSchema.definitions.Cue
-          .properties as JSONSchemaProperties),
-      },
-    };
-
-    const headerConfig = formlyJsonschema.toFieldConfig(fileHeaderSchema, { map: (field, source) => {
-      if (field.templateOptions == null) {
-        field.templateOptions = {};
-      }
-
-      switch (source.format) {
-        case 'readonly':
-          field.templateOptions.readonly = true;
-          break;
-        
-        case 'date-time':
-          field.type = 'datetime-local';
-          break;
-
-        case 'uri':
-          field.type = 'url';
-          break;
-      }
-
-      return field;
-    } });
-
-    const cueConfig = formlyJsonschema.toFieldConfig(fileCuesSchema, { map: (field, source) => {
-      console.log(field, source);
-      return field;
-    } });
-    console.log(cueConfig);
-
-    this.headerFields = [headerConfig];
-    this.cueFields = [cueConfig];
-  }
 
   public submitHeader() {
     if (this.headerForm.valid) {
@@ -89,8 +56,8 @@ export class InspectorComponent {
   }
 
   public submitCue() {
-    if (this.cueForm.valid) {
-      this.cueSelectedChange.emit(this.cueForm.value);
-    }
+    // if (this.cueForm.valid) {
+    //   this.cueSelectedChange.emit(this.cueForm.value);
+    // }
   }
 }

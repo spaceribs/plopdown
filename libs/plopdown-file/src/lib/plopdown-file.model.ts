@@ -15,13 +15,11 @@ export interface PlopdownFileHeaders
     Record<string, string | undefined> {
   /**
    * @title ID
-   * @format readonly
    */
   _id: string;
 
   /**
    * @title Revision
-   * @format readonly
    */
   _rev: string;
 
@@ -48,13 +46,11 @@ export interface PlopdownFileHeaders
 
   /**
    * @title Created
-   * @format readonly
    */
   created: Track['created'];
 
   /**
    * @title Last Updated
-   * @format readonly
    */
   updated: Track['updated'];
 
@@ -69,7 +65,6 @@ export interface PlopdownFileHeaders
    * The external link where more information about this track is available.
    *
    * @title URL
-   * @format uri
    */
   url: Track['url'];
 
@@ -98,7 +93,6 @@ export interface PlopdownFileHeaders
    * Hint of where the video file is hosted: "https://netflix.com"
    *
    * @title Frame Origin
-   * @format uri
    */
   frameOrigin: VideoRef['frameOrigin'];
 

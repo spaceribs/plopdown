@@ -1,27 +1,195 @@
 <section *ngIf="cueSelected">
   <h3>Selected Cue</h3>
   <div class="content">
-    <form [formGroup]="cueForm" (keyup)="submitCue()" novalidate>
-      <formly-form
-        [model]="cueSelected"
-        [fields]="cueFields"
-        [options]="cueOptions"
-        [form]="cueForm"
-      ></formly-form>
-    </form>
+    <form [formGroup]="cueForm" (keyup)="submitCue()" novalidate></form>
   </div>
 </section>
 
-<section *ngIf="header">
+<section *ngIf="headerForm">
   <h3>Headers</h3>
-  <div class="content">
+  <div class="box">
     <form [formGroup]="headerForm" (keyup)="submitHeader()" novalidate>
-      <formly-form
-        [model]="header"
-        [fields]="headerFields"
-        [options]="headerOptions"
-        [form]="headerForm"
-      ></formly-form>
+      <div class="box">
+        <h4 class="is-size-6">Metadata</h4>
+        <hr />
+        <div>
+          <div class="field">
+            <label class="label is-small">ID</label>
+            <div class="control">
+              <input
+                formControlName="_id"
+                readonly
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label is-small">Revision</label>
+            <div class="control">
+              <input
+                formControlName="_rev"
+                readonly
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label is-small">Created</label>
+            <div class="control">
+              <input
+                formControlName="created"
+                readonly
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label is-small">Last Updated</label>
+            <div class="control">
+              <input
+                formControlName="updated"
+                readonly
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <h4 class="is-size-6">Track Info</h4>
+        <hr />
+        <div>
+          <div class="field">
+            <label for="header_title" class="label is-small">Track Title</label>
+            <div class="control">
+              <input
+                id="header_title"
+                formControlName="title"
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_for" class="label is-small">For</label>
+            <div class="control">
+              <input id="header_for" formControlName="for" class="input is-small" type="text" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_thumbnail" class="label is-small">Thumbnail</label>
+            <div class="control">
+              <input
+                formControlName="thumbnail"
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_url" class="label is-small">Track URL</label>
+            <div class="control">
+              <input formControlName="url" id="header_url" class="input is-small" type="url" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_language" class="label is-small">Language</label>
+            <div class="control">
+              <input formControlName="language" id="header_language" class="input is-small" type="url" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_license" class="label is-small">License</label>
+            <div class="control">
+              <input formControlName="license" id="header_license" class="input is-small" type="url" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_authors" class="label is-small">Author(s)</label>
+            <div class="control">
+              <input formControlName="authors" id="header_authors" class="input is-small" type="url" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <h4 class="is-size-6">Content Matching</h4>
+        <hr />
+        <div>
+          <div class="field">
+            <label for="header_frame_origin" class="label is-small">Frame Origin</label>
+            <div class="control">
+              <input
+                id="header_frame_origin"
+                formControlName="frameOrigin"
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_frame_path" class="label is-small">Frame Path</label>
+            <div class="control">
+              <input
+                id="header_frame_path"
+                formControlName="framePath"
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_frame_search" class="label is-small">Frame Search</label>
+            <div class="control">
+              <input
+                id="header_frame_search"
+                formControlName="frameSearch"
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_frame_title" class="label is-small">Frame Title</label>
+            <div class="control">
+              <input
+                id="header_frame_title"
+                formControlName="frameTitle"
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_frame_xpath" class="label is-small">XPath</label>
+            <div class="control">
+              <input
+                id="header_frame_xpath"
+                formControlName="xpath"
+                class="input is-small"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="header_frame_xpath" class="label is-small">Duration</label>
+            <div class="control">
+              <input
+                id="header_frame_xpath"
+                formControlName="duration"
+                class="input is-small"
+                type="number"
+                min="0"
+                step="1"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 </section>
