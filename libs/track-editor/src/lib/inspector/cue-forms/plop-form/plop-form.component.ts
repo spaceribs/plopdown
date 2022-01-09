@@ -1,29 +1,49 @@
-import { Component, Input } from '@angular/core';
-import { EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { Component, Input, OnDestroy, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@ng-stack/forms';
 import {
-  PlopdownPlop,
-  PlopdownTemplateType,
   PlopFootnote,
   PlopIcon,
+  PlopdownPlop,
+  PlopdownTemplate,
+  PlopdownTemplateType,
 } from '@plopdown/plopdown-cues';
+import { EventEmitter } from '@angular/core';
+import { PlopFormGroup } from './plop-form.form-group';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'plopdown-plop-form',
   templateUrl: './plop-form.component.html',
   styleUrls: ['./plop-form.component.scss'],
 })
-export class PlopFormComponent {
+export class PlopFormComponent implements OnDestroy {
+  private subs = new Subscription();
+  public templateGroup = PlopFormGroup;
+
   @Input()
-  public templateGroup = new FormGroup<Required<PlopdownPlop>>({
-    type: new FormControl(PlopdownTemplateType.Plop),
-    top: new FormControl(),
-    left: new FormControl(),
-    width: new FormControl(),
-    desc: new FormControl(),
-    footnotes: new FormArray<PlopFootnote>([]),
-    icons: new FormArray([]),
-  });
+  public set data(val: PlopdownTemplate | null) {
+    this.templateGroup.reset(undefined, { emitEvent: false });
+
+    if (val == null || val.type !== PlopdownTemplateType.Plop) {
+      return;
+    }
+
+    this.templateGroup.patchValue(val, { emitEvent: false });
+  }
+  @Output() public dataChange: EventEmitter<PlopdownPlop> = new EventEmitter();
+
+  constructor() {
+    const valueChangeSub = this.templateGroup.valueChanges.subscribe((val) => {
+      if (this.templateGroup.invalid) {
+        return;
+      }
+
+      this.dataChange.emit(val);
+    });
+    this.subs.add(valueChangeSub);
+  }
+
+  ngOnDestroy(): void {}
 
   public addFootnote(array: FormArray<PlopFootnote>): void {
     array.push(
@@ -52,9 +72,5 @@ export class PlopFormComponent {
 
   public removeIcon(array: FormArray<PlopIcon>, index: number) {
     array.removeAt(index);
-  }
-
-  public setEmoji(control: FormControl<PlopIcon['emoji']>, event: EmojiEvent) {
-    console.log(event);
   }
 }

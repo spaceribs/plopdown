@@ -6,6 +6,7 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Cue } from '@plopdown/plopdown-cues';
 
@@ -33,6 +34,8 @@ export class TrackEditorComponent {
   @Output() public cueSelectedChange: EventEmitter<Cue | null> =
     new EventEmitter();
 
+  constructor(private cd: ChangeDetectorRef) {}
+
   public updateHeaders(headers: PlopdownFileHeaders) {
     if (this.plopdownFile != null) {
       this.plopdownFileChange.emit({ ...this.plopdownFile, headers });
@@ -41,16 +44,22 @@ export class TrackEditorComponent {
 
   public updateCue(cue: Cue) {
     if (this.plopdownFile != null) {
-      const cueIndex = this.plopdownFile.cues.indexOf(cue);
-      const cues = [ ...this.plopdownFile.cues ];
+      const cueIndex = this.plopdownFile.cues.findIndex((existingCue) => {
+        return existingCue.id === cue.id;
+      });
+      const cues = [...this.plopdownFile.cues];
 
       if (cueIndex !== -1) {
-        cues[cueIndex] = { ...cue };
+        const newCue = { ...cue };
+        cues[cueIndex] = newCue;
+        this.cueSelected = newCue;
       }
 
       const file = { ...this.plopdownFile, cues };
       this.plopdownFileChange.emit(file);
       this.plopdownFile = file;
+
+      this.cd.detectChanges();
     }
   }
 }

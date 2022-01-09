@@ -18,6 +18,7 @@
 
 <div class="sidebar" *ngIf="plopdownFile !== null">
   <plopdown-inspector
+    [layers]="layers"
     [cueSelected]="cueSelected"
     (cueSelectedChange)="updateCue($event)"
     [header]="plopdownFile.headers"

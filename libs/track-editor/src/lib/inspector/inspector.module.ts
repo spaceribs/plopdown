@@ -7,6 +7,7 @@ import { InspectorComponent } from './inspector.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { PlopFormComponent } from './cue-forms/plop-form/plop-form.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { InfoFormComponent } from './cue-forms/info-form/info-form.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     NgStackFormsModule,
     PickerModule,
   ],
-  declarations: [InspectorComponent, PlopFormComponent],
+  declarations: [InspectorComponent, PlopFormComponent, InfoFormComponent],
   exports: [InspectorComponent],
 })
 export class InspectorModule {}

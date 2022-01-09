@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@ng-stack/forms';
 import {
   Cue,
@@ -6,25 +12,16 @@ import {
   PlopdownTemplateType,
 } from '@plopdown/plopdown-cues';
 import { PlopdownFileHeaders } from '@plopdown/plopdown-file';
+import { Subscription } from 'rxjs';
+import { Layer } from '../layer/layer.models';
+import { InfoFormGroup } from './cue-forms/info-form/info-form.form-group';
+import { PlopFormGroup } from './cue-forms/plop-form/plop-form.form-group';
 
 export const PLOPDOWN_FORM_GROUPS: {
   [key in PlopdownTemplateType]: FormGroup<PlopdownTemplate>;
 } = {
-  [PlopdownTemplateType.Info]: new FormGroup<PlopdownTemplate>({
-    type: new FormControl(PlopdownTemplateType.Info),
-    title: new FormControl(),
-    url: new FormControl(),
-    authors: new FormArray([]),
-  }),
-  [PlopdownTemplateType.Plop]: new FormGroup<Required<PlopdownTemplate>>({
-    type: new FormControl(PlopdownTemplateType.Plop),
-    top: new FormControl(),
-    left: new FormControl(),
-    width: new FormControl(),
-    desc: new FormControl(),
-    footnotes: new FormArray([]),
-    icons: new FormArray([]),
-  }),
+  [PlopdownTemplateType.Info]: InfoFormGroup,
+  [PlopdownTemplateType.Plop]: PlopFormGroup,
   [PlopdownTemplateType.Audio]: new FormGroup<PlopdownTemplate>({
     type: new FormControl(PlopdownTemplateType.Audio),
     top: new FormControl(),
@@ -54,18 +51,33 @@ export const PLOPDOWN_FORM_GROUPS: {
   templateUrl: './inspector.component.html',
   styleUrls: ['./inspector.component.scss'],
 })
-export class InspectorComponent {
+export class InspectorComponent implements OnDestroy {
+  private subs = new Subscription();
+
+  @Input() public layers: Layer[] = [];
   public PlopdownTemplateType = PlopdownTemplateType;
+  public InfoFormGroup = InfoFormGroup;
+  public PlopFormGroup = PlopFormGroup;
 
   public headerModel: PlopdownFileHeaders | null = null;
 
-  public readonly cueForm: FormGroup<Cue> = new FormGroup<Cue>({
+  public readonly cueForm: FormGroup<Omit<Cue, 'data'>> = new FormGroup<
+    Omit<Cue, 'data'>
+  >({
     startTime: new FormControl(),
     endTime: new FormControl(),
     id: new FormControl(),
     layer: new FormControl(),
-    data: new FormGroup<any>({}),
   });
+
+  public cueData: Cue['data'] | null = null;
+  public set cueTemplateType(type: PlopdownTemplateType | null) {
+    if (type == null || this.cueData == null) {
+      return;
+    }
+
+    this.cueData.type = type;
+  }
 
   public readonly headerForm: FormGroup<PlopdownFileHeaders> =
     new FormGroup<PlopdownFileHeaders>({
@@ -105,19 +117,22 @@ export class InspectorComponent {
     new EventEmitter();
 
   public cueSelectedModel: Cue | null = null;
+
   @Input()
   public set cueSelected(val: Cue | null) {
     this.cueSelectedModel = val;
 
     this.cueForm.reset();
+    this.cueTemplateType = null;
+    this.cueData = null;
 
     if (val == null) {
       return;
     }
 
-    this.updateCueType(val.data.type);
-
     this.cueForm.patchValue(val);
+    this.cueData = val.data;
+    this.cueTemplateType = val.data.type;
   }
 
   @Output() public cueSelectedChange: EventEmitter<Cue> = new EventEmitter();
@@ -129,15 +144,19 @@ export class InspectorComponent {
   }
 
   public submitCue() {
-    // if (this.cueForm.valid) {
-    //   this.cueSelectedChange.emit(this.cueForm.value);
-    // }
-  }
-
-  public updateCueType(type?: PlopdownTemplateType) {
-    if (type == null) {
+    if (this.cueForm.invalid || this.cueData == null) {
       return;
     }
-    this.cueForm.setControl('data', PLOPDOWN_FORM_GROUPS[type]);
+
+    this.cueSelectedChange.emit({
+      ...this.cueForm.value,
+      data: {
+        ...this.cueData,
+      },
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

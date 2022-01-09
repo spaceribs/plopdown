@@ -1,0 +1,56 @@
+<div [formGroup]="templateGroup">
+  <div class="field">
+    <label for="cue_data_title" class="label is-small">Title</label>
+    <div class="control">
+      <input
+        id="cue_data_title"
+        formControlName="title"
+        class="input is-small"
+        type="text"
+      />
+    </div>
+  </div>
+  <div class="field">
+    <label for="cue_data_url" class="label is-small">Url</label>
+    <div class="control">
+      <input
+        id="cue_data_url"
+        formControlName="url"
+        class="input is-small"
+        type="text"
+      />
+    </div>
+  </div>
+  <ng-container *ngIf="templateGroup.controls.authors as array">
+    <div class="card" *ngFor="let author of array.controls; let i = index">
+      <header class="card-header">
+        <p class="card-header-title">Author #{{ i + 1 }}</p>
+      </header>
+      <div class="card-content">
+        <div class="field">
+          <label [for]="'cue_data_footnote_' + i" class="label is-small"
+            >Name</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_footnote_title_' + i"
+              [formControl]="author"
+              class="input is-small"
+              type="text"
+            />
+          </div>
+        </div>
+
+        <button (click)="removeAuthor(array, i)" class="button is-small">
+          Remove Author
+        </button>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button (click)="addAuthor(array)" class="button is-small is-fullwidth">
+        + Add Author
+      </button>
+    </div>
+  </ng-container>
+</div>
