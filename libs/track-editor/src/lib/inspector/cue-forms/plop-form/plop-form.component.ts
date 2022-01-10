@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, Output } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@ng-stack/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@ng-stack/forms';
 import {
   PlopFootnote,
   PlopIcon,
@@ -48,8 +48,8 @@ export class PlopFormComponent implements OnDestroy {
   public addFootnote(array: FormArray<PlopFootnote>): void {
     array.push(
       new FormGroup<PlopFootnote>({
-        title: new FormControl(),
-        url: new FormControl(),
+        title: new FormControl('', { validators: [Validators.required] }),
+        url: new FormControl('', { validators: [Validators.required] }),
       })
     );
   }
@@ -61,11 +61,11 @@ export class PlopFormComponent implements OnDestroy {
   public addIcon(array: FormArray<PlopIcon>): void {
     array.push(
       new FormGroup<PlopIcon>({
-        top: new FormControl(),
-        left: new FormControl(),
-        size: new FormControl(),
-        rotate: new FormControl(),
-        emoji: new FormControl(),
+        top: new FormControl(50, { validators: [Validators.required] }),
+        left: new FormControl(50, { validators: [Validators.required] }),
+        size: new FormControl(150, { validators: [Validators.required] }),
+        rotate: new FormControl(0, { validators: [Validators.required] }),
+        emoji: new FormControl('❔', { validators: [Validators.required] }),
       })
     );
   }
