@@ -41,14 +41,22 @@
           </div>
         </div>
 
-        <button (click)="removeAuthor(array, i)" class="button is-small">
+        <button
+          type="button"
+          (click)="removeAuthor(array, i)"
+          class="button is-small"
+        >
           Remove Author
         </button>
       </div>
     </div>
 
     <div class="buttons">
-      <button (click)="addAuthor(array)" class="button is-small is-fullwidth">
+      <button
+        type="button"
+        (click)="addAuthor(array)"
+        class="button is-small is-fullwidth"
+      >
         + Add Author
       </button>
     </div>

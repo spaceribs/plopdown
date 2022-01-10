@@ -46,6 +46,7 @@ export class PlopFormComponent implements OnDestroy {
   ngOnDestroy(): void {}
 
   public addFootnote(array: FormArray<PlopFootnote>): void {
+    console.log(array);
     array.push(
       new FormGroup<PlopFootnote>({
         title: new FormControl('', { validators: [Validators.required] }),
