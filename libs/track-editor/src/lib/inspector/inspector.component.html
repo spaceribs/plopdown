@@ -169,27 +169,35 @@
         <h4 class="is-size-6">Track Info</h4>
         <hr />
         <div>
-          <div class="field">
+          <div class="field" *ngIf="headerForm.controls.title as control">
             <label for="header_title" class="label is-small">Track Title</label>
             <div class="control">
               <input
                 id="header_title"
-                formControlName="title"
+                [formControl]="control"
                 class="input is-small"
+                [ngClass]="{ 'is-danger': control.invalid }"
                 type="text"
               />
             </div>
+            <p class="help is-danger" *ngIf="control.errors?.required">
+              A title for the track is required
+            </p>
           </div>
-          <div class="field">
+          <div class="field" *ngIf="headerForm.controls.for as control">
             <label for="header_for" class="label is-small">For</label>
             <div class="control">
               <input
                 id="header_for"
-                formControlName="for"
+                [formControl]="control"
                 class="input is-small"
+                [ngClass]="{ 'is-danger': control.invalid }"
                 type="text"
               />
             </div>
+            <p class="help is-danger" *ngIf="control.errors?.required">
+              You need to specify which video this track is for
+            </p>
           </div>
           <div class="field">
             <label for="header_thumbnail" class="label is-small"
@@ -305,16 +313,21 @@
               />
             </div>
           </div>
-          <div class="field">
+          <div class="field" *ngIf="headerForm.controls.xpath as control">
             <label for="header_frame_xpath" class="label is-small">XPath</label>
             <div class="control">
               <input
                 id="header_frame_xpath"
-                formControlName="xpath"
+                [formControl]="control"
                 class="input is-small"
+                [ngClass]="{ 'is-danger': control.invalid }"
                 type="text"
               />
             </div>
+            <p class="help is-danger" *ngIf="control.errors?.required">
+              You need to specify an XPath selector for the location of the
+              video
+            </p>
           </div>
           <div class="field">
             <label for="header_frame_xpath" class="label is-small"

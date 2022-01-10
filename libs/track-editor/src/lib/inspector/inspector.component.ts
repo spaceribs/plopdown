@@ -71,6 +71,7 @@ export class InspectorComponent implements OnDestroy {
   });
 
   public cueData: Cue['data'] | null = null;
+
   public set cueTemplateType(type: PlopdownTemplateType | null) {
     if (type == null || this.cueData == null) {
       return;
@@ -79,15 +80,25 @@ export class InspectorComponent implements OnDestroy {
     this.cueData.type = type;
   }
 
+  public get cueTemplateType() {
+    if (this.cueData == null) {
+      return null;
+    }
+
+    return this.cueData.type;
+  }
+
   public readonly headerForm: FormGroup<PlopdownFileHeaders> =
     new FormGroup<PlopdownFileHeaders>({
       _id: new FormControl('', { validators: [Validators.required] }),
       _rev: new FormControl('', { validators: [Validators.required] }),
       created: new FormControl('', { validators: [Validators.required] }),
       updated: new FormControl('', { validators: [Validators.required] }),
-      type: new FormControl(),
-      title: new FormControl(),
-      for: new FormControl(),
+      type: new FormControl('plopdown_v2', {
+        validators: [Validators.required],
+      }),
+      title: new FormControl('', { validators: [Validators.required] }),
+      for: new FormControl('', { validators: [Validators.required] }),
       thumbnail: new FormControl(),
       url: new FormControl(),
       language: new FormControl(),
@@ -97,7 +108,7 @@ export class InspectorComponent implements OnDestroy {
       framePath: new FormControl(),
       frameSearch: new FormControl(),
       frameTitle: new FormControl(),
-      xpath: new FormControl(),
+      xpath: new FormControl('', { validators: [Validators.required] }),
       duration: new FormControl(),
     });
 
