@@ -62,7 +62,9 @@ export class PlopFormComponent implements OnDestroy {
     this.subs.add(valueChangeSub);
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   public addFootnote(array: FormArray<PlopFootnote>): void {
     console.log(array);

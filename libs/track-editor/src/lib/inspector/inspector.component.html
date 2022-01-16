@@ -97,10 +97,11 @@
             (formUpdate)="submitCue()"
             [(data)]="cueData"
           ></plopdown-plop-form>
-          <!-- <plopdown-info-form
+          <plopdown-info-form
             *ngSwitchCase="PlopdownTemplateType.Info"
-            [templateGroup]="cueForm.controls.data"
-          ></plopdown-info-form> -->
+            (formUpdate)="submitCue()"
+            [(data)]="cueData"
+          ></plopdown-info-form>
         </div>
       </div>
     </form>

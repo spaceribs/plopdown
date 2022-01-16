@@ -1,17 +1,21 @@
 <div [formGroup]="templateGroup">
-  <div class="field">
+  <div class="field" *ngIf="templateGroup.controls.title as control">
     <label for="cue_data_title" class="label is-small">Title</label>
     <div class="control">
       <input
         id="cue_data_title"
-        formControlName="title"
+        [formControl]="control"
+        [ngClass]="{ 'is-danger': control.invalid }"
         class="input is-small"
         type="text"
       />
     </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the title.
+    </p>
   </div>
   <div class="field">
-    <label for="cue_data_url" class="label is-small">Url</label>
+    <label for="cue_data_url" class="label is-small">URL</label>
     <div class="control">
       <input
         id="cue_data_url"
@@ -36,9 +40,13 @@
               [id]="'cue_data_footnote_title_' + i"
               [formControl]="author"
               class="input is-small"
+              [ngClass]="{ 'is-danger': author.invalid }"
               type="text"
             />
           </div>
+          <p class="help is-danger" *ngIf="author.errors?.required">
+            You need to specify the author.
+          </p>
         </div>
 
         <button

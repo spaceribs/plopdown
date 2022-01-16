@@ -68,6 +68,18 @@ Primary.args = {
     },
     cues: [
       {
+        startTime: 1000,
+        endTime: 2000,
+        data: {
+          title: 'Testing',
+          authors: ['test', 'true'],
+          url: 'https://test.com',
+          type: PlopdownTemplateType.Info,
+        },
+        layer: 'Layer 1',
+        id: 'test1',
+      },
+      {
         startTime: 2000,
         endTime: 4000,
         data: {
