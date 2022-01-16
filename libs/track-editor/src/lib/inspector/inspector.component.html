@@ -94,6 +94,7 @@
         <div [ngSwitch]="cueTemplateType">
           <plopdown-plop-form
             *ngSwitchCase="PlopdownTemplateType.Plop"
+            (formUpdate)="submitCue()"
             [(data)]="cueData"
           ></plopdown-plop-form>
           <!-- <plopdown-info-form

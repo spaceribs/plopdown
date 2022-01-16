@@ -153,7 +153,9 @@
               [perLine]="5"
               [isNative]="true"
               [showPreview]="false"
-              (emojiSelect)="emoji.setValue($event.emoji.native)"
+              (emojiSelect)="
+                emoji.setValue($event.emoji.native); formUpdate.emit()
+              "
             ></emoji-mart>
           </div>
           <p class="help is-danger" *ngIf="emoji.errors?.required">

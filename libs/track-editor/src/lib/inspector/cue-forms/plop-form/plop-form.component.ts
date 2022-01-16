@@ -28,9 +28,28 @@ export class PlopFormComponent implements OnDestroy {
       return;
     }
 
+    if (
+      val.icons &&
+      val.icons.length !== this.templateGroup.controls.icons.length
+    ) {
+      val.icons.forEach((icon, index) => {
+        this.templateGroup.controls.icons.setControl(
+          index,
+          new FormGroup({
+            top: new FormControl(icon.top),
+            left: new FormControl(icon.left),
+            emoji: new FormControl(icon.emoji),
+            rotate: new FormControl(icon.rotate),
+            size: new FormControl(icon.size),
+          })
+        );
+      });
+    }
+
     this.templateGroup.patchValue(val, { emitEvent: false });
   }
   @Output() public dataChange: EventEmitter<PlopdownPlop> = new EventEmitter();
+  @Output() public formUpdate: EventEmitter<void> = new EventEmitter();
 
   constructor() {
     const valueChangeSub = this.templateGroup.valueChanges.subscribe((val) => {
@@ -53,10 +72,12 @@ export class PlopFormComponent implements OnDestroy {
         url: new FormControl('', { validators: [Validators.required] }),
       })
     );
+    this.formUpdate.emit();
   }
 
   public removeFootnote(array: FormArray<PlopFootnote>, index: number) {
     array.removeAt(index);
+    this.formUpdate.emit();
   }
 
   public addIcon(array: FormArray<PlopIcon>): void {
@@ -69,9 +90,11 @@ export class PlopFormComponent implements OnDestroy {
         emoji: new FormControl('❔', { validators: [Validators.required] }),
       })
     );
+    this.formUpdate.emit();
   }
 
   public removeIcon(array: FormArray<PlopIcon>, index: number) {
     array.removeAt(index);
+    this.formUpdate.emit();
   }
 }
