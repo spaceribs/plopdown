@@ -102,6 +102,11 @@
             (formUpdate)="submitCue()"
             [(data)]="cueData"
           ></plopdown-info-form>
+          <plopdown-info-form
+            *ngSwitchCase="PlopdownTemplateType.Audio"
+            (formUpdate)="submitCue()"
+            [(data)]="cueData"
+          ></plopdown-info-form>
         </div>
       </div>
     </form>
