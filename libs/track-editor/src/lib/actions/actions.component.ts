@@ -11,11 +11,13 @@ import {
   mdiPlay,
   mdiRewind10,
   mdiFastForward10,
-  mdiPlus,
-  mdiMinus,
   mdiPause,
   mdiMagnify,
+  mdiCommentRemove,
+  mdiCommentPlus,
+  mdiCommentMultiple,
 } from '@mdi/js';
+import { Cue, PlopdownTemplateType } from '@plopdown/plopdown-cues';
 
 @Component({
   selector: 'plopdown-actions',
@@ -24,14 +26,20 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionsComponent {
-  public mdiMagnify = mdiMagnify;
-
   public mdiSkipNext = mdiSkipNext;
   public mdiRewind10 = mdiRewind10;
   public mdiPlay = mdiPlay;
   public mdiPause = mdiPause;
   public mdiFastForward10 = mdiFastForward10;
   public mdiSkipPrevious = mdiSkipPrevious;
+
+  public mdiMagnify = mdiMagnify;
+
+  public mdiCommentPlus = mdiCommentPlus;
+  public mdiCommentRemove = mdiCommentRemove;
+  public mdiCommentMultiple = mdiCommentMultiple;
+
+  public PlopdownTemplateType = PlopdownTemplateType;
 
   @Input() playing: boolean = false;
 
@@ -43,5 +51,9 @@ export class ActionsComponent {
   @Input() time: number = 0;
   @Output() timeChange: EventEmitter<number> = new EventEmitter();
 
+  @Input() public cueSelected: Cue | null = null;
+
   @Output() playPause: EventEmitter<void> = new EventEmitter();
+
+  @Output() addCue: EventEmitter<PlopdownTemplateType> = new EventEmitter();
 }

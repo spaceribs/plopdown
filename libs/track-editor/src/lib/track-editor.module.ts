@@ -12,6 +12,7 @@ import { LayerCueComponent } from './layer-cue/layer-cue.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { InspectorModule } from './inspector/inspector.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { TimecodeEditorComponent } from './actions/timecode-editor/timecode-editor.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { BrowserModule } from '@angular/platform-browser';
   declarations: [
     TrackEditorComponent,
     ActionsComponent,
+    TimecodeEditorComponent,
     RulerComponent,
     CurrentTimeComponent,
     LayersComponent,

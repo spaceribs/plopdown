@@ -1,0 +1,45 @@
+<span class="field has-addons">
+  <div class="control">
+    <input
+      class="input is-small is-rounded"
+      type="number"
+      [ngModel]="hours"
+      value="0"
+      step="1"
+    />
+  </div>
+  <div class="control">
+    <input
+      class="input is-small is-rounded"
+      type="number"
+      [ngModel]="minutes"
+      value="00"
+      step="1"
+    />
+  </div>
+  <div class="control">
+    <input
+      class="input is-small is-rounded"
+      type="number"
+      [ngModel]="seconds"
+      value="00"
+      step="1"
+      min="0"
+      max="59"
+    />
+  </div>
+  <div class="control">
+    <a class="button is-static is-small">.</a>
+  </div>
+  <div class="control">
+    <input
+      class="input is-small is-rounded milliseconds"
+      type="number"
+      [ngModel]="millseconds"
+      (ngModelChange)="milliseconds = $event"
+      step="10"
+      min="-1"
+      max="1000"
+    />
+  </div>
+</span>

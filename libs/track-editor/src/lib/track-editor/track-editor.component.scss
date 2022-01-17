@@ -1,9 +1,14 @@
 :host {
   display: block;
-  position: relative;
+  position: absolute;
   user-select: none;
   font-size: 10px;
   line-height: 14px;
+  overflow: hidden;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  right: 10px;
 }
 
 .actions {
@@ -13,13 +18,17 @@
 .content {
   position: absolute;
   top: 0;
+  bottom: 0;
   left: 0;
   right: 300px;
+  overflow: auto;
 }
 
 .sidebar {
   position: absolute;
   top: 0;
+  bottom: 0;
   width: 301px;
   right: 0;
+  overflow: auto;
 }
