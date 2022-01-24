@@ -5,16 +5,16 @@ import {
   PlopdownTemplate,
   PlopdownTemplateType,
 } from '@plopdown/plopdown-cues';
-import { InfoFormGroup } from './audio-form.form-group';
+import { AudioFormGroup } from './audio-form.form-group';
 
 @Component({
-  selector: 'plopdown-info-form',
+  selector: 'plopdown-audio-form',
   templateUrl: './audio-form.component.html',
   styleUrls: ['./audio-form.component.scss'],
 })
 export class AudioFormComponent {
   private subs = new Subscription();
-  public templateGroup = InfoFormGroup;
+  public templateGroup = AudioFormGroup;
 
   @Input()
   public set data(val: PlopdownTemplate | null) {

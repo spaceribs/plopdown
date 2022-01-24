@@ -1,0 +1,203 @@
+<div [formGroup]="templateGroup">
+  <div
+    class="field"
+    *ngIf="templateGroup.controls.title.controls.text as control"
+  >
+    <label for="cue_data_title" class="label is-small">Title</label>
+    <div class="control">
+      <input
+        id="cue_data_title"
+        [formControl]="control"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        class="input is-small"
+        type="text"
+      />
+    </div>
+
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the title.
+    </p>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.title.controls.show as show">
+    <div class="control">
+      <label class="checkbox">
+        <input [formControl]="show" type="checkbox" />
+        Show Title
+      </label>
+    </div>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.top as control">
+    <label for="cue_data_top" class="label is-small">Top</label>
+    <div class="control">
+      <input
+        id="cue_data_top"
+        [formControl]="control"
+        class="input is-small"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        type="number"
+        min="0"
+      />
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the top position of the shape
+    </p>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.left as control">
+    <label for="cue_data_left" class="label is-small">Left</label>
+    <div class="control">
+      <input
+        id="cue_data_left"
+        [formControl]="control"
+        class="input is-small"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        type="number"
+        min="0"
+      />
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the left position of the shape
+    </p>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.width as control">
+    <label for="cue_data_width" class="label is-small">Width</label>
+    <div class="control">
+      <input
+        id="cue_data_width"
+        [formControl]="control"
+        class="input is-small"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        type="number"
+        min="0"
+      />
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the width of the shape
+    </p>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.height as control">
+    <label for="cue_data_width" class="label is-small">Width</label>
+    <div class="control">
+      <input
+        id="cue_data_width"
+        [formControl]="control"
+        class="input is-small"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        type="number"
+        min="0"
+      />
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the height of the annotation
+    </p>
+  </div>
+
+  <div class="field" *ngIf="templateGroup.controls.viewBox as control">
+    <label for="cue_data_view_box" class="label is-small">View Box</label>
+    <div class="control">
+      <input
+        id="cue_data_view_box"
+        [formControl]="control"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        class="input is-small"
+        type="text"
+      />
+    </div>
+
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the viewbox.
+    </p>
+
+    <p class="help is-danger" *ngIf="control.errors?.pattern">
+      The viewbox needs to be specified in the "0 0 20 20" format.
+    </p>
+  </div>
+
+  <div class="field" *ngIf="templateGroup.controls.blend as control">
+    <label for="cue_data_blend" class="label is-small">Blend</label>
+    <div class="control">
+      <div class="select" [ngClass]="{ 'is-danger': control.invalid }">
+        <select id="cue_data_blend" [formControl]="control">
+          <option [value]="null">Unspecified</option>
+          <option value="normal">Normal</option>
+          <option value="multiply">Multiply</option>
+          <option value="screen">Screen</option>
+          <option value="overlay">Overlay</option>
+          <option value="darken">Darken</option>
+          <option value="lighten">Lighten</option>
+          <option value="color-dodge">Color Dodge</option>
+          <option value="color-burn">Color Burn</option>
+          <option value="hard-light">Hard Light</option>
+          <option value="soft-light">Soft Light</option>
+          <option value="difference">Difference</option>
+          <option value="exclusion">Exclusion</option>
+          <option value="hue">Hue</option>
+          <option value="saturation">Saturation</option>
+          <option value="color">Color</option>
+          <option value="luminosity">Luminosity</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="templateGroup.controls.elements as elements">
+    <div
+      class="card"
+      *ngFor="
+        let element of templateGroup.controls.elements.controls;
+        index as i
+      "
+    >
+      <header class="card-header">
+        <p class="card-header-title">Shape #{{ i + 1 }}</p>
+
+        {{ element.controls | json }}
+      </header>
+
+      <div class="card-content">
+        {{ element.controls.element.value }}
+        <ng-container *ngSwitch="element.controls.element.value">
+          <plopdown-ellipse-form
+            *ngSwitchCase="'ellipse'"
+            [data]="element.value"
+            (dataChange)="element.setValue($event)"
+            (formUpdate)="formUpdate.next()"
+          ></plopdown-ellipse-form>
+        </ng-container>
+
+        <button
+          type="button"
+          (click)="removeShape(elements, i)"
+          class="button is-small"
+        >
+          Remove Icon
+        </button>
+      </div>
+    </div>
+
+    <div class="buttons is-fullwidth">
+      <button
+        class="button is-small"
+        (click)="addElement(elements, 'ellipse')"
+        title="Add Ellipse"
+      >
+        <plopdown-icon [path]="ellipseIcon"></plopdown-icon>
+      </button>
+
+      <button class="button is-small" title="Add Rectangle">
+        <plopdown-icon [path]="rectIcon"></plopdown-icon>
+      </button>
+
+      <button class="button is-small" title="Add Polygon">
+        <plopdown-icon [path]="polygonIcon"></plopdown-icon>
+      </button>
+
+      <button class="button is-small" title="Add Path">
+        <plopdown-icon [path]="pathIcon"></plopdown-icon>
+      </button>
+
+      <button class="button is-small" title="Add Polyline">
+        <plopdown-icon [path]="polylineIcon"></plopdown-icon>
+      </button>
+    </div>
+  </ng-container>
+</div>

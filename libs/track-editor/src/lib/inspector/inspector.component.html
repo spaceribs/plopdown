@@ -107,6 +107,11 @@
             (formUpdate)="submitCue()"
             [(data)]="cueData"
           ></plopdown-info-form>
+          <plopdown-shape-form
+            *ngSwitchCase="PlopdownTemplateType.Shape"
+            (formUpdate)="submitCue()"
+            [(data)]="cueData"
+          ></plopdown-shape-form>
         </div>
       </div>
     </form>
