@@ -7,15 +7,20 @@ import {
   PlopdownTemplateType,
 } from '@plopdown/plopdown-cues';
 import { InfoFormGroup } from './shape-form.form-group';
-import { FormArray, FormControl, FormGroup, Validators } from '@ng-stack/forms';
-import { EllipseFormGroup } from './shapes/ellipse-form/ellipse-form.form-group';
+import { FormArray } from '@ng-stack/forms';
+import { EllipseFormGroupBuilder } from './shapes/ellipse-form/ellipse-form.form-group';
 import {
   mdiShapeCirclePlus,
   mdiShapePolygonPlus,
   mdiShapeRectanglePlus,
+  mdiTrashCanOutline,
   mdiVectorPolylinePlus,
   mdiVectorSquarePlus,
 } from '@mdi/js';
+import { PathFormGroupBuilder } from './shapes/path/path-form.form-group';
+import { PolygonFormGroupBuilder } from './shapes/polygon/polygon-form.form-group';
+import { PolylineFormGroupBuilder } from './shapes/polyline/polyline-form.form-group';
+import { RectFormGroupBuilder } from './shapes/rect/rect-form.form-group';
 
 @Component({
   selector: 'plopdown-shape-form',
@@ -25,6 +30,8 @@ import {
 export class ShapeFormComponent {
   private subs = new Subscription();
   public templateGroup = InfoFormGroup;
+
+  public trashIcon = mdiTrashCanOutline;
 
   public ellipseIcon = mdiShapeCirclePlus;
   public polygonIcon = mdiShapePolygonPlus;
@@ -66,68 +73,25 @@ export class ShapeFormComponent {
   ): void {
     switch (element) {
       case 'ellipse':
-        array.push(EllipseFormGroup);
+        array.push(EllipseFormGroupBuilder());
         break;
 
       case 'rect':
-        array.push(
-          new FormGroup<PlopdownShapeElements>({
-            element: new FormControl('rect', [Validators.required]),
-            x: new FormControl(0, [Validators.required]),
-            y: new FormControl(0, [Validators.required]),
-            width: new FormControl(0, [Validators.required]),
-            height: new FormControl(0, [Validators.required]),
-            rx: new FormControl(0),
-            ry: new FormControl(0),
-          })
-        );
+        array.push(RectFormGroupBuilder());
         break;
 
       case 'path':
-        array.push(
-          new FormGroup<PlopdownShapeElements>({
-            element: new FormControl('path', [Validators.required]),
-            d: new FormControl('M10 10', [
-              Validators.required,
-              Validators.minLength(2),
-              Validators.maxLength(1024),
-            ]),
-          })
-        );
+        array.push(PathFormGroupBuilder());
         break;
 
       case 'polygon':
-        array.push(
-          new FormGroup<PlopdownShapeElements>({
-            element: new FormControl('polygon', [Validators.required]),
-            points: new FormControl('M10 10', [
-              Validators.required,
-              Validators.pattern(
-                /^((-?[0-9]+),(-?[0-9]+)\s)+(-?[0-9]+),(-?[0-9]+)$/
-              ),
-            ]),
-          })
-        );
+        array.push(PolygonFormGroupBuilder());
         break;
 
       case 'polyline':
-        array.push(
-          new FormGroup<PlopdownShapeElements>({
-            element: new FormControl('polyline', [Validators.required]),
-            points: new FormControl('M10 10', [
-              Validators.required,
-              Validators.pattern(
-                /^((-?[0-9]+),(-?[0-9]+)\s)+(-?[0-9]+),(-?[0-9]+)$/
-              ),
-            ]),
-          })
-        );
-        break;
-
-      default:
+        array.push(PolylineFormGroupBuilder());
         break;
     }
-    element;
     this.formUpdate.emit();
   }
 

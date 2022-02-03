@@ -140,39 +140,7 @@
   </div>
 
   <ng-container *ngIf="templateGroup.controls.elements as elements">
-    <div
-      class="card"
-      *ngFor="
-        let element of templateGroup.controls.elements.controls;
-        index as i
-      "
-    >
-      <header class="card-header">
-        <p class="card-header-title">Shape #{{ i + 1 }}</p>
-
-        {{ element.controls | json }}
-      </header>
-
-      <div class="card-content">
-        {{ element.controls.element.value }}
-        <ng-container *ngSwitch="element.controls.element.value">
-          <plopdown-ellipse-form
-            *ngSwitchCase="'ellipse'"
-            [data]="element.value"
-            (dataChange)="element.setValue($event)"
-            (formUpdate)="formUpdate.next()"
-          ></plopdown-ellipse-form>
-        </ng-container>
-
-        <button
-          type="button"
-          (click)="removeShape(elements, i)"
-          class="button is-small"
-        >
-          Remove Icon
-        </button>
-      </div>
-    </div>
+    <span class="label is-small">Shapes</span>
 
     <div class="buttons is-fullwidth">
       <button
@@ -183,21 +151,84 @@
         <plopdown-icon [path]="ellipseIcon"></plopdown-icon>
       </button>
 
-      <button class="button is-small" title="Add Rectangle">
+      <button
+        class="button is-small"
+        (click)="addElement(elements, 'rect')"
+        title="Add Rectangle"
+      >
         <plopdown-icon [path]="rectIcon"></plopdown-icon>
       </button>
 
-      <button class="button is-small" title="Add Polygon">
+      <button
+        class="button is-small"
+        (click)="addElement(elements, 'polygon')"
+        title="Add Polygon"
+      >
         <plopdown-icon [path]="polygonIcon"></plopdown-icon>
       </button>
 
-      <button class="button is-small" title="Add Path">
+      <button
+        class="button is-small"
+        (click)="addElement(elements, 'path')"
+        title="Add Path"
+      >
         <plopdown-icon [path]="pathIcon"></plopdown-icon>
       </button>
 
-      <button class="button is-small" title="Add Polyline">
+      <button
+        class="button is-small"
+        (click)="addElement(elements, 'polyline')"
+        title="Add Polyline"
+      >
         <plopdown-icon [path]="polylineIcon"></plopdown-icon>
       </button>
+    </div>
+
+    <div
+      class="card"
+      *ngFor="
+        let element of templateGroup.controls.elements.controls;
+        index as i
+      "
+    >
+      <header class="card-header">
+        <p class="card-header-title">
+          {{ element.controls.element.value | titlecase }} #{{ i + 1 }}
+        </p>
+
+        <button
+          class="card-header-icon"
+          (click)="removeShape(elements, i)"
+          title="Add Rectangle"
+        >
+          <plopdown-icon [path]="trashIcon"></plopdown-icon>
+        </button>
+      </header>
+
+      <div class="card-content">
+        <ng-container [ngSwitch]="element.controls.element.value">
+          <plopdown-ellipse-form
+            *ngSwitchCase="'ellipse'"
+            [shapeGroup]="element"
+          ></plopdown-ellipse-form>
+          <plopdown-path-form
+            *ngSwitchCase="'path'"
+            [shapeGroup]="element"
+          ></plopdown-path-form>
+          <plopdown-polygon-form
+            *ngSwitchCase="'polygon'"
+            [shapeGroup]="element"
+          ></plopdown-polygon-form>
+          <plopdown-polyline-form
+            *ngSwitchCase="'polyline'"
+            [shapeGroup]="element"
+          ></plopdown-polyline-form>
+          <plopdown-rect-form
+            *ngSwitchCase="'rect'"
+            [shapeGroup]="element"
+          ></plopdown-rect-form>
+        </ng-container>
+      </div>
     </div>
   </ng-container>
 </div>

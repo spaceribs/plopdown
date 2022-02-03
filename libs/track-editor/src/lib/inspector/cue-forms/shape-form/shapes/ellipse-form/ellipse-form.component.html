@@ -1,66 +1,68 @@
-<ng-container [formGroup]="shapeGroup">
-  <div class="field" *ngIf="shapeGroup.controls.cx as control">
-    <label for="cue_data_cx" class="label is-small">Center X</label>
-    <div class="control">
-      <input
-        id="cue_data_cx"
-        [formControl]="control"
-        class="input is-small"
-        [ngClass]="{ 'is-danger': control.invalid }"
-        type="number"
-        min="0"
-      />
+<ng-container *ngIf="ellipseGroup">
+  <ng-container [formGroup]="ellipseGroup">
+    <div class="field" *ngIf="ellipseGroup.controls.cx as control">
+      <label for="cue_data_cx" class="label is-small">Center X</label>
+      <div class="control">
+        <input
+          id="cue_data_cx"
+          [formControl]="control"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="number"
+          min="0"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the center of the ellipse.
+      </p>
     </div>
-    <p class="help is-danger" *ngIf="control.errors?.required">
-      You need to specify the center of the ellipse.
-    </p>
-  </div>
-  <div class="field" *ngIf="shapeGroup.controls.cy as control">
-    <label for="cue_data_cy" class="label is-small">Center Y</label>
-    <div class="control">
-      <input
-        id="cue_data_cy"
-        [formControl]="control"
-        class="input is-small"
-        [ngClass]="{ 'is-danger': control.invalid }"
-        type="number"
-        min="0"
-      />
+    <div class="field" *ngIf="ellipseGroup.controls.cy as control">
+      <label for="cue_data_cy" class="label is-small">Center Y</label>
+      <div class="control">
+        <input
+          id="cue_data_cy"
+          [formControl]="control"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="number"
+          min="0"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the center of the ellipse.
+      </p>
     </div>
-    <p class="help is-danger" *ngIf="control.errors?.required">
-      You need to specify the center of the ellipse.
-    </p>
-  </div>
-  <div class="field" *ngIf="shapeGroup.controls.rx as control">
-    <label for="cue_data_rx" class="label is-small">Radius X</label>
-    <div class="control">
-      <input
-        id="cue_data_rx"
-        [formControl]="control"
-        class="input is-small"
-        [ngClass]="{ 'is-danger': control.invalid }"
-        type="number"
-        min="0"
-      />
+    <div class="field" *ngIf="ellipseGroup.controls.rx as control">
+      <label for="cue_data_rx" class="label is-small">Radius X</label>
+      <div class="control">
+        <input
+          id="cue_data_rx"
+          [formControl]="control"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="number"
+          min="0"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the radius of the ellipse.
+      </p>
     </div>
-    <p class="help is-danger" *ngIf="control.errors?.required">
-      You need to specify the radius of the ellipse.
-    </p>
-  </div>
-  <div class="field" *ngIf="shapeGroup.controls.ry as control">
-    <label for="cue_data_ry" class="label is-small">Radius Y</label>
-    <div class="control">
-      <input
-        id="cue_data_ry"
-        [formControl]="control"
-        class="input is-small"
-        [ngClass]="{ 'is-danger': control.invalid }"
-        type="number"
-        min="0"
-      />
+    <div class="field" *ngIf="ellipseGroup.controls.ry as control">
+      <label for="cue_data_ry" class="label is-small">Radius Y</label>
+      <div class="control">
+        <input
+          id="cue_data_ry"
+          [formControl]="control"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="number"
+          min="0"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the radius of the ellipse.
+      </p>
     </div>
-    <p class="help is-danger" *ngIf="control.errors?.required">
-      You need to specify the radius of the ellipse.
-    </p>
-  </div>
+  </ng-container>
 </ng-container>

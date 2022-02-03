@@ -1,47 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input } from '@angular/core';
 import {
   PlopdownShapeElements,
   PlopdownShapeEllipse,
 } from '@plopdown/plopdown-cues';
-import { EllipseFormGroup } from './ellipse-form.form-group';
+import { FormGroup } from '@ng-stack/forms';
 
 @Component({
   selector: 'plopdown-ellipse-form',
   templateUrl: './ellipse-form.component.html',
-  styleUrls: ['./ellipse-form.component.scss'],
 })
 export class EllipseFormComponent {
-  private subs = new Subscription();
-  public shapeGroup = EllipseFormGroup;
-
-  @Input()
-  public set data(val: PlopdownShapeElements | null) {
-    this.shapeGroup.reset(undefined, { emitEvent: false });
-
-    if (val == null || val.element !== 'ellipse') {
+  public ellipseGroup: FormGroup<PlopdownShapeEllipse> | null = null;
+  @Input() public set shapeGroup(val: FormGroup<PlopdownShapeElements> | null) {
+    if (val?.controls.element.value === 'ellipse') {
+      this.ellipseGroup = val as FormGroup<PlopdownShapeEllipse>;
       return;
     }
-
-    this.shapeGroup.patchValue(val, { emitEvent: false });
-  }
-
-  @Output() public dataChange: EventEmitter<PlopdownShapeEllipse> =
-    new EventEmitter();
-  @Output() public formUpdate: EventEmitter<void> = new EventEmitter();
-
-  constructor() {
-    const valueChangeSub = this.shapeGroup.valueChanges.subscribe((val) => {
-      if (this.shapeGroup.invalid) {
-        return;
-      }
-
-      this.dataChange.emit(val);
-    });
-    this.subs.add(valueChangeSub);
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.ellipseGroup = null;
   }
 }

@@ -7,6 +7,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ShapeFormComponent } from './shape-form.component';
 import { EllipseFormComponent } from './shapes/ellipse-form/ellipse-form.component';
+import { PathFormComponent } from './shapes/path/path-form.component';
+import { PolygonFormComponent } from './shapes/polygon/polygon-form.component';
+import { PolylineFormComponent } from './shapes/polyline/polyline-form.component';
+import { RectFormComponent } from './shapes/rect/rect-form.component';
 
 @NgModule({
   imports: [
@@ -17,7 +21,7 @@ import { EllipseFormComponent } from './shapes/ellipse-form/ellipse-form.compone
     NgStackFormsModule,
     PickerModule,
   ],
-  declarations: [ShapeFormComponent, EllipseFormComponent],
+  declarations: [ShapeFormComponent, EllipseFormComponent, PathFormComponent, PolygonFormComponent, PolylineFormComponent, RectFormComponent],
   exports: [ShapeFormComponent],
 })
 export class ShapeFormModule {}

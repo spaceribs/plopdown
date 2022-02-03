@@ -1,0 +1,19 @@
+<ng-container *ngIf="polygonGroup">
+  <ng-container [formGroup]="polygonGroup">
+    <div class="field" *ngIf="polygonGroup.controls.points as control">
+      <label for="cue_data_points" class="label is-small">Points</label>
+      <div class="control">
+        <input
+          id="cue_data_points"
+          [formControl]="control"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="text"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the coordinates of the polygon.
+      </p>
+    </div>
+  </ng-container>
+</ng-container>
