@@ -8,7 +8,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { Cue } from '@plopdown/plopdown-cues';
+import { Cue, PlopdownTemplateType } from '@plopdown/plopdown-cues';
+import { v4 } from 'uuid';
+import { CueTemplates } from './track-editor.cue-templates';
 
 @Component({
   selector: 'plopdown-track-editor',
@@ -43,23 +45,101 @@ export class TrackEditorComponent {
   }
 
   public updateCue(cue: Cue) {
-    if (this.plopdownFile != null) {
-      const cueIndex = this.plopdownFile.cues.findIndex((existingCue) => {
-        return existingCue.id === cue.id;
-      });
-      const cues = [...this.plopdownFile.cues];
-
-      if (cueIndex !== -1) {
-        const newCue = { ...cue };
-        cues[cueIndex] = newCue;
-        this.cueSelected = newCue;
-      }
-
-      const file = { ...this.plopdownFile, cues };
-      this.plopdownFileChange.emit(file);
-      this.plopdownFile = file;
-
-      this.cd.detectChanges();
+    if (this.plopdownFile == null) {
+      return;
     }
+    const cueIndex = this.plopdownFile.cues.findIndex((existingCue) => {
+      return existingCue.id === cue.id;
+    });
+    const cues = [...this.plopdownFile.cues];
+
+    if (cueIndex !== -1) {
+      const newCue = { ...cue };
+      cues[cueIndex] = newCue;
+      this.cueSelected = newCue;
+    }
+
+    const file = { ...this.plopdownFile, cues };
+
+    this.plopdownFileChange.emit(file);
+    this.plopdownFile = file;
+
+    this.cd.detectChanges();
+  }
+
+  addCue(type: PlopdownTemplateType) {
+    if (this.plopdownFile == null) {
+      return;
+    }
+
+    const newCue: Cue = {
+      id: v4({}),
+      layer: this.cueSelected?.layer || this.layers[0].id,
+      startTime: this.currentTime,
+      endTime: this.currentTime + 1000,
+      data: {
+        ...CueTemplates[type],
+      },
+    };
+
+    console.log(newCue);
+
+    const cues: Cue[] = [...this.plopdownFile.cues, newCue];
+
+    const file = { ...this.plopdownFile, cues };
+
+    this.plopdownFileChange.emit(file);
+    this.plopdownFile = file;
+
+    this.cueSelectedChange.emit(newCue);
+    this.cueSelected = newCue;
+
+    this.cd.detectChanges();
+  }
+
+  duplicateCue(cue: Cue) {
+    if (this.plopdownFile == null) {
+      return;
+    }
+
+    const newCue: Cue = {
+      ...cue,
+      id: `${cue.id} Copy`,
+      data: { ...cue.data },
+      startTime: cue.endTime,
+      endTime: cue.endTime + (cue.endTime - cue.startTime),
+    };
+
+    const cues: Cue[] = [...this.plopdownFile.cues, newCue];
+
+    const file = { ...this.plopdownFile, cues };
+
+    this.plopdownFileChange.emit(file);
+    this.plopdownFile = file;
+
+    this.cueSelectedChange.emit(newCue);
+    this.cueSelected = newCue;
+
+    this.cd.detectChanges();
+  }
+
+  removeCue(selectedCue: Cue) {
+    if (this.plopdownFile == null) {
+      return;
+    }
+
+    const cues = this.plopdownFile.cues.filter((cue) => {
+      return cue !== selectedCue;
+    });
+
+    const file = { ...this.plopdownFile, cues };
+
+    this.plopdownFileChange.emit(file);
+    this.plopdownFile = file;
+
+    this.cueSelectedChange.emit(null);
+    this.cueSelected = null;
+
+    this.cd.detectChanges();
   }
 }

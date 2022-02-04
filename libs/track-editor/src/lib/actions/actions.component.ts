@@ -41,6 +41,8 @@ export class ActionsComponent {
 
   public PlopdownTemplateType = PlopdownTemplateType;
 
+  public newCueType = PlopdownTemplateType.Plop;
+
   @Input() playing: boolean = false;
 
   @Input() endTime: number = 0;
@@ -54,6 +56,7 @@ export class ActionsComponent {
   @Input() public cueSelected: Cue | null = null;
 
   @Output() playPause: EventEmitter<void> = new EventEmitter();
-
   @Output() addCue: EventEmitter<PlopdownTemplateType> = new EventEmitter();
+  @Output() removeCue: EventEmitter<Cue> = new EventEmitter();
+  @Output() duplicateCue: EventEmitter<Cue> = new EventEmitter();
 }

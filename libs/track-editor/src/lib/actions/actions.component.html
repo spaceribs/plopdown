@@ -72,13 +72,19 @@
 
   <div class="column is-narrow" *ngIf="cueSelected">
     <div class="buttons has-addons">
-      <button class="button is-danger is-small is-rounded">
+      <button
+        class="button is-danger is-small is-rounded"
+        (click)="removeCue.emit(cueSelected)"
+      >
         <span class="icon">
           <plopdown-icon [path]="mdiCommentRemove"></plopdown-icon>
         </span>
         <span>Remove</span>
       </button>
-      <button class="button is-primary is-small is-rounded">
+      <button
+        class="button is-primary is-small is-rounded"
+        (click)="duplicateCue.emit(cueSelected)"
+      >
         <span class="icon">
           <plopdown-icon [path]="mdiCommentMultiple"></plopdown-icon>
         </span>
@@ -90,7 +96,10 @@
   <div class="column is-narrow">
     <span class="field has-addons">
       <div class="control">
-        <button class="button is-success is-small is-rounded">
+        <button
+          class="button is-success is-small is-rounded"
+          (click)="addCue.emit(newCueType)"
+        >
           <span class="icon">
             <plopdown-icon [path]="mdiCommentPlus"></plopdown-icon>
           </span>
@@ -99,11 +108,7 @@
       </div>
       <div class="control">
         <div class="select is-success is-small is-rounded">
-          <select
-            [ngModel]="PlopdownTemplateType.Plop"
-            (ngModelChange)="addCue.emit($any($event))"
-            id="cue_template_type"
-          >
+          <select [(ngModel)]="newCueType" id="cue_template_type">
             <option
               [ngValue]="type.value"
               *ngFor="let type of PlopdownTemplateType | keyvalue"

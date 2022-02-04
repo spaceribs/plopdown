@@ -4,6 +4,9 @@
     [(zoom)]="zoom"
     [cueSelected]="cueSelected"
     [endTime]="endTime"
+    (addCue)="addCue($event)"
+    (removeCue)="removeCue($event)"
+    (duplicateCue)="duplicateCue($event)"
   ></plopdown-actions>
 
   <plopdown-canvas
