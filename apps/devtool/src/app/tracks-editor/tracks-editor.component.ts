@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'plopdown-track-editor',
-  templateUrl: './track-editor.component.html',
-  styleUrls: ['./track-editor.component.css'],
+  templateUrl: './tracks-editor.component.html',
+  styleUrls: ['./tracks-editor.component.css'],
 })
-export class TrackEditorComponent {
+export class TracksEditorComponent {
   tracks$: Observable<Track[]>;
 
-  constructor(trackService: TracksService) {
-    this.tracks$ = trackService.getTracks();
+  constructor(tracksService: TracksService) {
+    this.tracks$ = tracksService.getTracks();
   }
 }

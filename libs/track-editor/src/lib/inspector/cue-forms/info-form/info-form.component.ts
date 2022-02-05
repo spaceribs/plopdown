@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@ng-stack/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import {
   PlopdownInfo,
@@ -28,10 +28,11 @@ export class InfoFormComponent {
 
     if (
       val.authors &&
-      val.authors.length !== this.templateGroup.controls.authors.length
+      val.authors.length !==
+        (this.templateGroup.controls.authors as FormArray).length
     ) {
       val.authors.forEach((author, index) => {
-        this.templateGroup.controls.authors.setControl(
+        (this.templateGroup.controls.authors as FormArray).setControl(
           index,
           new FormControl(author, [Validators.required])
         );
@@ -58,12 +59,12 @@ export class InfoFormComponent {
     this.subs.unsubscribe();
   }
 
-  public addAuthor(array: FormArray<string>): void {
+  public addAuthor(array: FormArray): void {
     array.push(new FormControl());
     this.formUpdate.emit();
   }
 
-  public removeAuthor(array: FormArray<string>, index: number) {
+  public removeAuthor(array: FormArray, index: number) {
     array.removeAt(index);
     this.formUpdate.emit();
   }

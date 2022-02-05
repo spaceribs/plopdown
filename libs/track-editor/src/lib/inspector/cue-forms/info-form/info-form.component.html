@@ -4,7 +4,7 @@
     <div class="control">
       <input
         id="cue_data_title"
-        [formControl]="control"
+        [formControl]="$any(control)"
         [ngClass]="{ 'is-danger': control.invalid }"
         class="input is-small"
         type="text"
@@ -26,7 +26,10 @@
     </div>
   </div>
   <ng-container *ngIf="templateGroup.controls.authors as array">
-    <div class="card" *ngFor="let author of array.controls; let i = index">
+    <div
+      class="card"
+      *ngFor="let author of $any(array).controls; let i = index"
+    >
       <header class="card-header">
         <p class="card-header-title">Author #{{ i + 1 }}</p>
       </header>
@@ -51,7 +54,7 @@
 
         <button
           type="button"
-          (click)="removeAuthor(array, i)"
+          (click)="removeAuthor($any(array), i)"
           class="button is-small"
         >
           Remove Author
@@ -62,7 +65,7 @@
     <div class="buttons">
       <button
         type="button"
-        (click)="addAuthor(array)"
+        (click)="addAuthor($any(array))"
         class="button is-small is-fullwidth"
       >
         + Add Author

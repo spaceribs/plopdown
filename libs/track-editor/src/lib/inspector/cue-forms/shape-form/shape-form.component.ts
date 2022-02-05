@@ -7,7 +7,7 @@ import {
   PlopdownTemplateType,
 } from '@plopdown/plopdown-cues';
 import { InfoFormGroup } from './shape-form.form-group';
-import { FormArray } from '@ng-stack/forms';
+import { FormArray } from '@angular/forms';
 import { EllipseFormGroupBuilder } from './shapes/ellipse-form/ellipse-form.form-group';
 import {
   mdiShapeCirclePlus,
@@ -68,7 +68,7 @@ export class ShapeFormComponent {
   }
 
   public addElement(
-    array: FormArray<PlopdownShapeElements>,
+    array: FormArray,
     element: PlopdownShapeElements['element']
   ): void {
     switch (element) {
@@ -95,7 +95,7 @@ export class ShapeFormComponent {
     this.formUpdate.emit();
   }
 
-  public removeShape(array: FormArray<PlopdownShapeElements>, index: number) {
+  public removeShape(array: FormArray, index: number) {
     array.removeAt(index);
     this.formUpdate.emit();
   }

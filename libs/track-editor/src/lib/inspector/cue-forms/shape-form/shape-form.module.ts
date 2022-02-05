@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { NgStackFormsModule } from '@ng-stack/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IconModule } from '@plopdown/icon';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,10 +17,17 @@ import { RectFormComponent } from './shapes/rect/rect-form.component';
     CommonModule,
     IconModule,
     FormsModule,
-    NgStackFormsModule,
+    ReactiveFormsModule,
     PickerModule,
   ],
-  declarations: [ShapeFormComponent, EllipseFormComponent, PathFormComponent, PolygonFormComponent, PolylineFormComponent, RectFormComponent],
+  declarations: [
+    ShapeFormComponent,
+    EllipseFormComponent,
+    PathFormComponent,
+    PolygonFormComponent,
+    PolylineFormComponent,
+    RectFormComponent,
+  ],
   exports: [ShapeFormComponent],
 })
 export class ShapeFormModule {}

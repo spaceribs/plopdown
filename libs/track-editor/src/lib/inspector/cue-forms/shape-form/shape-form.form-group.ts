@@ -1,7 +1,7 @@
-import { FormArray, FormControl, FormGroup, Validators } from '@ng-stack/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PlopdownShape, PlopdownTemplateType } from '@plopdown/plopdown-cues';
 
-export const InfoFormGroup = new FormGroup<Required<PlopdownShape>>({
+export const InfoFormGroup = new FormGroup({
   type: new FormControl(PlopdownTemplateType.Shape),
   title: new FormGroup({
     text: new FormControl('', [Validators.required]),

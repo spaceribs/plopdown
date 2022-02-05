@@ -1,13 +1,13 @@
 <div [formGroup]="templateGroup">
   <div
     class="field"
-    *ngIf="templateGroup.controls.title.controls.text as control"
+    *ngIf="$any(templateGroup.controls.title).controls.text as control"
   >
     <label for="cue_data_title" class="label is-small">Title</label>
     <div class="control">
       <input
         id="cue_data_title"
-        [formControl]="control"
+        [formControl]="$any(control)"
         [ngClass]="{ 'is-danger': control.invalid }"
         class="input is-small"
         type="text"
@@ -18,7 +18,10 @@
       You need to specify the title.
     </p>
   </div>
-  <div class="field" *ngIf="templateGroup.controls.title.controls.show as show">
+  <div
+    class="field"
+    *ngIf="$any(templateGroup.controls.title).controls.show as show"
+  >
     <div class="control">
       <label class="checkbox">
         <input [formControl]="show" type="checkbox" />
@@ -31,7 +34,7 @@
     <div class="control">
       <input
         id="cue_data_top"
-        [formControl]="control"
+        [formControl]="$any(control)"
         class="input is-small"
         [ngClass]="{ 'is-danger': control.invalid }"
         type="number"
@@ -47,7 +50,7 @@
     <div class="control">
       <input
         id="cue_data_left"
-        [formControl]="control"
+        [formControl]="$any(control)"
         class="input is-small"
         [ngClass]="{ 'is-danger': control.invalid }"
         type="number"
@@ -63,7 +66,7 @@
     <div class="control">
       <input
         id="cue_data_width"
-        [formControl]="control"
+        [formControl]="$any(control)"
         class="input is-small"
         [ngClass]="{ 'is-danger': control.invalid }"
         type="number"
@@ -79,7 +82,7 @@
     <div class="control">
       <input
         id="cue_data_width"
-        [formControl]="control"
+        [formControl]="$any(control)"
         class="input is-small"
         [ngClass]="{ 'is-danger': control.invalid }"
         type="number"
@@ -96,7 +99,7 @@
     <div class="control">
       <input
         id="cue_data_view_box"
-        [formControl]="control"
+        [formControl]="$any(control)"
         [ngClass]="{ 'is-danger': control.invalid }"
         class="input is-small"
         type="text"
@@ -116,7 +119,7 @@
     <label for="cue_data_blend" class="label is-small">Blend</label>
     <div class="control">
       <div class="select" [ngClass]="{ 'is-danger': control.invalid }">
-        <select id="cue_data_blend" [formControl]="control">
+        <select id="cue_data_blend" [formControl]="$any(control)">
           <option [value]="null">Unspecified</option>
           <option value="normal">Normal</option>
           <option value="multiply">Multiply</option>
@@ -145,7 +148,7 @@
     <div class="buttons is-fullwidth">
       <button
         class="button is-small"
-        (click)="addElement(elements, 'ellipse')"
+        (click)="addElement($any(elements), 'ellipse')"
         title="Add Ellipse"
       >
         <plopdown-icon [path]="ellipseIcon"></plopdown-icon>
@@ -153,7 +156,7 @@
 
       <button
         class="button is-small"
-        (click)="addElement(elements, 'rect')"
+        (click)="addElement($any(elements), 'rect')"
         title="Add Rectangle"
       >
         <plopdown-icon [path]="rectIcon"></plopdown-icon>
@@ -161,7 +164,7 @@
 
       <button
         class="button is-small"
-        (click)="addElement(elements, 'polygon')"
+        (click)="addElement($any(elements), 'polygon')"
         title="Add Polygon"
       >
         <plopdown-icon [path]="polygonIcon"></plopdown-icon>
@@ -169,7 +172,7 @@
 
       <button
         class="button is-small"
-        (click)="addElement(elements, 'path')"
+        (click)="addElement($any(elements), 'path')"
         title="Add Path"
       >
         <plopdown-icon [path]="pathIcon"></plopdown-icon>
@@ -177,7 +180,7 @@
 
       <button
         class="button is-small"
-        (click)="addElement(elements, 'polyline')"
+        (click)="addElement($any(elements), 'polyline')"
         title="Add Polyline"
       >
         <plopdown-icon [path]="polylineIcon"></plopdown-icon>
@@ -187,7 +190,7 @@
     <div
       class="card"
       *ngFor="
-        let element of templateGroup.controls.elements.controls;
+        let element of $any(templateGroup.controls.elements).controls;
         index as i
       "
     >
@@ -198,7 +201,7 @@
 
         <button
           class="card-header-icon"
-          (click)="removeShape(elements, i)"
+          (click)="removeShape($any(elements), i)"
           title="Add Rectangle"
         >
           <plopdown-icon [path]="trashIcon"></plopdown-icon>

@@ -22,8 +22,8 @@ const routes: Routes = [
   {
     path: 'track-editor',
     loadChildren: () =>
-      import('./track-editor/track-editor.module').then(
-        (m) => m.TrackEditorModule
+      import('./tracks-editor/tracks-editor.module').then(
+        (m) => m.TracksEditorModule
       ),
   },
 ];

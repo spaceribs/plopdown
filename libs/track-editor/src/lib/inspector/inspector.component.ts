@@ -5,12 +5,8 @@ import {
   OnDestroy,
   Output,
 } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@ng-stack/forms';
-import {
-  Cue,
-  PlopdownTemplate,
-  PlopdownTemplateType,
-} from '@plopdown/plopdown-cues';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Cue, PlopdownTemplateType } from '@plopdown/plopdown-cues';
 import { PlopdownFileHeaders } from '@plopdown/plopdown-file';
 import { Subscription } from 'rxjs';
 import { Layer } from '../layer/layer.models';
@@ -18,11 +14,11 @@ import { InfoFormGroup } from './cue-forms/info-form/info-form.form-group';
 import { PlopFormGroup } from './cue-forms/plop-form/plop-form.form-group';
 
 export const PLOPDOWN_FORM_GROUPS: {
-  [key in PlopdownTemplateType]: FormGroup<PlopdownTemplate>;
+  [key in PlopdownTemplateType]: FormGroup;
 } = {
   [PlopdownTemplateType.Info]: InfoFormGroup,
   [PlopdownTemplateType.Plop]: PlopFormGroup,
-  [PlopdownTemplateType.Audio]: new FormGroup<PlopdownTemplate>({
+  [PlopdownTemplateType.Audio]: new FormGroup({
     type: new FormControl(PlopdownTemplateType.Audio),
     top: new FormControl(),
     left: new FormControl(),
@@ -30,7 +26,7 @@ export const PLOPDOWN_FORM_GROUPS: {
     url: new FormControl(''),
     offset_time: new FormControl(),
   }),
-  [PlopdownTemplateType.Shape]: new FormGroup<PlopdownTemplate>({
+  [PlopdownTemplateType.Shape]: new FormGroup({
     type: new FormControl(PlopdownTemplateType.Shape),
     title: new FormGroup({
       text: new FormControl(),
@@ -61,9 +57,7 @@ export class InspectorComponent implements OnDestroy {
 
   public headerModel: PlopdownFileHeaders | null = null;
 
-  public readonly cueForm: FormGroup<Omit<Cue, 'data'>> = new FormGroup<
-    Omit<Cue, 'data'>
-  >({
+  public readonly cueForm: FormGroup = new FormGroup({
     startTime: new FormControl(),
     endTime: new FormControl(),
     id: new FormControl(),
@@ -88,29 +82,34 @@ export class InspectorComponent implements OnDestroy {
     return this.cueData.type;
   }
 
-  public readonly headerForm: FormGroup<PlopdownFileHeaders> =
-    new FormGroup<PlopdownFileHeaders>({
-      _id: new FormControl('', { validators: [Validators.required] }),
-      _rev: new FormControl('', { validators: [Validators.required] }),
-      created: new FormControl('', { validators: [Validators.required] }),
-      updated: new FormControl('', { validators: [Validators.required] }),
-      type: new FormControl('plopdown_v2', {
-        validators: [Validators.required],
-      }),
-      title: new FormControl('', { validators: [Validators.required] }),
-      for: new FormControl('', { validators: [Validators.required] }),
-      thumbnail: new FormControl(),
-      url: new FormControl(),
-      language: new FormControl(),
-      license: new FormControl(),
-      authors: new FormControl(),
-      frameOrigin: new FormControl(),
-      framePath: new FormControl(),
-      frameSearch: new FormControl(),
-      frameTitle: new FormControl(),
-      xpath: new FormControl('', { validators: [Validators.required] }),
-      duration: new FormControl(),
-    });
+  public readonly headerForm: FormGroup = new FormGroup({
+    _id: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    _rev: new FormControl('', { validators: [Validators.required] }),
+    created: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    updated: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    type: new FormControl('plopdown_v2', {
+      validators: [Validators.required],
+    }),
+    title: new FormControl('', { validators: [Validators.required] }),
+    for: new FormControl('', { validators: [Validators.required] }),
+    thumbnail: new FormControl(),
+    url: new FormControl(),
+    language: new FormControl(),
+    license: new FormControl(),
+    authors: new FormControl(),
+    frameOrigin: new FormControl(),
+    framePath: new FormControl(),
+    frameSearch: new FormControl(),
+    frameTitle: new FormControl(),
+    xpath: new FormControl('', { validators: [Validators.required] }),
+    duration: new FormControl(),
+  });
 
   @Input()
   public set header(val: PlopdownFileHeaders | null) {

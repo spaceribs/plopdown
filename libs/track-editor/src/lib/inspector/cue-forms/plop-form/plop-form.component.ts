@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, Output } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@ng-stack/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   PlopFootnote,
   PlopIcon,
@@ -30,10 +30,11 @@ export class PlopFormComponent implements OnDestroy {
 
     if (
       val.icons &&
-      val.icons.length !== this.templateGroup.controls.icons.length
+      val.icons.length !==
+        (this.templateGroup.controls.icons as FormArray).length
     ) {
       val.icons.forEach((icon, index) => {
-        this.templateGroup.controls.icons.setControl(
+        (this.templateGroup.controls.icons as FormArray).setControl(
           index,
           new FormGroup({
             top: new FormControl(icon.top),
@@ -66,10 +67,10 @@ export class PlopFormComponent implements OnDestroy {
     this.subs.unsubscribe();
   }
 
-  public addFootnote(array: FormArray<PlopFootnote>): void {
+  public addFootnote(array: FormArray): void {
     console.log(array);
     array.push(
-      new FormGroup<PlopFootnote>({
+      new FormGroup({
         title: new FormControl('', { validators: [Validators.required] }),
         url: new FormControl('', { validators: [Validators.required] }),
       })
@@ -77,14 +78,14 @@ export class PlopFormComponent implements OnDestroy {
     this.formUpdate.emit();
   }
 
-  public removeFootnote(array: FormArray<PlopFootnote>, index: number) {
+  public removeFootnote(array: FormArray, index: number) {
     array.removeAt(index);
     this.formUpdate.emit();
   }
 
-  public addIcon(array: FormArray<PlopIcon>): void {
+  public addIcon(array: FormArray): void {
     array.push(
-      new FormGroup<PlopIcon>({
+      new FormGroup({
         top: new FormControl(50, { validators: [Validators.required] }),
         left: new FormControl(50, { validators: [Validators.required] }),
         size: new FormControl(150, { validators: [Validators.required] }),
@@ -95,7 +96,7 @@ export class PlopFormComponent implements OnDestroy {
     this.formUpdate.emit();
   }
 
-  public removeIcon(array: FormArray<PlopIcon>, index: number) {
+  public removeIcon(array: FormArray, index: number) {
     array.removeAt(index);
     this.formUpdate.emit();
   }
