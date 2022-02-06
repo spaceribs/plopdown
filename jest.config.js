@@ -25,7 +25,7 @@ module.exports = {
     '<rootDir>/libs/plopdown-cues',
     '<rootDir>/libs/remotes',
     '<rootDir>/libs/pouchdb',
-    '<rootDir>/libs/track-editor',
+    '<rootDir>/libs/file-editor',
     '<rootDir>/apps/storybook',
   ],
 };

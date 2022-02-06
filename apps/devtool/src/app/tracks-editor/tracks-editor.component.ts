@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 export class TracksEditorComponent {
   tracks$: Observable<Track[]>;
 
+  selectedTrack: Track | null = null;
+
   constructor(tracksService: TracksService) {
     this.tracks$ = tracksService.getTracks();
   }

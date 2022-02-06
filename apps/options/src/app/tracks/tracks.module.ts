@@ -4,14 +4,14 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FileImporterComponent } from './file-importer/file-importer.component';
 import { FileManagerComponent } from './file-manager/file-manager/file-manager.component';
-import { TrackEditorComponent } from './track-editor/track-editor.component';
+import { FileEditorComponent } from './track-editor/track-editor.component';
 import { TracksComponent } from './tracks.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     TracksComponent,
-    TrackEditorComponent,
+    FileEditorComponent,
     FileManagerComponent,
     FileImporterComponent,
   ],

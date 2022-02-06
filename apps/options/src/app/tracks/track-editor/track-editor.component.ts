@@ -8,7 +8,7 @@ import { Track } from '@plopdown/tracks';
   templateUrl: './track-editor.component.html',
   styleUrls: ['./track-editor.component.scss'],
 })
-export class TrackEditorComponent {
+export class FileEditorComponent {
   public mdiFileUpload = mdiFileUpload;
 
   public trackForm: FormGroup;

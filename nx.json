@@ -33,6 +33,9 @@
     "ext-storage": {
       "tags": []
     },
+    "file-editor": {
+      "tags": []
+    },
     "icon": {
       "tags": []
     },
@@ -84,9 +87,6 @@
       "tags": []
     },
     "testing-sandbox": {
-      "tags": []
-    },
-    "track-editor": {
       "tags": []
     },
     "tracks": {

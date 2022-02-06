@@ -6,7 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TracksEditorRoutingModule } from './tracks-editor-routing.module';
 import { TracksEditorComponent } from './tracks-editor.component';
-import { TrackEditorModule } from '@plopdown/track-editor';
+import { FileEditorModule } from '@plopdown/file-editor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [{ path: '', component: TracksEditorComponent }];
 
@@ -15,8 +16,10 @@ const routes: Routes = [{ path: '', component: TracksEditorComponent }];
   imports: [
     CommonModule,
     TracksModule,
+    FormsModule,
+    ReactiveFormsModule,
     PouchDBModule,
-    TrackEditorModule,
+    FileEditorModule,
     TracksEditorRoutingModule,
     RouterModule.forChild(routes),
   ],

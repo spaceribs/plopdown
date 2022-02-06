@@ -20,7 +20,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'track-editor',
+    path: 'tracks-editor',
     loadChildren: () =>
       import('./tracks-editor/tracks-editor.module').then(
         (m) => m.TracksEditorModule

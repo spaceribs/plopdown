@@ -514,6 +514,31 @@
         }
       }
     },
+    "file-editor": {
+      "projectType": "library",
+      "root": "libs/file-editor",
+      "sourceRoot": "libs/file-editor/src",
+      "prefix": "plopdown",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/file-editor"],
+          "options": {
+            "jestConfig": "libs/file-editor/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/file-editor/src/**/*.ts",
+              "libs/file-editor/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "icon": {
       "projectType": "library",
       "root": "libs/icon",
@@ -999,7 +1024,7 @@
               "apps/storybook/src/assets"
             ],
             "styles": [
-              "apps/storybook/src/styles.scss", 
+              "apps/storybook/src/styles.scss",
               "node_modules/@ctrl/ngx-emoji-mart/picker.css"
             ],
             "scripts": []
@@ -1209,31 +1234,6 @@
             "passWithNoTests": true
           },
           "outputs": ["coverage/apps/testing-sandbox"]
-        }
-      }
-    },
-    "track-editor": {
-      "projectType": "library",
-      "root": "libs/track-editor",
-      "sourceRoot": "libs/track-editor/src",
-      "prefix": "plopdown",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/track-editor"],
-          "options": {
-            "jestConfig": "libs/track-editor/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/track-editor/src/**/*.ts",
-              "libs/track-editor/src/**/*.html"
-            ]
-          }
         }
       }
     },
