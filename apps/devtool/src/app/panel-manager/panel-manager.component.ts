@@ -50,7 +50,7 @@ export class PanelManagerComponent implements OnInit, OnDestroy {
     this.panels.create(
       'Plopdown',
       '/icons/128.png',
-      '/devtool/index.html#/tracks-editor'
+      '/devtool/index.html#/files-editor'
     );
   }
 

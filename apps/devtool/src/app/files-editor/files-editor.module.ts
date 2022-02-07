@@ -4,15 +4,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TracksEditorRoutingModule } from './tracks-editor-routing.module';
-import { TracksEditorComponent } from './tracks-editor.component';
+import { FilesEditorRoutingModule } from './files-editor-routing.module';
+import { FilesEditorComponent } from './files-editor.component';
 import { FileEditorModule } from '@plopdown/file-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-const routes: Routes = [{ path: '', component: TracksEditorComponent }];
+const routes: Routes = [{ path: '', component: FilesEditorComponent }];
 
 @NgModule({
-  declarations: [TracksEditorComponent],
+  declarations: [FilesEditorComponent],
   imports: [
     CommonModule,
     TracksModule,
@@ -20,8 +20,8 @@ const routes: Routes = [{ path: '', component: TracksEditorComponent }];
     ReactiveFormsModule,
     PouchDBModule,
     FileEditorModule,
-    TracksEditorRoutingModule,
+    FilesEditorRoutingModule,
     RouterModule.forChild(routes),
   ],
 })
-export class TracksEditorModule {}
+export class FilesEditorModule {}

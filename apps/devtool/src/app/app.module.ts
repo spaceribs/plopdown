@@ -20,10 +20,10 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'tracks-editor',
+    path: 'files-editor',
     loadChildren: () =>
-      import('./tracks-editor/tracks-editor.module').then(
-        (m) => m.TracksEditorModule
+      import('./files-editor/files-editor.module').then(
+        (m) => m.FilesEditorModule
       ),
   },
 ];
