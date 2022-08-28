@@ -102,7 +102,8 @@
           },
           "outputs": ["coverage/apps/background"]
         }
-      }
+      },
+      "tags": ["ext-dep"]
     },
     "browser-action": {
       "projectType": "application",
@@ -210,7 +211,8 @@
           },
           "outputs": ["coverage/apps/browser-action"]
         }
-      }
+      },
+      "tags": ["ext-dep"]
     },
     "browser-ref": {
       "projectType": "library",
@@ -240,7 +242,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "content-script": {
       "projectType": "application",
@@ -345,7 +348,8 @@
           },
           "outputs": ["coverage/apps/content-script"]
         }
-      }
+      },
+      "tags": ["ext-dep"]
     },
     "devtool": {
       "projectType": "application",
@@ -452,7 +456,8 @@
           },
           "outputs": ["coverage/apps/devtool"]
         }
-      }
+      },
+      "tags": []
     },
     "devtools-ref": {
       "projectType": "library",
@@ -482,7 +487,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "ext-storage": {
       "projectType": "library",
@@ -512,7 +518,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "file-editor": {
       "projectType": "library",
@@ -537,7 +544,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     },
     "icon": {
       "projectType": "library",
@@ -564,7 +572,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "logger": {
       "projectType": "library",
@@ -591,7 +600,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "lz-string": {
       "projectType": "library",
@@ -621,7 +631,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "messages": {
       "projectType": "library",
@@ -651,7 +662,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "options": {
       "projectType": "application",
@@ -760,7 +772,8 @@
           },
           "outputs": ["coverage/apps/options"]
         }
-      }
+      },
+      "tags": ["ext-dep"]
     },
     "permissions": {
       "projectType": "library",
@@ -790,7 +803,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "plopdown-cues": {
       "projectType": "library",
@@ -820,7 +834,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "plopdown-embed": {
       "projectType": "library",
@@ -850,7 +865,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "plopdown-ext": {
       "projectType": "application",
@@ -877,7 +893,16 @@
             "sourceDir": "dist/apps/plopdown-ext"
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": [
+        "background",
+        "browser-action",
+        "options",
+        "content-script",
+        "devtool",
+        "web-extension"
+      ]
     },
     "plopdown-file": {
       "projectType": "library",
@@ -921,7 +946,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "plopdown-injector": {
       "projectType": "library",
@@ -951,7 +977,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "pouchdb": {
       "projectType": "library",
@@ -976,7 +1003,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     },
     "remotes": {
       "projectType": "library",
@@ -1001,7 +1029,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     },
     "storybook": {
       "projectType": "application",
@@ -1104,7 +1133,8 @@
             "port": 4400,
             "config": {
               "configFolder": "apps/storybook/.storybook"
-            }
+            },
+            "projectBuildConfig": "storybook"
           },
           "configurations": {
             "ci": {
@@ -1120,7 +1150,8 @@
             "outputPath": "dist/storybook/storybook",
             "config": {
               "configFolder": "apps/storybook/.storybook"
-            }
+            },
+            "projectBuildConfig": "storybook"
           },
           "configurations": {
             "ci": {
@@ -1128,7 +1159,8 @@
             }
           }
         }
-      }
+      },
+      "tags": []
     },
     "testing-sandbox": {
       "projectType": "application",
@@ -1235,7 +1267,8 @@
           },
           "outputs": ["coverage/apps/testing-sandbox"]
         }
-      }
+      },
+      "tags": []
     },
     "tracks": {
       "projectType": "library",
@@ -1262,7 +1295,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "video-refs": {
       "projectType": "library",
@@ -1292,7 +1326,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "web-extension": {
       "root": "libs/web-extension",
@@ -1318,7 +1353,7 @@
           "outputs": ["coverage/libs/web-extension"]
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "builder": "@nrwl/js:tsc",
           "options": {
             "outputPath": "dist/libs/web-extension",
             "tsConfig": "libs/web-extension/tsconfig.lib.json",
@@ -1346,7 +1381,8 @@
           },
           "outputs": ["{options.outputPath}"]
         }
-      }
+      },
+      "tags": []
     },
     "website": {
       "projectType": "application",
@@ -1456,7 +1492,8 @@
           },
           "outputs": ["coverage/apps/website"]
         }
-      }
+      },
+      "tags": []
     },
     "window-ref": {
       "projectType": "library",
@@ -1486,27 +1523,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
-  },
-  "schematics": {
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
-    }
-  },
-  "defaultProject": "plopdown-ext"
+  }
 }

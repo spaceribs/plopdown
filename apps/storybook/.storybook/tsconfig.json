@@ -4,6 +4,6 @@
     "emitDecoratorMetadata": true,
     "target": "es2019"
   },
-  "exclude": ["../**/*.spec.ts"],
+  "exclude": ["../**/*.spec.ts", "../**/*.test.ts"],
   "include": ["../src/**/*"]
 }

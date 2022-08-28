@@ -22,5 +22,10 @@
     }
   },
   "include": ["**/*.ts"],
-  "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.mock.ts"]
+  "exclude": [
+    "src/test-setup.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.mock.ts"
+  ]
 }

@@ -107,7 +107,7 @@ export class LayerCueComponent implements AfterViewInit, OnDestroy, OnChanges {
     private cfr: ComponentFactoryResolver,
     private injector: Injector,
     private zone: NgZone
-  ) {}
+  ) { }
 
   public ngAfterViewInit(): void {
     if (
@@ -124,7 +124,7 @@ export class LayerCueComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     this.zone.runOutsideAngular(() => {
       const drag$ = fromEvent<MouseEvent>(document, 'mousemove').pipe(
-        pluck<MouseEvent, number>('clientX'),
+        map(event => event.clientX),
         throttleTime(15, animationFrameScheduler, { trailing: true }),
         distinctUntilChanged(),
         filter((clientX) => clientX > 0)
@@ -135,7 +135,7 @@ export class LayerCueComponent implements AfterViewInit, OnDestroy, OnChanges {
         'mousedown'
       ).pipe(
         tap((event) => event.stopPropagation),
-        pluck<MouseEvent, number>('clientX')
+        map(event => event.clientX),
       );
 
       const dragRightStart$ = fromEvent<MouseEvent>(
@@ -143,13 +143,13 @@ export class LayerCueComponent implements AfterViewInit, OnDestroy, OnChanges {
         'mousedown'
       ).pipe(
         tap((event) => event.stopPropagation),
-        pluck<MouseEvent, number>('clientX')
+        map(event => event.clientX),
       );
 
       const dragElemStart$ = fromEvent<MouseEvent>(
         dragAllElem,
         'mousedown'
-      ).pipe(pluck<MouseEvent, number>('clientX'));
+      ).pipe(map(event => event.clientX),);
 
       const dragEnd$ = fromEvent(document, 'mouseup');
 
