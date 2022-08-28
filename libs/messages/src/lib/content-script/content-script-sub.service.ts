@@ -4,8 +4,8 @@ import {
   ContentScriptReady,
   ContentScriptVideoRefsRequested,
   ContentScriptTracksRequested,
-  ContentScriptAddVideoRef,
   ContentScriptDevRefs,
+  ContentScriptCreateTrack,
 } from './content-script.model';
 import { Injectable } from '@angular/core';
 import { PortSubscriber } from '../subscriber.abstract';
@@ -38,7 +38,7 @@ export class ContentScriptSubService extends PortSubscriber<ContentScriptCommand
   }
 
   public onAddVideoRef() {
-    return this.filterCommand<ContentScriptAddVideoRef>('CS_ADD_VIDEO_REF');
+    return this.filterCommand<ContentScriptCreateTrack>('CS_CREATE_TRACK');
   }
 
   public onDevRefs() {

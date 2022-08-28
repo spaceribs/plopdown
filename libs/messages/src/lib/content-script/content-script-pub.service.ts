@@ -34,7 +34,7 @@ export class ContentScriptPubService extends PortPublisher<ContentScriptCommand>
     this.command$.next({ command: 'CS_VIDEO_REFS_REQUESTED', args: null });
   }
 
-  addVideoRef(videoRef: VideoRef) {
-    this.command$.next({ command: 'CS_ADD_VIDEO_REF', args: [videoRef] });
+  public createTrack(videoRef: VideoRef) {
+    this.command$.next({ command: 'CS_CREATE_TRACK', args: [videoRef] });
   }
 }

@@ -1,10 +1,4 @@
 <div class="columns">
-  <aside class="column is-one-quarter">
-    <select [(ngModel)]="selectedTrack">
-      <option *ngFor="let track of tracks$ | async">{{ track.title }}</option>
-    </select>
-  </aside>
-
   <main class="column">
     <plopdown-file-editor></plopdown-file-editor>
   </main>

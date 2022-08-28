@@ -1,8 +1,7 @@
-import { DevtoolPubService } from './../../../../../libs/messages/src/lib/devtool/devtool-pub.service';
 import { Component, ErrorHandler, OnDestroy, OnInit } from '@angular/core';
 import { PanelsService } from '@plopdown/devtools-ref';
 import { Observable, Subscription } from 'rxjs';
-import { BackgroundSubService } from '@plopdown/messages';
+import { BackgroundSubService, DevtoolPubService } from '@plopdown/messages';
 
 @Component({
   selector: 'plopdown-panel-manager',
