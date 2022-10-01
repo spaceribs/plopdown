@@ -73,7 +73,7 @@ export interface PlopdownShapePolyline extends PlopdownShapeElement {
   points: ViewportCoordinatePairs;
 }
 
-type PlopdownShapeElements =
+export type PlopdownShapeElements =
   | PlopdownShapeEllipse
   | PlopdownShapeRect
   | PlopdownShapePath

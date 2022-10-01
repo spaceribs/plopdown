@@ -1,0 +1,19 @@
+<ng-container *ngIf="polylineGroup">
+  <ng-container [formGroup]="polylineGroup">
+    <div class="field" *ngIf="polylineGroup.controls.points as control">
+      <label for="cue_data_points" class="label is-small">Points</label>
+      <div class="control">
+        <input
+          id="cue_data_points"
+          [formControl]="$any(control)"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="text"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the coordinates of the polyline.
+      </p>
+    </div>
+  </ng-container>
+</ng-container>

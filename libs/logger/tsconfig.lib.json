@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "target": "es5",
+    "target": "es2019",
     "declaration": true,
     "inlineSources": true,
     "types": ["firefox-webext-browser"],
@@ -16,6 +16,11 @@
     "strictInjectionParameters": true,
     "strictTemplates": true
   },
-  "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.mock.ts"],
+  "exclude": [
+    "src/test-setup.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.mock.ts"
+  ],
   "include": ["**/*.ts"]
 }

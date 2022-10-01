@@ -66,6 +66,10 @@ export class PlopdownFileService {
       const startString = this.convertToISOTime(cue.startTime);
       const endString = this.convertToISOTime(cue.endTime);
 
+      if (cue.layer != null) {
+        cueString += `${cue.layer}/`;
+      }
+
       if (cue.id != null) {
         cueString += `${cue.id}\n`;
       }
@@ -138,7 +142,8 @@ export class PlopdownFileService {
     // Ignore the header
     blocks.shift();
 
-    const timecodeMatch = /(\d{2}:\d{2}:\d{2}.\d{3}) --> (\d{2}:\d{2}:\d{2}.\d{3})/;
+    const timecodeMatch =
+      /(\d{2}:\d{2}:\d{2}.\d{3}) --> (\d{2}:\d{2}:\d{2}.\d{3})/;
 
     // Search for blocks with a timecode.
     return blocks.reduce((memo, block) => {
@@ -156,11 +161,11 @@ export class PlopdownFileService {
 
       // If the block doesn't being with the start time
       // the block should start with an ID.
-      let id: string | null = null;
+      let idAndLayer: string | null = null;
       if (block.indexOf(start) > 0) {
         const idMatch = block.match(/^(.*)/);
         if (idMatch != null) {
-          id = idMatch[1].trim();
+          idAndLayer = idMatch[1].trim();
         }
       }
 
@@ -168,8 +173,24 @@ export class PlopdownFileService {
       const text = block.split(end)[1];
       const data = JSON.parse(text);
 
-      if (id != null) {
-        memo.push({ startTime, endTime, data, id });
+      if (idAndLayer != null) {
+        const idComponents = idAndLayer.split('/');
+        if (idComponents.length > 1) {
+          memo.push({
+            startTime,
+            endTime,
+            data,
+            layer: idComponents[0],
+            id: idComponents[1],
+          });
+        } else {
+          memo.push({
+            startTime,
+            endTime,
+            data,
+            id: idComponents[0],
+          });
+        }
       }
 
       return memo;

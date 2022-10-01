@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "target": "es5",
+    "target": "es2019",
     "declaration": true,
     "inlineSources": true,
     "types": ["firefox-webext-browser"],
@@ -19,14 +19,14 @@
   "exclude": [
     "src/test-setup.ts",
     "**/*.spec.ts",
-    "**/*.stories.ts",
-    "**/*.stories.js",
+    "**/*.test.ts",
     "**/*.stories.ts",
     "**/*.stories.js"
   ],
   "include": [
     "**/*.ts",
     "../plopdown-embed/src/lib/load-asset.service.ts",
-    "../plopdown-embed/src/lib/load-asset.service.spec.ts"
+    "../plopdown-embed/src/lib/load-asset.service.spec.ts",
+    "../plopdown-embed/src/lib/load-asset.service.test.ts"
   ]
 }

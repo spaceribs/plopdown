@@ -1,0 +1,123 @@
+<div class="actions columns is-mobile">
+  <div class="column is-narrow">
+    <div class="buttons has-addons">
+      <button class="button is-light is-small" (click)="timeChange.emit(0)">
+        <plopdown-icon [path]="mdiSkipPrevious"></plopdown-icon>
+      </button>
+      <button
+        class="button is-light is-small"
+        (click)="timeChange.emit(time - 10)"
+      >
+        <plopdown-icon [path]="mdiRewind10"></plopdown-icon>
+      </button>
+      <button class="button is-light is-small" (click)="playPause.emit()">
+        <plopdown-icon *ngIf="playing" [path]="mdiPause"></plopdown-icon>
+        <plopdown-icon *ngIf="!playing" [path]="mdiPlay"></plopdown-icon>
+      </button>
+      <button
+        class="button is-light is-small"
+        (click)="timeChange.emit(time + 10)"
+      >
+        <plopdown-icon [path]="mdiFastForward10"></plopdown-icon>
+      </button>
+      <button
+        class="button is-light is-small"
+        (click)="timeChange.emit(endTime)"
+      >
+        <plopdown-icon [path]="mdiSkipNext"></plopdown-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="column is-narrow">
+    <!-- <plopdown-timecode-editor
+      [time]="time"
+      (timeChange)="timeChange.emit($event)"
+    ></plopdown-timecode-editor> -->
+  </div>
+
+  <div class="column">
+    <div class="field has-addons">
+      <p class="control">
+        <button
+          (click)="zoomChange.emit(zoom - 1)"
+          [disabled]="this.zoom <= 2"
+          class="button is-small"
+        >
+          <plopdown-icon [path]="mdiMagnify"></plopdown-icon>
+        </button>
+      </p>
+      <p class="control">
+        <input
+          class="input is-small"
+          type="number"
+          [ngModel]="this.zoom"
+          (ngModelChange)="this.zoomChange.emit($event)"
+          step="1"
+          min="2"
+          max="100"
+        />
+      </p>
+      <p class="control">
+        <button
+          class="button is-small"
+          (click)="zoomChange.emit(10)"
+          [disabled]="this.zoom === 10"
+        >
+          Reset
+        </button>
+      </p>
+    </div>
+  </div>
+
+  <div class="column is-narrow" *ngIf="cueSelected">
+    <div class="buttons has-addons">
+      <button
+        class="button is-danger is-small is-rounded"
+        (click)="removeCue.emit(cueSelected)"
+      >
+        <span class="icon">
+          <plopdown-icon [path]="mdiCommentRemove"></plopdown-icon>
+        </span>
+        <span>Remove</span>
+      </button>
+      <button
+        class="button is-primary is-small is-rounded"
+        (click)="duplicateCue.emit(cueSelected)"
+      >
+        <span class="icon">
+          <plopdown-icon [path]="mdiCommentMultiple"></plopdown-icon>
+        </span>
+        <span>Duplicate</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="column is-narrow">
+    <span class="field has-addons">
+      <div class="control">
+        <button
+          class="button is-success is-small is-rounded"
+          (click)="addCue.emit(newCueType)"
+        >
+          <span class="icon">
+            <plopdown-icon [path]="mdiCommentPlus"></plopdown-icon>
+          </span>
+          <span>Add</span>
+        </button>
+      </div>
+      <div class="control">
+        <div class="select is-success is-small is-rounded">
+          <select [(ngModel)]="newCueType" id="cue_template_type">
+            <option
+              [ngValue]="type.value"
+              *ngFor="let type of PlopdownTemplateType | keyvalue"
+            >
+              {{ type.value }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>

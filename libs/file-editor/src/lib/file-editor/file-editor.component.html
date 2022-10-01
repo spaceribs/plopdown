@@ -1,0 +1,31 @@
+<div class="content">
+  <plopdown-actions
+    [(time)]="currentTime"
+    [(zoom)]="zoom"
+    [cueSelected]="cueSelected"
+    [endTime]="endTime"
+    (addCue)="addCue($event)"
+    (removeCue)="removeCue($event)"
+    (duplicateCue)="duplicateCue($event)"
+  ></plopdown-actions>
+
+  <plopdown-canvas
+    *ngIf="plopdownFile"
+    [(cues)]="plopdownFile.cues"
+    [(layers)]="layers"
+    [(time)]="currentTime"
+    [(zoom)]="zoom"
+    [(cueSelected)]="cueSelected"
+    [endTime]="endTime"
+  ></plopdown-canvas>
+</div>
+
+<div class="sidebar" *ngIf="plopdownFile !== null">
+  <plopdown-inspector
+    [layers]="layers"
+    [cueSelected]="cueSelected"
+    (cueSelectedChange)="updateCue($event)"
+    [header]="plopdownFile.headers"
+    (headerChange)="updateHeaders($event)"
+  ></plopdown-inspector>
+</div>

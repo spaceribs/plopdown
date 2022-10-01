@@ -67,10 +67,9 @@ export class WindowRefService {
   public open(
     path: string,
     target?: string,
-    features?: string,
-    replace?: boolean
+    features?: string
   ) {
-    return this.window.open(path, target, features, replace);
+    return this.window.open(path, target, features);
   }
 
   reload() {

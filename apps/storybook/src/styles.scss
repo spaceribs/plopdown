@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@charset "utf-8";
+@import './variables.scss';
+
+// Import only what you need from Bulma
+@import '~bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/base/_all.sass';
+@import '~bulma/sass/form/_all.sass';
+@import '~bulma/sass/grid/_all.sass';
+
+@import '~bulma/sass/components/card.sass';
+@import '~bulma/sass/components/navbar.sass';
+@import '~bulma/sass/components/panel.sass';
+@import '~bulma/sass/components/tabs.sass';
+@import '~bulma/sass/components/modal.sass';
+
+@import '~bulma/sass/elements/box.sass';
+@import '~bulma/sass/elements/icon.sass';
+@import '~bulma/sass/elements/tag.sass';
+@import '~bulma/sass/elements/button.sass';
+@import '~bulma/sass/elements/container.sass';
+@import '~bulma/sass/elements/notification.sass';
+@import '~bulma/sass/elements/table.sass';
+@import '~bulma/sass/elements/title.sass';
+@import '~bulma/sass/elements/image.sass';
+
+@import '~bulma/sass/layout/hero.sass';
+@import '~bulma/sass/layout/section.sass';
+
+@import '~bulma/sass/helpers/_all.sass';
+
+code {
+  color: inherit;
+}
+
+.has-text-centered {
+  text-align: center;
+}

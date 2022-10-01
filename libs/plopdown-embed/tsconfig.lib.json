@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "target": "es5",
+    "target": "es2019",
     "declaration": true,
     "inlineSources": true,
     "types": [],
@@ -19,12 +19,14 @@
   "exclude": [
     "src/test-setup.ts",
     "**/*.spec.ts",
+    "**/*.test.ts",
     "**/*.stories.ts",
     "**/*.stories.js"
   ],
   "include": [
     "**/*.ts",
     "../tracks/src/lib/track.service.ts",
-    "../tracks/src/lib/track.service.spec.ts"
+    "../tracks/src/lib/track.service.spec.ts",
+    "../tracks/src/lib/track.service.test.ts"
   ]
 }

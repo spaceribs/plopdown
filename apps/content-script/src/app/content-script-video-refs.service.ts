@@ -45,9 +45,9 @@ export class ContentScriptVideoRefsService {
     return this.loading$;
   }
 
-  public addVideoRef(videoRef: VideoRef): Observable<VideoRef> {
+  public createTrack(videoRef: VideoRef): Observable<VideoRef> {
     return new Observable((observer) => {
-      this.csPub.addVideoRef(videoRef);
+      this.csPub.createTrack(videoRef);
       observer.next();
       observer.complete();
     }).pipe(

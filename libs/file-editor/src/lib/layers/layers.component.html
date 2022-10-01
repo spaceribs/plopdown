@@ -1,0 +1,22 @@
+<plopdown-layer
+  (mouseenter)="layerOver(layer)"
+  *ngFor="let layer of layers; trackBy: layerTrackBy"
+  [title]="layer.id || 'Undefined'"
+  [class.dropping-over]="(overLayer$ | async)?.id === layer.id"
+>
+  <plopdown-layer-cue
+    autofocus
+    *ngFor="let cue of cueLayer(layer); trackBy: cueTrackBy"
+    (draggingCue)="cueDragStart(cue, layer)"
+    [zoom]="zoom"
+    [totalTime]="totalTime"
+    [start]="cue.startTime"
+    (startChange)="startTimeUpdate(cue, $event)"
+    [end]="cue.endTime"
+    (endChange)="endTimeUpdate(cue, $event)"
+    [cue]="cue"
+    [cueSelected]="cueSelected"
+    (cueSelectedChange)="cueSelectedChange.emit(cue)"
+  >
+  </plopdown-layer-cue>
+</plopdown-layer>

@@ -11,107 +11,26 @@
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*"
   },
-  "projects": {
-    "background": {
-      "tags": ["ext-dep"]
-    },
-    "browser-action": {
-      "tags": ["ext-dep"]
-    },
-    "browser-ref": {
-      "tags": []
-    },
-    "content-script": {
-      "tags": ["ext-dep"]
-    },
-    "devtool": {
-      "tags": []
-    },
-    "devtool-panels": {
-      "tags": []
-    },
-    "devtools-ref": {
-      "tags": []
-    },
-    "ext-storage": {
-      "tags": []
-    },
-    "icon": {
-      "tags": []
-    },
-    "logger": {
-      "tags": []
-    },
-    "lz-string": {
-      "tags": []
-    },
-    "messages": {
-      "tags": []
-    },
-    "options": {
-      "tags": ["ext-dep"]
-    },
-    "permissions": {
-      "tags": []
-    },
-    "plopdown-cues": {
-      "tags": []
-    },
-    "plopdown-embed": {
-      "tags": []
-    },
-    "plopdown-embed-e2e": {
-      "tags": [],
-      "implicitDependencies": ["plopdown-embed"]
-    },
-    "plopdown-ext": {
-      "tags": [],
-      "implicitDependencies": [
-        "background",
-        "browser-action",
-        "options",
-        "content-script",
-        "devtool",
-        "devtool-panels",
-        "web-extension"
-      ]
-    },
-    "plopdown-file": {
-      "tags": []
-    },
-    "plopdown-injector": {
-      "tags": []
-    },
-    "pouchdb": {
-      "tags": []
-    },
-    "remotes": {
-      "tags": []
-    },
-    "testing-sandbox": {
-      "tags": []
-    },
-    "tracks": {
-      "tags": []
-    },
-    "video-refs": {
-      "tags": []
-    },
-    "web-extension": {
-      "tags": []
-    },
-    "web-extension-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web-extension"]
-    },
-    "website": {
-      "tags": []
-    },
-    "window-ref": {
-      "tags": []
-    }
-  },
   "affected": {
     "defaultBase": "master"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "plopdown-ext",
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
   }
 }

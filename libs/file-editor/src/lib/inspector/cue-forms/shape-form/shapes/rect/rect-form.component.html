@@ -1,0 +1,94 @@
+<ng-container *ngIf="rectGroup">
+  <ng-container [formGroup]="rectGroup">
+    <div class="field" *ngIf="rectGroup.controls.x as control">
+      <label for="cue_data_x" class="label is-small">X Position</label>
+      <div class="control">
+        <input
+          id="cue_data_x"
+          [formControl]="$any(control)"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="number"
+          min="0"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the x position of the rectangle.
+      </p>
+    </div>
+    <div class="field" *ngIf="rectGroup.controls.y as control">
+      <label for="cue_data_y" class="label is-small">Y Position</label>
+      <div class="control">
+        <input
+          id="cue_data_y"
+          [formControl]="$any(control)"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="number"
+          min="0"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the y position of the rectangle.
+      </p>
+    </div>
+    <div class="field" *ngIf="rectGroup.controls.width as control">
+      <label for="cue_data_width" class="label is-small">Width</label>
+      <div class="control">
+        <input
+          id="cue_data_width"
+          [formControl]="$any(control)"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="number"
+          min="0"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the width of the rectangle.
+      </p>
+    </div>
+    <div class="field" *ngIf="rectGroup.controls.height as control">
+      <label for="cue_data_height" class="label is-small">Height</label>
+      <div class="control">
+        <input
+          id="cue_data_height"
+          [formControl]="$any(control)"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="number"
+          min="0"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the height of the rectangle.
+      </p>
+    </div>
+    <div class="field" *ngIf="rectGroup.controls.rx as control">
+      <label for="cue_data_rx" class="label is-small">Border Radius X</label>
+      <div class="control">
+        <input
+          id="cue_data_rx"
+          [formControl]="$any(control)"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="number"
+          min="0"
+        />
+      </div>
+    </div>
+    <div class="field" *ngIf="rectGroup.controls.ry as control">
+      <label for="cue_data_ry" class="label is-small">Border Radius Y</label>
+      <div class="control">
+        <input
+          id="cue_data_ry"
+          [formControl]="$any(control)"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="number"
+          min="0"
+        />
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

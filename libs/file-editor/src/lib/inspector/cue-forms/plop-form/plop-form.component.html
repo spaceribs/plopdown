@@ -1,0 +1,258 @@
+<div [formGroup]="templateGroup">
+  <div class="field" *ngIf="templateGroup.controls.top as control">
+    <label for="cue_data_top" class="label is-small">Top</label>
+    <div class="control">
+      <input
+        id="cue_data_top"
+        [formControl]="$any(control)"
+        class="input is-small"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        type="number"
+        min="0"
+      />
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the top position of the annotation
+    </p>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.left as control">
+    <label for="cue_data_left" class="label is-small">Left</label>
+    <div class="control">
+      <input
+        id="cue_data_left"
+        [formControl]="$any(control)"
+        class="input is-small"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        type="number"
+        min="0"
+      />
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the left position of the annotation
+    </p>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.width as control">
+    <label for="cue_data_width" class="label is-small">Width</label>
+    <div class="control">
+      <input
+        id="cue_data_width"
+        [formControl]="$any(control)"
+        class="input is-small"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        type="number"
+        min="0"
+      />
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the width of the annotation
+    </p>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.desc as control">
+    <label for="cue_data_desc" class="label is-small">Description</label>
+    <div class="control">
+      <textarea
+        id="cue_data_desc"
+        [formControl]="$any(control)"
+        class="textarea is-small"
+        [ngClass]="{ 'is-danger': control.invalid }"
+      ></textarea>
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      The annotation requires a description
+    </p>
+  </div>
+  <ng-container *ngIf="templateGroup.controls.footnotes as array">
+    <div
+      class="card"
+      *ngFor="let footnote of $any(array).controls; let i = index"
+      [formGroup]="footnote"
+    >
+      <header class="card-header">
+        <p class="card-header-title">Footnote #{{ i + 1 }}</p>
+      </header>
+      <div class="card-content">
+        <div class="field" *ngIf="footnote.controls.title as control">
+          <label [for]="'cue_data_footnote_' + i" class="label is-small"
+            >Title</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_footnote_title_' + i"
+              [formControl]="$any(control)"
+              class="input is-small"
+              [ngClass]="{ 'is-danger': control.invalid }"
+              type="text"
+            />
+          </div>
+          <p class="help is-danger" *ngIf="control.errors?.required">
+            You need to specify the title of the footnote
+          </p>
+        </div>
+
+        <div class="field" *ngIf="footnote.controls.url as control">
+          <label [for]="'cue_data_footnote_url_' + i" class="label is-small"
+            >URL</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_url_' + i"
+              [formControl]="$any(control)"
+              class="input is-small"
+              [ngClass]="{ 'is-danger': control.invalid }"
+              type="text"
+            />
+          </div>
+          <p class="help is-danger" *ngIf="control.errors?.required">
+            You need to specify the URL of the footnote
+          </p>
+        </div>
+
+        <button
+          type="button"
+          (click)="removeFootnote($any(array), i)"
+          class="button is-small"
+        >
+          Remove Footnote
+        </button>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button
+        type="button"
+        (click)="addFootnote($any(array))"
+        class="button is-small is-fullwidth"
+      >
+        + Add Footnote
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="templateGroup.controls.icons as array">
+    <div
+      class="card"
+      *ngFor="let icon of $any(array).controls; let i = index"
+      [formGroup]="icon"
+    >
+      <header class="card-header">
+        <p class="card-header-title">Icon #{{ i + 1 }}</p>
+      </header>
+
+      <div class="card-content">
+        <div class="field" *ngIf="icon.controls.emoji as emoji">
+          <label [for]="'cue_data_icon_emoji_' + i" class="label is-small"
+            >Emoji</label
+          >
+          <div class="control">
+            <div class="selected-emoji" *ngIf="emoji.value">
+              {{ emoji.value || 'None' }}
+            </div>
+            <emoji-mart
+              [darkMode]="false"
+              [emojiSize]="20"
+              [perLine]="5"
+              [isNative]="true"
+              [showPreview]="false"
+              (emojiSelect)="
+                emoji.setValue($event.emoji.native); formUpdate.emit()
+              "
+            ></emoji-mart>
+          </div>
+          <p class="help is-danger" *ngIf="emoji.errors?.required">
+            You need to specify the emoji
+          </p>
+        </div>
+
+        <div class="field" *ngIf="icon.controls.top as control">
+          <label [for]="'cue_data_icon_top_' + i" class="label is-small"
+            >Top</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_icon_top_' + i"
+              [formControl]="$any(control)"
+              class="input is-small"
+              [ngClass]="{ 'is-danger': control.invalid }"
+              type="number"
+            />
+          </div>
+          <p class="help is-danger" *ngIf="control.errors?.required">
+            You need to specify the top position of the icon
+          </p>
+        </div>
+
+        <div class="field" *ngIf="icon.controls.left as control">
+          <label [for]="'cue_data_icon_left_' + i" class="label is-small"
+            >Left</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_icon_left_' + i"
+              [formControl]="$any(control)"
+              class="input is-small"
+              [ngClass]="{ 'is-danger': control.invalid }"
+              type="number"
+            />
+          </div>
+          <p class="help is-danger" *ngIf="control.errors?.required">
+            You need to specify the left position of the icon
+          </p>
+        </div>
+
+        <div class="field" *ngIf="icon.controls.size as control">
+          <label [for]="'cue_data_icon_size_' + i" class="label is-small"
+            >Size</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_icon_size_' + i"
+              [formControl]="$any(control)"
+              class="input is-small"
+              [ngClass]="{ 'is-danger': control.invalid }"
+              type="number"
+            />
+          </div>
+          <p class="help is-danger" *ngIf="control.errors?.required">
+            You need to specify the size of the icon
+          </p>
+        </div>
+
+        <div class="field" *ngIf="icon.controls.rotate as control">
+          <label [for]="'cue_data_icon_rotate_' + i" class="label is-small"
+            >Rotate</label
+          >
+          <div class="control">
+            <input
+              [id]="'cue_data_icon_rotate_' + i"
+              [formControl]="$any(control)"
+              class="input is-small"
+              [ngClass]="{ 'is-danger': control.invalid }"
+              type="number"
+            />
+          </div>
+          <p class="help is-danger" *ngIf="control.errors?.required">
+            You need to specify the rotation of the icon in degrees
+          </p>
+        </div>
+
+        <button
+          type="button"
+          (click)="removeIcon($any(array), i)"
+          class="button is-small"
+        >
+          Remove Icon
+        </button>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button
+        type="button"
+        (click)="addIcon($any(array))"
+        class="button is-small is-fullwidth"
+      >
+        + Add Icon
+      </button>
+    </div>
+  </ng-container>
+</div>

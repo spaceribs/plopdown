@@ -1,0 +1,71 @@
+:host {
+  position: relative;
+  display: block;
+  min-height: 300px;
+}
+
+.layer-labels {
+  box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
+  width: 100px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  margin-right: -1px;
+  padding-top: 15px;
+
+  .layer-label {
+    height: 50px;
+    margin-top: -1px;
+    box-shadow: 0 1px 0 0px inset rgba(0, 0, 0, 0.2);
+    font-size: 10px;
+    padding: 3px 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    input {
+      border: none;
+      font-size: inherit;
+      display: block;
+      width: 100%;
+    }
+
+    .layer-actions {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-top: 5px;
+    }
+
+    .is-small {
+      font-size: 8px;
+    }
+
+    .new-submit {
+      visibility: hidden;
+    }
+  }
+}
+
+plopdown-current-time.hint {
+  display: none;
+}
+
+.scroll-box {
+  will-change: scroll-position;
+  top: 0;
+  left: 99px;
+  right: 0;
+  position: absolute;
+  overflow: auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.2);
+  overscroll-behavior: none;
+  padding-bottom: 65px;
+  &:hover {
+    plopdown-current-time.hint {
+      display: block;
+    }
+  }
+}

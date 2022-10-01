@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "target": "es2019"
+  },
+  "exclude": ["../**/*.spec.ts", "../**/*.test.ts"],
+  "include": ["../src/**/*"]
+}

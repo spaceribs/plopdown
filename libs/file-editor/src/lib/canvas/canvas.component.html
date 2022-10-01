@@ -1,0 +1,99 @@
+<div class="layer-labels">
+  <div
+    *ngFor="
+      let layer of layers;
+      trackBy: layerTrackBy;
+      let first = first;
+      let last = last
+    "
+    [attr.title]="layer.id"
+    class="layer-label"
+  >
+    <div
+      [attr.contenteditable]="layer.readonly !== true"
+      (blur)="setLayerId(layer, $event)"
+      (keydown.enter)="setLayerId(layer, $event)"
+      class="label-id"
+      [innerText]="layer.id"
+    ></div>
+
+    <div class="layer-actions">
+      <div class="buttons has-addons">
+        <button
+          [disabled]="layer.readonly"
+          (click)="removeLayer(layer)"
+          class="button is-small"
+        >
+          <plopdown-icon [path]="mdiClose"></plopdown-icon>
+        </button>
+      </div>
+
+      <div class="buttons has-addons">
+        <button
+          [disabled]="first"
+          (click)="moveLayerUp(layer)"
+          class="button is-small"
+        >
+          <plopdown-icon [path]="mdiArrowUp"></plopdown-icon>
+        </button>
+        <button
+          [disabled]="last"
+          (click)="moveLayerDown(layer)"
+          class="button is-small"
+        >
+          <plopdown-icon [path]="mdiArrowDown"></plopdown-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <form
+    [formGroup]="addLayerForm"
+    (submit)="addLayer($event)"
+    class="layer-label"
+  >
+    <input
+      formControlName="id"
+      placeholder="+ New Layer"
+      minlength="3"
+      maxlength="40"
+    />
+    <button class="new-submit" type="submit" [disabled]="!addLayerForm.valid">
+      Add New Layer
+    </button>
+  </form>
+</div>
+
+<div
+  class="scroll-box"
+  #scrollBox
+  (mousemove)="setHintTime($event)"
+  (click)="setTime($event)"
+  (wheel)="zoomScroll($event)"
+>
+  <plopdown-ruler [width]="scrollWidth" [zoom]="zoom"></plopdown-ruler>
+
+  <plopdown-layers
+    (click)="deselectCue($event)"
+    [width]="scrollWidth"
+    [zoom]="zoom"
+    [totalTime]="endTime"
+    [layers]="layers"
+    [cues]="cues"
+    (cuesChange)="this.cuesChange.emit($event)"
+    [cueSelected]="cueSelected"
+    (cueSelectedChange)="cueSelectedChange.emit($event)"
+  >
+  </plopdown-layers>
+
+  <plopdown-current-time
+    [left]="timePosition"
+    [time]="time"
+  ></plopdown-current-time>
+
+  <plopdown-current-time
+    class="hint"
+    [left]="hintTimePosition"
+    [time]="hintTime"
+  ></plopdown-current-time>
+</div>

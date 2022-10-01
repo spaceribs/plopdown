@@ -1,0 +1,72 @@
+<div [formGroup]="templateGroup">
+  <div class="field" *ngIf="templateGroup.controls.title as control">
+    <label for="cue_data_title" class="label is-small">Title</label>
+    <div class="control">
+      <input
+        id="cue_data_title"
+        [formControl]="$any(control)"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        class="input is-small"
+        type="text"
+      />
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the title.
+    </p>
+  </div>
+  <div class="field">
+    <label for="cue_data_url" class="label is-small">URL</label>
+    <div class="control">
+      <input
+        id="cue_data_url"
+        formControlName="url"
+        class="input is-small"
+        type="text"
+      />
+    </div>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.top as control">
+    <label for="cue_data_top" class="label is-small">Top</label>
+    <div class="control">
+      <input
+        id="cue_data_top"
+        [formControl]="$any(control)"
+        class="input is-small"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        type="number"
+        min="0"
+      />
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the top position of the annotation
+    </p>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.left as control">
+    <label for="cue_data_left" class="label is-small">Left</label>
+    <div class="control">
+      <input
+        id="cue_data_left"
+        [formControl]="$any(control)"
+        class="input is-small"
+        [ngClass]="{ 'is-danger': control.invalid }"
+        type="number"
+        min="0"
+      />
+    </div>
+    <p class="help is-danger" *ngIf="control.errors?.required">
+      You need to specify the left position of the annotation
+    </p>
+  </div>
+  <div class="field" *ngIf="templateGroup.controls.offset_time as control">
+    <label for="cue_data_left" class="label is-small">Offset Time</label>
+    <div class="control">
+      <input
+        id="cue_data_left"
+        [formControl]="$any(control)"
+        class="input is-small"
+        type="number"
+        min="0"
+      />
+    </div>
+  </div>
+</div>

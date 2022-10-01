@@ -1,30 +1,3 @@
-module.exports = {
-  projects: [
-    '<rootDir>/apps/background',
-    '<rootDir>/apps/browser-action',
-    '<rootDir>/apps/options',
-    '<rootDir>/apps/content-script',
-    '<rootDir>/apps/testing-sandbox',
-    '<rootDir>/libs/plopdown-file',
-    '<rootDir>/libs/messages',
-    '<rootDir>/libs/video-refs',
-    '<rootDir>/libs/tracks',
-    '<rootDir>/libs/logger',
-    '<rootDir>/libs/window-ref',
-    '<rootDir>/libs/browser-ref',
-    '<rootDir>/libs/ext-storage',
-    '<rootDir>/libs/icon',
-    '<rootDir>/libs/plopdown-embed',
-    '<rootDir>/apps/website',
-    '<rootDir>/libs/plopdown-injector',
-    '<rootDir>/apps/devtool',
-    '<rootDir>/apps/devtool-panels',
-    '<rootDir>/libs/devtools-ref',
-    '<rootDir>/libs/web-extension',
-    '<rootDir>/libs/permissions',
-    '<rootDir>/libs/lz-string',
-    '<rootDir>/libs/plopdown-cues',
-    '<rootDir>/libs/remotes',
-    '<rootDir>/libs/pouchdb',
-  ],
-};
+const { getJestProjects } = require('@nrwl/jest');
+
+module.exports = { projects: getJestProjects() };

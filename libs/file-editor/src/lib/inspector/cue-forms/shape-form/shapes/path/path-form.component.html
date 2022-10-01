@@ -1,0 +1,19 @@
+<ng-container *ngIf="pathGroup">
+  <ng-container [formGroup]="pathGroup">
+    <div class="field" *ngIf="pathGroup.controls.d as control">
+      <label for="cue_data_d" class="label is-small">Path</label>
+      <div class="control">
+        <input
+          id="cue_data_d"
+          [formControl]="$any(control)"
+          class="input is-small"
+          [ngClass]="{ 'is-danger': control.invalid }"
+          type="text"
+        />
+      </div>
+      <p class="help is-danger" *ngIf="control.errors?.required">
+        You need to specify the coordinates of the path.
+      </p>
+    </div>
+  </ng-container>
+</ng-container>

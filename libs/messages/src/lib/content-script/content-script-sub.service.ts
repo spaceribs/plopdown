@@ -4,7 +4,8 @@ import {
   ContentScriptReady,
   ContentScriptVideoRefsRequested,
   ContentScriptTracksRequested,
-  ContentScriptAddVideoRef,
+  ContentScriptDevRefs,
+  ContentScriptCreateTrack,
 } from './content-script.model';
 import { Injectable } from '@angular/core';
 import { PortSubscriber } from '../subscriber.abstract';
@@ -15,9 +16,7 @@ import { MessagesService } from '../messages.service';
 @Injectable({
   providedIn: MessagesModule,
 })
-export class ContentScriptSubService extends PortSubscriber<
-  ContentScriptCommand
-> {
+export class ContentScriptSubService extends PortSubscriber<ContentScriptCommand> {
   constructor(messages: MessagesService, logger: LoggerService) {
     super(Source.ContentScript, messages, logger);
   }
@@ -39,6 +38,10 @@ export class ContentScriptSubService extends PortSubscriber<
   }
 
   public onAddVideoRef() {
-    return this.filterCommand<ContentScriptAddVideoRef>('CS_ADD_VIDEO_REF');
+    return this.filterCommand<ContentScriptCreateTrack>('CS_CREATE_TRACK');
+  }
+
+  public onDevRefs() {
+    return this.filterCommand<ContentScriptDevRefs>('CS_DEV_REFS');
   }
 }

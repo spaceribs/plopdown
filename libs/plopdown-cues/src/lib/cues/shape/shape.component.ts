@@ -36,7 +36,7 @@ import { PlopdownShape } from './shape.model';
   ],
 })
 export class ShapeComponent extends PlopdownBaseComponent<PlopdownShape> {
-  public color = '#79addc';
+  public color = '#b6d6cc';
 
   @HostBinding('@infoFade') animate = true;
 

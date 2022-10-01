@@ -1,0 +1,7 @@
+<div
+  class="tick"
+  *ngFor="let tick of ticks; trackBy: trackTicks"
+  [ngStyle]="{ 'left.px': tick.left }"
+>
+  {{ tick.time | date: 'H:mm:ss.SSS':'+0000' }}
+</div>

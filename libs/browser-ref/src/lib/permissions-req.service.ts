@@ -23,7 +23,7 @@ export class PermissionsRequestService {
   }
 
   refresh() {
-    this.loadPerms$.next();
+    this.loadPerms$.next(null);
   }
 
   getAll(): Observable<browser.permissions.AnyPermissions> {
