@@ -20,10 +20,20 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
       already fails so pre-existing breakage is never mistaken for upgrade breakage
 - [ ] 1.2 Install Node 16 and confirm Angular 12 + Nx 12 build, test, and lint unchanged under it
 - [ ] 1.3 Set `.nvmrc` to `lts/gallium` (Node 16)
-- [ ] 1.4 Delete `package-lock.json` and regenerate with npm 8; confirm `lockfileVersion` is 3 and
-      that no entry in `package.json` changed
-- [ ] 1.5 Pin `eslint-plugin-rxjs` off `latest` to its resolved version, and replace the
-      `json-schema` git URL with a registry version
+- [ ] 1.4 Migrate `package-lock.json` in place — run `npm install` with npm 8 against the existing
+      v1 file. Do **not** delete and regenerate: a from-scratch resolve re-resolves every `^` range
+      to today's newest match and silently bumps hundreds of transitive versions, which is exactly
+      the unreviewable diff Decision 3 exists to prevent. In-place migration changed 1 of 1633
+      entries. Target is `lockfileVersion` **2**, not 3 — npm 8 writes v2, and v3 only arrives with
+      npm 9. v2 is the better landing anyway: it keeps the legacy `dependencies` block alongside
+      `packages`, so npm 6 can still read it during the transition
+- [ ] 1.5 Pin `eslint-plugin-rxjs` off `latest` to `3.3.5`, the version the old lockfile actually
+      resolved. This is load-bearing, not tidying: `latest` now means 5.0.3, which peer-requires
+      eslint ^8 against this repo's ^7, and npm 8 fails the whole install with ERESOLVE where npm 6
+      silently allowed it. Replace the `json-schema` git URL with `0.4.0`, the registry release of
+      that same fork commit (the CVE-2021-3918 fix). Note this only pins the direct devDependency —
+      transitive consumers can still nest older copies, which needs `overrides` to fix properly;
+      file that rather than doing it here
 - [ ] 1.6 Drop `@nrwl/nx-plugin`, now dead — the removed plugin was its only consumer, and it is
       referenced nowhere outside `package.json`. Doing it here keeps the lockfile churn in one PR
 - [ ] 1.7 Raise Node to `16.x` in CI: `env.NODE_VERSION` and the `setup` job's matrix in

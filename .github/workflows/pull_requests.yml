@@ -8,7 +8,7 @@ on:
 # setup-node step at all and silently ran on whatever Node the runner image
 # shipped -- see the matrix in the setup job, which must move in step.
 env:
-  NODE_VERSION: '12.x'
+  NODE_VERSION: '16.x'
 
 jobs:
   setup:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v7

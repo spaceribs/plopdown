@@ -1,5 +1,13 @@
 {
   "npmScope": "plopdown",
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": {
