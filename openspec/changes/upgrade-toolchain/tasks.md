@@ -40,8 +40,7 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
 - [ ] 1.9 Confirm the fix by unzipping the CI artifact and checking all six surfaces are present.
       Until this passes, a green `Build Affected` does not mean the extension is loadable, and the
       Decision 7 gate is not actually being enforced
-- [ ] 1.10 Verify the Decision 7 gate, then load the built extension in Firefox and confirm a
-      track still attaches to a video and cues render
+- [ ] 1.10 Verify the Decision 7 gate
 - [ ] 1.11 Open the PR, pause for review
 
 ## 2. Phase 1 — Angular/Nx 13 (Node 16)
@@ -52,7 +51,7 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
       this hop, not later
 - [ ] 2.4 Confirm `@angular-builders/custom-webpack` 13.x drives the content-script build
 - [ ] 2.5 Decline every optional schematic Angular offers (Decision 6); note what was declined
-- [ ] 2.6 Verify the gate, load the extension in Firefox, confirm cue rendering
+- [ ] 2.6 Verify the gate
 - [ ] 2.7 Open the PR, pause for review
 
 ## 3. Phase 2 — Angular/Nx 14 (Node 16)
@@ -81,8 +80,7 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
 - [ ] 5.7 Confirm `nx migrate` renamed `@nrwl/workspace:run-commands` to `nx:run-commands` on the
       `plopdown-ext` build and serve targets (the plugin itself was removed ahead of Phase 0)
 - [ ] 5.8 Move TypeScript to 5.1.x
-- [ ] 5.9 Verify the gate — the extension must produce a loadable build before this merges — then
-      confirm cue rendering in Firefox
+- [ ] 5.9 Verify the gate — the extension must still produce a complete zip before this merges
 - [ ] 5.10 Open the PR, pause for review
 
 ## 6. Phase 5 — Angular/Nx 17 (Node 18)
@@ -105,10 +103,12 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
       `no-nested-subscribe`, `no-subject-value`, `no-unbound-methods`, and the rest of the rule set
 - [ ] 7.7 Confirm the RxJS rules still fire: introduce a nested `subscribe` temporarily and verify
       lint rejects it
-- [ ] 7.8 Verify the gate, then exercise the message bus end-to-end in Firefox — attach a track,
-      confirm cues render, confirm the browser-action popup reflects live status. Unit tests are
-      not sufficient evidence for this phase
-- [ ] 7.9 Open the PR, pause for review
+- [ ] 7.8 Add automated coverage for the message bus before moving RxJS, since manual checking is
+      deferred to close-out and nothing else catches a silent delivery failure: a spec that
+      publishes through `BackgroundPubService` and asserts the matching `filterCommand` observable
+      actually emits, covering both the `runtime.sendMessage` and `tabs.sendMessage` fan-out
+- [ ] 7.9 Verify the gate
+- [ ] 7.10 Open the PR, pause for review
 
 ## 8. Phase 7 — Angular/Nx 19 (Node 18)
 
@@ -145,19 +145,37 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
 - [ ] 11.8 Drop dead devDependencies the migration leaves behind — `react`, `react-is`,
       `web-ext-types`, `tslint`-era config, and the `tslint.json` entry in `nx.json`
 - [ ] 11.9 Remove the `typescript-tslint-plugin` entry from `tsconfig.base.json`
-- [ ] 11.10 Verify the gate, then run a full manual pass in Firefox: attach a track, render cues,
-      exercise the options page, confirm content-script injection still gates on permission grant
+- [ ] 11.10 Verify the gate
 - [ ] 11.11 Open the PR, pause for review
 
-## 12. Close-out
+## 12. Manual validation (owner, after Phase 10)
 
-- [ ] 12.1 Update `CLAUDE.md` — the Node 12 / lockfileVersion 1 note, and the four-file project
+Deferred here at the owner's direction rather than run per phase. CI covers build, lint, and unit
+tests; none of it proves the extension works in a browser, so this group is the first time that is
+checked. If something here fails, the cause could sit anywhere across eleven phases — start by
+bisecting the phase merges on `master`.
+
+- [ ] 12.1 Load the built extension in Firefox via `npm run start:ext-browser`
+- [ ] 12.2 Grant origin permission on a site with an HTML5 video and confirm the content script is
+      injected only after the grant
+- [ ] 12.3 Attach a track to a video and confirm cues render over it at the right times
+- [ ] 12.4 Confirm the browser-action popup reflects live status — this is the message bus working
+      end to end, and the thing RxJS 7 is most likely to have broken silently
+- [ ] 12.5 Exercise the options page: add a remote, toggle its `sync` flag, confirm replication
+      direction still follows it
+- [ ] 12.6 Open a `#plopdown:<compressed>` share URL and confirm it decodes to an ephemeral
+      VideoRef and Track
+- [ ] 12.7 Confirm the extension enable/disable toggle still tears the background pipelines down
+
+## 13. Close-out
+
+- [ ] 13.1 Update `CLAUDE.md` — the Node 12 / lockfileVersion 1 note, and the four-file project
       registration convention if `project.json` changed it
-- [ ] 12.2 Update `README.md` setup and development steps
-- [ ] 12.3 Update `REVIEWERS.md` — it tells Mozilla's add-on reviewers to reproduce the build on
+- [ ] 13.2 Update `README.md` setup and development steps
+- [ ] 13.3 Update `REVIEWERS.md` — it tells Mozilla's add-on reviewers to reproduce the build on
       `node:12` with npm 6.14.11, which stops being true at Phase 0 and would leave AMO unable to
       verify a submission
-- [ ] 12.4 Confirm the extension version is still in sync between `package.json` and
+- [ ] 13.4 Confirm the extension version is still in sync between `package.json` and
       `apps/plopdown-ext/src/manifest.json`
-- [ ] 12.5 File follow-ups deliberately excluded here: Manifest V3, Bulma 1.x, the devtool and
+- [ ] 13.5 File follow-ups deliberately excluded here: Manifest V3, Bulma 1.x, the devtool and
       testing-sandbox questions, and any pre-existing bugs found from task 1.1
