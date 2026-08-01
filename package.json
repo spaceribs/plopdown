@@ -42,6 +42,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "12.1.1",
+    "ajv": "^8.6.0",
     "@angular/cdk": "12.0.0",
     "@angular/common": "12.1.1",
     "@angular/compiler": "12.1.1",
