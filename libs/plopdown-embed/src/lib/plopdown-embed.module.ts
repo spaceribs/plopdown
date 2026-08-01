@@ -10,19 +10,18 @@ import { PlopdownEmbedComponent } from './plopdown-embed.component';
 import { PlopdownCuesModule } from '@plopdown/plopdown-cues';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IconModule,
-    WindowRefModule,
-    OverlayModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InjectorMenuModule,
-    PlopdownCuesModule,
-  ],
-  declarations: [PlopdownEmbedComponent, CueTimelineComponent],
-  providers: [],
-  entryComponents: [PlopdownEmbedComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IconModule,
+        WindowRefModule,
+        OverlayModule,
+        FormsModule,
+        ReactiveFormsModule,
+        InjectorMenuModule,
+        PlopdownCuesModule,
+    ],
+    declarations: [PlopdownEmbedComponent, CueTimelineComponent],
+    providers: []
 })
 export class PlopdownEmbedModule {}

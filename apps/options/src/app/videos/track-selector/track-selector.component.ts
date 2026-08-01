@@ -70,7 +70,9 @@ export class TrackSelectorComponent {
       return null;
     }
     const attachment = track._attachments[filename];
-    const url = this.windowRef.getURL().createObjectURL(attachment.data);
+    const url = this.windowRef
+      .getURL()
+      .createObjectURL(attachment.data as Blob);
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }
