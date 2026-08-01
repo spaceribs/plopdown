@@ -13,18 +13,18 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Cache .npm
         id: cache-npm
-        uses: actions/cache@v2
+        uses: actions/cache@v6
         with:
           path: |-
             ~/.npm
@@ -43,12 +43,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v6
         with:
           path: |-
             ~/.npm
@@ -66,12 +66,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v6
         with:
           path: |-
             ~/.npm
@@ -92,12 +92,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v6
         with:
           path: |-
             ~/.npm
