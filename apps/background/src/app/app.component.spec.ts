@@ -41,6 +41,12 @@ class MockVideoRefsRequestedComponent {}
 })
 class MockInstallContentScriptComponent {}
 
+@Component({
+  template: ``,
+  selector: 'plopdown-sync-databases',
+})
+class MockSyncDatabasesComponent {}
+
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -62,6 +68,7 @@ describe('AppComponent', () => {
         MockTracksRequestedComponent,
         MockInstallContentScriptComponent,
         MockVideoRefsRequestedComponent,
+        MockSyncDatabasesComponent,
       ],
     }).compileComponents();
   }));
