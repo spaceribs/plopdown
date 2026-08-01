@@ -12,7 +12,6 @@ Angular 12 apps and libs under the `@plopdown/*` npm scope.
 
 ```bash
 npm install                  # postinstall runs decorate-angular-cli.js + ngcc
-npm run build web-extension  # MUST run first — see "Plugin bootstrap" below
 npm run build:ext            # build all six extension surfaces (production)
 npm run build                # build the default project (plopdown-ext) -> zip in dist/extensions
 npm run build website -- --prod   # website builds into /docs (GitHub Pages)
@@ -54,13 +53,17 @@ Each extension surface (`background`, `content-script`, `browser-action`, `optio
 assets, and declares the surfaces as `implicitDependencies` in `nx.json`. There is no single app
 entry point — a feature usually spans two or three of these apps plus a lib.
 
-### Plugin bootstrap (the main footgun)
+### Packaging the extension
 
-`plopdown-ext`'s builder is `./dist/libs/web-extension:build` — a path into `dist/`, not
-`node_modules`. The `web-extension` lib is a local Nx plugin (builders `build`/`run` wrapping
-`web-ext`) and **must be compiled before anything can build the extension**. A clean checkout that
-skips `npm run build web-extension` fails with an unresolvable builder. CI has a dedicated step for
-exactly this.
+`plopdown-ext`'s `build` target is a `run-commands` pair: a small Node script copies
+`apps/plopdown-ext/src` (manifest, icons, `_locales`) into `dist/apps/plopdown-ext`, then `web-ext`
+packs that directory into a zip in `dist/extensions`. The copy merges rather than replaces, so it
+does not matter whether it runs before or after the six app builds land in their subdirectories.
+
+This used to be a local Nx plugin (`libs/web-extension`) whose builders were referenced through the
+path `./dist/libs/web-extension:build` — meaning the plugin had to be compiled into `dist/` before
+anything else could build. That bootstrap step is gone; a clean checkout can build the extension
+straight after `npm install`.
 
 ### The message bus
 

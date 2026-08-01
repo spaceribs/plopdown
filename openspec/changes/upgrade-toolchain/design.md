@@ -1,11 +1,13 @@
 ## Context
 
 See proposal.md — Why. What shapes the approach here is a bootstrapping problem: the workspace
-cannot upgrade itself in place. Node 12 ships npm 6, which cannot write a modern lockfile; Nx 12's
-`migrate` must run under a Node that Nx 12 supports; and the extension cannot be built at all until
-`libs/web-extension` — a first-party Nx plugin consumed through the path
-`./dist/libs/web-extension:build` — compiles. Every phase therefore has to leave the workspace in a
-state where the _next_ phase's tooling can run.
+cannot upgrade itself in place. Node 12 ships npm 6, which cannot write a modern lockfile, and Nx 12's
+`migrate` must run under a Node that Nx 12 supports. Every phase therefore has to leave the workspace
+in a state where the _next_ phase's tooling can run.
+
+A third constraint of this shape — that nothing could be packaged until the first-party
+`libs/web-extension` plugin had been compiled into `dist/` — has already been removed; see
+Decision 4.
 
 Two version ranges were verified against npm rather than assumed, and they set the whole shape of
 the plan:
@@ -78,24 +80,31 @@ reviewer can accept on the strength of a green CI run.
 The dependency _versions_ do not change in this PR — only the lockfile format and the runtime. That
 distinction is what makes it reviewable.
 
-### 4. Replace the `libs/web-extension` Nx plugin with `nx:run-commands`
+### 4. Replace the `libs/web-extension` Nx plugin with `run-commands`
 
-**This is the one decision that changes repo architecture, and it wants explicit sign-off before
-Phase 4 begins.**
+**Signed off and already executed — ahead of Phase 0, on the Angular 12 toolchain.**
 
-The plugin exists to wrap two `web-ext` invocations (`build` and `run`) as Nx builders, plus a
-schematic. It costs more than it earns:
+Doing it first rather than at Phase 4 was the better trade: it is a self-contained change that can be
+verified against a known-good toolchain, where "working" is still well defined, and it removes the
+single riskiest item from the heaviest phase. It also deletes the bootstrap ordering problem for
+every phase that follows, instead of only the last six.
 
-- `plopdown-ext`'s builder is the path `./dist/libs/web-extension:build`, so the plugin must be
-  compiled into `dist/` before anything else builds — the documented footgun that breaks every clean
-  checkout and needs a dedicated CI step.
-- It is built with `@nrwl/node:package`, which does not survive to modern Nx, and it ships
+On Nx 12 the executor is named `@nrwl/workspace:run-commands`; `nx migrate` renames it to
+`nx:run-commands` during the hops.
+
+The plugin wrapped two `web-ext` invocations (`build` and `run`) as Nx builders, plus a schematic. It
+cost more than it earned:
+
+- `plopdown-ext`'s builder was the path `./dist/libs/web-extension:build`, so the plugin had to be
+  compiled into `dist/` before anything else could build — the documented footgun that broke every
+  clean checkout and needed a dedicated CI step.
+- It was built with `@nrwl/node:package`, which does not survive to modern Nx, and it shipped
   `builders.json` / `collection.json` in a format that predates the executor/generator split.
 
-Porting it means rewriting the builder API, the schema files, and the packaging target — first-party
-migration work with no codemod behind it. Replacing it with an `nx:run-commands` target that calls
-`web-ext` directly deletes the bootstrap ordering problem outright, removes the dedicated CI step,
-and leaves `web-ext` invoked with the same arguments.
+Porting it would have meant rewriting the builder API, the schema files, and the packaging target —
+first-party migration work with no codemod behind it. The replacement is a `run-commands` target that
+copies the static assets and then calls `web-ext` with the same arguments, which deletes the
+bootstrap ordering problem outright and removes the dedicated CI step.
 
 _Alternative considered — port the plugin._ This would be the right call if the schematic were used
 to scaffold new extensions, or if the plugin were meant for publication. Neither holds.
@@ -125,9 +134,9 @@ changes unrelated to the upgrade. Anything optional is deferred to its own chang
 
 ### 7. Every phase must end green on the same four commands
 
-`npm run build web-extension` (until Decision 4 removes it), `npm run build:ext`, `npm test`,
-`npm run lint` — plus CI's `node-version` raised in the same commit as `.nvmrc`. A phase that cannot
-reach all four does not merge; it gets split.
+`npm run build:ext`, `npm run build plopdown-ext`, `npm test`, `npm run lint` — plus CI's
+`node-version` raised in the same commit as `.nvmrc`. A phase that cannot reach all four does not
+merge; it gets split.
 
 ## Risks / Trade-offs
 

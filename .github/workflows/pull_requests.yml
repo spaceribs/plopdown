@@ -81,9 +81,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-
 
-      - name: Build Web Extension Plugin
-        run: npm run build web-extension
-
       - name: Build Affected Projects
         run: npm run ci:build
 

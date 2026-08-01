@@ -969,23 +969,22 @@
       "sourceRoot": "apps/plopdown-ext/src",
       "architect": {
         "build": {
-          "builder": "./dist/libs/web-extension:build",
+          "builder": "@nrwl/workspace:run-commands",
+          "outputs": ["dist/apps/plopdown-ext", "dist/extensions"],
           "options": {
-            "destinationDir": "dist/apps/plopdown-ext",
-            "artifactsDir": "dist/extensions",
-            "sourceDir": "apps/plopdown-ext/src",
-            "verbose": true,
-            "overwriteDest": true
+            "parallel": false,
+            "commands": [
+              "node tools/scripts/copy-ext-assets.js apps/plopdown-ext/src dist/apps/plopdown-ext",
+              "web-ext build --source-dir dist/apps/plopdown-ext --artifacts-dir dist/extensions --overwrite-dest --verbose"
+            ]
           }
         },
         "serve": {
-          "builder": "./dist/libs/web-extension:run",
+          "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "startUrl": [
-              "http://localhost:4200/",
-              "about:debugging#/runtime/this-firefox"
-            ],
-            "sourceDir": "dist/apps/plopdown-ext"
+            "commands": [
+              "web-ext run --source-dir dist/apps/plopdown-ext --start-url http://localhost:4200/ --start-url about:debugging#/runtime/this-firefox"
+            ]
           }
         }
       }
@@ -1275,85 +1274,6 @@
       "schematics": {
         "@nrwl/angular:component": {
           "styleext": "scss"
-        }
-      }
-    },
-    "web-extension": {
-      "root": "libs/web-extension",
-      "sourceRoot": "libs/web-extension/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/web-extension/**/*.ts",
-              "libs/web-extension/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/web-extension/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/web-extension"]
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "options": {
-            "outputPath": "dist/libs/web-extension",
-            "tsConfig": "libs/web-extension/tsconfig.lib.json",
-            "packageJson": "libs/web-extension/package.json",
-            "main": "libs/web-extension/src/index.ts",
-            "assets": [
-              "libs/web-extension/*.md",
-              {
-                "input": "./libs/web-extension/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/web-extension",
-                "glob": "collection.json",
-                "output": "."
-              },
-              {
-                "input": "./libs/web-extension",
-                "glob": "builders.json",
-                "output": "."
-              }
-            ],
-            "srcRootForCompilationRoot": "libs/web-extension"
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
-    "web-extension-e2e": {
-      "projectType": "application",
-      "root": "apps/web-extension-e2e",
-      "sourceRoot": "apps/web-extension-e2e/src",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "web-extension:build",
-            "npmPackageName": "@plopdown/web-extension",
-            "pluginOutputPath": "dist/libs/web-extension",
-            "jestConfig": "apps/web-extension-e2e/jest.config.js"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/web-extension-e2e/**/*.ts",
-              "apps/web-extension-e2e/**/*.html"
-            ]
-          }
         }
       }
     },
