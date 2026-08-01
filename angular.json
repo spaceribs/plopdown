@@ -102,7 +102,8 @@
           },
           "outputs": ["coverage/apps/background"]
         }
-      }
+      },
+      "tags": ["ext-dep"]
     },
     "browser-action": {
       "projectType": "application",
@@ -210,7 +211,8 @@
           },
           "outputs": ["coverage/apps/browser-action"]
         }
-      }
+      },
+      "tags": ["ext-dep"]
     },
     "browser-ref": {
       "projectType": "library",
@@ -240,7 +242,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "content-script": {
       "projectType": "application",
@@ -345,7 +348,8 @@
           },
           "outputs": ["coverage/apps/content-script"]
         }
-      }
+      },
+      "tags": ["ext-dep"]
     },
     "devtool": {
       "projectType": "application",
@@ -452,7 +456,8 @@
           },
           "outputs": ["coverage/apps/devtool"]
         }
-      }
+      },
+      "tags": []
     },
     "devtool-panels": {
       "projectType": "application",
@@ -559,7 +564,8 @@
           },
           "outputs": ["coverage/apps/devtool-panels"]
         }
-      }
+      },
+      "tags": []
     },
     "devtools-ref": {
       "projectType": "library",
@@ -589,7 +595,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "ext-storage": {
       "projectType": "library",
@@ -619,7 +626,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "icon": {
       "projectType": "library",
@@ -646,7 +654,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "logger": {
       "projectType": "library",
@@ -673,7 +682,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "lz-string": {
       "projectType": "library",
@@ -703,7 +713,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "messages": {
       "projectType": "library",
@@ -733,7 +744,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "options": {
       "projectType": "application",
@@ -842,7 +854,8 @@
           },
           "outputs": ["coverage/apps/options"]
         }
-      }
+      },
+      "tags": ["ext-dep"]
     },
     "permissions": {
       "projectType": "library",
@@ -872,7 +885,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "plopdown-cues": {
       "projectType": "library",
@@ -902,7 +916,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "plopdown-embed": {
       "projectType": "library",
@@ -932,7 +947,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "plopdown-embed-e2e": {
       "root": "apps/plopdown-embed-e2e",
@@ -961,7 +977,9 @@
             ]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["plopdown-embed"]
     },
     "plopdown-ext": {
       "projectType": "application",
@@ -987,7 +1005,16 @@
             ]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": [
+        "background",
+        "browser-action",
+        "options",
+        "content-script",
+        "devtool",
+        "devtool-panels"
+      ]
     },
     "plopdown-file": {
       "projectType": "library",
@@ -1031,7 +1058,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "plopdown-injector": {
       "projectType": "library",
@@ -1061,7 +1089,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "pouchdb": {
       "projectType": "library",
@@ -1086,7 +1115,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     },
     "remotes": {
       "projectType": "library",
@@ -1111,7 +1141,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     },
     "testing-sandbox": {
       "projectType": "application",
@@ -1218,7 +1249,8 @@
           },
           "outputs": ["coverage/apps/testing-sandbox"]
         }
-      }
+      },
+      "tags": []
     },
     "tracks": {
       "projectType": "library",
@@ -1245,7 +1277,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "video-refs": {
       "projectType": "library",
@@ -1275,7 +1308,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     },
     "website": {
       "projectType": "application",
@@ -1385,7 +1419,8 @@
           },
           "outputs": ["coverage/apps/website"]
         }
-      }
+      },
+      "tags": []
     },
     "window-ref": {
       "projectType": "library",
@@ -1415,23 +1450,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": []
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
-  },
-  "schematics": {
-    "@nrwl/angular:application": {
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {}
-  },
-  "defaultProject": "plopdown-ext"
+  }
 }

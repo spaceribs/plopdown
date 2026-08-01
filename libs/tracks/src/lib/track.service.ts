@@ -52,7 +52,13 @@ export class TrackService {
   }): Map<string, string> {
     return Object.keys(attachments).reduce((memo, filename) => {
       const attachment = attachments[filename] as PouchDB.Core.FullAttachment;
-      const blobUrl = this.windowRef.getURL().createObjectURL(attachment.data);
+      // PouchDB types data as string | Blob | Buffer, but in the browser with
+      // binary attachments it is always a Blob, which is what createObjectURL
+      // accepts. TypeScript 4.6's lib.dom narrowed the parameter to
+      // Blob | MediaSource, so the cast is now required.
+      const blobUrl = this.windowRef
+        .getURL()
+        .createObjectURL(attachment.data as Blob);
       memo.set(filename, blobUrl);
       return memo;
     }, new Map<string, string>());

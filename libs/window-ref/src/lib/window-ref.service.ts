@@ -64,13 +64,8 @@ export class WindowRefService {
     return fromEvent(this.window, 'popstate');
   }
 
-  public open(
-    path: string,
-    target?: string,
-    features?: string,
-    replace?: boolean
-  ) {
-    return this.window.open(path, target, features, replace);
+  public open(path: string, target?: string, features?: string) {
+    return this.window.open(path, target, features);
   }
 
   reload() {

@@ -27,6 +27,7 @@
 !.vscode/extensions.json
 
 # misc
+/.angular/cache
 /.sass-cache
 /connect.lock
 /coverage
@@ -41,3 +42,4 @@ testem.log
 Thumbs.db
 .env
 migrations.json
+.nx/
