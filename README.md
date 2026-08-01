@@ -35,17 +35,6 @@ $ npm install
 added 3116 packages from 1258 contributors and audited 3397 packages in 849.968s
 ```
 
-Build the web-extension nx plugin:
-
-```bash
-$ npm run build web-extension
-
-Compiling TypeScript files for library web-extension...
-Done compiling TypeScript files for library web-extension
-Copying asset files...
-Done copying asset files.
-```
-
 ## Development
 
 Please refer to <https://nx.dev/angular/cli/overview> for a complete guide in developing and deploying this monorepo.

@@ -20,7 +20,6 @@ module.exports = {
     '<rootDir>/apps/devtool',
     '<rootDir>/apps/devtool-panels',
     '<rootDir>/libs/devtools-ref',
-    '<rootDir>/libs/web-extension',
     '<rootDir>/libs/permissions',
     '<rootDir>/libs/lz-string',
     '<rootDir>/libs/plopdown-cues',

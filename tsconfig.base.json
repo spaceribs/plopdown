@@ -58,7 +58,6 @@
       "@plopdown/tracks/mock": ["libs/tracks/mock/index.ts"],
       "@plopdown/video-refs": ["libs/video-refs/src/index.ts"],
       "@plopdown/video-refs/mock": ["libs/video-refs/mock/index.ts"],
-      "@plopdown/web-extension": ["libs/web-extension/src/index.ts"],
       "@plopdown/window-ref": ["libs/window-ref/src/index.ts"],
       "@plopdown/window-ref/mock": ["libs/window-ref/mock/index.ts"]
     }

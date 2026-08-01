@@ -72,8 +72,7 @@
         "options",
         "content-script",
         "devtool",
-        "devtool-panels",
-        "web-extension"
+        "devtool-panels"
       ]
     },
     "plopdown-file": {
@@ -96,13 +95,6 @@
     },
     "video-refs": {
       "tags": []
-    },
-    "web-extension": {
-      "tags": []
-    },
-    "web-extension-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web-extension"]
     },
     "website": {
       "tags": []

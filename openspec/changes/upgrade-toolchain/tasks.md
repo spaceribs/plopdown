@@ -1,6 +1,18 @@
 Each numbered group is one PR and one review pause. A group is done only when the Decision 7 gate
-passes: `npm run build web-extension` (until group 5 removes it), `npm run build:ext`, `npm test`,
-and `npm run lint` all succeed, with `.nvmrc` and both CI workflows on the group's Node version.
+passes: `npm run build:ext`, `npm run build plopdown-ext`, `npm test`, and `npm run lint` all
+succeed, with `.nvmrc` and both CI workflows on the group's Node version.
+
+## 0. Ahead of Phase 0 — Remove the web-extension plugin (done)
+
+- [x] 0.1 Replace `plopdown-ext`'s `build`/`serve` builders with `@nrwl/workspace:run-commands`
+      invoking `web-ext` directly, plus `tools/scripts/copy-ext-assets.js` for the asset copy the
+      old builder did via `fs-extra`
+- [x] 0.2 Delete `libs/web-extension` and `apps/web-extension-e2e`, and drop both from
+      `angular.json`, `nx.json`, `tsconfig.base.json`, and `jest.config.js`
+- [x] 0.3 Remove the "Build Web Extension Plugin" step from `pull_requests.yml`
+- [x] 0.4 Update `README.md`, `REVIEWERS.md`, and `CLAUDE.md` to drop the bootstrap step
+- [x] 0.5 Verify `nx build plopdown-ext` produces `dist/extensions/plopdown_video-<version>.zip`
+      with no `dist/libs/web-extension` present
 
 ## 1. Phase 0 — Baseline and lockfile (Node 16, no version changes)
 
@@ -12,10 +24,12 @@ and `npm run lint` all succeed, with `.nvmrc` and both CI workflows on the group
       that no entry in `package.json` changed
 - [ ] 1.5 Pin `eslint-plugin-rxjs` off `latest` to its resolved version, and replace the
       `json-schema` git URL with a registry version
-- [ ] 1.6 Raise `node-version` to `16.x` in `pull_requests.yml` and `deploy_website.yml`
-- [ ] 1.7 Verify the Decision 7 gate, then load the built extension in Firefox and confirm a track
+- [ ] 1.6 Drop `@nrwl/nx-plugin`, now dead — the removed plugin was its only consumer, and it is
+      referenced nowhere outside `package.json`. Doing it here keeps the lockfile churn in one PR
+- [ ] 1.7 Raise `node-version` to `16.x` in `pull_requests.yml` and `deploy_website.yml`
+- [ ] 1.8 Verify the Decision 7 gate, then load the built extension in Firefox and confirm a track
       still attaches to a video and cues render
-- [ ] 1.8 Open the PR, pause for review
+- [ ] 1.9 Open the PR, pause for review
 
 ## 2. Phase 1 — Angular/Nx 13 (Node 16)
 
@@ -51,16 +65,12 @@ and `npm run lint` all succeed, with `.nvmrc` and both CI workflows on the group
       `decorate-angular-cli.js`
 - [ ] 5.5 Split projects out of `angular.json` into per-project `project.json`
 - [ ] 5.6 Replace the hardcoded 29-project `projects` array in `jest.config.js` with Nx inference
-- [ ] 5.7 Confirm the Decision 4 sign-off, then replace the `libs/web-extension` plugin with an
-      `nx:run-commands` target on `plopdown-ext` calling `web-ext` with the same arguments
-- [ ] 5.8 Delete `libs/web-extension` and `apps/web-extension-e2e`; drop both from `nx.json`,
-      `angular.json`, `tsconfig.base.json`, and `jest.config.js`
-- [ ] 5.9 Remove the now-redundant "Build Web Extension Plugin" step from `pull_requests.yml`, and
-      the bootstrap warning from `README.md` and `CLAUDE.md`
-- [ ] 5.10 Move TypeScript to 5.1.x
-- [ ] 5.11 Verify the gate — the extension must produce a loadable build before this merges — then
+- [ ] 5.7 Confirm `nx migrate` renamed `@nrwl/workspace:run-commands` to `nx:run-commands` on the
+      `plopdown-ext` build and serve targets (the plugin itself was removed ahead of Phase 0)
+- [ ] 5.8 Move TypeScript to 5.1.x
+- [ ] 5.9 Verify the gate — the extension must produce a loadable build before this merges — then
       confirm cue rendering in Firefox
-- [ ] 5.12 Open the PR, pause for review
+- [ ] 5.10 Open the PR, pause for review
 
 ## 6. Phase 5 — Angular/Nx 17 (Node 18)
 
@@ -128,8 +138,8 @@ and `npm run lint` all succeed, with `.nvmrc` and both CI workflows on the group
 
 ## 12. Close-out
 
-- [ ] 12.1 Update `CLAUDE.md` — the Node 12 / lockfileVersion 1 note, the plugin bootstrap section,
-      and the four-file project registration convention if `project.json` changed it
+- [ ] 12.1 Update `CLAUDE.md` — the Node 12 / lockfileVersion 1 note, and the four-file project
+      registration convention if `project.json` changed it
 - [ ] 12.2 Update `README.md` setup and development steps
 - [ ] 12.3 Update `REVIEWERS.md` — it tells Mozilla's add-on reviewers to reproduce the build on
       `node:12` with npm 6.14.11, which stops being true at Phase 0 and would leave AMO unable to
