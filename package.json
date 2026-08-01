@@ -73,6 +73,9 @@
     "webextension-polyfill": "^0.8.0",
     "zone.js": "~0.11.4"
   },
+  "overrides": {
+    "node-notifier": "9.0.1"
+  },
   "devDependencies": {
     "@angular-builders/custom-webpack": "12.1.0",
     "@angular-devkit/build-angular": "12.1.1",
@@ -88,7 +91,6 @@
     "@nrwl/jest": "12.5.7",
     "@nrwl/nest": "12.5.7",
     "@nrwl/node": "12.5.7",
-    "@nrwl/nx-plugin": "12.5.7",
     "@nrwl/tao": "12.5.7",
     "@nrwl/workspace": "12.5.7",
     "@types/firefox-webext-browser": "^70.0.1",
@@ -113,12 +115,12 @@
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
     "eslint-plugin-prefer-arrow": "1.2.2",
-    "eslint-plugin-rxjs": "latest",
+    "eslint-plugin-rxjs": "3.3.5",
     "fork-ts-checker-webpack-plugin": "^5.0.6",
     "fs-extra": "^8.1.0",
     "jest": "27.0.3",
     "jest-preset-angular": "9.0.3",
-    "json-schema": "git+https://github.com/kriszyp/json-schema.git",
+    "json-schema": "0.4.0",
     "json-schema-to-typescript": "^8.2.0",
     "postcss": "8.3.5",
     "pouchdb": "^7.2.1",
