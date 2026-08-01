@@ -1,0 +1,58 @@
+schema: spec-driven
+
+context: |
+  Plopdown — a web extension that overlays annotations/cues on top of any HTML5
+  video on the web, plus its promotional website (plopdown.video).
+
+  Tech stack:
+  - Nx monorepo (npmScope `plopdown`) driving Angular 12 apps and libs
+  - TypeScript, RxJS, @ngrx/component-store for state
+  - Bulma + SCSS for styling, angular-svg-icon / @mdi for icons
+  - PouchDB for local persistence, lz-string for compressed payloads
+  - Jest for unit tests, Cypress for e2e, ESLint + Prettier for lint/format
+  - web-ext / addons-linter for packaging and validating the extension
+    (Manifest V2, Firefox-first)
+
+  Layout:
+  - `apps/` — extension surfaces (background, content-script, browser-action,
+    options, devtool, devtool-panels), `plopdown-ext` (manifest + static
+    assets), `website`, `testing-sandbox`, and the `*-e2e` suites
+  - `libs/` — shared libraries (tracks, plopdown-cues, plopdown-file,
+    plopdown-injector, plopdown-embed, messages, ext-storage, permissions,
+    logger, browser-ref, window-ref, video-refs, remotes, pouchdb, icon,
+    web-extension nx plugin)
+  - `tools/` — workspace generators and custom builders
+
+  Conventions:
+  - Every new app or lib is an Nx project registered in `angular.json`,
+    `nx.json` (with tags) and `tsconfig.base.json` path mappings
+  - Cross-app communication goes through the `messages` lib, not ad-hoc
+    `browser.runtime` calls; browser APIs are reached via `browser-ref`
+  - Commit messages are short imperative sentences (e.g. "Fix a pointer event
+    issue"), not conventional-commit prefixes
+  - Run `npm run format:write` and `npm run lint` before proposing changes;
+    verify with `npm run test` (Jest) and `npm run build:ext` for extension work
+  - Extension version lives in both `package.json` and
+    `apps/plopdown-ext/src/manifest.json` and must be bumped together
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing
