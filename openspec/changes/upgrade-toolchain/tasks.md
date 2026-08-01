@@ -36,6 +36,13 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
       file that rather than doing it here
 - [ ] 1.6 Drop `@nrwl/nx-plugin`, now dead — the removed plugin was its only consumer, and it is
       referenced nowhere outside `package.json`. Doing it here keeps the lockfile churn in one PR
+- [ ] 1.6c Declare `ajv` as a direct dependency (`^8.6.0`). The checked-in, bundled
+      `libs/plopdown-file/src/schema/plopdown-file-v1.schema.js` calls
+      `require('ajv/dist/runtime/ucs2length')` and `.../equal` — ajv 8 paths — but `ajv` is declared
+      nowhere in `package.json`. It has only ever worked because npm 6 happened to hoist ajv 8.6.0,
+      a transitive of `ajv-cli`, to the root. npm 8 hoists ajv 6.15.0 there instead, ajv 6 has no
+      `dist/runtime/`, and six projects fail to build or test. A latent bug the migration exposed
+      rather than caused; declaring the dependency removes the reliance on hoisting luck
 - [ ] 1.6b Add an `overrides` entry pinning `node-notifier` to `9.0.1`. npm 8 hoists optional
       dependencies without respecting their range: it picked 10.0.1, which satisfies neither
       `web-ext`'s `^6` nor `jest@27`'s `^8 || ^9`, producing a lockfile that npm's own `npm ci`
