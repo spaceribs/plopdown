@@ -1,0 +1,6 @@
+schema: spec-driven
+created: 2026-08-01
+# Pure toolchain upgrade: dependency and build-config versions change, but no
+# observable extension behaviour does. No capability requirements are added,
+# removed, or altered, so there is no delta spec to write.
+skip_specs: true

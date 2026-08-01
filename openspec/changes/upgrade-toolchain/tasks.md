@@ -1,0 +1,137 @@
+Each numbered group is one PR and one review pause. A group is done only when the Decision 7 gate
+passes: `npm run build web-extension` (until group 5 removes it), `npm run build:ext`, `npm test`,
+and `npm run lint` all succeed, with `.nvmrc` and both CI workflows on the group's Node version.
+
+## 1. Phase 0 — Baseline and lockfile (Node 16, no version changes)
+
+- [ ] 1.1 Record a pre-upgrade baseline on Node 12: run build, test, and lint, and write down what
+      already fails so pre-existing breakage is never mistaken for upgrade breakage
+- [ ] 1.2 Install Node 16 and confirm Angular 12 + Nx 12 build, test, and lint unchanged under it
+- [ ] 1.3 Set `.nvmrc` to `lts/gallium` (Node 16)
+- [ ] 1.4 Delete `package-lock.json` and regenerate with npm 8; confirm `lockfileVersion` is 3 and
+      that no entry in `package.json` changed
+- [ ] 1.5 Pin `eslint-plugin-rxjs` off `latest` to its resolved version, and replace the
+      `json-schema` git URL with a registry version
+- [ ] 1.6 Raise `node-version` to `16.x` in `pull_requests.yml` and `deploy_website.yml`
+- [ ] 1.7 Verify the Decision 7 gate, then load the built extension in Firefox and confirm a track
+      still attaches to a video and cues render
+- [ ] 1.8 Open the PR, pause for review
+
+## 2. Phase 1 — Angular/Nx 13 (Node 16)
+
+- [ ] 2.1 Run `nx migrate 13` and apply `migrations.json` one entry at a time, not as a batch
+- [ ] 2.2 Move TypeScript to 4.6.x and resolve the compiler errors it surfaces
+- [ ] 2.3 Rewrite `tools/webpack/content-script-webpack.config.js` for webpack 5 — this breaks at
+      this hop, not later
+- [ ] 2.4 Confirm `@angular-builders/custom-webpack` 13.x drives the content-script build
+- [ ] 2.5 Decline every optional schematic Angular offers (Decision 6); note what was declined
+- [ ] 2.6 Verify the gate, load the extension in Firefox, confirm cue rendering
+- [ ] 2.7 Open the PR, pause for review
+
+## 3. Phase 2 — Angular/Nx 14 (Node 16)
+
+- [ ] 3.1 Run `nx migrate 14`, apply migrations individually
+- [ ] 3.2 Move TypeScript to 4.8.x
+- [ ] 3.3 Verify the gate; open the PR, pause for review
+
+## 4. Phase 3 — Angular/Nx 15 (Node 16)
+
+- [ ] 4.1 Run `nx migrate 15`, apply migrations individually
+- [ ] 4.2 Move TypeScript to 4.9.x
+- [ ] 4.3 Verify the gate; open the PR, pause for review
+
+## 5. Phase 4 — Angular/Nx 16 (Node 18) — heaviest phase
+
+- [ ] 5.1 Raise Node to 18, `.nvmrc` and both CI workflows together
+- [ ] 5.2 Run `nx migrate 16`; expect codemods to fail on a workspace this old and hand-apply what
+      throws
+- [ ] 5.3 Complete the `@nrwl/*` → `@nx/*` rename across `package.json`, `angular.json`, `nx.json`,
+      and every import
+- [ ] 5.4 Remove the `ngcc` and `decorate-angular-cli.js` postinstall steps; delete
+      `decorate-angular-cli.js`
+- [ ] 5.5 Split projects out of `angular.json` into per-project `project.json`
+- [ ] 5.6 Replace the hardcoded 29-project `projects` array in `jest.config.js` with Nx inference
+- [ ] 5.7 Confirm the Decision 4 sign-off, then replace the `libs/web-extension` plugin with an
+      `nx:run-commands` target on `plopdown-ext` calling `web-ext` with the same arguments
+- [ ] 5.8 Delete `libs/web-extension` and `apps/web-extension-e2e`; drop both from `nx.json`,
+      `angular.json`, `tsconfig.base.json`, and `jest.config.js`
+- [ ] 5.9 Remove the now-redundant "Build Web Extension Plugin" step from `pull_requests.yml`, and
+      the bootstrap warning from `README.md` and `CLAUDE.md`
+- [ ] 5.10 Move TypeScript to 5.1.x
+- [ ] 5.11 Verify the gate — the extension must produce a loadable build before this merges — then
+      confirm cue rendering in Firefox
+- [ ] 5.12 Open the PR, pause for review
+
+## 6. Phase 5 — Angular/Nx 17 (Node 18)
+
+- [ ] 6.1 Run `nx migrate 17`, apply migrations individually
+- [ ] 6.2 Move TypeScript to 5.4.x
+- [ ] 6.3 Decline the standalone-components and control-flow migrations (Decision 6)
+- [ ] 6.4 Verify the gate; open the PR, pause for review
+
+## 7. Phase 6 — Angular/Nx 18 and RxJS 7 (Node 18)
+
+- [ ] 7.1 Run `nx migrate 18`, apply migrations individually; move TypeScript to 5.5.x
+- [ ] 7.2 Move RxJS 6.6 → 7.8 in its own commit, separate from the framework hop
+- [ ] 7.3 Audit `PortPublisher` and `PortSubscriber` against RxJS 7's changed `share` semantics —
+      the bus fans out over `runtime.sendMessage` and `tabs.sendMessage` and depends on this
+- [ ] 7.4 Audit every background feature component's pipeline for `combineLatest`, `toPromise`, and
+      subscription-timing changes
+- [ ] 7.5 Migrate `.eslintrc.json` to ESLint 9 flat config
+- [ ] 7.6 Replace `eslint-plugin-rxjs` with `@smarttools/eslint-plugin-rxjs`, preserving
+      `no-nested-subscribe`, `no-subject-value`, `no-unbound-methods`, and the rest of the rule set
+- [ ] 7.7 Confirm the RxJS rules still fire: introduce a nested `subscribe` temporarily and verify
+      lint rejects it
+- [ ] 7.8 Verify the gate, then exercise the message bus end-to-end in Firefox — attach a track,
+      confirm cues render, confirm the browser-action popup reflects live status. Unit tests are
+      not sufficient evidence for this phase
+- [ ] 7.9 Open the PR, pause for review
+
+## 8. Phase 7 — Angular/Nx 19 (Node 18)
+
+- [ ] 8.1 Run `nx migrate 19`, apply migrations individually
+- [ ] 8.2 Move TypeScript to 5.8.x
+- [ ] 8.3 Verify the gate; open the PR, pause for review
+
+## 9. Phase 8 — Angular 20 / Nx 21 (Node 22)
+
+- [ ] 9.1 Raise Node to 22, `.nvmrc` and both CI workflows together
+- [ ] 9.2 Run `nx migrate`; Nx and Angular majors diverge from here, so let the migration resolve
+      the pairing rather than pinning by hand
+- [ ] 9.3 Move TypeScript to 5.9.x
+- [ ] 9.4 Verify the gate; open the PR, pause for review
+
+## 10. Phase 9 — Angular 21 / Nx 22 (Node 22)
+
+- [ ] 10.1 Run `nx migrate`, apply migrations individually
+- [ ] 10.2 Verify the gate; open the PR, pause for review
+
+## 11. Phase 10 — Angular 22 / Nx 23 (Node 24)
+
+- [ ] 11.1 Raise Node to 24, `.nvmrc` and both CI workflows together
+- [ ] 11.2 Run `nx migrate latest` to Angular 22.1.0 / Nx 23.1.1
+- [ ] 11.3 Move TypeScript to 6.0.x
+- [ ] 11.4 Move zone.js to 0.16.x and `@angular/cdk` to 22.x
+- [ ] 11.5 Move Jest to 30 and `jest-preset-angular` to current; update the `ts-jest` transform in
+      `jest.preset.js`
+- [ ] 11.6 Move Cypress 4 → 15 and convert `apps/plopdown-embed-e2e/cypress.json` to
+      `cypress.config.ts`
+- [ ] 11.7 Move the remaining runtime dependencies: `@ngrx/component-store`, `pouchdb`,
+      `pouchdb-find`, `uuid`, `core-js`, `plyr`, `webextension-polyfill`, `web-ext`,
+      `addons-linter`. Hold Bulma at 0.9
+- [ ] 11.8 Drop dead devDependencies the migration leaves behind — `react`, `react-is`,
+      `web-ext-types`, `tslint`-era config, and the `tslint.json` entry in `nx.json`
+- [ ] 11.9 Remove the `typescript-tslint-plugin` entry from `tsconfig.base.json`
+- [ ] 11.10 Verify the gate, then run a full manual pass in Firefox: attach a track, render cues,
+      exercise the options page, confirm content-script injection still gates on permission grant
+- [ ] 11.11 Open the PR, pause for review
+
+## 12. Close-out
+
+- [ ] 12.1 Update `CLAUDE.md` — the Node 12 / lockfileVersion 1 note, the plugin bootstrap section,
+      and the four-file project registration convention if `project.json` changed it
+- [ ] 12.2 Update `README.md` setup and development steps
+- [ ] 12.3 Confirm the extension version is still in sync between `package.json` and
+      `apps/plopdown-ext/src/manifest.json`
+- [ ] 12.4 File follow-ups deliberately excluded here: Manifest V3, Bulma 1.x, the devtool and
+      testing-sandbox questions, and any pre-existing bugs found from task 1.1
