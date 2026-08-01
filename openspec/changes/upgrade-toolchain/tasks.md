@@ -36,6 +36,13 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
       file that rather than doing it here
 - [ ] 1.6 Drop `@nrwl/nx-plugin`, now dead — the removed plugin was its only consumer, and it is
       referenced nowhere outside `package.json`. Doing it here keeps the lockfile churn in one PR
+- [ ] 1.6b Add an `overrides` entry pinning `node-notifier` to `9.0.1`. npm 8 hoists optional
+      dependencies without respecting their range: it picked 10.0.1, which satisfies neither
+      `web-ext`'s `^6` nor `jest@27`'s `^8 || ^9`, producing a lockfile that npm's own `npm ci`
+      rejects with EUSAGE while `npm install` accepts it. Confirmed introduced by the migration —
+      master's v1 lockfile passes the same check. Verify with `npm ci --dry-run`: under `--dry-run`
+      it still exits 127 because `ngcc` was never installed, which is expected and matches the
+      control; what matters is that no EUSAGE line appears
 - [ ] 1.7 Raise Node to `16.x` in CI: `env.NODE_VERSION` and the `setup` job's matrix in
       `pull_requests.yml` (both, they are separate), and the matrix in `deploy_website.yml`
 - [ ] 1.8 Order `plopdown-ext:build` after the six app builds. It currently packages whenever the
