@@ -131,7 +131,10 @@ and `npm run lint` all succeed, with `.nvmrc` and both CI workflows on the group
 - [ ] 12.1 Update `CLAUDE.md` — the Node 12 / lockfileVersion 1 note, the plugin bootstrap section,
       and the four-file project registration convention if `project.json` changed it
 - [ ] 12.2 Update `README.md` setup and development steps
-- [ ] 12.3 Confirm the extension version is still in sync between `package.json` and
+- [ ] 12.3 Update `REVIEWERS.md` — it tells Mozilla's add-on reviewers to reproduce the build on
+      `node:12` with npm 6.14.11, which stops being true at Phase 0 and would leave AMO unable to
+      verify a submission
+- [ ] 12.4 Confirm the extension version is still in sync between `package.json` and
       `apps/plopdown-ext/src/manifest.json`
-- [ ] 12.4 File follow-ups deliberately excluded here: Manifest V3, Bulma 1.x, the devtool and
+- [ ] 12.5 File follow-ups deliberately excluded here: Manifest V3, Bulma 1.x, the devtool and
       testing-sandbox questions, and any pre-existing bugs found from task 1.1
