@@ -143,6 +143,11 @@ changes unrelated to the upgrade. Anything optional is deferred to its own chang
 `node-version` raised in the same commit as `.nvmrc`. A phase that cannot reach all four does not
 merge; it gets split.
 
+The gate is not yet enforceable as written. A green `Build Affected` does not currently prove the
+extension is loadable, because `plopdown-ext:build` can package before the app bundles it needs
+exist — see task 1.8. Phase 0 fixes that; until it does, treat manual Firefox verification as the
+only real evidence.
+
 ## Risks / Trade-offs
 
 - **RxJS 7 breaks the message bus silently** → The `PortPublisher`/`PortSubscriber` pair and every

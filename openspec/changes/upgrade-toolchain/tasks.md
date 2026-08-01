@@ -28,9 +28,21 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
       referenced nowhere outside `package.json`. Doing it here keeps the lockfile churn in one PR
 - [ ] 1.7 Raise Node to `16.x` in CI: `env.NODE_VERSION` and the `setup` job's matrix in
       `pull_requests.yml` (both, they are separate), and the matrix in `deploy_website.yml`
-- [ ] 1.8 Verify the Decision 7 gate, then load the built extension in Firefox and confirm a track
-      still attaches to a video and cues render
-- [ ] 1.9 Open the PR, pause for review
+- [ ] 1.8 Order `plopdown-ext:build` after the six app builds. It currently packages whenever the
+      task graph happens to reach it. In CI run 30711789615 it wrote the zip at 18:09:56.1, and
+      `background:build:production` only started at 18:09:56.2 and finished at 18:10:18 — so the
+      archive held just `content-script`, `devtool`, `devtool-panels`, `icons`, `_locales`, and
+      `manifest.json`, missing `background`, `browser-action`, and `options`. A manifest pointing
+      at an absent `background/main.js` will not load in Firefox. `implicitDependencies` in
+      `nx.json` drives affected-detection, not ordering — add `targetDependencies` so `build`
+      waits on its dependencies' `build`. Pre-existing: ordering is a task-graph property, so the
+      removed plugin packaged just as early
+- [ ] 1.9 Confirm the fix by unzipping the CI artifact and checking all six surfaces are present.
+      Until this passes, a green `Build Affected` does not mean the extension is loadable, and the
+      Decision 7 gate is not actually being enforced
+- [ ] 1.10 Verify the Decision 7 gate, then load the built extension in Firefox and confirm a
+      track still attaches to a video and cues render
+- [ ] 1.11 Open the PR, pause for review
 
 ## 2. Phase 1 — Angular/Nx 13 (Node 16)
 
