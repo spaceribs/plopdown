@@ -145,17 +145,36 @@ merge; it gets split.
 
 The gate is not yet enforceable as written. A green `Build Affected` does not currently prove the
 extension is loadable, because `plopdown-ext:build` can package before the app bundles it needs
-exist — see task 1.8. Phase 0 fixes that; until it does, treat manual Firefox verification as the
-only real evidence.
+exist — see task 1.8. Phase 0 fixes that.
+
+### 8. Manual browser validation happens once, after Phase 10
+
+The owner's call, and theirs to make: no phase gates on loading the extension in Firefox. Each phase
+merges on CI alone, and the whole behavioural surface is checked in one pass at the end (task
+group 12).
+
+The cost is bisection distance. CI cannot see a cue that renders at the wrong time, a popup that
+stops reflecting status, or a content script that no longer waits for its permission grant. If any of
+those surface at close-out, the cause could have entered at any of eleven merges — and the RxJS hop,
+the likeliest culprit, is five phases back by then. The phase merges on `master` are the bisection
+points, which is a further reason to keep them as separate squashed commits rather than collapsing
+the phases.
+
+_Alternative considered — validate at Phases 1, 4, and 6._ Cheaper to debug, since a failure is
+localised to one hop. Declined by the owner in favour of a single pass. Task 7.8 partially covers the
+gap by asserting the message bus still delivers before RxJS moves.
 
 ## Risks / Trade-offs
 
 - **RxJS 7 breaks the message bus silently** → The `PortPublisher`/`PortSubscriber` pair and every
   background pipeline depend on `share`, `combineLatest`, and subscription timing, all of which
   changed in RxJS 7. A regression here means messages stop arriving with no error and no failing
-  unit test. Mitigation: treat the RxJS hop as its own phase, and verify manually in a real browser
-  via `start:ext-browser` — attach a track to a video, confirm cues render — before merging. Unit
-  tests alone are not sufficient evidence here.
+  unit test. This is the sharpest risk in the plan, and the owner has chosen to defer manual
+  validation to after Phase 10 (Decision 8), which removes the mitigation this originally carried.
+  Partial replacement: task 7.8 adds automated coverage asserting a published command actually
+  reaches its subscriber, across both the `runtime.sendMessage` and `tabs.sendMessage` fan-out,
+  before RxJS moves. That catches a dead bus but not subtler timing changes — a cue rendering a beat
+  late, or a popup that updates only on the second open, still reaches close-out unnoticed.
 
 - **`nx migrate` codemods fail on a 5-year-old workspace** → Migration scripts assume config shapes
   Nx 12 predates. Mitigation: run each hop's `migrations.json` one entry at a time rather than as a
@@ -211,8 +230,7 @@ commit plus `npm ci` at the prior `.nvmrc`. No phase is rolled back partially �
 reverted whole and re-attempted.
 
 **Verification beyond CI:** CI proves build, lint, and unit tests. It does not prove the extension
-loads. At minimum at Phases 1, 4, and 10, load the built extension in Firefox via
-`npm run start:ext-browser` and confirm a track attaches to a video and cues render.
+loads or behaves. That check happens once, after Phase 10 — see Decision 8 and task group 12.
 
 ## Open Questions
 
