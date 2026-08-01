@@ -26,7 +26,8 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
       `json-schema` git URL with a registry version
 - [ ] 1.6 Drop `@nrwl/nx-plugin`, now dead — the removed plugin was its only consumer, and it is
       referenced nowhere outside `package.json`. Doing it here keeps the lockfile churn in one PR
-- [ ] 1.7 Raise `node-version` to `16.x` in `pull_requests.yml` and `deploy_website.yml`
+- [ ] 1.7 Raise Node to `16.x` in CI: `env.NODE_VERSION` and the `setup` job's matrix in
+      `pull_requests.yml` (both, they are separate), and the matrix in `deploy_website.yml`
 - [ ] 1.8 Verify the Decision 7 gate, then load the built extension in Firefox and confirm a track
       still attaches to a video and cues render
 - [ ] 1.9 Open the PR, pause for review

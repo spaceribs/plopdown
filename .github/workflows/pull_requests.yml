@@ -4,6 +4,12 @@ on:
     branches:
       - master
 
+# Every job needs this pinned. The lint/build/test jobs previously had no
+# setup-node step at all and silently ran on whatever Node the runner image
+# shipped -- see the matrix in the setup job, which must move in step.
+env:
+  NODE_VERSION: '12.x'
+
 jobs:
   setup:
     name: Checkout and Install
@@ -47,6 +53,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
       - name: Cache node_modules
         uses: actions/cache@v6
         with:
@@ -70,6 +81,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
       - name: Cache node_modules
         uses: actions/cache@v6
         with:
@@ -92,6 +108,11 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+
+      - name: Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache node_modules
         uses: actions/cache@v6

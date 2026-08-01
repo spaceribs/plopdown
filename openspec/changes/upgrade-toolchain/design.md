@@ -71,6 +71,11 @@ every npm script and both CI workflows, then unpicked later.
 Node 16 is the highest runtime that runs Angular 12 and Nx 12 unmodified while still shipping an npm
 (8) that writes a current lockfile. That makes it the only correct first stop.
 
+This is confirmed rather than predicted. CI's `Build Affected` job had no `setup-node` step at all —
+only the `setup` job pinned a version — so it ran `ci:build` on whatever Node the runner image
+shipped, by now v22. It died on exactly this error, then hung until cancelled. Fixed by pinning every
+job; the failure is the empirical case for stepping Node one version at a time rather than jumping.
+
 ### 3. The lockfile regenerates alone, in its own PR, before any framework change
 
 `package-lock.json` goes from lockfileVersion 1 to 3 as a whole-file rewrite. Bundled with a
