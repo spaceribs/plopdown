@@ -5,21 +5,15 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { PlopdownInjectorModule } from '@plopdown/plopdown-injector';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PlopdownFileModule } from '@plopdown/plopdown-file';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
-@NgModule({
-  declarations: [HomeComponent],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    PlopdownInjectorModule,
-    PlopdownFileModule,
-    SiteNavModule,
-    SiteFooterModule,
-    RouterModule.forChild(routes),
-  ],
-})
+@NgModule({ declarations: [HomeComponent], imports: [CommonModule,
+        PlopdownInjectorModule,
+        PlopdownFileModule,
+        SiteNavModule,
+        SiteFooterModule,
+        RouterModule.forChild(routes)], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class HomeModule {}

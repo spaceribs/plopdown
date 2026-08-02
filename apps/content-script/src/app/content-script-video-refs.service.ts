@@ -46,7 +46,7 @@ export class ContentScriptVideoRefsService {
   }
 
   public addVideoRef(videoRef: VideoRef): Observable<VideoRef> {
-    return new Observable((observer) => {
+    return new Observable<void>((observer) => {
       this.csPub.addVideoRef(videoRef);
       observer.next();
       observer.complete();

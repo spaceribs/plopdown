@@ -165,11 +165,11 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
       the bus fans out over `runtime.sendMessage` and `tabs.sendMessage` and depends on this
 - [ ] 7.4 Audit every background feature component's pipeline for `combineLatest`, `toPromise`, and
       subscription-timing changes
-- [ ] 7.5 Migrate `.eslintrc.json` to ESLint 9 flat config
-- [ ] 7.6 Replace `eslint-plugin-rxjs` with `@smarttools/eslint-plugin-rxjs`, preserving
-      `no-nested-subscribe`, `no-subject-value`, `no-unbound-methods`, and the rest of the rule set
-- [ ] 7.7 Confirm the RxJS rules still fire: introduce a nested `subscribe` temporarily and verify
-      lint rejects it
+- [ ] 7.5 ESLint 9, flat config and the `@smarttools` swap are **not** done here — moved to
+      Phase 10. Checked rather than assumed: `angular-eslint` 18 through 21 and `@nx/eslint` 20
+      through 22 all accept `eslint ^8.57.0 || ^9.0.0`. ESLint 8 is only dropped by
+      `angular-eslint` 22 and `@nx/eslint` 23, which is exactly Phase 10. Doing it here would be an
+      optional change, which Decision 6 declines
 - [ ] 7.8 Add automated coverage for the message bus before moving RxJS, since manual checking is
       deferred to close-out and nothing else catches a silent delivery failure: a spec that
       publishes through `BackgroundPubService` and asserts the matching `filterCommand` observable
@@ -212,6 +212,15 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
 - [ ] 11.8 Drop dead devDependencies the migration leaves behind — `react`, `react-is`,
       `web-ext-types`, `tslint`-era config, and the `tslint.json` entry in `nx.json`
 - [ ] 11.9 Remove the `typescript-tslint-plugin` entry from `tsconfig.base.json`
+- [ ] 11.9a Move ESLint 8 → 9 and `.eslintrc.json` → flat config. Forced here and only here:
+      `angular-eslint` 22 and `@nx/eslint` 23 drop `^8`
+- [ ] 11.9b Replace `eslint-plugin-rxjs` with `@smarttools/eslint-plugin-rxjs`. The original pin
+      peers `eslint ^8.0.0` and cannot follow to 9. Note the repo has already moved this plugin
+      once — Phase 1 took it 3.3.5 → 5.0.3 for ESLint 8 — so Decision 5's description of it as
+      stuck at 3.3.5 is out of date
+- [ ] 11.9c Confirm the RxJS rules still fire: introduce a nested `subscribe` and verify
+      `rxjs/no-nested-subscribe` rejects it. A plugin that loads but enforces nothing is
+      indistinguishable from success without this probe
 - [ ] 11.10 Verify the gate
 - [ ] 11.11 Open the PR, pause for review
 

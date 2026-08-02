@@ -141,10 +141,10 @@ export class PlopdownEmbedComponent implements OnDestroy, OnInit {
     this.files$ = trackService.getTrackFiles();
 
     this.mouseMove$ = merge(
-      fromEvent(elemRef.nativeElement, 'mousemove'),
+      fromEvent<Event>(elemRef.nativeElement, 'mousemove'),
       this.videoElem$.pipe(
         switchMap((videoElem) => {
-          return fromEvent(videoElem, 'mousemove');
+          return fromEvent<Event>(videoElem, 'mousemove');
         })
       )
     );
