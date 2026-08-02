@@ -1,0 +1,32 @@
+{
+  "name": "browser-ref",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/browser-ref/src",
+  "prefix": "plopdown",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/browser-ref/**/*.ts",
+          "libs/browser-ref/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/browser-ref/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/browser-ref"]
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "styleext": "scss"
+    }
+  },
+  "tags": []
+}

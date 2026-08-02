@@ -1,0 +1,32 @@
+{
+  "name": "plopdown-cues",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/plopdown-cues/src",
+  "prefix": "plopdown",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/plopdown-cues/**/*.ts",
+          "libs/plopdown-cues/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/plopdown-cues/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/plopdown-cues"]
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "tags": []
+}

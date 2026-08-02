@@ -1,0 +1,27 @@
+{
+  "name": "pouchdb",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/pouchdb/src",
+  "prefix": "plopdown",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/pouchdb"],
+      "options": {
+        "jestConfig": "libs/pouchdb/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/pouchdb/src/**/*.ts",
+          "libs/pouchdb/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
