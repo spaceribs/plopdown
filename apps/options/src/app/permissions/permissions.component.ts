@@ -8,7 +8,7 @@ import {
   SavedPermission,
 } from '@plopdown/permissions';
 import { Observable, Subscription, combineLatest } from 'rxjs';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import {
   mdiRefresh,
   mdiAlertCircle,
@@ -29,6 +29,7 @@ interface ValidatedPermission extends SavedPermission {
   selector: 'plopdown-permissions',
   templateUrl: './permissions.component.html',
   styleUrls: ['./permissions.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PermissionsComponent implements OnDestroy {

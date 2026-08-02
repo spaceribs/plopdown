@@ -2,7 +2,13 @@ import { RemotesService } from '@plopdown/remotes';
 import { PermissionsService } from '@plopdown/permissions';
 import { HttpClient } from '@angular/common/http';
 import { LoggerService } from '@plopdown/logger';
-import { Component, OnInit, ErrorHandler, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ErrorHandler,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { OnInstalledDetails, RuntimeService } from '@plopdown/browser-ref';
 import { forkJoin, Observable, of, Subscription } from 'rxjs';
 import { filter, first, switchMap, tap } from 'rxjs/operators';
@@ -11,6 +17,7 @@ import { ExtStorageAreaName, ExtStorageService } from '@plopdown/ext-storage';
 @Component({
   selector: 'plopdown-new-install',
   template: 'new-install',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class NewInstallComponent implements OnInit, OnDestroy {

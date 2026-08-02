@@ -5,7 +5,7 @@ import {
   RuntimeService,
   PermissionsRequestService,
 } from '@plopdown/browser-ref';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { LoggerService } from '@plopdown/logger';
 import { map } from 'rxjs/operators';
 import { mdiVideoBox, mdiVideoBoxOff } from '@mdi/js';
@@ -18,6 +18,7 @@ interface ValidatedPermission extends SavedPermission {
   selector: 'plopdown-permissions-manager',
   templateUrl: './permissions-manager.component.html',
   styleUrls: ['./permissions-manager.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PermissionsManagerComponent implements OnDestroy {

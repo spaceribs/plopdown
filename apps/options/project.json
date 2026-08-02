@@ -13,6 +13,8 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "",
       "options": {
         "outputPath": "dist/apps/plopdown-ext/options",
         "index": "apps/options/src/index.html",
@@ -66,12 +68,11 @@
             }
           ]
         }
-      },
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": ""
+      }
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "continuous": true,
       "options": {
         "buildTarget": "options:build"
       },
@@ -79,8 +80,7 @@
         "production": {
           "buildTarget": "options:build:production"
         }
-      },
-      "continuous": true
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -93,10 +93,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/options"],
       "options": {
         "jestConfig": "apps/options/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/apps/options"]
+      }
     }
   }
 }

@@ -16,10 +16,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/messages"],
       "options": {
         "jestConfig": "libs/messages/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/libs/messages"]
+      }
     }
   }
 }

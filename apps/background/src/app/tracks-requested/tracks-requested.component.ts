@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy, ErrorHandler } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ErrorHandler,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   ContentScriptCommand,
   BackgroundPubService,
@@ -11,6 +17,7 @@ import { switchMap } from 'rxjs/operators';
 @Component({
   selector: 'plopdown-tracks-requested',
   template: 'tracks-requested',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TracksRequestedComponent implements OnInit, OnDestroy {

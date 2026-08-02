@@ -97,7 +97,7 @@
 ></plopdown-track-editor>
 } @if (showFileManager) {
 <plopdown-file-manager
-  [attachments]="editingTrack?._attachments"
+  [attachments]="$safeNavigationMigration(editingTrack?._attachments)"
   (save)="updateFiles($event)"
   (cancel)="closeEdit()"
 ></plopdown-file-manager>

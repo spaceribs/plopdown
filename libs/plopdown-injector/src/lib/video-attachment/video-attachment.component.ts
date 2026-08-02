@@ -14,9 +14,11 @@ import {
   ApplicationRef,
   EmbeddedViewRef,
   OnDestroy,
-  ComponentFactoryResolver,
+  createComponent,
+  EnvironmentInjector,
   ErrorHandler,
   ComponentRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   Subscription,
@@ -54,6 +56,7 @@ const DURATION_FUZZ_SEC = 20;
 @Component({
   selector: 'plopdown-video-attachment',
   template: '',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class VideoAttachmentComponent implements OnInit, OnDestroy {
@@ -76,7 +79,7 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private videoRefs$: Observable<VideoRef[]>;
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
+    private envInjector: EnvironmentInjector,
     private errorHandler: ErrorHandler,
     private appRef: ApplicationRef,
     private hashService: HashVideoRefsService,
@@ -119,13 +122,12 @@ export class VideoAttachmentComponent implements OnInit, OnDestroy {
       shareReplay(1)
     );
 
-    const embedFactory = this.componentFactoryResolver.resolveComponentFactory(
-      PlopdownEmbedComponent
-    );
-
     this.embedRef$ = this.videoElemLoaded$.pipe(
       map(() => {
-        return embedFactory.create(this.injector);
+        return createComponent(PlopdownEmbedComponent, {
+          environmentInjector: this.envInjector,
+          elementInjector: this.injector,
+        });
       }),
       shareReplay(1)
     );

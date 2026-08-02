@@ -1,10 +1,17 @@
 import { Observable, Subscription } from 'rxjs';
 import { PanelsService } from '@plopdown/devtools-ref';
-import { Component, OnInit, OnDestroy, ErrorHandler } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ErrorHandler,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'plopdown-root',
   template: 'plopdown-devtool',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AppComponent implements OnInit, OnDestroy {

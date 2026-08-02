@@ -5,6 +5,7 @@ import {
   Output,
   OnDestroy,
   Input,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Track } from '@plopdown/tracks';
 import { Subscription } from 'rxjs';
@@ -13,6 +14,7 @@ import { Subscription } from 'rxjs';
   selector: 'plopdown-track-selector',
   templateUrl: './tracks-modal.component.html',
   styleUrls: ['./tracks-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TracksModalComponent implements OnDestroy {

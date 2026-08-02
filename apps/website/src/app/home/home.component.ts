@@ -6,13 +6,15 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
-  ComponentFactoryResolver,
+  createComponent,
+  EnvironmentInjector,
   Injector,
   ApplicationRef,
   EmbeddedViewRef,
   OnDestroy,
   ComponentRef,
   ErrorHandler,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   map,
@@ -29,6 +31,7 @@ import { Observable, Subscription, Subject, ReplaySubject } from 'rxjs';
   selector: 'plopdown-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
@@ -55,14 +58,9 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     private appRef: ApplicationRef,
     private errorHandler: ErrorHandler,
     private injector: Injector,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private envInjector: EnvironmentInjector
   ) {
     this.currentDate = new Date();
-
-    const overlayFactory =
-      this.componentFactoryResolver.resolveComponentFactory(
-        PlopdownEmbedComponent
-      );
 
     this.tracks$ = http
       .get('/assets/minnie_facts.vtt', {
@@ -90,7 +88,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         return this.tracks$;
       }),
       map((tracks) => {
-        const componentRef = overlayFactory.create(this.injector);
+        const componentRef = createComponent(PlopdownEmbedComponent, {
+          environmentInjector: this.envInjector,
+          elementInjector: this.injector,
+        });
         this.appRef.attachView(componentRef.hostView);
         componentRef.instance.tracks = tracks;
         componentRef.instance.track = tracks[0];

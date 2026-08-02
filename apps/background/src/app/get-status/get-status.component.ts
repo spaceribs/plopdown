@@ -5,7 +5,12 @@ import {
   WebNavigationService,
 } from '@plopdown/browser-ref';
 import { scan, switchMap, shareReplay, startWith, map } from 'rxjs/operators';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   BackgroundPubService,
   BrowserActionQueryStatus,
@@ -18,6 +23,7 @@ import * as parser from 'tld-extract';
 @Component({
   selector: 'plopdown-get-status',
   template: `get-status`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class GetStatusComponent implements OnInit, OnDestroy {
@@ -51,7 +57,7 @@ export class GetStatusComponent implements OnInit, OnDestroy {
               allowUnknownTLD: true,
               allowPrivateTLD: true,
             });
-          } catch (err) {
+          } catch {
             url = {
               domain: new URL(details.url).hostname,
             };

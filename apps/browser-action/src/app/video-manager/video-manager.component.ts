@@ -1,7 +1,7 @@
 import { Observable, Subscription } from 'rxjs';
 import { WindowRefService } from '@plopdown/window-ref';
 import { RuntimeService } from '@plopdown/browser-ref';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { VideoRefsService, VideoRef } from '@plopdown/video-refs';
 import { LoggerService } from '@plopdown/logger';
 import { tap } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { mdiTrashCan } from '@mdi/js';
   selector: 'plopdown-video-manager',
   templateUrl: './video-manager.component.html',
   styleUrls: ['./video-manager.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class VideoManagerComponent implements OnDestroy {

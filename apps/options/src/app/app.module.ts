@@ -2,6 +2,7 @@ import { LzStringModule } from '@plopdown/lz-string';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from '@angular/common/http';
 import { PermissionsModule } from '@plopdown/permissions';
 import { PlopdownFileModule } from '@plopdown/plopdown-file';
@@ -95,6 +96,6 @@ import { CommonModule } from '@angular/common';
       }
     ),
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())],
+  providers: [provideHttpClient(withXhr(), withInterceptorsFromDi())],
 })
 export class AppModule {}

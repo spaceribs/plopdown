@@ -1,9 +1,15 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import {
+  Component,
+  Input,
+  HostBinding,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'plopdown-icon',
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class IconComponent {

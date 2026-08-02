@@ -13,6 +13,8 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "",
       "options": {
         "outputPath": "dist/apps/plopdown-ext/browser-action",
         "index": "apps/browser-action/src/index.html",
@@ -68,12 +70,11 @@
             }
           ]
         }
-      },
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": ""
+      }
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "continuous": true,
       "options": {
         "buildTarget": "browser-action:build"
       },
@@ -81,8 +82,7 @@
         "production": {
           "buildTarget": "browser-action:build:production"
         }
-      },
-      "continuous": true
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -95,10 +95,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/browser-action"],
       "options": {
         "jestConfig": "apps/browser-action/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/apps/browser-action"]
+      }
     }
   }
 }

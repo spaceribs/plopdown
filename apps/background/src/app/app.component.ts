@@ -1,6 +1,12 @@
 import { BrowserActionService, IconState } from '@plopdown/browser-ref';
 import { filter, map, shareReplay } from 'rxjs/operators';
-import { Component, OnInit, OnDestroy, ErrorHandler } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ErrorHandler,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ExtStorageAreaName, ExtStorageService } from '@plopdown/ext-storage';
 import { merge, Observable, Subscription } from 'rxjs';
 
@@ -16,6 +22,7 @@ import { merge, Observable, Subscription } from 'rxjs';
     }
   `,
   selector: 'plopdown-background',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AppComponent implements OnInit, OnDestroy {

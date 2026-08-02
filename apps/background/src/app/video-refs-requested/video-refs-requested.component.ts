@@ -1,5 +1,11 @@
 import { LoggerService } from '@plopdown/logger';
-import { Component, OnInit, OnDestroy, ErrorHandler } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ErrorHandler,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   BackgroundPubService,
   ContentScriptSubService,
@@ -11,6 +17,7 @@ import { map, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'plopdown-video-refs-requested',
   template: 'video-refs-requested',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class VideoRefsRequestedComponent implements OnInit, OnDestroy {

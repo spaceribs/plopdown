@@ -13,6 +13,8 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "",
       "options": {
         "outputPath": "docs",
         "index": "apps/website/src/index.html",
@@ -70,12 +72,11 @@
             }
           ]
         }
-      },
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": ""
+      }
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "continuous": true,
       "options": {
         "buildTarget": "website:build"
       },
@@ -83,8 +84,7 @@
         "production": {
           "buildTarget": "website:build:production"
         }
-      },
-      "continuous": true
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -97,10 +97,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/website"],
       "options": {
         "jestConfig": "apps/website/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/apps/website"]
+      }
     }
   }
 }

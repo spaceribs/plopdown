@@ -7,6 +7,7 @@ import {
   ErrorHandler,
   ElementRef,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { PlopdownAudio } from './audio.model';
 import { PlopdownBaseComponent } from '../../models/plopdown-base.component';
@@ -26,6 +27,7 @@ const ACCEPTABLE_DESYNC = 0.5;
   selector: 'plopdown-audio',
   templateUrl: './audio.component.html',
   styleUrls: ['./audio.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AudioComponent

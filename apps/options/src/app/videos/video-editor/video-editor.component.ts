@@ -1,5 +1,11 @@
 import { VideoRef } from '@plopdown/video-refs';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   UntypedFormGroup,
   UntypedFormBuilder,
@@ -10,6 +16,7 @@ import {
   selector: 'plopdown-video-editor',
   templateUrl: './video-editor.component.html',
   styleUrls: ['./video-editor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class VideoEditorComponent {

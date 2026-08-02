@@ -16,10 +16,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/ext-storage"],
       "options": {
         "jestConfig": "libs/ext-storage/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/libs/ext-storage"]
+      }
     }
   }
 }

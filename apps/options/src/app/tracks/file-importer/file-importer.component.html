@@ -50,7 +50,11 @@
               <th>{{ fileRef }}</th>
               <td>
                 <div
-                  [ngClass]="{ 'is-success': getFile(fileInput?.files) }"
+                  [ngClass]="{
+                    'is-success': getFile(
+                      $safeNavigationMigration(fileInput?.files)
+                    )
+                  }"
                   class="file is-fullwidth is-pulled-right"
                 >
                   <label class="file-label">
@@ -63,15 +67,21 @@
                     />
                     <span class="file-cta">
                       <span class="file-icon">
-                        @if (getFile(fileInput?.files)) {
+                        @if
+                        (getFile($safeNavigationMigration(fileInput?.files))) {
                         <plopdown-icon [path]="mdiFileCheck"></plopdown-icon>
                         } @else {
                         <plopdown-icon [path]="mdiFileOutline"></plopdown-icon>
                         }
                       </span>
-                      @if (getFile(fileInput?.files)) {
+                      @if (getFile($safeNavigationMigration(fileInput?.files)))
+                      {
                       <span class="file-label">
-                        {{ getFileName(fileInput?.files) }}
+                        {{
+                          getFileName(
+                            $safeNavigationMigration(fileInput?.files)
+                          )
+                        }}
                       </span>
                       } @else {
                       <span class="file-label"> Select File... </span>

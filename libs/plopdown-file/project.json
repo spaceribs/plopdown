@@ -30,10 +30,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/plopdown-file"],
       "options": {
         "jestConfig": "libs/plopdown-file/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/libs/plopdown-file"]
+      }
     }
   }
 }

@@ -8,6 +8,7 @@ import { PlopdownInjectorModule } from '@plopdown/plopdown-injector';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from '@angular/common/http';
 import { PlopdownFileModule } from '@plopdown/plopdown-file';
 
@@ -23,6 +24,6 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     SiteFooterModule,
     RouterModule.forChild(routes),
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())],
+  providers: [provideHttpClient(withXhr(), withInterceptorsFromDi())],
 })
 export class HomeModule {}
