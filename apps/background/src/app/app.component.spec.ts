@@ -14,36 +14,42 @@ import { Component } from '@angular/core';
 @Component({
   template: ``,
   selector: 'plopdown-get-status',
+  standalone: false,
 })
 class MockGetStatusComponent {}
 
 @Component({
   template: ``,
   selector: 'plopdown-new-install',
+  standalone: false,
 })
 class MockNewInstallComponent {}
 
 @Component({
   template: ``,
   selector: 'plopdown-tracks-requested',
+  standalone: false,
 })
 class MockTracksRequestedComponent {}
 
 @Component({
   template: ``,
   selector: 'plopdown-video-refs-requested',
+  standalone: false,
 })
 class MockVideoRefsRequestedComponent {}
 
 @Component({
   template: ``,
   selector: 'plopdown-install-content-script',
+  standalone: false,
 })
 class MockInstallContentScriptComponent {}
 
 @Component({
   template: ``,
   selector: 'plopdown-sync-databases',
+  standalone: false,
 })
 class MockSyncDatabasesComponent {}
 

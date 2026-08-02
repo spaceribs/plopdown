@@ -29,6 +29,7 @@ import { Observable, Subscription, Subject, ReplaySubject } from 'rxjs';
   selector: 'plopdown-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  standalone: false,
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
   public readonly overlayComponent$: Observable<
@@ -58,9 +59,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   ) {
     this.currentDate = new Date();
 
-    const overlayFactory = this.componentFactoryResolver.resolveComponentFactory(
-      PlopdownEmbedComponent
-    );
+    const overlayFactory =
+      this.componentFactoryResolver.resolveComponentFactory(
+        PlopdownEmbedComponent
+      );
 
     this.tracks$ = http
       .get('/assets/minnie_facts.vtt', {

@@ -17,6 +17,7 @@ mockVideoElem['pause'] = jest.fn();
 @Component({
   selector: 'plopdown-embed-menu',
   template: '',
+  standalone: false,
 })
 export class MockEmbedMenuComponent implements Partial<EmbedMenuComponent> {
   @Input() tracks: Track[];
@@ -26,6 +27,7 @@ export class MockEmbedMenuComponent implements Partial<EmbedMenuComponent> {
 @Component({
   selector: 'plopdown-cue-renderer',
   template: '',
+  standalone: false,
 })
 export class MockCueRendererComponent implements Partial<CueRendererComponent> {
   @Input() cues: Cue[];
@@ -36,6 +38,7 @@ export class MockCueRendererComponent implements Partial<CueRendererComponent> {
 @Component({
   selector: 'plopdown-cue-timeline',
   template: '',
+  standalone: false,
 })
 export class MockCueTimelineComponent implements Partial<CueTimelineComponent> {
   @Input() videoElem: HTMLVideoElement;
@@ -47,19 +50,17 @@ describe('PlopdownEmbedComponent', () => {
   let component: PlopdownEmbedComponent;
   let fixture: ComponentFixture<PlopdownEmbedComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [MockWindowRefModule, MockLoggerModule, NoopAnimationsModule],
-        declarations: [
-          PlopdownEmbedComponent,
-          MockEmbedMenuComponent,
-          MockCueRendererComponent,
-          MockCueTimelineComponent,
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [MockWindowRefModule, MockLoggerModule, NoopAnimationsModule],
+      declarations: [
+        PlopdownEmbedComponent,
+        MockEmbedMenuComponent,
+        MockCueRendererComponent,
+        MockCueTimelineComponent,
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PlopdownEmbedComponent);

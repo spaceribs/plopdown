@@ -2,7 +2,11 @@ import { WindowRefService } from '@plopdown/window-ref';
 import { Observable } from 'rxjs';
 import { TracksService, Track } from '@plopdown/tracks';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 import { TrackRef } from '@plopdown/video-refs';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 
@@ -10,6 +14,7 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
   selector: 'plopdown-track-selector',
   templateUrl: './track-selector.component.html',
   styleUrls: ['./track-selector.component.scss'],
+  standalone: false,
 })
 export class TrackSelectorComponent {
   public tracks$: Observable<Track[]>;

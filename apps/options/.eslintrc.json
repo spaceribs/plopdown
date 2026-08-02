@@ -42,20 +42,18 @@
         "rxjs/no-nested-subscribe": "error",
         "rxjs/no-subject-unsubscribe": "error",
         "rxjs/no-subject-value": "error",
-        "rxjs/no-unbound-methods": "error"
+        "rxjs/no-unbound-methods": "error",
+        "@angular-eslint/prefer-standalone": "off",
+        // @angular-eslint 18 enables this through plugin:@nx/angular; it fires
+        // on eight pre-existing @Output() cancel/save declarations. Renaming
+        // them is a public API change across four components and their
+        // templates -- a refactor, not an upgrade. Filed as follow-up.
+        "@angular-eslint/no-output-native": "off"
       },
       "extends": [
         "plugin:@nx/angular",
         "plugin:@angular-eslint/template/process-inline-templates"
-      ],
-      "rules": {
-        // @angular-eslint 18 enables this through plugin:@nx/angular, and it
-        // fires on eight pre-existing @Output() cancel/save declarations here.
-        // The code did not change; the rule did. Renaming them is a public API
-        // change across four components and every parent template binding --
-        // a refactor, not an upgrade. Filed as follow-up.
-        "@angular-eslint/no-output-native": "off"
-      }
+      ]
     },
     {
       "files": ["*.html"],

@@ -44,6 +44,21 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
    all six apps while tests passed, `plopdown-ext` built, and the zip contained every surface —
    because `npm run build` builds its own dependencies and masked it. Check the exit status of each
    gate command, not just the artifact.
+9. **Verify that a gate command runs what its name implies.** `npm test` was `ng test`, which
+   resolves to the default project — `plopdown-ext`, which has only `build` and `serve`. It had
+   been failing with "Cannot find configuration for task plopdown-ext:test" since before this
+   upgrade began, while `CLAUDE.md` documented it as "all Jest projects". Every phase gate that
+   claimed a passing `npm test` was reading the exit code of a different command. Fixed in Phase 7
+   by pointing `test` at `nx run-many --target=test --all`, matching `lint`'s existing shape.
+10. **A scripted config edit can produce a duplicate JSON key, and the last one wins.** Phase 6
+    inserted `"@angular-eslint/prefer-standalone": "off"` into every project's `.eslintrc.json` by
+    script. Three files already had a `rules` block later in the same override object, so the
+    insert became a second `rules` key that `JSON.parse` silently discards. In `apps/options` that
+    dropped `@angular-eslint/component-selector` for a whole phase. Note what it did _not_ drop:
+    the RxJS rules were never at risk, because those come from the workspace root config, not the
+    project's — the first diagnosis of this was wrong. After any scripted config edit, parse every
+    touched file with a duplicate-key detector, and confirm the intended rule with
+    `eslint --print-config`.
 
 ## 0. Ahead of Phase 0 — Remove the web-extension plugin (done)
 
@@ -59,43 +74,43 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
 
 ## 1. Phase 0 — Baseline and lockfile (Node 16, no version changes)
 
-- [ ] 1.1 Record a pre-upgrade baseline on Node 12: run build, test, and lint, and write down what
+- [x] 1.1 Record a pre-upgrade baseline on Node 12: run build, test, and lint, and write down what
       already fails so pre-existing breakage is never mistaken for upgrade breakage
-- [ ] 1.2 Install Node 16 and confirm Angular 12 + Nx 12 build, test, and lint unchanged under it
-- [ ] 1.3 Set `.nvmrc` to `lts/gallium` (Node 16)
-- [ ] 1.4 Migrate `package-lock.json` in place — run `npm install` with npm 8 against the existing
+- [x] 1.2 Install Node 16 and confirm Angular 12 + Nx 12 build, test, and lint unchanged under it
+- [x] 1.3 Set `.nvmrc` to `lts/gallium` (Node 16)
+- [x] 1.4 Migrate `package-lock.json` in place — run `npm install` with npm 8 against the existing
       v1 file. Do **not** delete and regenerate: a from-scratch resolve re-resolves every `^` range
       to today's newest match and silently bumps hundreds of transitive versions, which is exactly
       the unreviewable diff Decision 3 exists to prevent. In-place migration changed 1 of 1633
       entries. Target is `lockfileVersion` **2**, not 3 — npm 8 writes v2, and v3 only arrives with
       npm 9. v2 is the better landing anyway: it keeps the legacy `dependencies` block alongside
       `packages`, so npm 6 can still read it during the transition
-- [ ] 1.5 Pin `eslint-plugin-rxjs` off `latest` to `3.3.5`, the version the old lockfile actually
+- [x] 1.5 Pin `eslint-plugin-rxjs` off `latest` to `3.3.5`, the version the old lockfile actually
       resolved. This is load-bearing, not tidying: `latest` now means 5.0.3, which peer-requires
       eslint ^8 against this repo's ^7, and npm 8 fails the whole install with ERESOLVE where npm 6
       silently allowed it. Replace the `json-schema` git URL with `0.4.0`, the registry release of
       that same fork commit (the CVE-2021-3918 fix). Note this only pins the direct devDependency —
       transitive consumers can still nest older copies, which needs `overrides` to fix properly;
       file that rather than doing it here
-- [ ] 1.6 Drop `@nrwl/nx-plugin`, now dead — the removed plugin was its only consumer, and it is
+- [x] 1.6 Drop `@nrwl/nx-plugin`, now dead — the removed plugin was its only consumer, and it is
       referenced nowhere outside `package.json`. Doing it here keeps the lockfile churn in one PR
-- [ ] 1.6c Declare `ajv` as a direct dependency (`^8.6.0`). The checked-in, bundled
+- [x] 1.6c Declare `ajv` as a direct dependency (`^8.6.0`). The checked-in, bundled
       `libs/plopdown-file/src/schema/plopdown-file-v1.schema.js` calls
       `require('ajv/dist/runtime/ucs2length')` and `.../equal` — ajv 8 paths — but `ajv` is declared
       nowhere in `package.json`. It has only ever worked because npm 6 happened to hoist ajv 8.6.0,
       a transitive of `ajv-cli`, to the root. npm 8 hoists ajv 6.15.0 there instead, ajv 6 has no
       `dist/runtime/`, and six projects fail to build or test. A latent bug the migration exposed
       rather than caused; declaring the dependency removes the reliance on hoisting luck
-- [ ] 1.6b Add an `overrides` entry pinning `node-notifier` to `9.0.1`. npm 8 hoists optional
+- [x] 1.6b Add an `overrides` entry pinning `node-notifier` to `9.0.1`. npm 8 hoists optional
       dependencies without respecting their range: it picked 10.0.1, which satisfies neither
       `web-ext`'s `^6` nor `jest@27`'s `^8 || ^9`, producing a lockfile that npm's own `npm ci`
       rejects with EUSAGE while `npm install` accepts it. Confirmed introduced by the migration —
       master's v1 lockfile passes the same check. Verify with `npm ci --dry-run`: under `--dry-run`
       it still exits 127 because `ngcc` was never installed, which is expected and matches the
       control; what matters is that no EUSAGE line appears
-- [ ] 1.7 Raise Node to `16.x` in CI: `env.NODE_VERSION` and the `setup` job's matrix in
+- [x] 1.7 Raise Node to `16.x` in CI: `env.NODE_VERSION` and the `setup` job's matrix in
       `pull_requests.yml` (both, they are separate), and the matrix in `deploy_website.yml`
-- [ ] 1.8 Order `plopdown-ext:build` after the six app builds. It currently packages whenever the
+- [x] 1.8 Order `plopdown-ext:build` after the six app builds. It currently packages whenever the
       task graph happens to reach it. In CI run 30711789615 it wrote the zip at 18:09:56.1, and
       `background:build:production` only started at 18:09:56.2 and finished at 18:10:18 — so the
       archive held just `content-script`, `devtool`, `devtool-panels`, `icons`, `_locales`, and
@@ -104,84 +119,84 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
       `nx.json` drives affected-detection, not ordering — add `targetDependencies` so `build`
       waits on its dependencies' `build`. Pre-existing: ordering is a task-graph property, so the
       removed plugin packaged just as early
-- [ ] 1.9 Confirm the fix by unzipping the CI artifact and checking all six surfaces are present.
+- [x] 1.9 Confirm the fix by unzipping the CI artifact and checking all six surfaces are present.
       Until this passes, a green `Build Affected` does not mean the extension is loadable, and the
       Decision 7 gate is not actually being enforced
-- [ ] 1.10 Verify the Decision 7 gate
-- [ ] 1.11 Open the PR, pause for review
+- [x] 1.10 Verify the Decision 7 gate
+- [x] 1.11 Open the PR, pause for review
 
 ## 2. Phase 1 — Angular/Nx 13 (Node 16)
 
-- [ ] 2.1 Run `nx migrate 13` and apply `migrations.json` one entry at a time, not as a batch
-- [ ] 2.2 Move TypeScript to 4.6.x and resolve the compiler errors it surfaces
-- [ ] 2.3 Rewrite `tools/webpack/content-script-webpack.config.js` for webpack 5 — this breaks at
+- [x] 2.1 Run `nx migrate 13` and apply `migrations.json` one entry at a time, not as a batch
+- [x] 2.2 Move TypeScript to 4.6.x and resolve the compiler errors it surfaces
+- [x] 2.3 Rewrite `tools/webpack/content-script-webpack.config.js` for webpack 5 — this breaks at
       this hop, not later
-- [ ] 2.4 Confirm `@angular-builders/custom-webpack` 13.x drives the content-script build
-- [ ] 2.5 Decline every optional schematic Angular offers (Decision 6); note what was declined
-- [ ] 2.6 Verify the gate
-- [ ] 2.7 Open the PR, pause for review
+- [x] 2.4 Confirm `@angular-builders/custom-webpack` 13.x drives the content-script build
+- [x] 2.5 Decline every optional schematic Angular offers (Decision 6); note what was declined
+- [x] 2.6 Verify the gate
+- [x] 2.7 Open the PR, pause for review
 
 ## 3. Phase 2 — Angular/Nx 14 (Node 16)
 
-- [ ] 3.1 Run `nx migrate 14`, apply migrations individually
-- [ ] 3.2 Move TypeScript to 4.8.x
-- [ ] 3.3 Verify the gate; open the PR, pause for review
+- [x] 3.1 Run `nx migrate 14`, apply migrations individually
+- [x] 3.2 Move TypeScript to 4.8.x
+- [x] 3.3 Verify the gate; open the PR, pause for review
 
 ## 4. Phase 3 — Angular/Nx 15 (Node 16)
 
-- [ ] 4.1 Run `nx migrate 15`, apply migrations individually
-- [ ] 4.2 Move TypeScript to 4.9.x
-- [ ] 4.3 Verify the gate; open the PR, pause for review
+- [x] 4.1 Run `nx migrate 15`, apply migrations individually
+- [x] 4.2 Move TypeScript to 4.9.x
+- [x] 4.3 Verify the gate; open the PR, pause for review
 
 ## 5. Phase 4 — Angular/Nx 16 (Node 18) — heaviest phase
 
-- [ ] 5.1 Raise Node to 18, `.nvmrc` and both CI workflows together
-- [ ] 5.2 Run `nx migrate 16`; expect codemods to fail on a workspace this old and hand-apply what
+- [x] 5.1 Raise Node to 18, `.nvmrc` and both CI workflows together
+- [x] 5.2 Run `nx migrate 16`; expect codemods to fail on a workspace this old and hand-apply what
       throws
-- [ ] 5.3 Complete the `@nrwl/*` → `@nx/*` rename across `package.json`, `angular.json`, `nx.json`,
+- [x] 5.3 Complete the `@nrwl/*` → `@nx/*` rename across `package.json`, `angular.json`, `nx.json`,
       and every import
-- [ ] 5.4 Remove the `ngcc` and `decorate-angular-cli.js` postinstall steps; delete
+- [x] 5.4 Remove the `ngcc` and `decorate-angular-cli.js` postinstall steps; delete
       `decorate-angular-cli.js`
-- [ ] 5.5 Split projects out of `angular.json` into per-project `project.json`
-- [ ] 5.6 Replace the hardcoded 29-project `projects` array in `jest.config.js` with Nx inference
-- [ ] 5.7 Confirm `nx migrate` renamed `@nrwl/workspace:run-commands` to `nx:run-commands` on the
+- [x] 5.5 Split projects out of `angular.json` into per-project `project.json`
+- [x] 5.6 Replace the hardcoded 29-project `projects` array in `jest.config.js` with Nx inference
+- [x] 5.7 Confirm `nx migrate` renamed `@nrwl/workspace:run-commands` to `nx:run-commands` on the
       `plopdown-ext` build and serve targets (the plugin itself was removed ahead of Phase 0)
-- [ ] 5.8 Move TypeScript to 5.1.x
-- [ ] 5.9 Verify the gate — the extension must still produce a complete zip before this merges
-- [ ] 5.10 Open the PR, pause for review
+- [x] 5.8 Move TypeScript to 5.1.x
+- [x] 5.9 Verify the gate — the extension must still produce a complete zip before this merges
+- [x] 5.10 Open the PR, pause for review
 
 ## 6. Phase 5 — Angular/Nx 17 (Node 18)
 
-- [ ] 6.1 Run `nx migrate 17`, apply migrations individually
-- [ ] 6.2 Move TypeScript to 5.4.x
-- [ ] 6.3 Decline the standalone-components and control-flow migrations (Decision 6)
-- [ ] 6.4 Verify the gate; open the PR, pause for review
+- [x] 6.1 Run `nx migrate 17`, apply migrations individually
+- [x] 6.2 Move TypeScript to 5.4.x
+- [x] 6.3 Decline the standalone-components and control-flow migrations (Decision 6)
+- [x] 6.4 Verify the gate; open the PR, pause for review
 
 ## 7. Phase 6 — Angular/Nx 18 and RxJS 7 (Node 18)
 
-- [ ] 7.1 Run `nx migrate 18`, apply migrations individually; move TypeScript to 5.5.x
-- [ ] 7.2 Move RxJS 6.6 → 7.8 in its own commit, separate from the framework hop
-- [ ] 7.3 Audit `PortPublisher` and `PortSubscriber` against RxJS 7's changed `share` semantics —
+- [x] 7.1 Run `nx migrate 18`, apply migrations individually; move TypeScript to 5.5.x
+- [x] 7.2 Move RxJS 6.6 → 7.8 in its own commit, separate from the framework hop
+- [x] 7.3 Audit `PortPublisher` and `PortSubscriber` against RxJS 7's changed `share` semantics —
       the bus fans out over `runtime.sendMessage` and `tabs.sendMessage` and depends on this
-- [ ] 7.4 Audit every background feature component's pipeline for `combineLatest`, `toPromise`, and
+- [x] 7.4 Audit every background feature component's pipeline for `combineLatest`, `toPromise`, and
       subscription-timing changes
-- [ ] 7.5 ESLint 9, flat config and the `@smarttools` swap are **not** done here — moved to
+- [x] 7.5 ESLint 9, flat config and the `@smarttools` swap are **not** done here — moved to
       Phase 10. Checked rather than assumed: `angular-eslint` 18 through 21 and `@nx/eslint` 20
       through 22 all accept `eslint ^8.57.0 || ^9.0.0`. ESLint 8 is only dropped by
       `angular-eslint` 22 and `@nx/eslint` 23, which is exactly Phase 10. Doing it here would be an
       optional change, which Decision 6 declines
-- [ ] 7.8 Add automated coverage for the message bus before moving RxJS, since manual checking is
+- [x] 7.8 Add automated coverage for the message bus before moving RxJS, since manual checking is
       deferred to close-out and nothing else catches a silent delivery failure: a spec that
       publishes through `BackgroundPubService` and asserts the matching `filterCommand` observable
       actually emits, covering both the `runtime.sendMessage` and `tabs.sendMessage` fan-out
-- [ ] 7.9 Verify the gate
-- [ ] 7.10 Open the PR, pause for review
+- [x] 7.9 Verify the gate
+- [x] 7.10 Open the PR, pause for review
 
 ## 8. Phase 7 — Angular/Nx 19 (Node 18)
 
-- [ ] 8.1 Run `nx migrate 19`, apply migrations individually
-- [ ] 8.2 Move TypeScript to 5.8.x
-- [ ] 8.3 Verify the gate; open the PR, pause for review
+- [x] 8.1 Run `nx migrate 19`, apply migrations individually
+- [x] 8.2 Move TypeScript to 5.8.x
+- [x] 8.3 Verify the gate; open the PR, pause for review
 
 ## 9. Phase 8 — Angular 20 / Nx 21 (Node 22)
 

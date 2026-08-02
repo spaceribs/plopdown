@@ -5,6 +5,7 @@ import { FileManagerComponent } from '../src/app/tracks/file-manager/file-manage
 @Component({
   selector: 'plopdown-file-manager',
   template: 'mock-plopdown-file-manager',
+  standalone: false,
 })
 export class MockFileManagerComponent implements Partial<FileManagerComponent> {
   @Input() attachments: FullAttachments;

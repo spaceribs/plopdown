@@ -5,6 +5,7 @@ import { VideoEditorComponent } from '../src/app/videos/video-editor/video-edito
 @Component({
   selector: 'plopdown-video-editor',
   template: 'mock-plopdown-track-editor',
+  standalone: false,
 })
 export class MockVideoEditorComponent implements Partial<VideoEditorComponent> {
   @Input() videoRef: VideoRef | null = null;

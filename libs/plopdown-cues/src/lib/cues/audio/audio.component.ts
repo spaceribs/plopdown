@@ -26,10 +26,12 @@ const ACCEPTABLE_DESYNC = 0.5;
   selector: 'plopdown-audio',
   templateUrl: './audio.component.html',
   styleUrls: ['./audio.component.scss'],
+  standalone: false,
 })
 export class AudioComponent
   extends PlopdownBaseComponent<PlopdownAudio>
-  implements AfterViewInit, OnInit, OnDestroy {
+  implements AfterViewInit, OnInit, OnDestroy
+{
   public color = '#ffc09f';
   public audioMuted = false;
   public mdiVolumeHigh = mdiVolumeHigh;

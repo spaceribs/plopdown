@@ -17,6 +17,7 @@ import {
   selector: 'plopdown-videos',
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.scss'],
+  standalone: false,
 })
 export class VideosComponent implements OnInit, OnDestroy {
   private updateVideoRef$: Subject<VideoRef> = new Subject();

@@ -15,6 +15,7 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
   selector: 'plopdown-log-viewer',
   templateUrl: './log-viewer.component.html',
   styleUrls: ['./log-viewer.component.scss'],
+  standalone: false,
 })
 export class LogViewerComponent implements OnInit, OnDestroy {
   public confirmReset = false;

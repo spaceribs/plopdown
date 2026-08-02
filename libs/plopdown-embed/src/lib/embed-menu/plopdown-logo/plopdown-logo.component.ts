@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
   selector: 'plopdown-logo',
   templateUrl: './plopdown-logo.component.html',
   styleUrls: ['./plopdown-logo.component.scss'],
+  standalone: false,
 })
 export class PlopdownLogoComponent {}

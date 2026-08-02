@@ -62,6 +62,7 @@ enum ActionState {
       ),
     ]),
   ],
+  standalone: false,
 })
 export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   public ActionState = ActionState;

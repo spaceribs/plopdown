@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
   selector: 'plopdown-track-manager',
   templateUrl: './track-manager.component.html',
   styleUrls: ['./track-manager.component.scss'],
+  standalone: false,
 })
 export class TrackManagerComponent {
   public tracks$: Observable<Track[]>;

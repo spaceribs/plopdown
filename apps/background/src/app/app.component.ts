@@ -16,6 +16,7 @@ import { merge, Observable, Subscription } from 'rxjs';
     </ng-container>
   `,
   selector: 'plopdown-background',
+  standalone: false,
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();

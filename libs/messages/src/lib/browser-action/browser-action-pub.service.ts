@@ -9,9 +9,7 @@ import { MessagesModule } from '../messages.module';
 @Injectable({
   providedIn: MessagesModule,
 })
-export class BrowserActionPubService extends PortPublisher<
-  BrowserActionCommand
-> {
+export class BrowserActionPubService extends PortPublisher<BrowserActionCommand> {
   constructor(messages: MessagesService, logger: LoggerService) {
     super(Source.BrowserAction, messages, logger);
   }

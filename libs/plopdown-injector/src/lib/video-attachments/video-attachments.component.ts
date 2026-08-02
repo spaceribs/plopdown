@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
       [videoElem]="videoElem"
     ></plopdown-video-attachment>
   `,
+  standalone: false,
 })
 export class VideoAttachmentsComponent {
   @Input() public videoElems: HTMLVideoElement[] | null = null;

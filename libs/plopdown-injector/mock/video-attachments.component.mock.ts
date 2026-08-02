@@ -4,8 +4,10 @@ import { VideoAttachmentsComponent } from '../src/lib/video-attachments/video-at
 @Component({
   selector: 'plopdown-video-attachments',
   template: 'mock-video-attachments',
+  standalone: false,
 })
 export class MockVideoAttachmentsComponent
-  implements Partial<VideoAttachmentsComponent> {
+  implements Partial<VideoAttachmentsComponent>
+{
   @Input() public videoElems: HTMLVideoElement[] | null;
 }

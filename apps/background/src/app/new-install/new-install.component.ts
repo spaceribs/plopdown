@@ -11,6 +11,7 @@ import { ExtStorageAreaName, ExtStorageService } from '@plopdown/ext-storage';
 @Component({
   selector: 'plopdown-new-install',
   template: 'new-install',
+  standalone: false,
 })
 export class NewInstallComponent implements OnInit, OnDestroy {
   private onNewInstall$: Observable<OnInstalledDetails>;

@@ -138,7 +138,8 @@ export class PlopdownFileService {
     // Ignore the header
     blocks.shift();
 
-    const timecodeMatch = /(\d{2}:\d{2}:\d{2}.\d{3}) --> (\d{2}:\d{2}:\d{2}.\d{3})/;
+    const timecodeMatch =
+      /(\d{2}:\d{2}:\d{2}.\d{3}) --> (\d{2}:\d{2}:\d{2}.\d{3})/;
 
     // Search for blocks with a timecode.
     return blocks.reduce((memo, block) => {

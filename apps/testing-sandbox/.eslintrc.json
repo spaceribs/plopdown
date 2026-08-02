@@ -42,7 +42,8 @@
         "rxjs/no-nested-subscribe": "error",
         "rxjs/no-subject-unsubscribe": "error",
         "rxjs/no-subject-value": "error",
-        "rxjs/no-unbound-methods": "error"
+        "rxjs/no-unbound-methods": "error",
+        "@angular-eslint/prefer-standalone": "off"
       },
       "extends": [
         "plugin:@nx/angular",

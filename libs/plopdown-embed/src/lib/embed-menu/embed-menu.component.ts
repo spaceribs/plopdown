@@ -64,6 +64,7 @@ import { Overlay } from '@angular/cdk/overlay';
       ),
     ]),
   ],
+  standalone: false,
 })
 export class EmbedMenuComponent implements OnDestroy {
   public mdiClose = mdiClose;

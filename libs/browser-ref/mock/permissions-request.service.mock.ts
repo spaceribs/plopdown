@@ -4,6 +4,7 @@ import { PermissionsRequestService } from '../src/lib/permissions-req.service';
 
 @Injectable()
 export class MockPermissionsRequestService
-  implements Partial<PermissionsRequestService> {
+  implements Partial<PermissionsRequestService>
+{
   getAll = jest.fn().mockReturnValue(EMPTY);
 }

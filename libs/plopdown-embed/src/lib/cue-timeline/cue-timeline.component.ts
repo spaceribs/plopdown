@@ -54,6 +54,7 @@ import { Cue, PLOPDOWN_TEMPLATES } from '@plopdown/plopdown-cues';
       ),
     ]),
   ],
+  standalone: false,
 })
 export class CueTimelineComponent {
   public currentLeft$: Observable<string>;
@@ -131,9 +132,10 @@ export class CueTimelineComponent {
       const left = (cue.startTime / duration) * 100;
       const right = 100 - (cue.endTime / duration) * 100;
 
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        PLOPDOWN_TEMPLATES[cue.data.type]
-      );
+      const componentFactory =
+        this.componentFactoryResolver.resolveComponentFactory(
+          PLOPDOWN_TEMPLATES[cue.data.type]
+        );
 
       const component = componentFactory.create(this.injector).instance;
 

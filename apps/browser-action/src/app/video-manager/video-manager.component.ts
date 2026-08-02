@@ -11,6 +11,7 @@ import { mdiTrashCan } from '@mdi/js';
   selector: 'plopdown-video-manager',
   templateUrl: './video-manager.component.html',
   styleUrls: ['./video-manager.component.scss'],
+  standalone: false,
 })
 export class VideoManagerComponent implements OnDestroy {
   public videoRefs$: Observable<VideoRef[]>;

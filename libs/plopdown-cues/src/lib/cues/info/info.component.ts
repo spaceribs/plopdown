@@ -34,6 +34,7 @@ import { PlopdownInfo } from './info.model';
       ),
     ]),
   ],
+  standalone: false,
 })
 export class InfoComponent extends PlopdownBaseComponent<PlopdownInfo> {
   public color = '#79addc';

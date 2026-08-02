@@ -9,9 +9,9 @@ import { RouterModule } from '@angular/router';
   imports: [
     BrowserModule,
     RouterModule.forRoot([], {
-    useHash: true,
-    initialNavigation: 'enabledBlocking'
-}),
+      useHash: true,
+      initialNavigation: 'enabledBlocking',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

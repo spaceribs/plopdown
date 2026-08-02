@@ -15,6 +15,7 @@ import { Remote, RemotesService, UnsavedRemote } from '@plopdown/remotes';
   selector: 'plopdown-remotes',
   templateUrl: './remotes.component.html',
   styleUrls: ['./remotes.component.css'],
+  standalone: false,
 })
 export class RemotesComponent implements OnInit, OnDestroy {
   public loadingRemotes$: Observable<boolean>;

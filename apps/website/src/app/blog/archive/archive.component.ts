@@ -7,6 +7,7 @@ import { Routes } from '@angular/router';
   selector: 'plopdown-archive',
   templateUrl: './archive.component.html',
   styleUrls: ['./archive.component.scss'],
+  standalone: false,
 })
 export class ArchiveComponent {
   public postRoutes: Routes;

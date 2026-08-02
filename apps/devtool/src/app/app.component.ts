@@ -5,6 +5,7 @@ import { Component, OnInit, OnDestroy, ErrorHandler } from '@angular/core';
 @Component({
   selector: 'plopdown-root',
   template: 'plopdown-devtool',
+  standalone: false,
 })
 export class AppComponent implements OnInit, OnDestroy {
   private panelHidden$: Observable<null>;

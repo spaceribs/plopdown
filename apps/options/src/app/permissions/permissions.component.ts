@@ -29,6 +29,7 @@ interface ValidatedPermission extends SavedPermission {
   selector: 'plopdown-permissions',
   templateUrl: './permissions.component.html',
   styleUrls: ['./permissions.component.scss'],
+  standalone: false,
 })
 export class PermissionsComponent implements OnDestroy {
   public confirmReset = false;

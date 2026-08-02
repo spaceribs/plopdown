@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
   selector: 'plopdown-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
+  standalone: false,
 })
 export class SettingsComponent {}

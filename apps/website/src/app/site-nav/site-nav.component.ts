@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
   selector: 'plopdown-site-nav',
   templateUrl: './site-nav.component.html',
   styleUrls: ['./site-nav.component.scss'],
+  standalone: false,
 })
 export class SiteNavComponent {}

@@ -7,9 +7,8 @@ import { LzStringModule } from './lz-string.module';
 })
 export class LzStringService {
   public decompressURI(compressedValue: string): string {
-    const decompressedValue = LZString.decompressFromEncodedURIComponent(
-      compressedValue
-    );
+    const decompressedValue =
+      LZString.decompressFromEncodedURIComponent(compressedValue);
     if (decompressedValue === null) {
       throw new Error('Plopdown string could not be decoded');
     }

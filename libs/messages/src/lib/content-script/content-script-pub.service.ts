@@ -10,9 +10,7 @@ import { VideoRef } from '@plopdown/video-refs';
 @Injectable({
   providedIn: MessagesModule,
 })
-export class ContentScriptPubService extends PortPublisher<
-  ContentScriptCommand
-> {
+export class ContentScriptPubService extends PortPublisher<ContentScriptCommand> {
   constructor(messages: MessagesService, logger: LoggerService) {
     super(Source.ContentScript, messages, logger);
   }

@@ -5,12 +5,17 @@ import {
   mdiSync,
 } from '@mdi/js';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'plopdown-remote-editor',
   templateUrl: './remote-editor.component.html',
   styleUrls: ['./remote-editor.component.scss'],
+  standalone: false,
 })
 export class RemoteEditorComponent {
   public mdiAlertCircleOutline = mdiAlertCircleOutline;

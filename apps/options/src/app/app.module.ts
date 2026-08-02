@@ -1,5 +1,8 @@
 import { LzStringModule } from '@plopdown/lz-string';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { PermissionsModule } from '@plopdown/permissions';
 import { PlopdownFileModule } from '@plopdown/plopdown-file';
 import { TracksModule } from '@plopdown/tracks';
@@ -20,57 +23,78 @@ import { WindowRefModule } from '@plopdown/window-ref';
 import { PouchDBModule } from '@plopdown/pouchdb';
 import { CommonModule } from '@angular/common';
 
-@NgModule({ declarations: [AppComponent, HomeComponent],
-    bootstrap: [AppComponent], imports: [CommonModule,
-        BrowserModule,
-        BrowserRefModule,
-        VideoRefsModule,
-        TracksModule,
-        WindowRefModule,
-        PlopdownFileModule,
-        PermissionsModule,
-        LzStringModule,
-        PouchDBModule,
-        LoggerModule.forRoot({
-            appName: 'Options',
-            color: 'orange',
-            providers: [LogConsoleService, LogStorageService],
-        }),
-        RouterModule.forRoot([
-            {
-                path: 'home',
-                component: HomeComponent,
-            },
-            {
-                path: 'videos',
-                loadChildren: () => import('./videos/videos.module').then((m) => m.VideosViewModule),
-            },
-            {
-                path: 'tracks',
-                loadChildren: () => import('./tracks/tracks.module').then((m) => m.TracksViewModule),
-            },
-            {
-                path: 'settings',
-                loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsViewModule),
-            },
-            {
-                path: 'logs',
-                loadChildren: () => import('./log-viewer/log-viewer.module').then((m) => m.LogViewerModule),
-            },
-            {
-                path: 'permissions',
-                loadChildren: () => import('./permissions/permissions.module').then((m) => m.PermissionsViewModule),
-            },
-            {
-                path: 'remotes',
-                loadChildren: () => import('./remotes/remotes.module').then((m) => m.RemotesViewModule),
-            },
-            {
-                path: '**',
-                redirectTo: 'home',
-            },
-        ], {
-            useHash: true,
-            initialNavigation: 'enabledNonBlocking'
-        })], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [AppComponent, HomeComponent],
+  bootstrap: [AppComponent],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    BrowserRefModule,
+    VideoRefsModule,
+    TracksModule,
+    WindowRefModule,
+    PlopdownFileModule,
+    PermissionsModule,
+    LzStringModule,
+    PouchDBModule,
+    LoggerModule.forRoot({
+      appName: 'Options',
+      color: 'orange',
+      providers: [LogConsoleService, LogStorageService],
+    }),
+    RouterModule.forRoot(
+      [
+        {
+          path: 'home',
+          component: HomeComponent,
+        },
+        {
+          path: 'videos',
+          loadChildren: () =>
+            import('./videos/videos.module').then((m) => m.VideosViewModule),
+        },
+        {
+          path: 'tracks',
+          loadChildren: () =>
+            import('./tracks/tracks.module').then((m) => m.TracksViewModule),
+        },
+        {
+          path: 'settings',
+          loadChildren: () =>
+            import('./settings/settings.module').then(
+              (m) => m.SettingsViewModule
+            ),
+        },
+        {
+          path: 'logs',
+          loadChildren: () =>
+            import('./log-viewer/log-viewer.module').then(
+              (m) => m.LogViewerModule
+            ),
+        },
+        {
+          path: 'permissions',
+          loadChildren: () =>
+            import('./permissions/permissions.module').then(
+              (m) => m.PermissionsViewModule
+            ),
+        },
+        {
+          path: 'remotes',
+          loadChildren: () =>
+            import('./remotes/remotes.module').then((m) => m.RemotesViewModule),
+        },
+        {
+          path: '**',
+          redirectTo: 'home',
+        },
+      ],
+      {
+        useHash: true,
+        initialNavigation: 'enabledNonBlocking',
+      }
+    ),
+  ],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
+})
 export class AppModule {}
