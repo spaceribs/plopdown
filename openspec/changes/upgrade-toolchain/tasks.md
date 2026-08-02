@@ -2,6 +2,27 @@ Each numbered group is one PR and one review pause. A group is done only when th
 passes: `npm run build:ext`, `npm run build plopdown-ext`, `npm test`, and `npm run lint` all
 succeed, with `.nvmrc` and both CI workflows on the group's Node version.
 
+**Rules every framework hop must follow.** Learned the hard way in Phase 1; each cost real time.
+
+1. **Apply migrations one at a time, never as a batch.** `nx migrate --run-migrations` stopped at
+   the 8th of 39 and still exited 0. Trusting the exit code would have shipped the phase with 31
+   migrations silently unapplied. Wrap each in its own `migrations.json` and give it a timeout —
+   one of them hung for 34 minutes.
+2. **Audit dependency drift after every regeneration.** npm cannot reconcile a lockfile across a
+   framework major, so regeneration is forced — and it re-resolves every `^` range to today's
+   newest match. In Phase 1 that moved 20 direct dependencies and broke two builds for reasons
+   unrelated to Angular. Diff the new lockfile against the previous phase's and pin back anything
+   that moved but shouldn't have. `@types/*` packages are **not** inert: they are what tsc reads.
+3. **Never commit a lockfile without `npm ci --dry-run`.** `npm install` succeeding does not mean
+   `npm ci` accepts the result. Skipping this failed CI's install job on four consecutive commits,
+   and because lint/build/test all declare `needs: setup`, every one of them was skipped rather
+   than run — CI looked broken rather than failing.
+4. **Expect undeclared dependencies to surface.** Two packages the repo genuinely uses were never
+   in `package.json` and worked only because npm's hoisting happened to expose them: `ajv`
+   (Phase 0) and `@nrwl/linter` (Phase 1). Each presented as an unrelated-looking error.
+5. **Budget for the dependency graph, not the framework.** Angular 13 needed four lines of source
+   change. Everything else in Phase 1 was resolution archaeology. Expect the same ratio.
+
 ## 0. Ahead of Phase 0 — Remove the web-extension plugin (done)
 
 - [x] 0.1 Replace `plopdown-ext`'s `build`/`serve` builders with `@nrwl/workspace:run-commands`
