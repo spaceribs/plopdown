@@ -2,13 +2,14 @@
   "name": "devtool",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "sourceRoot": "apps/devtool/src",
+  "prefix": "plopdown",
+  "tags": [],
   "generators": {
     "@nx/angular:component": {
       "style": "scss"
     }
   },
-  "sourceRoot": "apps/devtool/src",
-  "prefix": "plopdown",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -76,7 +77,8 @@
         "production": {
           "buildTarget": "devtool:build:production"
         }
-      }
+      },
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -94,6 +96,5 @@
       },
       "outputs": ["{workspaceRoot}/coverage/apps/devtool"]
     }
-  },
-  "tags": []
+  }
 }

@@ -4,6 +4,12 @@
   "projectType": "library",
   "sourceRoot": "libs/messages/src",
   "prefix": "plopdown",
+  "tags": [],
+  "generators": {
+    "@nx/angular:component": {
+      "styleext": "scss"
+    }
+  },
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
@@ -15,11 +21,5 @@
       },
       "outputs": ["{workspaceRoot}/coverage/libs/messages"]
     }
-  },
-  "generators": {
-    "@nx/angular:component": {
-      "styleext": "scss"
-    }
-  },
-  "tags": []
+  }
 }

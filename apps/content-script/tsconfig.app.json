@@ -2,7 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["firefox-webext-browser"]
+    "types": ["firefox-webext-browser"],
+    "moduleResolution": "bundler"
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

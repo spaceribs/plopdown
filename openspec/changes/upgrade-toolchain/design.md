@@ -227,7 +227,7 @@ for review.
 | 7     | Angular/Nx 19      | 18   | TS 5.8.                                                                                                                                                                        |
 | 8     | Angular 20 / Nx 21 | 22   | Nx and Angular majors diverge from here; `nx migrate` resolves the pairing. TS 5.9.                                                                                            |
 | 9     | Angular 21 / Nx 22 | 22   |                                                                                                                                                                                |
-| 10    | Angular 22 / Nx 23 | 24   | TS 6.0. Jest 30, Cypress 15, remaining runtime deps.                                                                                                                           |
+| 10    | Angular 22 / Nx 23 | 24   | TS 6.0. Jest 30, remaining runtime deps.                                                                                                                                       |
 
 RxJS 6 → 7 is scheduled at the earliest hop that requires it and is not combined with another
 framework change in the same commit, per the first risk above.

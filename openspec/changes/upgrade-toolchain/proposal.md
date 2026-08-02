@@ -29,7 +29,7 @@ verifiable green state and a review pause at each stop.
 - The `ngcc` and `decorate-angular-cli.js` postinstall steps are removed (ngcc no longer exists as
   of Angular 16).
 - `apps/content-script`'s custom webpack config is rewritten for webpack 5.
-- Jest 27 → 30, Cypress 4 → 15 (`cypress.json` → `cypress.config.ts`), and the remaining runtime
+- Jest 27 → 30 and the remaining runtime
   dependencies (`@angular/cdk`, `@ngrx/component-store`, `pouchdb`, `uuid`, `core-js`, `bulma`,
   `plyr`) move to current majors.
 - `json-schema` (a git URL) and `eslint-plugin-rxjs` (`latest`) get real version pins.

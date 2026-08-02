@@ -59,6 +59,24 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
     project's — the first diagnosis of this was wrong. After any scripted config edit, parse every
     touched file with a duplicate-key detector, and confirm the intended rule with
     `eslint --print-config`.
+11. **`nx migrate --run-migrations` does not run your Nx.** It downloads `nx@latest` into a temp
+    directory and shells out to that. From Phase 8 `latest` is Nx 23 while the phase is migrating
+    to Nx 21, and the mismatched CLI rejects the arguments and prints its usage text — which the
+    outer process reports as an opaque `Command failed` with `stdout: null, stderr: null`. All 24
+    migrations "failed" identically and changed nothing. Set `NX_MIGRATE_USE_LOCAL=true` to run the
+    pinned CLI. This gets worse every phase, because `latest` keeps moving away from the version
+    being migrated to.
+12. **Pass `--run-migrations` a workspace-relative path.** Nx joins it onto the workspace root, so
+    an absolute `/tmp/...` path resolves to `<root>/tmp/...`, which does not exist. It does not
+    report a missing file — it prints the `migrate` usage text and exits 1, identical to rule 11's
+    symptom. Earlier phases used `/tmp` paths successfully, so this changed in Nx 21.
+13. **Check `df` before blaming the toolchain.** A first Node 22 baseline failed
+    `plopdown-ext:build` and `website:build` with `ENOSPC: no space left on device`, which reads
+    exactly like a Node-version regression until you look. The session's writable allowance is
+    fixed, so `df` shows `Avail` near zero against a low `Used`; `dist/`, `docs/` and `.nx/cache`
+    are all regenerable and clearing them recovers several GB. Note also that a gate run _without_
+    `--skip-nx-cache` will happily replay cached results from a previous Node version and report
+    green — the Phase 7 gate looked clean on Node 22 for exactly that reason.
 
 ## 0. Ahead of Phase 0 — Remove the web-extension plugin (done)
 
@@ -200,11 +218,17 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
 
 ## 9. Phase 8 — Angular 20 / Nx 21 (Node 22)
 
-- [ ] 9.1 Raise Node to 22, `.nvmrc` and both CI workflows together
-- [ ] 9.2 Run `nx migrate`; Nx and Angular majors diverge from here, so let the migration resolve
-      the pairing rather than pinning by hand
-- [ ] 9.3 Move TypeScript to 5.9.x
-- [ ] 9.4 Verify the gate; open the PR, pause for review
+- [x] 9.1 Raise Node to 22, `.nvmrc` and both CI workflows together
+- [x] 9.2 Run `nx migrate`; Nx and Angular majors diverge from here, so let the migration resolve
+      the pairing rather than pinning by hand — it settled on Nx 21.6.9 with Angular 20.3.9
+- [x] 9.3 Move TypeScript to 5.9.x — the migration did this itself, landing on 5.9.3
+- [x] 9.3a Bump the two framework-coupled packages `nx migrate` does not know about:
+      `@angular-builders/custom-webpack` (peer-requires `@angular-devkit/build-angular` ^19, which
+      fails the install outright) and `@ngrx/component-store`
+- [x] 9.3b Drop Cypress entirely at the owner's instruction: delete `apps/plopdown-embed-e2e`,
+      remove `cypress`, `@nx/cypress` and `eslint-plugin-cypress`, the `e2e` and `affected:e2e`
+      scripts, the `e2e` entry in `targetDefaults`, and the `e2eTestRunner` generator default
+- [x] 9.4 Verify the gate; open the PR, pause for review
 
 ## 10. Phase 9 — Angular 21 / Nx 22 (Node 22)
 
@@ -219,8 +243,11 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
 - [ ] 11.4 Move zone.js to 0.16.x and `@angular/cdk` to 22.x
 - [ ] 11.5 Move Jest to 30 and `jest-preset-angular` to current; update the `ts-jest` transform in
       `jest.preset.js`
-- [ ] 11.6 Move Cypress 4 → 15 and convert `apps/plopdown-embed-e2e/cypress.json` to
-      `cypress.config.ts`
+- [x] 11.6 ~~Move Cypress 4 → 15 and convert `apps/plopdown-embed-e2e/cypress.json` to
+      `cypress.config.ts`~~ — obsolete. Cypress was dropped entirely in Phase 8 at the owner's
+      instruction. `apps/plopdown-embed-e2e` pointed its `devServerTarget` at
+      `plopdown-embed:storybook`, a target that does not exist on that library, so the four specs
+      had been unrunnable for as long as the project has had `project.json` files
 - [ ] 11.7 Move the remaining runtime dependencies: `@ngrx/component-store`, `pouchdb`,
       `pouchdb-find`, `uuid`, `core-js`, `plyr`, `webextension-polyfill`, `web-ext`,
       `addons-linter`. Hold Bulma at 0.9

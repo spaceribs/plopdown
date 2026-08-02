@@ -4,6 +4,12 @@
   "projectType": "library",
   "sourceRoot": "libs/plopdown-file/src",
   "prefix": "plopdown",
+  "tags": [],
+  "generators": {
+    "@nx/angular:component": {
+      "styleext": "scss"
+    }
+  },
   "targets": {
     "generate-schema": {
       "executor": "nx:run-commands",
@@ -29,11 +35,5 @@
       },
       "outputs": ["{workspaceRoot}/coverage/libs/plopdown-file"]
     }
-  },
-  "generators": {
-    "@nx/angular:component": {
-      "styleext": "scss"
-    }
-  },
-  "tags": []
+  }
 }

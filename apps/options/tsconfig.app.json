@@ -4,7 +4,8 @@
     "outDir": "../../dist/out-tsc",
     "types": ["firefox-webext-browser"],
     "target": "ES2022",
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "moduleResolution": "bundler"
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
