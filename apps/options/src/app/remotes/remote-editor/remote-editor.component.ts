@@ -5,7 +5,7 @@ import {
   mdiSync,
 } from '@mdi/js';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'plopdown-remote-editor',
@@ -17,7 +17,7 @@ export class RemoteEditorComponent {
   public mdiCheckboxMarkedCircleOutline = mdiCheckboxMarkedCircleOutline;
   public mdiSync = mdiSync;
 
-  public remoteForm: FormGroup;
+  public remoteForm: UntypedFormGroup;
   @Output() cancel: EventEmitter<void> = new EventEmitter();
   @Output() save: EventEmitter<Remote> = new EventEmitter();
 
@@ -29,7 +29,7 @@ export class RemoteEditorComponent {
     }
   }
 
-  constructor(fb: FormBuilder, remoteValidator: RemoteValidatorService) {
+  constructor(fb: UntypedFormBuilder, remoteValidator: RemoteValidatorService) {
     this.remoteForm = fb.group({
       title: [null, Validators.required],
       url: [null, [Validators.required], [remoteValidator.validate]],

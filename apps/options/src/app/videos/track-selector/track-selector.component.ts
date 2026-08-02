@@ -2,7 +2,7 @@ import { WindowRefService } from '@plopdown/window-ref';
 import { Observable } from 'rxjs';
 import { TracksService, Track } from '@plopdown/tracks';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { TrackRef } from '@plopdown/video-refs';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 
@@ -13,7 +13,7 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 })
 export class TrackSelectorComponent {
   public tracks$: Observable<Track[]>;
-  public trackSelectorForm: FormGroup;
+  public trackSelectorForm: UntypedFormGroup;
   @Output() cancel: EventEmitter<null> = new EventEmitter();
   @Output() save: EventEmitter<TrackRef> = new EventEmitter();
 
@@ -26,7 +26,7 @@ export class TrackSelectorComponent {
   }
 
   constructor(
-    fb: FormBuilder,
+    fb: UntypedFormBuilder,
     tracksService: TracksService,
     private windowRef: WindowRefService,
     private sanitizer: DomSanitizer

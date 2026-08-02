@@ -3,7 +3,8 @@
   "compilerOptions": {
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "target": "es2020"
   },
   "include": [],
   "files": [],

@@ -1,6 +1,6 @@
 import { mdiFileUpload } from '@mdi/js';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Track } from '@plopdown/tracks';
 
 @Component({
@@ -11,7 +11,7 @@ import { Track } from '@plopdown/tracks';
 export class TrackEditorComponent {
   public mdiFileUpload = mdiFileUpload;
 
-  public trackForm: FormGroup;
+  public trackForm: UntypedFormGroup;
   @Output() cancel: EventEmitter<void> = new EventEmitter();
   @Output() save: EventEmitter<Track> = new EventEmitter();
 
@@ -23,7 +23,7 @@ export class TrackEditorComponent {
     }
   }
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: UntypedFormBuilder) {
     this.trackForm = fb.group({
       title: [null, Validators.required],
       for: [null, Validators.required],

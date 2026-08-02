@@ -10,8 +10,8 @@ import {
   OnDestroy,
 } from '@angular/core';
 import {
-  FormGroup,
-  FormBuilder,
+  UntypedFormGroup,
+  UntypedFormBuilder,
   Validators,
   AbstractControl,
   ValidatorFn,
@@ -25,7 +25,7 @@ import { Permission } from '@plopdown/permissions';
 })
 export class PermissionEditorComponent implements OnDestroy {
   public previousPerms: Permission | null = null;
-  public permissionForm: FormGroup;
+  public permissionForm: UntypedFormGroup;
 
   private subs: Subscription = new Subscription();
 
@@ -43,7 +43,7 @@ export class PermissionEditorComponent implements OnDestroy {
   }
 
   constructor(
-    fb: FormBuilder,
+    fb: UntypedFormBuilder,
     private permsService: PermissionsRequestService,
     private errorHandler: ErrorHandler,
     videoRefsService: VideoRefsService
