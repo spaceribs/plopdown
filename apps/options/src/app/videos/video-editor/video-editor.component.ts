@@ -1,6 +1,6 @@
 import { VideoRef } from '@plopdown/video-refs';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'plopdown-video-editor',
@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./video-editor.component.scss'],
 })
 export class VideoEditorComponent {
-  public videoRefForm: FormGroup;
+  public videoRefForm: UntypedFormGroup;
   @Output() cancel: EventEmitter<void> = new EventEmitter();
   @Output() save: EventEmitter<VideoRef> = new EventEmitter();
 
@@ -20,7 +20,7 @@ export class VideoEditorComponent {
     }
   }
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: UntypedFormBuilder) {
     this.videoRefForm = fb.group({
       title: [null, Validators.required],
       frameTitle: [null],

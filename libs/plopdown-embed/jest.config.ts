@@ -1,6 +1,7 @@
-module.exports = {
+/* eslint-disable */
+export default {
   preset: '../../jest.preset.js',
-  coverageDirectory: '../../coverage/apps/devtool-panels',
+  coverageDirectory: '../../coverage/libs/plopdown-embed',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +10,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  displayName: 'devtool-panels',
+  displayName: 'plopdown-embed',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

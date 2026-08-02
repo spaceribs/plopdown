@@ -9,10 +9,10 @@ import { RouterModule } from '@angular/router';
   imports: [
     BrowserModule,
     RouterModule.forRoot([], {
-    useHash: true,
-    initialNavigation: 'enabled',
-    relativeLinkResolution: 'legacy'
-}),
+      useHash: true,
+      initialNavigation: 'enabledBlocking',
+      relativeLinkResolution: 'legacy',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

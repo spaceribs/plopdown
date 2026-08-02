@@ -54,7 +54,7 @@ const appRoutes: Routes = [
     }),
     RouterModule.forRoot(appRoutes, {
       useHash: true,
-      initialNavigation: 'enabled',
+      initialNavigation: 'enabledBlocking',
       relativeLinkResolution: 'legacy',
     }),
     BrowserAnimationsModule,

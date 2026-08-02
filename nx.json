@@ -1,13 +1,5 @@
 {
   "npmScope": "plopdown",
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": {
@@ -22,9 +14,6 @@
   "affected": {
     "defaultBase": "master"
   },
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
-  },
   "defaultProject": "plopdown-ext",
   "generators": {
     "@nrwl/angular:application": {
@@ -37,5 +26,26 @@
       "unitTestRunner": "jest"
     },
     "@nrwl/angular:component": {}
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ]
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
+      }
+    }
   }
 }

@@ -20,7 +20,8 @@
     "src/test-setup.ts",
     "**/*.spec.ts",
     "**/*.test.ts",
-    "**/*.mock.ts"
+    "**/*.mock.ts",
+    "jest.config.ts"
   ],
   "include": ["**/*.ts"]
 }
