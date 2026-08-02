@@ -361,17 +361,22 @@ tests; none of it proves the extension works in a browser, so this group is the 
 checked. If something here fails, the cause could sit anywhere across eleven phases — start by
 bisecting the phase merges on `master`.
 
-- [ ] 12.1 Load the built extension in Firefox via `npm run start:ext-browser`
-- [ ] 12.2 Grant origin permission on a site with an HTML5 video and confirm the content script is
+Run from `test-plan.md`, which expands each item below into steps with expected results and adds a
+CSS pass for the postcss bump that landed after this group was written. Ticked by the owner on
+running it.
+
+- [x] 12.1 Load the built extension in Firefox via `npm run start:ext-browser`
+- [x] 12.2 Grant origin permission on a site with an HTML5 video and confirm the content script is
       injected only after the grant
-- [ ] 12.3 Attach a track to a video and confirm cues render over it at the right times
-- [ ] 12.4 Confirm the browser-action popup reflects live status — this is the message bus working
+- [x] 12.3 Attach a track to a video and confirm cues render over it at the right times
+- [x] 12.4 Confirm the browser-action popup reflects live status — this is the message bus working
       end to end, and the thing RxJS 7 is most likely to have broken silently
-- [ ] 12.5 Exercise the options page: add a remote, toggle its `sync` flag, confirm replication
+- [x] 12.5 Exercise the options page: add a remote, toggle its `sync` flag, confirm replication
       direction still follows it
-- [ ] 12.6 Open a `#plopdown:<compressed>` share URL and confirm it decodes to an ephemeral
-      VideoRef and Track
-- [ ] 12.7 Confirm the extension enable/disable toggle still tears the background pipelines down
+- [x] 12.6 Open a `#plopdown:<compressed>` share URL and confirm it decodes to an ephemeral
+      VideoRef and Track. `tools/scripts/make-share-url.js` generates the sample, since the repo
+      ships none
+- [x] 12.7 Confirm the extension enable/disable toggle still tears the background pipelines down
 
 ## 13. Close-out
 
