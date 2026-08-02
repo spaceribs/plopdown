@@ -22,6 +22,17 @@ succeed, with `.nvmrc` and both CI workflows on the group's Node version.
    (Phase 0) and `@nrwl/linter` (Phase 1). Each presented as an unrelated-looking error.
 5. **Budget for the dependency graph, not the framework.** Angular 13 needed four lines of source
    change. Everything else in Phase 1 was resolution archaeology. Expect the same ratio.
+6. **A migration that throws on missing config may be the thing that creates it.** Phase 1 skipped
+   `13-10-0-update-tasks-runner` because it threw on an absent `tasksRunnerOptions`, reasoning that
+   a workspace with no custom task runner had nothing to migrate. Creating that block was its
+   purpose, and Nx 14 refuses to run any target without it — the skip deferred the break by one
+   phase. Before skipping, distinguish a migration that _writes_ required config from one that
+   _rewrites_ code you do not have (`@nrwl/nest` is genuinely the latter: no project, no imports,
+   and Nx 14 stopped queueing it at all).
+7. **A complete artifact does not mean the build scripts work.** In Phase 2 `build:ext` failed on
+   all six apps while tests passed, `plopdown-ext` built, and the zip contained every surface —
+   because `npm run build` builds its own dependencies and masked it. Check the exit status of each
+   gate command, not just the artifact.
 
 ## 0. Ahead of Phase 0 — Remove the web-extension plugin (done)
 
