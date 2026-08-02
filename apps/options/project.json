@@ -1,0 +1,105 @@
+{
+  "name": "options",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "apps/options/src",
+  "prefix": "plopdown",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/plopdown-ext/options",
+        "index": "apps/options/src/index.html",
+        "main": "apps/options/src/main.ts",
+        "polyfills": "apps/options/src/polyfills.ts",
+        "tsConfig": "apps/options/tsconfig.app.json",
+        "baseHref": "/options/index.html",
+        "assets": ["apps/options/src/favicon.ico", "apps/options/src/assets"],
+        "styles": ["apps/options/src/styles.scss"],
+        "scripts": [],
+        "allowedCommonJsDependencies": ["lz-string", "immediate"],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/options/src/environments/environment.ts",
+              "with": "apps/options/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          },
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      },
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": ""
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "options:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "options:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "options:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/options/**/*.ts", "apps/options/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/options/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/apps/options"]
+    }
+  },
+  "tags": ["ext-dep"]
+}

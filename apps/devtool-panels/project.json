@@ -1,0 +1,109 @@
+{
+  "name": "devtool-panels",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "apps/devtool-panels/src",
+  "prefix": "plopdown",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/plopdown-ext/devtool-panels",
+        "index": "apps/devtool-panels/src/index.html",
+        "main": "apps/devtool-panels/src/main.ts",
+        "polyfills": "apps/devtool-panels/src/polyfills.ts",
+        "tsConfig": "apps/devtool-panels/tsconfig.app.json",
+        "assets": [
+          "apps/devtool-panels/src/favicon.ico",
+          "apps/devtool-panels/src/assets"
+        ],
+        "styles": ["apps/devtool-panels/src/styles.scss"],
+        "scripts": [],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/devtool-panels/src/environments/environment.ts",
+              "with": "apps/devtool-panels/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          },
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      },
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": ""
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "devtool-panels:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "devtool-panels:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "devtool-panels:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/devtool-panels/**/*.ts",
+          "apps/devtool-panels/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/devtool-panels/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/apps/devtool-panels"]
+    }
+  },
+  "tags": []
+}

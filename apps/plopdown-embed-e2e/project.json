@@ -1,0 +1,32 @@
+{
+  "name": "plopdown-embed-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/plopdown-embed-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/plopdown-embed-e2e/cypress.json",
+        "tsConfig": "apps/plopdown-embed-e2e/tsconfig.e2e.json",
+        "devServerTarget": "plopdown-embed:storybook"
+      },
+      "configurations": {
+        "ci": {
+          "devServerTarget": "plopdown-embed:storybook:ci"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/plopdown-embed-e2e/**/*.ts",
+          "apps/plopdown-embed-e2e/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["plopdown-embed"]
+}

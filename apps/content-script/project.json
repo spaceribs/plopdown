@@ -1,0 +1,107 @@
+{
+  "name": "content-script",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "apps/content-script/src",
+  "prefix": "plopdown",
+  "targets": {
+    "build": {
+      "executor": "@angular-builders/custom-webpack:browser",
+      "options": {
+        "customWebpackConfig": {
+          "path": "./tools/webpack/content-script-webpack.config.js",
+          "replaceDuplicatePlugins": true
+        },
+        "outputPath": "dist/apps/plopdown-ext/content-script",
+        "index": "apps/content-script/src/index.html",
+        "main": "apps/content-script/src/main.ts",
+        "polyfills": "apps/content-script/src/polyfills.ts",
+        "tsConfig": "apps/content-script/tsconfig.app.json",
+        "aot": true,
+        "assets": [
+          "apps/content-script/src/favicon.ico",
+          "apps/content-script/src/assets"
+        ],
+        "styles": ["apps/content-script/src/styles.scss"],
+        "scripts": [],
+        "vendorChunk": false,
+        "allowedCommonJsDependencies": ["lz-string", "immediate"]
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/content-script/src/environments/environment.ts",
+              "with": "apps/content-script/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          },
+          "outputHashing": "none",
+          "sourceMap": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "content-script:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "content-script:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "content-script:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/content-script/**/*.ts",
+          "apps/content-script/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/content-script/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/apps/content-script"]
+    }
+  },
+  "tags": ["ext-dep"]
+}

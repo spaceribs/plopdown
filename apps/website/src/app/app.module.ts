@@ -30,7 +30,7 @@ import { LoggerModule, LogConsoleService } from '@plopdown/logger';
         },
         { path: '**', redirectTo: '' },
       ],
-      { initialNavigation: 'enabledBlocking', relativeLinkResolution: 'legacy' }
+      { initialNavigation: 'enabledBlocking' }
     ),
   ],
   bootstrap: [AppComponent],

@@ -87,10 +87,9 @@ import { CommonModule } from '@angular/common';
         },
       ],
       {
-        useHash: true,
-        initialNavigation: 'enabledNonBlocking',
-        relativeLinkResolution: 'legacy',
-      }
+    useHash: true,
+    initialNavigation: 'enabledNonBlocking'
+}
     ),
   ],
   bootstrap: [AppComponent],

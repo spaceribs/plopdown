@@ -1,0 +1,39 @@
+{
+  "name": "plopdown-ext",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/plopdown-ext/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/dist/apps/plopdown-ext",
+        "{workspaceRoot}/dist/extensions"
+      ],
+      "options": {
+        "parallel": false,
+        "commands": [
+          "node tools/scripts/copy-ext-assets.js apps/plopdown-ext/src dist/apps/plopdown-ext",
+          "web-ext build --source-dir dist/apps/plopdown-ext --artifacts-dir dist/extensions --overwrite-dest --verbose"
+        ]
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "web-ext run --source-dir dist/apps/plopdown-ext --start-url http://localhost:4200/ --start-url about:debugging#/runtime/this-firefox"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": [
+    "background",
+    "browser-action",
+    "options",
+    "content-script",
+    "devtool",
+    "devtool-panels"
+  ]
+}

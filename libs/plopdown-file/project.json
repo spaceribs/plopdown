@@ -1,0 +1,46 @@
+{
+  "name": "plopdown-file",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/plopdown-file/src",
+  "prefix": "plopdown",
+  "targets": {
+    "generate-schema": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/plopdown-file",
+        "commands": [
+          {
+            "command": "ts-json-schema-generator --no-top-ref --tsconfig=tsconfig.ts2json.json --path=src/lib/plopdown-file.model.ts --type=PlopdownFile --out=src/schema/plopdown-file-v1.schema.json"
+          },
+          {
+            "command": "ajv compile -s src/schema/plopdown-file-v1.schema.json -o src/schema/plopdown-file-v1.schema.js"
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/plopdown-file/**/*.ts",
+          "libs/plopdown-file/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/plopdown-file/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/plopdown-file"]
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "styleext": "scss"
+    }
+  },
+  "tags": []
+}

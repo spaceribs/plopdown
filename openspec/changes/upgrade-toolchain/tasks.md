@@ -1,6 +1,11 @@
 Each numbered group is one PR and one review pause. A group is done only when the Decision 7 gate
-passes: `npm run build:ext`, `npm run build plopdown-ext`, `npm test`, and `npm run lint` all
-succeed, with `.nvmrc` and both CI workflows on the group's Node version.
+passes: `npm run build:ext`, `npm run build plopdown-ext`, `npx nx build website`, `npm test`, and
+`npm run lint` all succeed, with `.nvmrc` and both CI workflows on the group's Node version.
+
+`nx build website` is in that list because Phase 3 nearly shipped without it. `build:ext` covers
+only the six extension surfaces, so a change that broke the website — Angular 15 removing the `~`
+prefix from Sass imports, which four stylesheets used — passed every other gate command and would
+have failed `deploy_website.yml` on the next push to `master`, taking plopdown.video down.
 
 **Rules every framework hop must follow.** Learned the hard way in Phase 1; each cost real time.
 

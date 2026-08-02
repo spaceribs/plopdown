@@ -4,12 +4,7 @@ export default {
   coverageDirectory: '../../coverage/libs/icon',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-    },
-  },
+  globals: {},
   displayName: 'icon',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
@@ -17,7 +12,13 @@ export default {
     'jest-preset-angular/build/serializers/html-comment',
   ],
   transform: {
-    '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',
+    '^.+.(ts|mjs|js|html)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+      },
+    ],
   },
   transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
 };
