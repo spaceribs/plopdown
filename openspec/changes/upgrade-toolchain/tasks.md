@@ -77,6 +77,23 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
     are all regenerable and clearing them recovers several GB. Note also that a gate run _without_
     `--skip-nx-cache` will happily replay cached results from a previous Node version and report
     green — the Phase 7 gate looked clean on Node 22 for exactly that reason.
+14. **A migration's `optional` flag is per-version, not permanent.** `control-flow-migration` is
+    `optional: true` under Angular 20 and not optional under Angular 21. Re-read the flag out of
+    each hop's own `migrations.json` rather than carrying forward what it was last phase, or
+    Decision 6 gets applied to something Angular now considers mandatory.
+15. **Audit what `control-flow-migration` chose for `track`.** It converts every `*ngFor` to
+    `@for (x of xs; track x)`. `*ngFor` tolerated duplicate values; `@for` throws NG0955 on a
+    duplicate track key at runtime. For arrays of objects, identity tracking is fine. For arrays
+    of primitives it is a new crash that no build or unit test catches — here `authors: string[]`
+    and `fileRefs: string[]` both got `track <item>` and were changed to `track $index`, which is
+    what `*ngFor` effectively did. Check the element type of every converted collection.
+16. **Angular 21 makes zone change detection opt-in.** Without `provideZoneChangeDetection()` an
+    app bootstraps zoneless, `NgZone` resolves to a no-op and `ngZone.run()` stops scheduling
+    change detection. `RuntimeService`, `WebNavigationService` and `ExtStorageService` all rely on
+    `ngZone.run()` to re-enter Angular from extension callbacks, so losing it would leave every
+    build and every unit test green while the UI silently stopped updating. Angular's
+    `bootstrap-options-migration` adds the provider to all eight apps; the invariant is now pinned
+    by `apps/background/src/app/zone-change-detection.spec.ts`.
 
 ## 0. Ahead of Phase 0 — Remove the web-extension plugin (done)
 
@@ -232,8 +249,23 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
 
 ## 10. Phase 9 — Angular 21 / Nx 22 (Node 22)
 
-- [ ] 10.1 Run `nx migrate`, apply migrations individually
-- [ ] 10.2 Verify the gate; open the PR, pause for review
+- [x] 10.1 Run `nx migrate`, apply migrations individually — Nx 22.7.8 with Angular 21.2.9
+- [x] 10.1a Bump the framework-coupled packages `nx migrate` does not track:
+      `@angular-builders/custom-webpack` and `@ngrx/component-store` (the latter peer-requires
+      `@angular/core` ^20 and fails the install)
+- [x] 10.1b Run `@angular/core:control-flow-migration`. It is **not** optional at this hop —
+      Angular 20 flagged it `optional: true`, Angular 21 does not — so Decision 6 does not apply.
+      It rewrote 31 templates and left zero `*ngIf`/`*ngFor`/`*ngSwitch` in the workspace.
+      Audit its `track` expressions afterwards (see rule 15)
+- [x] 10.1c Repair `test-setup.ts` in all 25 projects. `update-jest-preset-angular-setup` swaps
+      `import 'jest-preset-angular/setup-jest'` for `setupZoneTestEnv()` but leaves the repo's
+      hand-written `initTestEnvironment` block in place, so the environment is initialised twice
+      and every suite fails with `NG0400: A platform with a different configuration has been
+    created`. `setupZoneTestEnv` takes the same `TestEnvironmentOptions`, so the fix is to pass
+      `{ teardown: { destroyAfterEach: false } }` to it and delete the hand-written block
+- [x] 10.1d Make `IconComponent.iconClass` public. Angular 21 compiles host bindings outside the
+      class body, so a `private` field behind `@HostBinding` now fails with TS2341
+- [x] 10.2 Verify the gate; open the PR, pause for review
 
 ## 11. Phase 10 — Angular 22 / Nx 23 (Node 24)
 
@@ -241,8 +273,10 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
 - [ ] 11.2 Run `nx migrate latest` to Angular 22.1.0 / Nx 23.1.1
 - [ ] 11.3 Move TypeScript to 6.0.x
 - [ ] 11.4 Move zone.js to 0.16.x and `@angular/cdk` to 22.x
-- [ ] 11.5 Move Jest to 30 and `jest-preset-angular` to current; update the `ts-jest` transform in
-      `jest.preset.js`
+- [x] 11.5 Move Jest to 30 and `jest-preset-angular` to current; update the `ts-jest` transform in
+      `jest.preset.js` — done early: the Nx 22 migration carried Jest 29.7 → 30.4.2,
+      `jest-preset-angular` 14.6.2 → 16.0.0, `jest-environment-jsdom` and `@types/jest` with it.
+      Confirm at Phase 10 whether the `ts-jest` transform entry is still doing anything
 - [x] 11.6 ~~Move Cypress 4 → 15 and convert `apps/plopdown-embed-e2e/cypress.json` to
       `cypress.config.ts`~~ — obsolete. Cypress was dropped entirely in Phase 8 at the owner's
       instruction. `apps/plopdown-embed-e2e` pointed its `devServerTarget` at

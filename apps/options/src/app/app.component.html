@@ -71,14 +71,15 @@
         >
           <span>Logs</span>
         </a>
+        @if (false) {
         <a
-          *ngIf="false"
           [routerLink]="['settings']"
           routerLinkActive="is-active"
           class="navbar-item"
         >
           <span>Settings</span>
         </a>
+        }
       </div>
     </div>
   </div>
@@ -99,7 +100,7 @@
         </a>
         &nbsp;&nbsp;|&nbsp;&nbsp;
         <a target="_blank" rel="noopener" href="https://keybase.io/spaceribs">
-          Spaceribs &copy;{{ currentDate | date: 'y' }}
+          Spaceribs &copy;{{ currentDate | date : 'y' }}
         </a>
       </p>
     </div>

@@ -1,51 +1,52 @@
-<section class="panel" *ngIf="permissions$ | async as permissions">
+@if (permissions$ | async; as permissions) {
+<section class="panel">
   <div class="panel-block">
-    <div
-      class="loading"
-      *ngIf="loadingPermissions$ | async as loading; else permissionsList"
-    >
-      Loading...
-    </div>
-    <ng-template #permissionsList>
-      <table class="table is-fullwidth">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th class="has-text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="permissions.length < 1">
-            <td class="has-text-centered" colspan="2">
-              <p>No Permissions Initialized</p>
-            </td>
-          </tr>
-          <tr *ngFor="let permission of permissions">
-            <td>
-              <strong>{{ permission.name }}</strong>
-            </td>
-            <td class="has-text-right">
-              <button
-                (click)="unAuthPermission(permission)"
-                *ngIf="permission.in_whitelist"
-                title="Unauthorize"
-                class="button is-outlined is-dark is-small"
-              >
-                Revoke
-              </button>
-              <button
-                (click)="authPermission(permission)"
-                *ngIf="!permission.in_whitelist"
-                title="Authorize"
-                class="button is-success is-small"
-              >
-                Authorize
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </ng-template>
+    @if (loadingPermissions$ | async; as loading) {
+    <div class="loading">Loading...</div>
+    } @else {
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th class="has-text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (permissions.length < 1) {
+        <tr>
+          <td class="has-text-centered" colspan="2">
+            <p>No Permissions Initialized</p>
+          </td>
+        </tr>
+        } @for (permission of permissions; track permission) {
+        <tr>
+          <td>
+            <strong>{{ permission.name }}</strong>
+          </td>
+          <td class="has-text-right">
+            @if (permission.in_whitelist) {
+            <button
+              (click)="unAuthPermission(permission)"
+              title="Unauthorize"
+              class="button is-outlined is-dark is-small"
+            >
+              Revoke
+            </button>
+            } @if (!permission.in_whitelist) {
+            <button
+              (click)="authPermission(permission)"
+              title="Authorize"
+              class="button is-success is-small"
+            >
+              Authorize
+            </button>
+            }
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
   </div>
   <div class="panel-block">
     <a
@@ -57,3 +58,4 @@
     </a>
   </div>
 </section>
+}

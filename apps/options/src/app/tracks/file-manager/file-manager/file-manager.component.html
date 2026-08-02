@@ -15,8 +15,10 @@
               <th></th>
             </tr>
           </thead>
-          <tbody *ngIf="attachments">
-            <tr *ngFor="let attachment of attachments | keyvalue">
+          @if (attachments) {
+          <tbody>
+            @for (attachment of attachments | keyvalue; track attachment) {
+            <tr>
               <td>{{ attachment.key }}</td>
               <td>{{ attachment.value.content_type }}</td>
               <td>
@@ -36,9 +38,7 @@
                       <span class="file-icon">
                         <plopdown-icon [path]="mdiFileUpload"></plopdown-icon>
                       </span>
-                      <span class="file-label">
-                        Replace...
-                      </span>
+                      <span class="file-label"> Replace... </span>
                     </span>
                     <span class="file-name">
                       {{ getFileName(fileInput?.files) || attachment.key }}
@@ -47,7 +47,9 @@
                 </div>
               </td>
             </tr>
+            }
           </tbody>
+          }
         </table>
       </div>
     </section>

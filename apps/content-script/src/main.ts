@@ -1,4 +1,8 @@
-import { enableProdMode, NgModuleRef } from '@angular/core';
+import {
+  enableProdMode,
+  NgModuleRef,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
@@ -19,7 +23,9 @@ if (oldModule != null) {
 }
 
 platformBrowserDynamic()
-  .bootstrapModule(AppModule)
+  .bootstrapModule(AppModule, {
+    applicationProviders: [provideZoneChangeDetection()],
+  })
   .then((module) => {
     (document as any)[CONTENT_SCRIPT_NAME] = module;
   })

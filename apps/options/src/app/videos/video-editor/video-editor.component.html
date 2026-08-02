@@ -7,7 +7,8 @@
     <section class="modal-card-body">
       <div class="section">
         <fieldset>
-          <div class="field" *ngIf="videoRefForm.controls.title as control">
+          @if (videoRefForm.controls.title; as control) {
+          <div class="field">
             <label class="label">Video Title</label>
             <div class="control">
               <input
@@ -20,15 +21,14 @@
                 placeholder="The Shining"
               />
             </div>
-            <p class="help is-danger" *ngIf="control.invalid">
+            @if (control.invalid) {
+            <p class="help is-danger">
               Please title the video you'd like to track.
             </p>
+            }
           </div>
-
-          <div
-            class="field"
-            *ngIf="videoRefForm.controls.frameTitle as control"
-          >
+          } @if (videoRefForm.controls.frameTitle; as control) {
+          <div class="field">
             <label class="label">Website Title</label>
             <div class="control">
               <input
@@ -42,6 +42,7 @@
               />
             </div>
           </div>
+          }
         </fieldset>
 
         <hr />
@@ -49,10 +50,8 @@
         <fieldset>
           <label class="label">URL Matcher</label>
           <div class="field has-addons">
-            <div
-              class="control"
-              *ngIf="videoRefForm.controls.frameOrigin as control"
-            >
+            @if (videoRefForm.controls.frameOrigin; as control) {
+            <div class="control">
               <input
                 formControlName="frameOrigin"
                 class="input"
@@ -63,10 +62,8 @@
                 placeholder="https://example.com"
               />
             </div>
-            <div
-              class="control"
-              *ngIf="videoRefForm.controls.framePath as control"
-            >
+            } @if (videoRefForm.controls.framePath; as control) {
+            <div class="control">
               <input
                 formControlName="framePath"
                 [ngClass]="{
@@ -77,10 +74,8 @@
                 placeholder="/example/path"
               />
             </div>
-            <div
-              class="control"
-              *ngIf="videoRefForm.controls.frameSearch as control"
-            >
+            } @if (videoRefForm.controls.frameSearch; as control) {
+            <div class="control">
               <input
                 formControlName="frameSearch"
                 [ngClass]="{
@@ -91,15 +86,14 @@
                 placeholder="?example=true"
               />
             </div>
+            }
           </div>
-          <p
-            class="help is-danger"
-            *ngIf="videoRefForm.controls.frameOrigin.invalid"
-          >
+          @if (videoRefForm.controls.frameOrigin.invalid) {
+          <p class="help is-danger">
             At minimum, a website origin is required.
           </p>
-
-          <div class="field" *ngIf="videoRefForm.controls.xpath as control">
+          } @if (videoRefForm.controls.xpath; as control) {
+          <div class="field">
             <label class="label">XPath Matcher</label>
             <div class="control">
               <input
@@ -112,12 +106,12 @@
                 placeholder="/HTML/BODY/VIDEO[0]"
               />
             </div>
-            <p *ngIf="control.invalid" class="help is-danger">
-              This is not a valid XPath.
-            </p>
+            @if (control.invalid) {
+            <p class="help is-danger">This is not a valid XPath.</p>
+            }
           </div>
-
-          <div class="field" *ngIf="videoRefForm.controls.duration as control">
+          } @if (videoRefForm.controls.duration; as control) {
+          <div class="field">
             <label class="label">Duration Matcher (In Seconds)</label>
             <div class="control">
               <input
@@ -131,10 +125,13 @@
                 min="1"
               />
             </div>
-            <p class="help is-danger" *ngIf="control.invalid">
+            @if (control.invalid) {
+            <p class="help is-danger">
               Duration should be at least 1 second long
             </p>
+            }
           </div>
+          }
         </fieldset>
       </div>
     </section>

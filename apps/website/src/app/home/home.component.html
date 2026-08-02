@@ -19,13 +19,9 @@
         </div>
 
         <div class="column is-half is-desktop content">
-          <h2 class="title">
-            Plopdown
-          </h2>
+          <h2 class="title">Plopdown</h2>
 
-          <h3 class="subtitle">
-            The Video Annotating Web Extension
-          </h3>
+          <h3 class="subtitle">The Video Annotating Web Extension</h3>
           <p>
             Plopdown is an extension which allows you to annotate any web video.
             It been tested and works on
@@ -54,15 +50,14 @@
             <code>plopdown://</code>
             URL.
           </p>
-          <p *ngIf="overlayComponent$ | async as component">
+          @if (overlayComponent$ | async; as component) {
+          <p>
             <span class="buttons">
-              <button
-                class="button is-success is-medium"
-                (click)="initTrack()"
-                *ngIf="component.hostView.destroyed"
-              >
+              @if (component.hostView.destroyed) {
+              <button class="button is-success is-medium" (click)="initTrack()">
                 Reattach Example
               </button>
+              }
               <a
                 class="button is-primary is-medium"
                 target="_blank"
@@ -72,6 +67,7 @@
               </a>
             </span>
           </p>
+          }
         </div>
       </div>
     </div>

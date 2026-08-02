@@ -1,4 +1,5 @@
-<article class="box content" *ngFor="let post of postRoutes">
+@for (post of postRoutes; track post) {
+<article class="box content">
   <h3 class="title">
     <a [routerLink]="post.data?.attributes.slug">{{
       post.data?.attributes.title
@@ -15,3 +16,4 @@
     <a [routerLink]="post.data?.attributes.slug">Read More</a>
   </p>
 </article>
+}

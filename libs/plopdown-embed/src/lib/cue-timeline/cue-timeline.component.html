@@ -1,6 +1,6 @@
 <ul>
+  @for (cue of cues$ | async; track cue) {
   <li
-    *ngFor="let cue of cues$ | async"
     (click)="goToCue($event, cue.startTime)"
     [ngStyle]="cue.style"
     [ngClass]="{ active: cueActive(cue) }"
@@ -8,6 +8,7 @@
   >
     {{ cue.text }}
   </li>
+  }
 </ul>
 <span
   class="position-indicator"

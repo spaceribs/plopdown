@@ -7,7 +7,8 @@
     <section class="modal-card-body">
       <div class="section">
         <fieldset>
-          <div class="field" *ngIf="trackForm.controls.title as control">
+          @if (trackForm.controls.title; as control) {
+          <div class="field">
             <label class="label">Track Title</label>
             <div class="control">
               <input
@@ -20,12 +21,12 @@
                 placeholder="The Shunning Riff"
               />
             </div>
-            <p class="help is-danger" *ngIf="control.invalid">
-              Please provide a title for this track.
-            </p>
+            @if (control.invalid) {
+            <p class="help is-danger">Please provide a title for this track.</p>
+            }
           </div>
-
-          <div class="field" *ngIf="trackForm.controls.for as control">
+          } @if (trackForm.controls.for; as control) {
+          <div class="field">
             <label class="label">Track is For</label>
             <div class="control">
               <input
@@ -39,8 +40,8 @@
               />
             </div>
           </div>
-
-          <div class="field" *ngIf="trackForm.controls.authors as control">
+          } @if (trackForm.controls.authors; as control) {
+          <div class="field">
             <label class="label">Track Author(s)</label>
             <div class="control">
               <input
@@ -54,8 +55,8 @@
               />
             </div>
           </div>
-
-          <div class="field" *ngIf="trackForm.controls.language as control">
+          } @if (trackForm.controls.language; as control) {
+          <div class="field">
             <label class="label">Language</label>
             <div class="control">
               <input
@@ -69,8 +70,8 @@
               />
             </div>
           </div>
-
-          <div class="field" *ngIf="trackForm.controls.license as control">
+          } @if (trackForm.controls.license; as control) {
+          <div class="field">
             <label class="label">License</label>
             <div class="control">
               <input
@@ -84,8 +85,8 @@
               />
             </div>
           </div>
-
-          <div class="field" *ngIf="trackForm.controls.url as control">
+          } @if (trackForm.controls.url; as control) {
+          <div class="field">
             <label class="label">Track Homepage</label>
             <div class="control">
               <input
@@ -99,8 +100,8 @@
               />
             </div>
           </div>
-
-          <div class="field" *ngIf="trackForm.controls.thumbnail as control">
+          } @if (trackForm.controls.thumbnail; as control) {
+          <div class="field">
             <label class="label">Thumbnail</label>
             <div class="control">
               <div class="file has-name is-fullwidth">
@@ -115,9 +116,7 @@
                     <span class="file-icon">
                       <plopdown-icon [path]="mdiFileUpload"></plopdown-icon>
                     </span>
-                    <span class="file-label">
-                      Choose a file…
-                    </span>
+                    <span class="file-label"> Choose a file… </span>
                   </span>
                   <span class="file-name">
                     {{ control.value || 'No Thumbnail' }}
@@ -126,6 +125,7 @@
               </div>
             </div>
           </div>
+          }
         </fieldset>
       </div>
     </section>

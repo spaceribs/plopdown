@@ -1,6 +1,7 @@
-<div class="pd-icons" *ngIf="data && data.icons && data.icons.length">
+@if (data && data.icons && data.icons.length) {
+<div class="pd-icons">
+  @for (icon of data.icons; track icon) {
   <div
-    *ngFor="let icon of data.icons"
     [ngStyle]="{
       fontSize: icon.size + '%',
       top: icon.top + '%',
@@ -11,11 +12,15 @@
   >
     {{ icon.emoji }}‍
   </div>
+  }
 </div>
-<div class="desc" *ngIf="data">
+} @if (data) {
+<div class="desc">
   {{ data.desc }}
-  <ul class="footnotes" *ngIf="data.footnotes">
-    <li class="footnote" *ngFor="let footnote of data.footnotes; let i = index">
+  @if (data.footnotes) {
+  <ul class="footnotes">
+    @for (footnote of data.footnotes; track footnote; let i = $index) {
+    <li class="footnote">
       <a
         [title]="footnote.title"
         [href]="footnote.url"
@@ -24,5 +29,8 @@
         >[{{ i + 1 }}]</a
       >
     </li>
+    }
   </ul>
+  }
 </div>
+}

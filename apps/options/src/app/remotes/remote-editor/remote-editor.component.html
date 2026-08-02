@@ -7,7 +7,8 @@
     <section class="modal-card-body">
       <div class="section">
         <fieldset>
-          <div class="field" *ngIf="remoteForm.controls.title as control">
+          @if (remoteForm.controls.title; as control) {
+          <div class="field">
             <label class="label">Title*</label>
             <div class="control">
               <input
@@ -20,12 +21,14 @@
                 placeholder="My Remote Feed"
               />
             </div>
-            <p class="help is-danger" *ngIf="control.invalid && control.dirty">
+            @if (control.invalid && control.dirty) {
+            <p class="help is-danger">
               Please provide a title for this remote.
             </p>
+            }
           </div>
-
-          <div class="field" *ngIf="remoteForm.controls.username as control">
+          } @if (remoteForm.controls.username; as control) {
+          <div class="field">
             <label class="label">Username</label>
             <div class="control">
               <input
@@ -36,8 +39,8 @@
               />
             </div>
           </div>
-
-          <div class="field" *ngIf="remoteForm.controls.password as control">
+          } @if (remoteForm.controls.password; as control) {
+          <div class="field">
             <label class="label">Password</label>
             <div class="control">
               <input
@@ -48,8 +51,8 @@
               />
             </div>
           </div>
-
-          <div class="field" *ngIf="remoteForm.controls.url as control">
+          } @if (remoteForm.controls.url; as control) {
+          <div class="field">
             <label class="label">URL*</label>
             <div class="control has-icons-right">
               <input
@@ -61,39 +64,40 @@
                 type="url"
                 placeholder="http://localhost:5984"
               />
+              @if (control.status === 'PENDING') {
               <plopdown-icon
-                *ngIf="control.status === 'PENDING'"
                 class="icon is-right"
                 [spin]="true"
                 [path]="mdiSync"
               ></plopdown-icon>
+              } @if (control.status === 'INVALID') {
               <plopdown-icon
-                *ngIf="control.status === 'INVALID'"
                 class="icon has-text-danger is-right"
                 [path]="mdiAlertCircleOutline"
               ></plopdown-icon>
+              } @if (control.status === 'VALID') {
               <plopdown-icon
-                *ngIf="control.status === 'VALID'"
                 class="icon has-text-success is-right"
                 [path]="mdiCheckboxMarkedCircleOutline"
               ></plopdown-icon>
+              }
             </div>
-            <p class="help is-danger" *ngIf="control.invalid && control.dirty">
-              <ng-container *ngIf="control.errors?.invalidFeed as error">
-                {{ error.message }}
-              </ng-container>
-              <ng-container *ngIf="control.errors?.required">
-                A feed URL is required.
-              </ng-container>
+            @if (control.invalid && control.dirty) {
+            <p class="help is-danger">
+              @if (control.errors?.invalidFeed; as error) {
+              {{ error.message }}
+              } @if (control.errors?.required) { A feed URL is required. }
             </p>
+            }
           </div>
-
-          <div class="field" *ngIf="remoteForm.controls.sync as control">
+          } @if (remoteForm.controls.sync; as control) {
+          <div class="field">
             <label class="checkbox">
               <input type="checkbox" formControlName="sync" />
               Sync local changes to this remote server (Read/Write).
             </label>
           </div>
+          }
         </fieldset>
       </div>
     </section>

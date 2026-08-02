@@ -12,7 +12,8 @@
     <section class="modal-card-body">
       <div class="section">
         <fieldset>
-          <div class="field" *ngIf="permissionForm.controls.name as control">
+          @if (permissionForm.controls.name; as control) {
+          <div class="field">
             <label class="label">Name</label>
             <div class="control">
               <input
@@ -25,15 +26,12 @@
                 placeholder="Plopdown Video"
               />
             </div>
-            <p class="help is-danger" *ngIf="control.invalid && control.dirty">
-              Please name the service to scan.
-            </p>
+            @if (control.invalid && control.dirty) {
+            <p class="help is-danger">Please name the service to scan.</p>
+            }
           </div>
-
-          <div
-            class="field"
-            *ngIf="permissionForm.controls.test_url as control"
-          >
+          } @if (permissionForm.controls.test_url; as control) {
+          <div class="field">
             <label class="label">Test URL</label>
             <div class="control">
               <input
@@ -47,15 +45,14 @@
                 placeholder="https://plopdown.video"
               />
             </div>
-            <p class="help" *ngIf="control.pristine">
-              The URL of a video to test Plopdown against.
-            </p>
-            <p class="help is-danger" *ngIf="control.invalid && control.dirty">
-              Please specify a valid URL to test.
-            </p>
+            @if (control.pristine) {
+            <p class="help">The URL of a video to test Plopdown against.</p>
+            } @if (control.invalid && control.dirty) {
+            <p class="help is-danger">Please specify a valid URL to test.</p>
+            }
           </div>
-
-          <div class="field" *ngIf="permissionForm.controls.match as control">
+          } @if (permissionForm.controls.match; as control) {
+          <div class="field">
             <label class="label">Matches</label>
             <div class="control">
               <input
@@ -68,10 +65,13 @@
                 placeholder="https://*.plopdown.video/*"
               />
             </div>
-            <p class="help is-danger" *ngIf="control.invalid && control.dirty">
+            @if (control.invalid && control.dirty) {
+            <p class="help is-danger">
               Please specify a match to inject Plopdown on.
             </p>
+            }
           </div>
+          }
         </fieldset>
       </div>
     </section>

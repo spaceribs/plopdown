@@ -4,9 +4,7 @@
       <div class="tile is-parent">
         <div class="tile is-child">
           <h2 class="title">Debug Logs</h2>
-          <h3 class="subtitle">
-            For advanced users and developers
-          </h3>
+          <h3 class="subtitle">For advanced users and developers</h3>
         </div>
         <div class="tile is-child">
           <div class="buttons is-right">
@@ -30,62 +28,60 @@
         </div>
       </div>
       <div class="tile is-parent">
-        <div class="tile is-child" *ngIf="loadingLogs$ | async; else loaded">
+        @if (loadingLogs$ | async) {
+        <div class="tile is-child">
           <div class="notification is-light is-block has-text-centered">
             <p>Loading...</p>
           </div>
         </div>
-        <ng-template #loaded>
-          <div class="tile is-child container" *ngIf="logs$ | async as logs">
-            <div class="table-container" *ngIf="logs.length; else empty">
-              <table class="table is-striped is-fullwidth is-narrow">
-                <thead>
-                  <tr>
-                    <th>Datetime</th>
-                    <th>Source</th>
-                    <th>Level</th>
-                    <th>Message</th>
-                    <th>Data 1</th>
-                    <th>Data 2</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let log of logs">
-                    <td class="nowrap">
-                      {{ log[0] | date: 'short' }}
-                    </td>
-                    <td class="nowrap">
-                      {{ log[1] }}
-                    </td>
-                    <td class="nowrap">
-                      {{ log[2] }}
-                    </td>
-                    <td>
-                      <span class="prewrap">{{
-                        formatData(log[3]) | json
-                      }}</span>
-                    </td>
-                    <td>
-                      <span class="prewrap">{{
-                        formatData(log[4]) | json
-                      }}</span>
-                    </td>
-                    <td>
-                      <span class="prewrap">{{
-                        formatData(log[5]) | json
-                      }}</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <ng-template #empty>
-              <div class="notification is-light is-block has-text-centered">
-                <p>There are no logs.</p>
-              </div>
-            </ng-template>
+        } @else { @if (logs$ | async; as logs) {
+        <div class="tile is-child container">
+          @if (logs.length) {
+          <div class="table-container">
+            <table class="table is-striped is-fullwidth is-narrow">
+              <thead>
+                <tr>
+                  <th>Datetime</th>
+                  <th>Source</th>
+                  <th>Level</th>
+                  <th>Message</th>
+                  <th>Data 1</th>
+                  <th>Data 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (log of logs; track log) {
+                <tr>
+                  <td class="nowrap">
+                    {{ log[0] | date : 'short' }}
+                  </td>
+                  <td class="nowrap">
+                    {{ log[1] }}
+                  </td>
+                  <td class="nowrap">
+                    {{ log[2] }}
+                  </td>
+                  <td>
+                    <span class="prewrap">{{ formatData(log[3]) | json }}</span>
+                  </td>
+                  <td>
+                    <span class="prewrap">{{ formatData(log[4]) | json }}</span>
+                  </td>
+                  <td>
+                    <span class="prewrap">{{ formatData(log[5]) | json }}</span>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
           </div>
-        </ng-template>
+          } @else {
+          <div class="notification is-light is-block has-text-centered">
+            <p>There are no logs.</p>
+          </div>
+          }
+        </div>
+        } }
       </div>
     </div>
   </div>

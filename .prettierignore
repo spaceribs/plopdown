@@ -6,3 +6,4 @@ angular.json
 /libs/plopdown-file/src/schema/**/*
 /.nx/cache
 /.nx/workspace-data
+.nx/self-healing

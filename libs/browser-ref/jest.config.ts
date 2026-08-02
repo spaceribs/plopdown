@@ -1,5 +1,5 @@
 /* eslint-disable */
-export default {
+module.exports = {
   preset: '../../jest.preset.js',
   coverageDirectory: '../../coverage/libs/browser-ref',
 

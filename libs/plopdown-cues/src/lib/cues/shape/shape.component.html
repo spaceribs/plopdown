@@ -1,7 +1,7 @@
+@if (data) {
 <svg
   class="shape"
   preserveAspectRatio="none"
-  *ngIf="data"
   [title]="data.title.text"
   [style.top.%]="data.top"
   [style.left.%]="data.left"
@@ -9,8 +9,8 @@
   [attr.height]="data.height + '%'"
   [attr.viewBox]="data.viewBox"
 >
+  @for (element of data.elements; track element) {
   <g
-    *ngFor="let element of data.elements"
     [style.opacity]="element.opacity"
     [style.stroke]="element.stroke?.color"
     [style.strokeOpacity]="element.stroke?.opacity"
@@ -25,15 +25,15 @@
     [style.transform]="element.transform"
     [style.transformOrigin]="element.transformOrigin"
   >
+    @if (element.element === 'ellipse') {
     <ellipse
-      *ngIf="element.element === 'ellipse'"
       [attr.cx]="element.cx"
       [attr.cy]="element.cy"
       [attr.rx]="element.rx"
       [attr.ry]="element.ry"
     ></ellipse>
+    } @if (element.element === 'rect') {
     <rect
-      *ngIf="element.element === 'rect'"
       [attr.x]="element.x"
       [attr.y]="element.y"
       [attr.width]="element.width"
@@ -41,14 +41,14 @@
       [attr.rx]="element.rx"
       [attr.ry]="element.ry"
     ></rect>
-    <path *ngIf="element.element === 'path'" [attr.d]="element.d"></path>
-    <polygon
-      *ngIf="element.element === 'polygon'"
-      [attr.points]="element.points"
-    ></polygon>
-    <polyline
-      *ngIf="element.element === 'polyline'"
-      [attr.points]="element.points"
-    ></polyline>
+    } @if (element.element === 'path') {
+    <path [attr.d]="element.d"></path>
+    } @if (element.element === 'polygon') {
+    <polygon [attr.points]="element.points"></polygon>
+    } @if (element.element === 'polyline') {
+    <polyline [attr.points]="element.points"></polyline>
+    }
   </g>
+  }
 </svg>
+}

@@ -4,9 +4,7 @@
       <div class="tile is-parent">
         <div class="tile is-child">
           <h2 class="title">Video References</h2>
-          <h3 class="subtitle">
-            The videos you've scanned across the web.
-          </h3>
+          <h3 class="subtitle">The videos you've scanned across the web.</h3>
         </div>
         <div class="tile is-child">
           <div class="buttons is-right">
@@ -26,112 +24,106 @@
         </div>
       </div>
       <div class="tile is-parent">
-        <div
-          class="tile is-child"
-          *ngIf="loadingVideoRefs$ | async; else loaded"
-        >
+        @if (loadingVideoRefs$ | async) {
+        <div class="tile is-child">
           <div class="notification is-light is-block has-text-centered">
             <p>Loading...</p>
           </div>
         </div>
-        <ng-template #loaded>
-          <div class="tile is-child" *ngIf="videoRefs$ | async as videoRefs">
-            <div
-              class="table-container box is-paddingless"
-              *ngIf="videoRefs.length; else empty"
-            >
-              <table class="table is-striped is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>URL</th>
-                    <th>Track</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let videoRef of videoRefs">
-                    <td>
-                      <strong>{{
-                        videoRef.title || videoRef.frameTitle
-                      }}</strong>
-                    </td>
-                    <td>
-                      <a
-                        rel="noopener"
-                        target="_blank"
-                        [href]="getVideoLink(videoRef)"
-                        >{{ getVideoLink(videoRef) }}</a
+        } @else { @if (videoRefs$ | async; as videoRefs) {
+        <div class="tile is-child">
+          @if (videoRefs.length) {
+          <div class="table-container box is-paddingless">
+            <table class="table is-striped is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>URL</th>
+                  <th>Track</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (videoRef of videoRefs; track videoRef) {
+                <tr>
+                  <td>
+                    <strong>{{ videoRef.title || videoRef.frameTitle }}</strong>
+                  </td>
+                  <td>
+                    <a
+                      rel="noopener"
+                      target="_blank"
+                      [href]="getVideoLink(videoRef)"
+                      >{{ getVideoLink(videoRef) }}</a
+                    >
+                  </td>
+                  <td>
+                    @if (videoRef.track) {
+                    <a
+                      rel="noopener"
+                      target="_blank"
+                      [routerLink]="['/tracks']"
+                      >{{ videoRef.track.title }}</a
+                    >
+                    } @if (!videoRef.track) {
+                    <span>No Track Selected</span>
+                    }
+                  </td>
+                  <td>
+                    <div class="buttons has-addons is-right">
+                      <button
+                        (click)="selectTrack(videoRef)"
+                        [title]="videoRef.track ? 'Change Track' : 'Add Track'"
+                        [ngClass]="videoRef.track ? 'is-dark' : 'is-primary'"
+                        class="button is-outlined is-dark"
                       >
-                    </td>
-                    <td>
-                      <a
-                        rel="noopener"
-                        target="_blank"
-                        *ngIf="videoRef.track"
-                        [routerLink]="['/tracks']"
-                        >{{ videoRef.track.title }}</a
+                        <plopdown-icon
+                          [path]="videoRef.track ? mdiComment : mdiCommentPlus"
+                        ></plopdown-icon>
+                      </button>
+                      <button
+                        (click)="editVideoRef(videoRef)"
+                        title="Edit"
+                        class="button is-outlined is-dark"
                       >
-                      <span *ngIf="!videoRef.track">No Track Selected</span>
-                    </td>
-                    <td>
-                      <div class="buttons has-addons is-right">
-                        <button
-                          (click)="selectTrack(videoRef)"
-                          [title]="
-                            videoRef.track ? 'Change Track' : 'Add Track'
-                          "
-                          [ngClass]="videoRef.track ? 'is-dark' : 'is-primary'"
-                          class="button is-outlined is-dark"
-                        >
-                          <plopdown-icon
-                            [path]="
-                              videoRef.track ? mdiComment : mdiCommentPlus
-                            "
-                          ></plopdown-icon>
-                        </button>
-                        <button
-                          (click)="editVideoRef(videoRef)"
-                          title="Edit"
-                          class="button is-outlined is-dark"
-                        >
-                          <plopdown-icon [path]="mdiPencil"></plopdown-icon>
-                        </button>
-                        <button
-                          (click)="removeVideo(videoRef)"
-                          title="Remove"
-                          class="button is-outlined is-dark"
-                        >
-                          <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <ng-template #empty>
-              <div class="notification is-light is-block has-text-centered">
-                <p>You haven't scanned any content.</p>
-              </div>
-            </ng-template>
+                        <plopdown-icon [path]="mdiPencil"></plopdown-icon>
+                      </button>
+                      <button
+                        (click)="removeVideo(videoRef)"
+                        title="Remove"
+                        class="button is-outlined is-dark"
+                      >
+                        <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
           </div>
-        </ng-template>
+          } @else {
+          <div class="notification is-light is-block has-text-centered">
+            <p>You haven't scanned any content.</p>
+          </div>
+          }
+        </div>
+        } }
       </div>
     </div>
   </div>
 </section>
 
+@if (showEditor) {
 <plopdown-video-editor
   (cancel)="closeEdit()"
   (save)="addOrUpdateVideoRef($event)"
   [videoRef]="editingVideoRef"
-  *ngIf="showEditor"
 ></plopdown-video-editor>
-
+} @if (showTrackSelector) {
 <plopdown-track-selector
   (cancel)="closeTrackSelector()"
   (save)="updateTrack($event)"
   [trackRef]="editingVideoRef?.track"
-  *ngIf="showTrackSelector"
 ></plopdown-track-selector>
+}

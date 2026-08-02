@@ -7,7 +7,9 @@ import { Component, Input, HostBinding } from '@angular/core';
   standalone: false,
 })
 export class IconComponent {
-  @HostBinding('class.icon') private iconClass = true;
+  // Angular 21 compiles host bindings outside the class body, so a private
+  // field here fails with TS2341.
+  @HostBinding('class.icon') public iconClass = true;
   @Input() public path = 'M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z';
   @Input() public spin = false;
 }
