@@ -43,3 +43,5 @@ Thumbs.db
 .env
 migrations.json
 .nx/
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

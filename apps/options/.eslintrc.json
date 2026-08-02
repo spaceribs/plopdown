@@ -44,6 +44,7 @@
         "rxjs/no-subject-value": "error",
         "rxjs/no-unbound-methods": "error",
         "@angular-eslint/prefer-standalone": "off",
+        "@angular-eslint/prefer-inject": "off",
         // @angular-eslint 18 enables this through plugin:@nx/angular; it fires
         // on eight pre-existing @Output() cancel/save declarations. Renaming
         // them is a public API change across four components and their

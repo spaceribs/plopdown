@@ -28,7 +28,8 @@
             "prefix": "plopdown",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@angular-eslint/prefer-inject": "off"
       }
     },
     {
