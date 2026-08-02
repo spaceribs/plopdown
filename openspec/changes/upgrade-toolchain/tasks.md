@@ -34,7 +34,13 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
    phase. Before skipping, distinguish a migration that _writes_ required config from one that
    _rewrites_ code you do not have (`@nrwl/nest` is genuinely the latter: no project, no imports,
    and Nx 14 stopped queueing it at all).
-7. **A complete artifact does not mean the build scripts work.** In Phase 2 `build:ext` failed on
+7. **Check what a rename migration did to prose.** Nx 16's `@nrwl/*` → `@nx/*` rename is a blind
+   text replace across the repo, markdown included. It rewrote seven lines of these planning
+   documents into false statements — "On Nx 12 the executor is named `@nx/workspace:run-commands`"
+   (it was `@nrwl/`), and a task that read "renamed `@nx/workspace:run-commands` to
+   `nx:run-commands`". Historical references to old package names are correct as written; revert
+   them and keep the rename to config and source.
+8. **A complete artifact does not mean the build scripts work.** In Phase 2 `build:ext` failed on
    all six apps while tests passed, `plopdown-ext` built, and the zip contained every surface —
    because `npm run build` builds its own dependencies and masked it. Check the exit status of each
    gate command, not just the artifact.

@@ -5,7 +5,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
+        "@nx/enforce-module-boundaries": [
           "error",
           {
             "enforceBuildableLibDependency": true,
@@ -22,7 +22,7 @@
     },
     {
       "files": ["*.ts"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
+      "extends": ["plugin:@nx/typescript"],
       "plugins": ["eslint-plugin-rxjs"],
       "rules": {
         "@typescript-eslint/consistent-type-definitions": "error",
@@ -54,9 +54,9 @@
     },
     {
       "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
+      "extends": ["plugin:@nx/javascript"],
       "rules": {}
     }
   ],
-  "plugins": ["@nrwl/nx"]
+  "plugins": ["@nx"]
 }
