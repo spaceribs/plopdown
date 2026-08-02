@@ -13,85 +13,79 @@
         </ul>
       </div>
 
-      <ng-container *ngIf="track === null">
-        <div class="file is-boxed is-large is-block">
-          <label class="file-label">
-            <input
-              class="file-input"
-              (change)="onAddTrack($event)"
-              accept=".vtt"
-              type="file"
-            />
-            <span class="file-cta">
-              <span class="file-icon">
-                <img
-                  width="30"
-                  height="30"
-                  src="assets/plopdown-logo.svg"
-                  alt="Plopdown"
-                />
-              </span>
-              <span class="file-label"> Choose a Plopdown Track... </span>
+      @if (track === null) {
+      <div class="file is-boxed is-large is-block">
+        <label class="file-label">
+          <input
+            class="file-input"
+            (change)="onAddTrack($event)"
+            accept=".vtt"
+            type="file"
+          />
+          <span class="file-cta">
+            <span class="file-icon">
+              <img
+                width="30"
+                height="30"
+                src="assets/plopdown-logo.svg"
+                alt="Plopdown"
+              />
             </span>
-          </label>
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="track !== null">
-        <div class="table-container">
-          <table class="table is-fullwidth is-hoverable">
-            <thead>
-              <tr>
-                <th>Filename</th>
-                <th class="has-text-right">Upload</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let fileRef of fileRefs">
-                <th>{{ fileRef }}</th>
-                <td>
-                  <div
-                    [ngClass]="{ 'is-success': getFile(fileInput?.files) }"
-                    class="file is-fullwidth is-pulled-right"
-                  >
-                    <label class="file-label">
-                      <input
-                        class="file-input"
-                        type="file"
-                        #fileInput
-                        [accept]="getAccept(fileRef)"
-                        (change)="onAddFile(fileRef, $event)"
-                      />
-                      <span class="file-cta">
-                        <span class="file-icon">
-                          <plopdown-icon
-                            *ngIf="getFile(fileInput?.files); else noFileIcon"
-                            [path]="mdiFileCheck"
-                          ></plopdown-icon>
-                          <ng-template #noFileIcon>
-                            <plopdown-icon
-                              [path]="mdiFileOutline"
-                            ></plopdown-icon>
-                          </ng-template>
-                        </span>
-                        <span
-                          class="file-label"
-                          *ngIf="getFile(fileInput?.files); else noFileLabel"
-                        >
-                          {{ getFileName(fileInput?.files) }}
-                        </span>
-                        <ng-template #noFileLabel>
-                          <span class="file-label"> Select File... </span>
-                        </ng-template>
+            <span class="file-label"> Choose a Plopdown Track... </span>
+          </span>
+        </label>
+      </div>
+      } @if (track !== null) {
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable">
+          <thead>
+            <tr>
+              <th>Filename</th>
+              <th class="has-text-right">Upload</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (fileRef of fileRefs; track $index) {
+            <tr>
+              <th>{{ fileRef }}</th>
+              <td>
+                <div
+                  [ngClass]="{ 'is-success': getFile(fileInput?.files) }"
+                  class="file is-fullwidth is-pulled-right"
+                >
+                  <label class="file-label">
+                    <input
+                      class="file-input"
+                      type="file"
+                      #fileInput
+                      [accept]="getAccept(fileRef)"
+                      (change)="onAddFile(fileRef, $event)"
+                    />
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        @if (getFile(fileInput?.files)) {
+                        <plopdown-icon [path]="mdiFileCheck"></plopdown-icon>
+                        } @else {
+                        <plopdown-icon [path]="mdiFileOutline"></plopdown-icon>
+                        }
                       </span>
-                    </label>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </ng-container>
+                      @if (getFile(fileInput?.files)) {
+                      <span class="file-label">
+                        {{ getFileName(fileInput?.files) }}
+                      </span>
+                      } @else {
+                      <span class="file-label"> Select File... </span>
+                      }
+                    </span>
+                  </label>
+                </div>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }
     </section>
 
     <footer class="modal-card-foot buttons is-right">
@@ -102,8 +96,7 @@
         [disabled]="!isValid() || saving"
         (click)="onSave()"
       >
-        <ng-container *ngIf="saving">Saving Track...</ng-container>
-        <ng-container *ngIf="!saving">Save Track</ng-container>
+        @if (saving) { Saving Track... } @if (!saving) { Save Track }
       </button>
     </footer>
   </div>

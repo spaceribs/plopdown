@@ -25,77 +25,79 @@
       </div>
 
       <div class="tile is-parent">
-        <div class="tile is-child" *ngIf="loadingRemotes$ | async; else loaded">
+        @if (loadingRemotes$ | async) {
+        <div class="tile is-child">
           <div class="notification is-light is-block has-text-centered">
             <p>Loading...</p>
           </div>
         </div>
-        <ng-template #loaded>
-          <div class="tile is-child" *ngIf="remotes$ | async as remotes">
-            <div
-              class="table-container box is-paddingless"
-              *ngIf="remotes.length; else empty"
-            >
-              <table class="table is-striped is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>URL</th>
-                    <th>Sync</th>
-                    <!-- <th>Status</th> -->
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let remote of remotes">
-                    <td>
-                      <strong>{{ remote.title }}</strong>
-                    </td>
-                    <td>
-                      <a rel="noopener" target="_blank" [href]="remote.url">{{
-                        remote.url
-                      }}</a>
-                    </td>
-                    <td>
-                      {{ remote.sync ? 'Sync' : 'Read Only' }}
-                    </td>
-                    <td>
-                      <div class="buttons has-addons is-right">
-                        <button
-                          (click)="editRemote(remote)"
-                          title="Edit"
-                          class="button is-outlined is-dark"
-                        >
-                          <plopdown-icon [path]="mdiPencil"></plopdown-icon>
-                        </button>
-                        <button
-                          (click)="removeRemote(remote)"
-                          title="Remove"
-                          class="button is-outlined is-dark"
-                        >
-                          <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <ng-template #empty>
-              <div class="notification is-light is-block has-text-centered">
-                <p>You aren't subscribed to any remotes.</p>
-              </div>
-            </ng-template>
+        } @else { @if (remotes$ | async; as remotes) {
+        <div class="tile is-child">
+          @if (remotes.length) {
+          <div class="table-container box is-paddingless">
+            <table class="table is-striped is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>URL</th>
+                  <th>Sync</th>
+                  <!-- <th>Status</th> -->
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (remote of remotes; track remote) {
+                <tr>
+                  <td>
+                    <strong>{{ remote.title }}</strong>
+                  </td>
+                  <td>
+                    <a rel="noopener" target="_blank" [href]="remote.url">{{
+                      remote.url
+                    }}</a>
+                  </td>
+                  <td>
+                    {{ remote.sync ? 'Sync' : 'Read Only' }}
+                  </td>
+                  <td>
+                    <div class="buttons has-addons is-right">
+                      <button
+                        (click)="editRemote(remote)"
+                        title="Edit"
+                        class="button is-outlined is-dark"
+                      >
+                        <plopdown-icon [path]="mdiPencil"></plopdown-icon>
+                      </button>
+                      <button
+                        (click)="removeRemote(remote)"
+                        title="Remove"
+                        class="button is-outlined is-dark"
+                      >
+                        <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
           </div>
-        </ng-template>
+          } @else {
+          <div class="notification is-light is-block has-text-centered">
+            <p>You aren't subscribed to any remotes.</p>
+          </div>
+          }
+        </div>
+        } }
       </div>
     </div>
   </div>
 </section>
 
+@if (showEditor) {
 <plopdown-remote-editor
-  *ngIf="showEditor"
   [remote]="editingRemote"
   (save)="addOrUpdateRemote($event)"
   (cancel)="closeEdit()"
 ></plopdown-remote-editor>
+}

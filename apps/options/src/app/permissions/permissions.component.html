@@ -22,125 +22,120 @@
         </div>
       </div>
       <div class="tile is-parent">
-        <div
-          class="tile is-child"
-          *ngIf="loadingPermissions$ | async; else loaded"
-        >
+        @if (loadingPermissions$ | async) {
+        <div class="tile is-child">
           <div class="notification is-light is-block has-text-centered">
             <p>Loading...</p>
           </div>
         </div>
-        <ng-template #loaded>
-          <div
-            class="tile is-child"
-            *ngIf="permissions$ | async as permissions"
-          >
-            <div
-              class="table-container box is-paddingless"
-              *ngIf="permissions.length; else empty"
-            >
-              <table class="table is-striped is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Origin</th>
-                    <th>Status</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let permission of permissions">
-                    <td>
-                      <strong>{{ permission.name }}</strong>
-                    </td>
-                    <td>
-                      <code>{{ permission.match }}</code>
-                    </td>
-                    <td>
-                      <div class="tags are-medium">
-                        <span
-                          *ngIf="permission.in_whitelist"
-                          class="tag is-success"
-                          title="Plopdown can access this webpage."
-                          >Ready to Scan</span
-                        >
-                        <a
-                          href="#"
-                          (click)="authPermission($event, permission)"
-                          *ngIf="!permission.in_whitelist"
-                          class="tag is-danger"
-                          title="Plopdown cannot access this webpage."
-                        >
-                          Unauthorized
-                        </a>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="buttons has-addons is-right">
-                        <button
-                          (click)="unAuthPermission(permission)"
-                          *ngIf="permission.in_whitelist"
-                          title="Unauthorize"
-                          class="button is-outlined is-dark"
-                        >
-                          <plopdown-icon
-                            [path]="mdiVideoBoxOff"
-                          ></plopdown-icon>
-                        </button>
-                        <button
-                          (click)="authPermission($event, permission)"
-                          *ngIf="!permission.in_whitelist"
-                          title="Authorize"
-                          class="button is-success"
-                        >
-                          <plopdown-icon [path]="mdiVideoBox"></plopdown-icon>
-                        </button>
-                        <a
-                          *ngIf="
-                            getTestPermLink$(permission) | async as testLink
-                          "
-                          [href]="testLink"
-                          target="_blank"
-                          title="Test"
-                          class="button is-outlined is-dark"
-                        >
-                          <plopdown-icon [path]="mdiTestTube"></plopdown-icon>
-                        </a>
-                        <button
-                          (click)="editPermission(permission)"
-                          title="Edit"
-                          class="button is-outlined is-dark"
-                        >
-                          <plopdown-icon [path]="mdiPencil"></plopdown-icon>
-                        </button>
-                        <button
-                          (click)="removePermission(permission)"
-                          title="Remove"
-                          class="button is-outlined is-dark"
-                        >
-                          <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <ng-template #empty>
-              <div class="notification is-light is-block has-text-centered">
-                <p>You haven't granted permissions to scan any websites.</p>
-              </div>
-            </ng-template>
+        } @else { @if (permissions$ | async; as permissions) {
+        <div class="tile is-child">
+          @if (permissions.length) {
+          <div class="table-container box is-paddingless">
+            <table class="table is-striped is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Origin</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (permission of permissions; track permission) {
+                <tr>
+                  <td>
+                    <strong>{{ permission.name }}</strong>
+                  </td>
+                  <td>
+                    <code>{{ permission.match }}</code>
+                  </td>
+                  <td>
+                    <div class="tags are-medium">
+                      @if (permission.in_whitelist) {
+                      <span
+                        class="tag is-success"
+                        title="Plopdown can access this webpage."
+                        >Ready to Scan</span
+                      >
+                      } @if (!permission.in_whitelist) {
+                      <a
+                        href="#"
+                        (click)="authPermission($event, permission)"
+                        class="tag is-danger"
+                        title="Plopdown cannot access this webpage."
+                      >
+                        Unauthorized
+                      </a>
+                      }
+                    </div>
+                  </td>
+                  <td>
+                    <div class="buttons has-addons is-right">
+                      @if (permission.in_whitelist) {
+                      <button
+                        (click)="unAuthPermission(permission)"
+                        title="Unauthorize"
+                        class="button is-outlined is-dark"
+                      >
+                        <plopdown-icon [path]="mdiVideoBoxOff"></plopdown-icon>
+                      </button>
+                      } @if (!permission.in_whitelist) {
+                      <button
+                        (click)="authPermission($event, permission)"
+                        title="Authorize"
+                        class="button is-success"
+                      >
+                        <plopdown-icon [path]="mdiVideoBox"></plopdown-icon>
+                      </button>
+                      } @if ( getTestPermLink$(permission) | async; as testLink
+                      ) {
+                      <a
+                        [href]="testLink"
+                        target="_blank"
+                        title="Test"
+                        class="button is-outlined is-dark"
+                      >
+                        <plopdown-icon [path]="mdiTestTube"></plopdown-icon>
+                      </a>
+                      }
+                      <button
+                        (click)="editPermission(permission)"
+                        title="Edit"
+                        class="button is-outlined is-dark"
+                      >
+                        <plopdown-icon [path]="mdiPencil"></plopdown-icon>
+                      </button>
+                      <button
+                        (click)="removePermission(permission)"
+                        title="Remove"
+                        class="button is-outlined is-dark"
+                      >
+                        <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
           </div>
-        </ng-template>
+          } @else {
+          <div class="notification is-light is-block has-text-centered">
+            <p>You haven't granted permissions to scan any websites.</p>
+          </div>
+          }
+        </div>
+        } }
       </div>
     </div>
   </div>
 </section>
 
+@if (showEditor) {
 <plopdown-permission-editor
   (cancel)="closeEdit()"
   (save)="addOrUpdatePermission($event)"
   [permission]="editingPermission"
-  *ngIf="showEditor"
 ></plopdown-permission-editor>
+}

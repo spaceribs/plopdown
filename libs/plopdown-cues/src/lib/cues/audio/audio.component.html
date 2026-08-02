@@ -1,15 +1,9 @@
-<video
-  plopdown-ignore
-  *ngIf="audioUrl"
-  #audioElem
-  [src]="audioUrl"
-  hidden="true"
-></video>
-
+@if (audioUrl) {
+<video plopdown-ignore #audioElem [src]="audioUrl" hidden="true"></video>
+} @if (data) {
 <div
   class="indicator-container"
   [ngStyle]="{ 'top.%': data.top, 'left.%': data.left }"
-  *ngIf="data"
 >
   <div class="audio-indicator">
     <svg class="progress-ring" viewbox="0 0 120 120">
@@ -26,17 +20,17 @@
       ></circle>
     </svg>
     <a title="Mute/Unmute Audio" href="#" (click)="toggleMute($event)">
-      <plopdown-icon
-        *ngIf="audioMuted; else unmuted"
-        [path]="mdiVolumeOff"
-      ></plopdown-icon>
-      <ng-template #unmuted>
-        <plopdown-icon [path]="mdiVolumeHigh"></plopdown-icon>
-      </ng-template>
+      @if (audioMuted) {
+      <plopdown-icon [path]="mdiVolumeOff"></plopdown-icon>
+      } @else {
+      <plopdown-icon [path]="mdiVolumeHigh"></plopdown-icon>
+      }
     </a>
   </div>
-
-  <div class="title-box" *ngIf="data">
+  @if (data) {
+  <div class="title-box">
     <div class="title">{{ data.title }}</div>
   </div>
+  }
 </div>
+}

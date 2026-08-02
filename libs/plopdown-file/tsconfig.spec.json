@@ -3,9 +3,11 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "resolveJsonModule": true,
-    "module": "commonjs",
+    "module": "preserve",
     "types": ["jest", "node", "firefox-webext-browser"],
-    "target": "es2016"
+    "target": "es2016",
+    "moduleResolution": "bundler",
+    "isolatedModules": true
   },
   "files": ["src/test-setup.ts"],
   "include": [

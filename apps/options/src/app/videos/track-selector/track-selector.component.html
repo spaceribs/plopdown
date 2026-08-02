@@ -10,7 +10,8 @@
     </header>
     <section class="modal-card-body">
       <div class="tile is-ancestor">
-        <div class="tile is-parent is-6" *ngFor="let track of tracks$ | async">
+        @for (track of tracks$ | async; track track) {
+        <div class="tile is-parent is-6">
           <article
             class="tile is-child card"
             tabindex="0"
@@ -22,11 +23,9 @@
           >
             <div class="card-image">
               <figure class="image is-4by3">
-                <img
-                  *ngIf="getAttachment(track, track.thumbnail) as imageSrc"
-                  [src]="imageSrc"
-                  [alt]="track.title"
-                />
+                @if (getAttachment(track, track.thumbnail); as imageSrc) {
+                <img [src]="imageSrc" [alt]="track.title" />
+                }
               </figure>
             </div>
             <div class="card-content">
@@ -35,6 +34,7 @@
             </div>
           </article>
         </div>
+        }
       </div>
     </section>
     <footer class="modal-card-foot buttons is-right">

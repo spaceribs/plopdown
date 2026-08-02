@@ -1,4 +1,5 @@
-<section class="panel" *ngIf="tracks$ | async as tracks">
+@if (tracks$ | async; as tracks) {
+<section class="panel">
   <div class="panel-block">
     <table class="table is-fullwidth">
       <thead>
@@ -8,12 +9,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngIf="tracks.length < 1">
+        @if (tracks.length < 1) {
+        <tr>
           <td class="has-text-centered" colspan="2">
             <p>No Tracks Added</p>
           </td>
         </tr>
-        <tr *ngFor="let track of tracks">
+        } @for (track of tracks; track track) {
+        <tr>
           <td>{{ track.title }}</td>
           <td class="has-text-right">
             <a (click)="onRemoveTrack(track)">
@@ -23,6 +26,7 @@
             </a>
           </td>
         </tr>
+        }
       </tbody>
     </table>
   </div>
@@ -36,3 +40,4 @@
     </a>
   </div>
 </section>
+}

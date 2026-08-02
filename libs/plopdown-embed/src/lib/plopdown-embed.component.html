@@ -1,9 +1,5 @@
-<div
-  class="stage-wrapper"
-  *ngIf="styles$ | async as styles"
-  [@videoOutline]
-  [ngStyle]="styles.wrapper"
->
+@if (styles$ | async; as styles) {
+<div class="stage-wrapper" [@videoOutline] [ngStyle]="styles.wrapper">
   <div class="stage" [ngStyle]="styles.stage">
     <plopdown-embed-menu
       [tracks]="tracks"
@@ -13,19 +9,20 @@
       (trackChange)="trackChange.emit($event)"
       [@fadeInOut]="(showControls$ | async) ? 'in' : 'out'"
     ></plopdown-embed-menu>
-    <ng-container *ngIf="trackAndVideoElem$ | async as trackAndVideo">
-      <plopdown-cue-renderer
-        [files]="files$ | async"
-        [videoElem]="trackAndVideo[1]"
-        [cues]="cues$ | async"
-      ></plopdown-cue-renderer>
-      <plopdown-cue-timeline
-        *ngIf="(showControls$ | async) && trackAndVideo[0] !== null"
-        [videoElem]="trackAndVideo[1]"
-        [track]="trackAndVideo[0]"
-        [activeCues]="cues$ | async"
-        (goTo)="goToTime($event)"
-      ></plopdown-cue-timeline>
-    </ng-container>
+    @if (trackAndVideoElem$ | async; as trackAndVideo) {
+    <plopdown-cue-renderer
+      [files]="files$ | async"
+      [videoElem]="trackAndVideo[1]"
+      [cues]="cues$ | async"
+    ></plopdown-cue-renderer>
+    @if ((showControls$ | async) && trackAndVideo[0] !== null) {
+    <plopdown-cue-timeline
+      [videoElem]="trackAndVideo[1]"
+      [track]="trackAndVideo[0]"
+      [activeCues]="cues$ | async"
+      (goTo)="goToTime($event)"
+    ></plopdown-cue-timeline>
+    } }
   </div>
 </div>
+}

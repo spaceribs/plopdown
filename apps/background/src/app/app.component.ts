@@ -7,13 +7,13 @@ import { merge, Observable, Subscription } from 'rxjs';
 @Component({
   template: `
     <plopdown-new-install></plopdown-new-install>
-    <ng-container *ngIf="extEnabled$ | async">
-      <plopdown-get-status></plopdown-get-status>
-      <plopdown-install-content-script></plopdown-install-content-script>
-      <plopdown-tracks-requested></plopdown-tracks-requested>
-      <plopdown-video-refs-requested></plopdown-video-refs-requested>
-      <plopdown-sync-databases></plopdown-sync-databases>
-    </ng-container>
+    @if (extEnabled$ | async) {
+    <plopdown-get-status></plopdown-get-status>
+    <plopdown-install-content-script></plopdown-install-content-script>
+    <plopdown-tracks-requested></plopdown-tracks-requested>
+    <plopdown-video-refs-requested></plopdown-video-refs-requested>
+    <plopdown-sync-databases></plopdown-sync-databases>
+    }
   `,
   selector: 'plopdown-background',
   standalone: false,

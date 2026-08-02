@@ -5,9 +5,9 @@
       <label for="track">Select Track</label>
       <select [(ngModel)]="track" name="track" id="track" required>
         <option [ngValue]="null">None</option>
-        <option [ngValue]="track" *ngFor="let track of tracks">{{
-          track.title
-        }}</option>
+        @for (track of tracks; track track) {
+        <option [ngValue]="track">{{ track.title }}</option>
+        }
       </select>
     </div>
     <div class="form-field checkbox-input">

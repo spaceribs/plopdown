@@ -1,40 +1,38 @@
-<section class="panel" *ngIf="videoRefs$ | async as videoRefs">
+@if (videoRefs$ | async; as videoRefs) {
+<section class="panel">
   <div class="panel-block">
-    <div
-      class="loading"
-      *ngIf="loadingVideoRefs$ | async as loading; else videoList"
-    >
-      Loading...
-    </div>
-    <ng-template #videoList>
-      <table class="table is-fullwidth">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th class="has-text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="videoRefs.length < 1">
-            <td class="has-text-centered" colspan="2">
-              <p>No Video References Initialized</p>
-            </td>
-          </tr>
-          <tr *ngFor="let videoRef of videoRefs">
-            <td>
-              <a [href]="getVideoLink(videoRef)">{{
-                getVideoTitle(videoRef)
-              }}</a>
-            </td>
-            <td class="has-text-right">
-              <button class="button is-small" (click)="onRemoveVideo(videoRef)">
-                <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </ng-template>
+    @if (loadingVideoRefs$ | async; as loading) {
+    <div class="loading">Loading...</div>
+    } @else {
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th class="has-text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (videoRefs.length < 1) {
+        <tr>
+          <td class="has-text-centered" colspan="2">
+            <p>No Video References Initialized</p>
+          </td>
+        </tr>
+        } @for (videoRef of videoRefs; track videoRef) {
+        <tr>
+          <td>
+            <a [href]="getVideoLink(videoRef)">{{ getVideoTitle(videoRef) }}</a>
+          </td>
+          <td class="has-text-right">
+            <button class="button is-small" (click)="onRemoveVideo(videoRef)">
+              <plopdown-icon [path]="mdiTrashCan"></plopdown-icon>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
   </div>
   <div class="panel-block">
     <a
@@ -46,3 +44,4 @@
     </a>
   </div>
 </section>
+}

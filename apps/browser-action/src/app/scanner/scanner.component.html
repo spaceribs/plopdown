@@ -1,8 +1,6 @@
 <div class="scan-status has-text-centered">
-  <div
-    class="toggle-plopdown"
-    *ngIf="{ enabled: extEnabled$ | async } as asyncData"
-  >
+  @if ({ enabled: extEnabled$ | async }; as asyncData) {
+  <div class="toggle-plopdown">
     <input
       id="extension_enabled"
       name="extension_enabled"
@@ -13,125 +11,105 @@
     />
     <label for="extension_enabled">Plopdown Enabled</label>
   </div>
-
-  <ng-container [ngSwitch]="state$ | async">
-    <section
-      *ngSwitchCase="ActionState.Disabled"
-      [@fadeInOut]
-      class="hero is-dark"
-    >
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">Scanning Disabled</h1>
-          <h2 class="subtitle">
-            Re-enable the extension to attach annotations to videos.
-          </h2>
-          <button
-            class="button is-dark is-inverted is-outlined"
-            (click)="toggleExtension(false)"
-          >
-            Enable
-          </button>
-        </div>
+  } @switch (state$ | async) { @case (ActionState.Disabled) {
+  <section [@fadeInOut] class="hero is-dark">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">Scanning Disabled</h1>
+        <h2 class="subtitle">
+          Re-enable the extension to attach annotations to videos.
+        </h2>
+        <button
+          class="button is-dark is-inverted is-outlined"
+          (click)="toggleExtension(false)"
+        >
+          Enable
+        </button>
       </div>
-    </section>
-
-    <section
-      *ngSwitchCase="ActionState.NoPerms"
-      [@fadeInOut]
-      class="hero is-dark is-bold"
-    >
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">No Permissions</h1>
-          <h2 class="subtitle">Give permissions to one or more origins.</h2>
-          <button
-            class="button is-dark is-inverted is-outlined"
-            (click)="openExtensionsPage('/options/index.html#/permissions')"
-          >
-            Allow Sites
-          </button>
-        </div>
+    </div>
+  </section>
+  } @case (ActionState.NoPerms) {
+  <section [@fadeInOut] class="hero is-dark is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">No Permissions</h1>
+        <h2 class="subtitle">Give permissions to one or more origins.</h2>
+        <button
+          class="button is-dark is-inverted is-outlined"
+          (click)="openExtensionsPage('/options/index.html#/permissions')"
+        >
+          Allow Sites
+        </button>
       </div>
-    </section>
-
-    <section
-      *ngSwitchCase="ActionState.NoTracks"
-      [@fadeInOut]
-      class="hero is-dark is-bold"
-    >
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">No Tracks Found</h1>
-          <h2 class="subtitle">
-            Create or add a track to associate with a video.
-          </h2>
-          <button
-            class="button is-dark is-inverted is-outlined"
-            (click)="openExtensionsPage('/options/index.html#/tracks')"
-          >
-            Add Tracks
-          </button>
-        </div>
+    </div>
+  </section>
+  } @case (ActionState.NoTracks) {
+  <section [@fadeInOut] class="hero is-dark is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">No Tracks Found</h1>
+        <h2 class="subtitle">
+          Create or add a track to associate with a video.
+        </h2>
+        <button
+          class="button is-dark is-inverted is-outlined"
+          (click)="openExtensionsPage('/options/index.html#/tracks')"
+        >
+          Add Tracks
+        </button>
       </div>
-    </section>
-
-    <section
-      *ngSwitchCase="ActionState.NoAccess"
-      [@fadeInOut]
-      class="hero is-dark is-bold"
-    >
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">No Access</h1>
-          <h2 class="subtitle">
-            This website needs to be authorized for annotations.
-          </h2>
-          <ng-container *ngIf="bgStatus$ | async as bgStatus">
-            <button
-              *ngIf="bgStatus.active_origin !== null"
-              class="button is-dark is-inverted is-outlined"
-              (click)="requestOrigin(bgStatus.active_origin)"
-            >
-              Request Access
-            </button>
-            <p *ngIf="bgStatus.active_origin === null" class="help-text">
-              Could not retrieve URL, please refresh the page.
-            </p>
-          </ng-container>
-        </div>
+    </div>
+  </section>
+  } @case (ActionState.NoAccess) {
+  <section [@fadeInOut] class="hero is-dark is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">No Access</h1>
+        <h2 class="subtitle">
+          This website needs to be authorized for annotations.
+        </h2>
+        @if (bgStatus$ | async; as bgStatus) { @if (bgStatus.active_origin !==
+        null) {
+        <button
+          class="button is-dark is-inverted is-outlined"
+          (click)="requestOrigin(bgStatus.active_origin)"
+        >
+          Request Access
+        </button>
+        } @if (bgStatus.active_origin === null) {
+        <p class="help-text">
+          Could not retrieve URL, please refresh the page.
+        </p>
+        } }
       </div>
-    </section>
-
-    <section
-      *ngSwitchCase="ActionState.Ready"
-      [@fadeInOut]
-      class="hero is-success is-bold"
-    >
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">Ready</h1>
-          <h2 class="subtitle">
-            Plopdown menu should appear at the top-right corner of all videos.
-          </h2>
-          <button
-            class="button is-dark is-inverted is-outlined"
-            (click)="queryStatus()"
-          >
-            Refresh
-          </button>
-        </div>
+    </div>
+  </section>
+  } @case (ActionState.Ready) {
+  <section [@fadeInOut] class="hero is-success is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">Ready</h1>
+        <h2 class="subtitle">
+          Plopdown menu should appear at the top-right corner of all videos.
+        </h2>
+        <button
+          class="button is-dark is-inverted is-outlined"
+          (click)="queryStatus()"
+        >
+          Refresh
+        </button>
       </div>
-    </section>
-
-    <section *ngSwitchDefault [@fadeInOut] class="hero is-dark">
-      <div class="hero-body">
-        <div class="container">
-          <plopdown-icon [spin]="true" [path]="mdiRadar"></plopdown-icon>
-          <h1 class="title">Scanning...</h1>
-          <h2 class="subtitle">Looking for Videos</h2>
-        </div>
+    </div>
+  </section>
+  } @default {
+  <section [@fadeInOut] class="hero is-dark">
+    <div class="hero-body">
+      <div class="container">
+        <plopdown-icon [spin]="true" [path]="mdiRadar"></plopdown-icon>
+        <h1 class="title">Scanning...</h1>
+        <h2 class="subtitle">Looking for Videos</h2>
       </div>
-    </section>
-  </ng-container>
+    </div>
+  </section>
+  } }
 </div>
