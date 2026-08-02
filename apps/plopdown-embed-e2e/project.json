@@ -18,13 +18,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/plopdown-embed-e2e/**/*.ts",
-          "apps/plopdown-embed-e2e/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": [],

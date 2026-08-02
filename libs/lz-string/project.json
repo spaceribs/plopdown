@@ -6,19 +6,12 @@
   "prefix": "plopdown",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/lz-string/**/*.ts",
-          "libs/lz-string/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/lz-string/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/lz-string/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/lz-string"]
     }

@@ -6,16 +6,12 @@
   "prefix": "plopdown",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/logger/**/*.ts", "libs/logger/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/logger/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/logger/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/logger"]
     }

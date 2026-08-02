@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/remotes"],
       "options": {
-        "jestConfig": "libs/remotes/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/remotes/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/remotes/src/**/*.ts",
-          "libs/remotes/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

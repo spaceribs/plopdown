@@ -6,16 +6,12 @@
   "prefix": "plopdown",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/icon/**/*.ts", "libs/icon/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/icon/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/icon/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/icon"]
     }

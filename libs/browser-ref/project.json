@@ -6,19 +6,12 @@
   "prefix": "plopdown",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/browser-ref/**/*.ts",
-          "libs/browser-ref/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/browser-ref/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/browser-ref/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/browser-ref"]
     }
