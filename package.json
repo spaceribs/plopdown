@@ -110,7 +110,6 @@
     "addons-linter": "10.9.0",
     "ajv-cli": "^5.0.0",
     "angular-eslint": "^22.0.0",
-    "babel-loader": "^8.1.0",
     "dotenv": "10.0.0",
     "eslint": "9.9.1",
     "eslint-config-prettier": "10.1.8",
@@ -124,7 +123,6 @@
     "nx": "23.1.1",
     "postcss": "8.5.25",
     "prettier": "2.8.8",
-    "raw-loader": "^4.0.1",
     "svg-inline-loader": "^0.8.2",
     "ts-jest": "29.4.9",
     "ts-json-schema-generator": "^0.89.0",
@@ -133,7 +131,6 @@
     "typescript": "6.0.3",
     "typescript-eslint": "^8.58.0",
     "web-ext": "10.5.0",
-    "webpack": "^4.46.0",
     "webpack-bundle-analyzer": "^3.7.0"
   }
 }
