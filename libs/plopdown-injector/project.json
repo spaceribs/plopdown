@@ -16,10 +16,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/plopdown-injector"],
       "options": {
         "jestConfig": "libs/plopdown-injector/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/libs/plopdown-injector"]
+      }
     }
   }
 }

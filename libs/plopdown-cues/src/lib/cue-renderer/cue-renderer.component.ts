@@ -5,10 +5,9 @@ import {
   Component,
   ChangeDetectionStrategy,
   Input,
-  ComponentFactoryResolver,
   ViewChild,
   ViewContainerRef,
-  ComponentFactory,
+  Type,
   OnDestroy,
   ErrorHandler,
   ChangeDetectorRef,
@@ -23,9 +22,7 @@ import {
 } from '../models/plopdown-templates.model';
 import { PlopdownBaseComponent } from '../models/plopdown-base.component';
 
-type PlopdownComponentFactory = ComponentFactory<
-  PlopdownBaseComponent<PlopdownTemplate>
->;
+type PlopdownComponentType = Type<PlopdownBaseComponent<PlopdownTemplate>>;
 
 @Component({
   selector: 'plopdown-cue-renderer',
@@ -35,7 +32,7 @@ type PlopdownComponentFactory = ComponentFactory<
 })
 export class CueRendererComponent implements AfterViewInit, OnDestroy {
   private cues$: BehaviorSubject<Cue[]> = new BehaviorSubject([] as Cue[]);
-  private cueComponents$: Observable<[PlopdownComponentFactory | null, Cue][]>;
+  private cueComponents$: Observable<[PlopdownComponentType | null, Cue][]>;
 
   private subs: Subscription = new Subscription();
 
@@ -60,7 +57,6 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
   @Input() videoElem: HTMLVideoElement = document.createElement('video');
 
   constructor(
-    componentFactoryResolver: ComponentFactoryResolver,
     private cd: ChangeDetectorRef,
     private errorHandler: ErrorHandler,
     private logger: LoggerService
@@ -74,10 +70,7 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
             return [null, cue];
           }
 
-          const componentFactory =
-            componentFactoryResolver.resolveComponentFactory(PlopdownComponent);
-
-          return [componentFactory, cue];
+          return [PlopdownComponent, cue];
         });
       })
     );
@@ -87,8 +80,8 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
     const cueSub = this.cueComponents$.subscribe({
       next: (cues) => {
         // Add new cues
-        cues.forEach(([componentFactory, cue]) => {
-          if (componentFactory == null) {
+        cues.forEach(([cueComponent, cue]) => {
+          if (cueComponent == null) {
             this.logger.error(
               `Could not find plopdown cue component matching "${cue.data.type}".`,
               cue
@@ -100,10 +93,7 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
             return;
           }
 
-          const componentRef =
-            this.cueOutlet?.createComponent<
-              PlopdownBaseComponent<PlopdownTemplate>
-            >(componentFactory);
+          const componentRef = this.cueOutlet?.createComponent(cueComponent);
 
           if (componentRef == null) {
             return;

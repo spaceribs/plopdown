@@ -16,10 +16,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/video-refs"],
       "options": {
         "jestConfig": "libs/video-refs/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/libs/video-refs"]
+      }
     }
   }
 }

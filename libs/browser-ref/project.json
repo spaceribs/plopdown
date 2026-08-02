@@ -16,10 +16,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/browser-ref"],
       "options": {
         "jestConfig": "libs/browser-ref/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/libs/browser-ref"]
+      }
     }
   }
 }

@@ -41,7 +41,11 @@
                       <span class="file-label"> Replace... </span>
                     </span>
                     <span class="file-name">
-                      {{ getFileName(fileInput?.files) || attachment.key }}
+                      {{
+                        getFileName(
+                          $safeNavigationMigration(fileInput?.files)
+                        ) || attachment.key
+                      }}
                     </span>
                   </label>
                 </div>

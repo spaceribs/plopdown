@@ -2,12 +2,13 @@ import { Track, TracksService } from '@plopdown/tracks';
 import { Observable } from 'rxjs';
 import { WindowRefService } from '@plopdown/window-ref';
 import { RuntimeService } from '@plopdown/browser-ref';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'plopdown-track-manager',
   templateUrl: './track-manager.component.html',
   styleUrls: ['./track-manager.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TrackManagerComponent {

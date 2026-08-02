@@ -71,6 +71,7 @@
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "continuous": true,
       "options": {
         "buildTarget": "content-script:build"
       },
@@ -78,8 +79,7 @@
         "production": {
           "buildTarget": "content-script:build:production"
         }
-      },
-      "continuous": true
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -92,10 +92,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/content-script"],
       "options": {
         "jestConfig": "apps/content-script/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/apps/content-script"]
+      }
     }
   }
 }

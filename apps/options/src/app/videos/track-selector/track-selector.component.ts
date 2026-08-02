@@ -1,7 +1,13 @@
 import { WindowRefService } from '@plopdown/window-ref';
 import { Observable } from 'rxjs';
 import { TracksService, Track } from '@plopdown/tracks';
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   UntypedFormGroup,
   UntypedFormBuilder,
@@ -14,6 +20,7 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
   selector: 'plopdown-track-selector',
   templateUrl: './track-selector.component.html',
   styleUrls: ['./track-selector.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TrackSelectorComponent {

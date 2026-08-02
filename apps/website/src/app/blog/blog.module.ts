@@ -5,6 +5,7 @@ import { BlogComponent } from './blog.component';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from '@angular/common/http';
 import { PostComponent } from './post/post.component';
 import { routes, posts } from './blog.routes';
@@ -23,7 +24,7 @@ import { POSTS } from './blog.config';
   ],
   providers: [
     { provide: POSTS, useValue: posts },
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
   ],
 })
 export class BlogModule {}

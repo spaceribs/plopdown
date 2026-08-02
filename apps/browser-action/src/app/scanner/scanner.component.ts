@@ -12,6 +12,7 @@ import {
   OnDestroy,
   AfterViewInit,
   ErrorHandler,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   Observable,
@@ -62,6 +63,7 @@ enum ActionState {
       ),
     ]),
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {

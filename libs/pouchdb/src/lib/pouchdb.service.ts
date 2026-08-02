@@ -18,7 +18,7 @@ export class PouchDBService {
   // PouchDB declares Database<Content extends {}>. TypeScript 4.8 stopped
   // letting an unconstrained parameter satisfy that, since it could be null
   // or undefined, so these mirror PouchDB's own constraint.
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   public createObservableDatabase<Model extends {}>(
     storageKey: string,
     username?: string | null,
@@ -46,7 +46,7 @@ export class PouchDBService {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   public createObservableChanges<Model extends {}>(
     db: PouchDB.Database<Model>
   ): Observable<PouchDB.Core.ChangesResponseChange<Model>> {
@@ -77,7 +77,7 @@ export class PouchDBService {
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   public createObservableSync<T extends {}>(
     local: PouchDB.Database<T>,
     remote: PouchDB.Database<T>
@@ -114,7 +114,7 @@ export class PouchDBService {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   public createObservablePull<T extends {}>(
     local: PouchDB.Database<T>,
     remote: PouchDB.Database<T>

@@ -3,12 +3,18 @@ import { LoggerService } from '@plopdown/logger';
 import { map, switchMap } from 'rxjs/operators';
 import { UnsavedVideoRef, VideoRefsService } from '@plopdown/video-refs';
 import { Observable, combineLatest, Subscription, of } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { RemotesService } from '@plopdown/remotes';
 
 @Component({
   selector: 'plopdown-sync-databases',
   template: '',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SyncDatabasesComponent implements OnInit, OnDestroy {

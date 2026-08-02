@@ -27,12 +27,14 @@ This project is currently in alpha.
 
 ## Setup
 
+Requires Node 24.15 or newer (`.nvmrc` pins `lts/krypton`) and npm 11. `@angular/build` refuses to
+run on anything older.
+
 Install packages:
 
 ```bash
-$ npm install
-
-added 3116 packages from 1258 contributors and audited 3397 packages in 849.968s
+$ nvm use
+$ npm ci
 ```
 
 ## Development

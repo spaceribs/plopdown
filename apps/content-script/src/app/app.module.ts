@@ -21,6 +21,7 @@ import { PlopdownInjectorModule } from '@plopdown/plopdown-injector';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from '@angular/common/http';
 import { ContentScriptTracksService } from './content-script-tracks.service';
 import { ContentScriptVideoRefsService } from './content-script-video-refs.service';
@@ -56,7 +57,7 @@ import { ContentScriptVideoRefsService } from './content-script-video-refs.servi
       provide: VideoRefsService,
       useClass: ContentScriptVideoRefsService,
     },
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
   ],
 })
 export class AppModule implements DoBootstrap {

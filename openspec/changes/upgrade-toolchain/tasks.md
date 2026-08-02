@@ -94,6 +94,25 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
     build and every unit test green while the UI silently stopped updating. Angular's
     `bootstrap-options-migration` adds the provider to all eight apps; the invariant is now pinned
     by `apps/background/src/app/zone-change-detection.spec.ts`.
+17. **The flat-config migration leaves three things behind.** `convert-to-flat-config` rewrote 78
+    files and none of the 25 project configs could load afterwards. It emits
+    `compat.config({ extends: ['plugin:@angular-eslint/template/process-inline-templates'] })`,
+    which angular-eslint 22 no longer ships in eslintrc form — every project then failed with
+    "Failed to load config ... to extend from", which Nx reports as a lint _failure_, not a config
+    error. `nx.configs['flat/angular']` already carries that processor, so the extends is both
+    broken and redundant. It also emits `plugins: ['eslint-plugin-rxjs']` naming the old package,
+    and it converted `.eslintignore` **comment lines** into ignore patterns — three lines of
+    explanation silently became three globs. Read the generated config rather than assuming it
+    works; a broken config and a clean lint look identical from the exit code up.
+18. **Angular 22 removes `ComponentFactoryResolver`.** Deprecated since 13, gone in 22, and this
+    repo had four call sites — three of them on the cue-rendering path that is the product's whole
+    purpose. `ViewContainerRef.createComponent` takes a component type directly; for the
+    `factory.create(injector)` shape the replacement is the standalone `createComponent()` with an
+    `EnvironmentInjector`. Nothing migrates this automatically.
+19. **A dependency in the upgrade list may deserve deletion instead.** Three packages the plan
+    listed as "move to current" — `@ngrx/component-store`, `uuid`, `core-js` — are imported nowhere
+    in the workspace. `@ngrx/component-store` would have forced a beta pin to satisfy Angular 22.
+    Check whether the thing is used before working out how to upgrade it.
 
 ## 0. Ahead of Phase 0 — Remove the web-extension plugin (done)
 
@@ -261,7 +280,7 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
       `import 'jest-preset-angular/setup-jest'` for `setupZoneTestEnv()` but leaves the repo's
       hand-written `initTestEnvironment` block in place, so the environment is initialised twice
       and every suite fails with `NG0400: A platform with a different configuration has been
-    created`. `setupZoneTestEnv` takes the same `TestEnvironmentOptions`, so the fix is to pass
+  created`. `setupZoneTestEnv` takes the same `TestEnvironmentOptions`, so the fix is to pass
       `{ teardown: { destroyAfterEach: false } }` to it and delete the hand-written block
 - [x] 10.1d Make `IconComponent.iconClass` public. Angular 21 compiles host bindings outside the
       class body, so a `private` field behind `@HostBinding` now fails with TS2341
@@ -269,10 +288,19 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
 
 ## 11. Phase 10 — Angular 22 / Nx 23 (Node 24)
 
-- [ ] 11.1 Raise Node to 24, `.nvmrc` and both CI workflows together
-- [ ] 11.2 Run `nx migrate latest` to Angular 22.1.0 / Nx 23.1.1
-- [ ] 11.3 Move TypeScript to 6.0.x
-- [ ] 11.4 Move zone.js to 0.16.x and `@angular/cdk` to 22.x
+- [x] 11.1 Raise Node to 24, `.nvmrc` and both CI workflows together. The floor is **24.15**, not
+      any 24: `@angular/build` declares `node: ^22.22.3 || ^24.15.0 || >=26.0.0` and warns
+      EBADENGINE below it. CI's `24.x` resolves above the floor on its own
+- [x] 11.2 Run `nx migrate latest` — landed on Angular 22.0.8 / Nx 23.1.1, 34 migrations applied
+      individually
+- [x] 11.3 Move TypeScript to 6.0.x — forced, not optional: `@angular/compiler-cli` 22 peers
+      `typescript >=6.0 <6.1`. Landed on 6.0.3
+- [x] 11.3a Drop `baseUrl` from `tsconfig.base.json`. TS 6 errors on it (TS5101, deprecated and
+      removed in TS 7). Removing it alone breaks every `paths` entry with TS5090, because
+      non-relative path targets are only legal when `baseUrl` is set — so all 33 path values are
+      now `./`-prefixed. The alternative, `"ignoreDeprecations": "6.0"`, only defers this to TS 7
+- [x] 11.4 Move zone.js to 0.16.x and `@angular/cdk` to 22.x — zone.js 0.16.2 arrived with the
+      Nx 22 migration in Phase 9; the CDK moved to 22.0.7 here
 - [x] 11.5 Move Jest to 30 and `jest-preset-angular` to current; update the `ts-jest` transform in
       `jest.preset.js` — done early: the Nx 22 migration carried Jest 29.7 → 30.4.2,
       `jest-preset-angular` 14.6.2 → 16.0.0, `jest-environment-jsdom` and `@types/jest` with it.
@@ -282,23 +310,49 @@ have failed `deploy_website.yml` on the next push to `master`, taking plopdown.v
       instruction. `apps/plopdown-embed-e2e` pointed its `devServerTarget` at
       `plopdown-embed:storybook`, a target that does not exist on that library, so the four specs
       had been unrunnable for as long as the project has had `project.json` files
-- [ ] 11.7 Move the remaining runtime dependencies: `@ngrx/component-store`, `pouchdb`,
-      `pouchdb-find`, `uuid`, `core-js`, `plyr`, `webextension-polyfill`, `web-ext`,
-      `addons-linter`. Hold Bulma at 0.9
-- [ ] 11.8 Drop dead devDependencies the migration leaves behind — `react`, `react-is`,
-      `web-ext-types`, `tslint`-era config, and the `tslint.json` entry in `nx.json`
-- [ ] 11.9 Remove the `typescript-tslint-plugin` entry from `tsconfig.base.json`
-- [ ] 11.9a Move ESLint 8 → 9 and `.eslintrc.json` → flat config. Forced here and only here:
-      `angular-eslint` 22 and `@nx/eslint` 23 drop `^8`
-- [ ] 11.9b Replace `eslint-plugin-rxjs` with `@smarttools/eslint-plugin-rxjs`. The original pin
+- [x] 11.7 Move the remaining runtime dependencies. Moved: `pouchdb` and `pouchdb-find` 7.2.2 → 9,
+      `webextension-polyfill` 0.8 → 0.12, `web-ext` 4.3 → 10.5, `addons-linter` 1.26 → 10.9,
+      `lz-string` 1.4.4 → 1.5, `reflect-metadata` 0.1.13 → 0.2.2. Bulma held at 0.9 as planned.
+      Two departures from the list: - `@ngrx/component-store` was **removed**, not moved. It is imported nowhere in `apps/` or
+      `libs/`, and its latest stable (21.1.1) peers `@angular/core ^21` — only a 22 beta exists.
+      Pinning a beta for a dependency nothing imports would be strictly worse than deleting it - `plyr` is **held at 3.6.8**. 3.8.4 added an `exports` map, so the sass import has to become
+      `plyr/plyr.scss`, and its `.d.ts` ships both `export = Plyr` and `export default Plyr`.
+      That combination gives TS1192 on a default import and TS2351 on a namespace import, and
+      `esModuleInterop` does not resolve it. Held for the same reason as Bulma: a website-only
+      dependency is not worth an interop workaround in an upgrade PR
+- [x] 11.7a Remove `uuid`, `@types/uuid` and `core-js`. Both were in the plan as upgrades; neither
+      is imported anywhere in the workspace, so they are dead weight rather than upgrade work
+- [x] 11.8 Drop dead devDependencies the migration leaves behind — `react`, `react-is`,
+      `web-ext-types`. There was no `tslint.json` and no `nx.json` entry for one; that part of the
+      task described a state the repo had already left
+- [x] 11.9 Remove the `typescript-tslint-plugin` entry from `tsconfig.base.json`
+- [x] 11.9a Move ESLint 8 → 9 and `.eslintrc.json` → flat config. Forced here and only here:
+      `angular-eslint` 22 and `@nx/eslint` 23 drop `^8`. `@nx/eslint:update-23-1-0-convert-to-flat-config`
+      does the bulk (78 files), but leaves three things behind — see rule 17
+- [x] 11.9b Replace `eslint-plugin-rxjs` with `@smarttools/eslint-plugin-rxjs` (1.0.22). The original pin
       peers `eslint ^8.0.0` and cannot follow to 9. Note the repo has already moved this plugin
       once — Phase 1 took it 3.3.5 → 5.0.3 for ESLint 8 — so Decision 5's description of it as
       stuck at 3.3.5 is out of date
-- [ ] 11.9c Confirm the RxJS rules still fire: introduce a nested `subscribe` and verify
+- [x] 11.9c Confirm the RxJS rules still fire: introduce a nested `subscribe` and verify
       `rxjs/no-nested-subscribe` rejects it. A plugin that loads but enforces nothing is
-      indistinguishable from success without this probe
-- [ ] 11.10 Verify the gate
-- [ ] 11.11 Open the PR, pause for review
+      indistinguishable from success without this probe. Done, and it earned its keep — the first
+      run of the probe reported nothing at all, because the config was failing to load rather than
+      passing
+- [x] 11.9d Replace the four `@typescript-eslint/ban-types` disable comments in
+      `libs/pouchdb/src/lib/pouchdb.service.ts`. typescript-eslint 8 split that rule up, so the
+      comments now name a rule that does not exist — reported as four hard errors — while the
+      replacement rule `no-empty-object-type` fires on the `extends {}` constraints underneath
+- [x] 11.9e Replace the four `ComponentFactoryResolver` call sites. Angular 22 removed the API
+      (deprecated since 13): `CueRendererComponent`, `VideoAttachmentComponent`,
+      `CueTimelineComponent` and the website's `HomeComponent`. The first now passes a component
+      type straight to `ViewContainerRef.createComponent`; the other three use the standalone
+      `createComponent()` with an injected `EnvironmentInjector`. This is the largest hand-written
+      source change of the whole upgrade and it is squarely on the cue-rendering path
+- [x] 11.9f Make the sass import in `track-selector.component.scss` relative. It was the only
+      stylesheet in the workspace importing via a workspace-root-relative path
+      (`apps/options/src/variables.scss`), which Angular 22's sass resolution no longer finds
+- [x] 11.10 Verify the gate
+- [x] 11.11 Open the PR, pause for review
 
 ## 12. Manual validation (owner, after Phase 10)
 
@@ -321,13 +375,19 @@ bisecting the phase merges on `master`.
 
 ## 13. Close-out
 
-- [ ] 13.1 Update `CLAUDE.md` — the Node 12 / lockfileVersion 1 note, and the four-file project
-      registration convention if `project.json` changed it
-- [ ] 13.2 Update `README.md` setup and development steps
-- [ ] 13.3 Update `REVIEWERS.md` — it tells Mozilla's add-on reviewers to reproduce the build on
-      `node:12` with npm 6.14.11, which stops being true at Phase 0 and would leave AMO unable to
-      verify a submission
-- [ ] 13.4 Confirm the extension version is still in sync between `package.json` and
-      `apps/plopdown-ext/src/manifest.json`
-- [ ] 13.5 File follow-ups deliberately excluded here: Manifest V3, Bulma 1.x, the devtool and
-      testing-sandbox questions, and any pre-existing bugs found from task 1.1
+- [x] 13.1 Update `CLAUDE.md` — the Node / lockfileVersion note, the `ngcc` postinstall line, the
+      `npm test` and `npm run lint` descriptions, the four-file registration convention (now
+      `project.json` plus `tsconfig.base.json`; no root `angular.json`, Jest projects inferred),
+      the RxJS plugin name, and new notes on flat config and the deliberately-disabled rules
+- [x] 13.2 Update `README.md` setup and development steps — Node 24.15 floor, `npm ci`
+- [x] 13.3 Update `REVIEWERS.md` — it told Mozilla's add-on reviewers to reproduce the build on
+      `node:12` with npm 6.14.11. Now `node:24` (24.15+, npm 11) and `npm ci`
+- [x] 13.4 Confirm the extension version is still in sync between `package.json` and
+      `apps/plopdown-ext/src/manifest.json` — both 0.0.11, unchanged throughout
+- [x] 13.5 File follow-ups deliberately excluded here: - **Manifest V3.** Untouched; the extension is still MV2 - **Bulma 1.x.** Held at 0.9.3 by design - **`plyr` 3.8.** Held at 3.6.8; see task 11.7 for the interop reason - **Accessibility.** `label-has-associated-control` (19),
+      `click-events-have-key-events` (12) and `interactive-supports-focus` (10) are switched off
+      per project. These are real findings on pre-existing markup, not noise - **`ChangeDetectionStrategy.Eager` on 45 components.** Angular 22's
+      `change-detection-eager` migration wrote it everywhere to preserve behaviour;
+      `prefer-on-push-component-change-detection` is off until someone does that pass - **Standalone components and `inject()`.** `prefer-standalone` and `prefer-inject` are off
+      across the workspace - **`@Output()` names in `apps/options`.** `no-output-native` is off for eight pre-existing
+      `cancel`/`save` outputs - **The devtool and testing-sandbox questions**, and any pre-existing bugs from task 1.1

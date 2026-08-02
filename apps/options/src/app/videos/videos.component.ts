@@ -2,7 +2,13 @@ import { WindowRefService } from '@plopdown/window-ref';
 import { LoggerService } from '@plopdown/logger';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { VideoRefsService, VideoRef, TrackRef } from '@plopdown/video-refs';
-import { Component, OnInit, OnDestroy, ErrorHandler } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ErrorHandler,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   mdiRefresh,
   mdiAlertCircle,
@@ -17,6 +23,7 @@ import {
   selector: 'plopdown-videos',
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class VideosComponent implements OnInit, OnDestroy {

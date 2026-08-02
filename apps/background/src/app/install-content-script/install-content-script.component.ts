@@ -1,4 +1,10 @@
-import { Component, ErrorHandler, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ErrorHandler,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   PermissionsRequestService,
   TabsService,
@@ -24,6 +30,7 @@ import {
 @Component({
   selector: 'plopdown-install-content-script',
   template: 'install-content-script',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class InstallContentScriptComponent implements OnInit, OnDestroy {

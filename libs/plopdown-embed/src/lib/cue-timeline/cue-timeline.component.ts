@@ -3,12 +3,14 @@ import {
   Component,
   Input,
   HostBinding,
-  ComponentFactoryResolver,
+  createComponent,
+  EnvironmentInjector,
   Injector,
   Output,
   EventEmitter,
   HostListener,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Track } from '@plopdown/tracks';
 import {
@@ -54,6 +56,7 @@ import { Cue, PLOPDOWN_TEMPLATES } from '@plopdown/plopdown-cues';
       ),
     ]),
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CueTimelineComponent {
@@ -79,7 +82,7 @@ export class CueTimelineComponent {
   }
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
+    private envInjector: EnvironmentInjector,
     private injector: Injector,
     cd: ChangeDetectorRef
   ) {
@@ -132,12 +135,10 @@ export class CueTimelineComponent {
       const left = (cue.startTime / duration) * 100;
       const right = 100 - (cue.endTime / duration) * 100;
 
-      const componentFactory =
-        this.componentFactoryResolver.resolveComponentFactory(
-          PLOPDOWN_TEMPLATES[cue.data.type]
-        );
-
-      const component = componentFactory.create(this.injector).instance;
+      const component = createComponent(PLOPDOWN_TEMPLATES[cue.data.type], {
+        environmentInjector: this.envInjector,
+        elementInjector: this.injector,
+      }).instance;
 
       return {
         style: {

@@ -1,5 +1,9 @@
 import { PostModel } from './post.model';
-import { Component, SecurityContext } from '@angular/core';
+import {
+  Component,
+  SecurityContext,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
@@ -7,6 +11,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
   selector: 'plopdown-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PostComponent {

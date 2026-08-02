@@ -4,7 +4,13 @@ import {
   mdiCheckboxMarkedCircleOutline,
   mdiSync,
 } from '@mdi/js';
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   UntypedFormGroup,
   UntypedFormBuilder,
@@ -15,6 +21,7 @@ import {
   selector: 'plopdown-remote-editor',
   templateUrl: './remote-editor.component.html',
   styleUrls: ['./remote-editor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RemoteEditorComponent {

@@ -1,12 +1,13 @@
 import { BlogComponent } from './../blog.component';
 import { POSTS } from './../blog.config';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { Routes } from '@angular/router';
 
 @Component({
   selector: 'plopdown-archive',
   templateUrl: './archive.component.html',
   styleUrls: ['./archive.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ArchiveComponent {

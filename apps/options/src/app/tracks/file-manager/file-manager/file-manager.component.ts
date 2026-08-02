@@ -1,4 +1,10 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { mdiFileUpload } from '@mdi/js';
 import { FullAttachments } from '../../../models/full-attachments.model';
 
@@ -6,6 +12,7 @@ import { FullAttachments } from '../../../models/full-attachments.model';
   selector: 'plopdown-file-manager',
   templateUrl: './file-manager.component.html',
   styleUrls: ['./file-manager.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FileManagerComponent {

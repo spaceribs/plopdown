@@ -8,6 +8,7 @@ import {
   EventEmitter,
   ErrorHandler,
   OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   UntypedFormGroup,
@@ -22,6 +23,7 @@ import { Permission } from '@plopdown/permissions';
   selector: 'plopdown-permission-editor',
   templateUrl: './permission-editor.component.html',
   styleUrls: ['./permission-editor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PermissionEditorComponent implements OnDestroy {

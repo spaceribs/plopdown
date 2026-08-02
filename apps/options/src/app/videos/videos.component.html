@@ -124,6 +124,6 @@
 <plopdown-track-selector
   (cancel)="closeTrackSelector()"
   (save)="updateTrack($event)"
-  [trackRef]="editingVideoRef?.track"
+  [trackRef]="$safeNavigationMigration(editingVideoRef?.track)"
 ></plopdown-track-selector>
 }

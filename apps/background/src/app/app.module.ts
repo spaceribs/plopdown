@@ -10,6 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from '@angular/common/http';
 import { NgModule, DoBootstrap, ApplicationRef } from '@angular/core';
 
@@ -51,7 +52,7 @@ import { SyncDatabasesComponent } from './sync-databases/sync-databases.componen
     VideoRefsModule,
     TracksModule,
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())],
+  providers: [provideHttpClient(withXhr(), withInterceptorsFromDi())],
 })
 export class AppModule implements DoBootstrap {
   ngDoBootstrap(appRef: ApplicationRef): void {

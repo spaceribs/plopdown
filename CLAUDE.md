@@ -11,13 +11,13 @@ Angular 12 apps and libs under the `@plopdown/*` npm scope.
 ## Commands
 
 ```bash
-npm install                  # postinstall runs decorate-angular-cli.js + ngcc
+npm install
 npm run build:ext            # build all six extension surfaces (production)
 npm run build                # build the default project (plopdown-ext) -> zip in dist/extensions
 npm run build website -- --prod   # website builds into /docs (GitHub Pages)
 
-npm test                     # all Jest projects
-npm run lint                 # nx workspace-lint && ng lint
+npm test                     # all Jest projects (nx run-many --target=test --all)
+npm run lint                 # nx run-many --target=lint --all
 npm run format:write         # prettier across the workspace
 npm run format:check
 ```
@@ -128,9 +128,10 @@ service to a lib that has a `mock/`, add its mock too — sibling specs will exp
 
 ## Conventions
 
-- **Registering a new lib/app** touches four files: `angular.json` (targets), `nx.json` (project +
-  tags), `tsconfig.base.json` (the `@plopdown/*` path, plus a `/mock` path if applicable), and — for
-  anything with tests — `jest.config.js`'s `projects` array.
+- **Registering a new lib/app** means a per-project `project.json` (targets, tags) plus a
+  `tsconfig.base.json` entry for the `@plopdown/*` path and a `/mock` path if applicable. There is
+  no root `angular.json`, and Jest projects are inferred rather than listed — the old four-file
+  ritual through `angular.json` and `jest.config.js`'s `projects` array is gone.
 - **`libs/plopdown-file/src/schema/*` is generated.** Edit `plopdown-file.model.ts`, then run
   `npx nx run plopdown-file:generate-schema` (ts-json-schema-generator + ajv). Never hand-edit the
   `.json` or `.js` schema.
@@ -138,15 +139,21 @@ service to a lib that has a `mock/`, add its mock too — sibling specs will exp
   `apps/plopdown-ext/src/manifest.json` — and they must be bumped together.
 - **`manifest.json` contains `//` comments** (the disabled `devtools_page` line). It is not
   parseable with plain `JSON.parse`.
-- **Lint enforces RxJS discipline** via `eslint-plugin-rxjs`: no nested `subscribe`, no
+- **Lint enforces RxJS discipline** via `@smarttools/eslint-plugin-rxjs`: no nested `subscribe`, no
   `subject.value`, no unbound methods, no rxjs internal/index imports. `@typescript-eslint` is
   configured with `no-explicit-any` off but unused vars as an error (prefix with `_` to ignore).
 - **Strict Angular templates** — `strictTemplates`, `strictNullChecks`, `noImplicitAny`, and
   `fullTemplateTypeCheck` are all on in `tsconfig.base.json`.
 - **Commit messages** are short imperative sentences ("Fix a pointer event issue"), not
   conventional-commit prefixes.
-- The repo pins Node 12 (`.nvmrc` = `lts/erbium`) and `package-lock.json` is lockfileVersion 1
-  (npm 6). Regenerating the lockfile with a modern npm would be a large, breaking diff.
+- The repo pins Node 24 (`.nvmrc` = `lts/krypton`); `package-lock.json` is lockfileVersion 3.
+  Both CI workflows pin the same major, and `@angular/build` requires Node >= 24.15.
+- **ESLint uses flat config** — `eslint.config.mjs` at the root and one per project. The root
+  config owns the RxJS rules and the module-boundary rule; a project's own `rules` block is the
+  only place that can override a rule its `extends` turns on.
+- **Several `@angular-eslint` rules are deliberately off**: `prefer-standalone`, `prefer-inject`,
+  `prefer-on-push-component-change-detection`, and three template accessibility rules. Each would
+  be a refactor rather than a lint fix; see `openspec/changes/upgrade-toolchain/`.
 
 ## Spec-driven changes
 

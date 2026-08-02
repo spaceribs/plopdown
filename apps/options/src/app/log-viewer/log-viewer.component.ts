@@ -7,7 +7,12 @@ import {
   BehaviorSubject,
   Subscription,
 } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { mdiRefresh, mdiAlertCircle, mdiDownload } from '@mdi/js';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 
@@ -15,6 +20,7 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
   selector: 'plopdown-log-viewer',
   templateUrl: './log-viewer.component.html',
   styleUrls: ['./log-viewer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LogViewerComponent implements OnInit, OnDestroy {

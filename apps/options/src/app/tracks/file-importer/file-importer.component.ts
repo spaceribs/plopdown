@@ -7,6 +7,7 @@ import {
   EventEmitter,
   OnInit,
   OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { mdiFileOutline, mdiFileCheck } from '@mdi/js';
 import { Track } from '@plopdown/tracks';
@@ -17,6 +18,7 @@ import { map } from 'rxjs/operators';
   selector: 'plopdown-file-importer',
   templateUrl: './file-importer.component.html',
   styleUrls: ['./file-importer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FileImporterComponent implements OnInit, OnDestroy {

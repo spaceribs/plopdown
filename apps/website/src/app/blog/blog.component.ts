@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { POSTS } from './blog.config';
 import { Routes, Route } from '@angular/router';
 
@@ -13,6 +13,7 @@ interface PostDateBucket {
   selector: 'plopdown-blog',
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BlogComponent {

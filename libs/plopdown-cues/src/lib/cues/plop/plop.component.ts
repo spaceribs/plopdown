@@ -16,7 +16,7 @@ import { rubberBand, zoomOut } from 'ng-animate';
   selector: 'plopdown-plop',
   templateUrl: './plop.component.html',
   styleUrls: ['./plop.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   animations: [
     trigger('plopIn', [
       transition(

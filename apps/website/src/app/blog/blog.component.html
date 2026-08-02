@@ -24,7 +24,9 @@
           <li>
             <a
               routerLinkActive="is-active"
-              [routerLink]="post.data?.attributes.slug"
+              [routerLink]="
+                $safeNavigationMigration(post.data?.attributes.slug)
+              "
               >{{ post.data?.attributes.title }}</a
             >
           </li>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'plopdown-video-attachments',
@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
     ></plopdown-video-attachment>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class VideoAttachmentsComponent {

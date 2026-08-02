@@ -2,7 +2,7 @@ import { UnsavedVideoRef, VideoRefsService } from '@plopdown/video-refs';
 import { WindowRefService } from '@plopdown/window-ref';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { TracksService, Track } from '@plopdown/tracks';
 import {
   mdiRefresh,
@@ -18,6 +18,7 @@ import { LoggerService } from '@plopdown/logger';
   selector: 'plopdown-tracks',
   templateUrl: './tracks.component.html',
   styleUrls: ['./tracks.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TracksComponent implements OnDestroy {

@@ -16,10 +16,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/devtools-ref"],
       "options": {
         "jestConfig": "libs/devtools-ref/jest.config.ts"
-      },
-      "outputs": ["{workspaceRoot}/coverage/libs/devtools-ref"]
+      }
     }
   }
 }
