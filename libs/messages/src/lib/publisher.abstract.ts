@@ -9,7 +9,8 @@ import { map, tap, mapTo, mergeMap } from 'rxjs/operators';
 // TODO: Add Angular decorator.
 @Injectable()
 export abstract class PortPublisher<C extends Record<string, unknown>>
-  implements OnDestroy {
+  implements OnDestroy
+{
   protected command$: Subject<C> = new Subject();
   private subs: Subscription = new Subscription();
 

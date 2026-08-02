@@ -53,9 +53,9 @@ const appRoutes: Routes = [
       providers: [LogConsoleService, LogStorageService],
     }),
     RouterModule.forRoot(appRoutes, {
-    useHash: true,
-    initialNavigation: 'enabledBlocking'
-}),
+      useHash: true,
+      initialNavigation: 'enabledBlocking',
+    }),
     BrowserAnimationsModule,
     MessagesModule,
     WindowRefModule,

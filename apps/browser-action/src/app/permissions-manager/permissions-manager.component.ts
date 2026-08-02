@@ -18,6 +18,7 @@ interface ValidatedPermission extends SavedPermission {
   selector: 'plopdown-permissions-manager',
   templateUrl: './permissions-manager.component.html',
   styleUrls: ['./permissions-manager.component.scss'],
+  standalone: false,
 })
 export class PermissionsManagerComponent implements OnDestroy {
   public permissions$: Observable<ValidatedPermission[]>;

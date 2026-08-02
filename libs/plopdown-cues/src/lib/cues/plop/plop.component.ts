@@ -33,10 +33,12 @@ import { rubberBand, zoomOut } from 'ng-animate';
       ),
     ]),
   ],
+  standalone: false,
 })
 export class PlopComponent
   extends PlopdownBaseComponent<PlopdownPlop>
-  implements OnChanges, AfterViewInit {
+  implements OnChanges, AfterViewInit
+{
   public color = '#b2e7c1';
   @HostBinding('@plopIn') public animate = true;
   @HostBinding('style.top.%') top = 0;

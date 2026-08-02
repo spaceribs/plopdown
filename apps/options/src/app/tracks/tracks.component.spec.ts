@@ -14,25 +14,23 @@ describe('TracksComponent', () => {
   let component: TracksComponent;
   let fixture: ComponentFixture<TracksComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          MockIconModule,
-          MockTracksModule,
-          MockLoggerModule,
-          MockWindowRefModule,
-          MockVideoRefsModule,
-        ],
-        declarations: [
-          TracksComponent,
-          MockFileImporterComponent,
-          MockFileManagerComponent,
-          MockTrackEditorComponent,
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        MockIconModule,
+        MockTracksModule,
+        MockLoggerModule,
+        MockWindowRefModule,
+        MockVideoRefsModule,
+      ],
+      declarations: [
+        TracksComponent,
+        MockFileImporterComponent,
+        MockFileManagerComponent,
+        MockTrackEditorComponent,
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TracksComponent);

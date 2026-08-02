@@ -24,6 +24,7 @@ import {
 @Component({
   selector: 'plopdown-install-content-script',
   template: 'install-content-script',
+  standalone: false,
 })
 export class InstallContentScriptComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();

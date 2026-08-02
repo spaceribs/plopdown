@@ -18,6 +18,7 @@ import * as parser from 'tld-extract';
 @Component({
   selector: 'plopdown-get-status',
   template: `get-status`,
+  standalone: false,
 })
 export class GetStatusComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();

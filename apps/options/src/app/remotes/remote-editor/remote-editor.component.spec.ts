@@ -9,19 +9,17 @@ describe('RemoteEditorComponent', () => {
   let component: RemoteEditorComponent;
   let fixture: ComponentFixture<RemoteEditorComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          FormsModule,
-          ReactiveFormsModule,
-          MockIconModule,
-          MockRemotesModule,
-        ],
-        declarations: [RemoteEditorComponent],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MockIconModule,
+        MockRemotesModule,
+      ],
+      declarations: [RemoteEditorComponent],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RemoteEditorComponent);

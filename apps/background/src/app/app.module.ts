@@ -7,7 +7,10 @@ import { BrowserRefModule } from '@plopdown/browser-ref';
 import { TracksModule } from '@plopdown/tracks';
 import { LoggerModule, LogConsoleService } from '@plopdown/logger';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule, DoBootstrap, ApplicationRef } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -21,29 +24,35 @@ import { PouchDBModule } from '@plopdown/pouchdb';
 import { RemotesModule } from '@plopdown/remotes';
 import { SyncDatabasesComponent } from './sync-databases/sync-databases.component';
 
-@NgModule({ declarations: [
-        AppComponent,
-        NewInstallComponent,
-        InstallContentScriptComponent,
-        TracksRequestedComponent,
-        VideoRefsRequestedComponent,
-        GetStatusComponent,
-        SyncDatabasesComponent,
-    ], imports: [BrowserModule,
-        BrowserRefModule,
-        PlopdownFileModule,
-        ExtStorageModule,
-        PouchDBModule,
-        RemotesModule,
-        LoggerModule.forRoot({
-            appName: 'Background',
-            color: 'red',
-            providers: [LogConsoleService, LogStorageService],
-        }),
-        PermissionsModule,
-        MessagesModule,
-        VideoRefsModule,
-        TracksModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [
+    AppComponent,
+    NewInstallComponent,
+    InstallContentScriptComponent,
+    TracksRequestedComponent,
+    VideoRefsRequestedComponent,
+    GetStatusComponent,
+    SyncDatabasesComponent,
+  ],
+  imports: [
+    BrowserModule,
+    BrowserRefModule,
+    PlopdownFileModule,
+    ExtStorageModule,
+    PouchDBModule,
+    RemotesModule,
+    LoggerModule.forRoot({
+      appName: 'Background',
+      color: 'red',
+      providers: [LogConsoleService, LogStorageService],
+    }),
+    PermissionsModule,
+    MessagesModule,
+    VideoRefsModule,
+    TracksModule,
+  ],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
+})
 export class AppModule implements DoBootstrap {
   ngDoBootstrap(appRef: ApplicationRef): void {
     const plopdownAppElem = document.createElement('plopdown-background');

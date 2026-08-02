@@ -4,6 +4,7 @@ import { IconComponent } from '../src/lib/icon/icon.component';
 @Component({
   selector: 'plopdown-icon',
   template: 'mock-plopdown-icon',
+  standalone: false,
 })
 export class MockIconComponent implements Partial<IconComponent> {
   @HostBinding('class.icon') public iconClass: string;

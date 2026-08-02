@@ -1,11 +1,16 @@
 import { VideoRef } from '@plopdown/video-refs';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'plopdown-video-editor',
   templateUrl: './video-editor.component.html',
   styleUrls: ['./video-editor.component.scss'],
+  standalone: false,
 })
 export class VideoEditorComponent {
   public videoRefForm: UntypedFormGroup;

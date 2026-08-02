@@ -21,6 +21,7 @@ import { VideoScanService } from '@plopdown/window-ref';
     ></plopdown-video-attachments>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   public videoElems$: Observable<HTMLVideoElement[]>;

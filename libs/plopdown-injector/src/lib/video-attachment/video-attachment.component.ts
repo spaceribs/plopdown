@@ -54,6 +54,7 @@ const DURATION_FUZZ_SEC = 20;
 @Component({
   selector: 'plopdown-video-attachment',
   template: '',
+  standalone: false,
 })
 export class VideoAttachmentComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();

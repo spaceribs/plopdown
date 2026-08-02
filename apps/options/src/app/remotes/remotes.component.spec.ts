@@ -10,6 +10,7 @@ import { RemotesComponent } from './remotes.component';
 @Component({
   template: ``,
   selector: 'plopdown-remote-editor',
+  standalone: false,
 })
 class MockRemoteEditorComponent {
   @Input() remote: Remote | null = null;

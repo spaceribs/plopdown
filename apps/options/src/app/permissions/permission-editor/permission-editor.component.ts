@@ -22,6 +22,7 @@ import { Permission } from '@plopdown/permissions';
   selector: 'plopdown-permission-editor',
   templateUrl: './permission-editor.component.html',
   styleUrls: ['./permission-editor.component.scss'],
+  standalone: false,
 })
 export class PermissionEditorComponent implements OnDestroy {
   public previousPerms: Permission | null = null;

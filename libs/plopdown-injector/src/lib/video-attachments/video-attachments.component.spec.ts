@@ -7,9 +7,11 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'plopdown-video-attachment',
   template: '',
+  standalone: false,
 })
 class MockVideoAttachmentComponent
-  implements Partial<VideoAttachmentComponent> {
+  implements Partial<VideoAttachmentComponent>
+{
   @Input() videoElem: HTMLVideoElement;
 }
 

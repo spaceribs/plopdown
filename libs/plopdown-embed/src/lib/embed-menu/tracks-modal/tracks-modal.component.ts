@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
   selector: 'plopdown-track-selector',
   templateUrl: './tracks-modal.component.html',
   styleUrls: ['./tracks-modal.component.scss'],
+  standalone: false,
 })
 export class TracksModalComponent implements OnDestroy {
   private subs = new Subscription();

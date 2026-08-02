@@ -4,6 +4,7 @@ import { FileImporterComponent } from '../src/app/tracks/file-importer/file-impo
 @Component({
   selector: 'plopdown-file-importer',
   template: 'mock-plopdown-file-importer',
+  standalone: false,
 })
 export class MockFileImporterComponent
   implements Partial<FileImporterComponent> {}

@@ -9,6 +9,7 @@ import { RemotesService } from '@plopdown/remotes';
 @Component({
   selector: 'plopdown-sync-databases',
   template: '',
+  standalone: false,
 })
 export class SyncDatabasesComponent implements OnInit, OnDestroy {
   remotesSync$: Observable<

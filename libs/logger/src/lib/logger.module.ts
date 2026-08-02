@@ -9,8 +9,8 @@ import { LoggerConfigService } from './logger.config';
 export class LoggerModule {
   static forRoot(config: LoggerConfig): ModuleWithProviders<LoggerModule> {
     return {
-        ngModule: LoggerModule,
-        providers: [{ provide: LoggerConfigService, useValue: config }],
+      ngModule: LoggerModule,
+      providers: [{ provide: LoggerConfigService, useValue: config }],
     };
-}
+  }
 }

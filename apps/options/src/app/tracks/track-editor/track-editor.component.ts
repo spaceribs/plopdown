@@ -1,12 +1,17 @@
 import { mdiFileUpload } from '@mdi/js';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 import { Track } from '@plopdown/tracks';
 
 @Component({
   selector: 'plopdown-track-editor',
   templateUrl: './track-editor.component.html',
   styleUrls: ['./track-editor.component.scss'],
+  standalone: false,
 })
 export class TrackEditorComponent {
   public mdiFileUpload = mdiFileUpload;

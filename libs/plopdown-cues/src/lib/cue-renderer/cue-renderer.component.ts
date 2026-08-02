@@ -31,6 +31,7 @@ type PlopdownComponentFactory = ComponentFactory<
   selector: 'plopdown-cue-renderer',
   templateUrl: './cue-renderer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CueRendererComponent implements AfterViewInit, OnDestroy {
   private cues$: BehaviorSubject<Cue[]> = new BehaviorSubject([] as Cue[]);
@@ -73,9 +74,8 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
             return [null, cue];
           }
 
-          const componentFactory = componentFactoryResolver.resolveComponentFactory(
-            PlopdownComponent
-          );
+          const componentFactory =
+            componentFactoryResolver.resolveComponentFactory(PlopdownComponent);
 
           return [componentFactory, cue];
         });
@@ -100,9 +100,10 @@ export class CueRendererComponent implements AfterViewInit, OnDestroy {
             return;
           }
 
-          const componentRef = this.cueOutlet?.createComponent<
-            PlopdownBaseComponent<PlopdownTemplate>
-          >(componentFactory);
+          const componentRef =
+            this.cueOutlet?.createComponent<
+              PlopdownBaseComponent<PlopdownTemplate>
+            >(componentFactory);
 
           if (componentRef == null) {
             return;

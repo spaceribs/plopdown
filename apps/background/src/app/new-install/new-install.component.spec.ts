@@ -15,24 +15,22 @@ describe('NewInstallComponent', () => {
   let component: NewInstallComponent;
   let fixture: ComponentFixture<NewInstallComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          MockBrowserRefModule,
-          MockLoggerModule,
-          MockPlopdownFileModule,
-          MockTracksModule,
-          MockPermissionsModule,
-          MockExtStorageModule,
-          MockPouchDBModule,
-          MockRemotesModule,
-          HttpClientTestingModule,
-        ],
-        declarations: [NewInstallComponent],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        MockBrowserRefModule,
+        MockLoggerModule,
+        MockPlopdownFileModule,
+        MockTracksModule,
+        MockPermissionsModule,
+        MockExtStorageModule,
+        MockPouchDBModule,
+        MockRemotesModule,
+        HttpClientTestingModule,
+      ],
+      declarations: [NewInstallComponent],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NewInstallComponent);

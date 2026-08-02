@@ -18,38 +18,47 @@ import {
 import { MessagesModule } from '@plopdown/messages';
 import { BrowserRefModule } from '@plopdown/browser-ref';
 import { PlopdownInjectorModule } from '@plopdown/plopdown-injector';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { ContentScriptTracksService } from './content-script-tracks.service';
 import { ContentScriptVideoRefsService } from './content-script-video-refs.service';
 
 // TODO: Add Angular decorator.
-@NgModule({ declarations: [AppComponent], imports: [PlopdownFileModule,
-        BrowserModule,
-        ExtStorageModule,
-        VideoRefsModule,
-        TracksModule,
-        WindowRefModule,
-        BrowserRefModule,
-        MessagesModule,
-        PlopdownInjectorModule,
-        LoggerModule.forRoot({
-            appName: `ContentScript:"${document.title}"`,
-            color: 'blue',
-            providers: [LogConsoleService, LogStorageService],
-        }),
-        LzStringModule,
-        BrowserAnimationsModule,
-        IconModule], providers: [
-        {
-            provide: TracksService,
-            useClass: ContentScriptTracksService,
-        },
-        {
-            provide: VideoRefsService,
-            useClass: ContentScriptVideoRefsService,
-        },
-        provideHttpClient(withInterceptorsFromDi()),
-    ] })
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    PlopdownFileModule,
+    BrowserModule,
+    ExtStorageModule,
+    VideoRefsModule,
+    TracksModule,
+    WindowRefModule,
+    BrowserRefModule,
+    MessagesModule,
+    PlopdownInjectorModule,
+    LoggerModule.forRoot({
+      appName: `ContentScript:"${document.title}"`,
+      color: 'blue',
+      providers: [LogConsoleService, LogStorageService],
+    }),
+    LzStringModule,
+    BrowserAnimationsModule,
+    IconModule,
+  ],
+  providers: [
+    {
+      provide: TracksService,
+      useClass: ContentScriptTracksService,
+    },
+    {
+      provide: VideoRefsService,
+      useClass: ContentScriptVideoRefsService,
+    },
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
+})
 export class AppModule implements DoBootstrap {
   private appElement: HTMLElement = document.createElement('plopdown-cs');
 

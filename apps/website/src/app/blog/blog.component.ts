@@ -13,6 +13,7 @@ interface PostDateBucket {
   selector: 'plopdown-blog',
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss'],
+  standalone: false,
 })
 export class BlogComponent {
   public dateArchives: PostDateBucket[];

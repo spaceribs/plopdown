@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
   selector: 'plopdown-file-importer',
   templateUrl: './file-importer.component.html',
   styleUrls: ['./file-importer.component.scss'],
+  standalone: false,
 })
 export class FileImporterComponent implements OnInit, OnDestroy {
   public fileReader = new FileReader();
@@ -24,9 +25,8 @@ export class FileImporterComponent implements OnInit, OnDestroy {
   public mdiFileCheck = mdiFileCheck;
 
   @Output() cancel: EventEmitter<void> = new EventEmitter();
-  @Output() save: EventEmitter<
-    PouchDB.Core.PostDocument<Track>
-  > = new EventEmitter();
+  @Output() save: EventEmitter<PouchDB.Core.PostDocument<Track>> =
+    new EventEmitter();
   @Output() addVideoRef: EventEmitter<
     PouchDB.Core.PostDocument<UnsavedVideoRef>
   > = new EventEmitter();

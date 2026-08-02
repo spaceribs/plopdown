@@ -15,9 +15,7 @@ import { MessagesService } from '../messages.service';
 @Injectable({
   providedIn: MessagesModule,
 })
-export class ContentScriptSubService extends PortSubscriber<
-  ContentScriptCommand
-> {
+export class ContentScriptSubService extends PortSubscriber<ContentScriptCommand> {
   constructor(messages: MessagesService, logger: LoggerService) {
     super(Source.ContentScript, messages, logger);
   }

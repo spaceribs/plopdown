@@ -13,14 +13,12 @@ describe('AudioComponent', () => {
   let component: AudioComponent;
   let fixture: ComponentFixture<AudioComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [MockIconModule, MockLoggerModule, MockWindowRefModule],
-        declarations: [AudioComponent],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [MockIconModule, MockLoggerModule, MockWindowRefModule],
+      declarations: [AudioComponent],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AudioComponent);

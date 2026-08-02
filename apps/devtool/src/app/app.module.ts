@@ -11,9 +11,9 @@ import { DevtoolsRefModule } from '@plopdown/devtools-ref';
     BrowserModule,
     DevtoolsRefModule,
     RouterModule.forRoot([], {
-    useHash: true,
-    initialNavigation: 'enabledNonBlocking'
-}),
+      useHash: true,
+      initialNavigation: 'enabledNonBlocking',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -11,6 +11,7 @@ import { switchMap } from 'rxjs/operators';
 @Component({
   selector: 'plopdown-tracks-requested',
   template: 'tracks-requested',
+  standalone: false,
 })
 export class TracksRequestedComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();

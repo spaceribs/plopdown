@@ -18,6 +18,7 @@ import { LoggerService } from '@plopdown/logger';
   selector: 'plopdown-tracks',
   templateUrl: './tracks.component.html',
   styleUrls: ['./tracks.component.scss'],
+  standalone: false,
 })
 export class TracksComponent implements OnDestroy {
   public loadingTracks$: Observable<boolean>;

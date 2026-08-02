@@ -95,6 +95,7 @@ import { Cue } from '@plopdown/plopdown-cues';
     ]),
   ],
   providers: [TrackService],
+  standalone: false,
 })
 export class PlopdownEmbedComponent implements OnDestroy, OnInit {
   private manualReposition$: Subject<null> = new BehaviorSubject(null);

@@ -34,6 +34,7 @@ import { PlopdownShape } from './shape.model';
       ),
     ]),
   ],
+  standalone: false,
 })
 export class ShapeComponent extends PlopdownBaseComponent<PlopdownShape> {
   public color = '#79addc';

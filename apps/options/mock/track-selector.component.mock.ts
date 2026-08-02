@@ -5,9 +5,11 @@ import { TrackRef } from '@plopdown/video-refs';
 @Component({
   selector: 'plopdown-track-selector',
   template: 'mock-plopdown-track-selector',
+  standalone: false,
 })
 export class MockTrackSelectorComponent
-  implements Partial<TrackSelectorComponent> {
+  implements Partial<TrackSelectorComponent>
+{
   @Input() set trackRef(trackRef: TrackRef | null) {
     return;
   }

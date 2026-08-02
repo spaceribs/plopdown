@@ -11,6 +11,7 @@ import { map, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'plopdown-video-refs-requested',
   template: 'video-refs-requested',
+  standalone: false,
 })
 export class VideoRefsRequestedComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();

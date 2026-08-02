@@ -8,14 +8,12 @@ describe('TrackSelectorComponent', () => {
   let component: TracksModalComponent;
   let fixture: ComponentFixture<TracksModalComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [FormsModule, MockLoggerModule],
-        declarations: [TracksModalComponent],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [FormsModule, MockLoggerModule],
+      declarations: [TracksModalComponent],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TracksModalComponent);
