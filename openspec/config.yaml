@@ -5,27 +5,33 @@ context: |
   video on the web, plus its promotional website (plopdown.video).
 
   Tech stack:
-  - Nx monorepo (npmScope `plopdown`) driving Angular 12 apps and libs
-  - TypeScript, RxJS, @ngrx/component-store for state
-  - Bulma + SCSS for styling, angular-svg-icon / @mdi for icons
+  - Nx 23 monorepo (npmScope `plopdown`) driving Angular 22 apps and libs
+  - TypeScript 6, RxJS 7; state is plain RxJS in services and components
+    (there is no state-management library — component-store was removed)
+  - Bulma 0.9 + SCSS for styling, angular-svg-icon / @mdi for icons
   - PouchDB for local persistence, lz-string for compressed payloads
-  - Jest for unit tests, Cypress for e2e, ESLint + Prettier for lint/format
+  - Jest 30 for unit tests, ESLint 9 (flat config) + Prettier for lint/format.
+    There is no e2e suite — Cypress was removed
   - web-ext / addons-linter for packaging and validating the extension
     (Manifest V2, Firefox-first)
+  - Node 24.15+ is required; `@angular/build` refuses to run below it
 
   Layout:
   - `apps/` — extension surfaces (background, content-script, browser-action,
     options, devtool, devtool-panels), `plopdown-ext` (manifest + static
-    assets), `website`, `testing-sandbox`, and the `*-e2e` suites
+    assets), `website`, `testing-sandbox`
   - `libs/` — shared libraries (tracks, plopdown-cues, plopdown-file,
     plopdown-injector, plopdown-embed, messages, ext-storage, permissions,
-    logger, browser-ref, window-ref, video-refs, remotes, pouchdb, icon,
-    web-extension nx plugin)
-  - `tools/` — workspace generators and custom builders
+    logger, browser-ref, devtools-ref, window-ref, video-refs, remotes,
+    pouchdb, lz-string, icon)
+  - `tools/` — `scripts/copy-ext-assets.js` (packaging), a content-script
+    webpack config, and Nx migration helpers
 
   Conventions:
-  - Every new app or lib is an Nx project registered in `angular.json`,
-    `nx.json` (with tags) and `tsconfig.base.json` path mappings
+  - Every new app or lib is an Nx project defined by its own `project.json`
+    (targets + tags) with a `tsconfig.base.json` path mapping, plus a `/mock`
+    path if the lib ships mocks. There is no root `angular.json`, and Jest
+    projects are inferred rather than listed
   - Cross-app communication goes through the `messages` lib, not ad-hoc
     `browser.runtime` calls; browser APIs are reached via `browser-ref`
   - Commit messages are short imperative sentences (e.g. "Fix a pointer event
