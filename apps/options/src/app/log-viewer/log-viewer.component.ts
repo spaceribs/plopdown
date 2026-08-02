@@ -66,7 +66,7 @@ export class LogViewerComponent implements OnInit, OnDestroy {
   }
 
   refreshLogs(): void {
-    this.loadLogs$.next();
+    this.loadLogs$.next(null);
   }
 
   resetLogs(): void {

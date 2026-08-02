@@ -132,6 +132,13 @@ background component is built on. The maintained fork carries the same rule set 
 _Alternative considered — drop the RxJS rules._ Rejected: it would silently retire an enforced
 convention during an upgrade that is supposed to change nothing.
 
+**Corrected in Phase 6 — this belongs at Phase 10, not Phase 6.** The decision assumed flat config
+would force the swap partway through. It does not: `angular-eslint` 18 through 21 and `@nx/eslint`
+20 through 22 all accept `eslint ^8.57.0 || ^9.0.0`. ESLint 8 is dropped only by `angular-eslint` 22
+and `@nx/eslint` 23 — the Phase 10 versions. Two details of the original text have also aged out:
+the repo is on ESLint 8, not 7, and the plugin is on 5.0.3, not 3.3.5, because Phase 1 had to move
+it when `@nx/linter` pulled ESLint 8 forward.
+
 ### 6. Decline optional migration schematics; take only what a hop requires
 
 Angular's `ng update` offers opt-in codemods at most majors. Each one accepted widens the diff with
