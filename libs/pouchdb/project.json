@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/pouchdb"],
       "options": {
-        "jestConfig": "libs/pouchdb/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/pouchdb/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/pouchdb/src/**/*.ts",
-          "libs/pouchdb/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

@@ -6,19 +6,12 @@
   "prefix": "plopdown",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/plopdown-injector/**/*.ts",
-          "libs/plopdown-injector/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/plopdown-injector/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/plopdown-injector/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/plopdown-injector"]
     }

@@ -69,34 +69,27 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "browserTarget": "background:build"
+        "buildTarget": "background:build"
       },
       "configurations": {
         "production": {
-          "browserTarget": "background:build:production"
+          "buildTarget": "background:build:production"
         }
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "background:build"
+        "buildTarget": "background:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/background/**/*.ts",
-          "apps/background/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/background/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/background/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/apps/background"]
     }

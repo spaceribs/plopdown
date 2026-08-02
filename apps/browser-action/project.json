@@ -74,34 +74,27 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "browserTarget": "browser-action:build"
+        "buildTarget": "browser-action:build"
       },
       "configurations": {
         "production": {
-          "browserTarget": "browser-action:build:production"
+          "buildTarget": "browser-action:build:production"
         }
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "browser-action:build"
+        "buildTarget": "browser-action:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/browser-action/**/*.ts",
-          "apps/browser-action/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/browser-action/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/browser-action/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/apps/browser-action"]
     }

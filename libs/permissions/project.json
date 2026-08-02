@@ -6,19 +6,12 @@
   "prefix": "plopdown",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/permissions/**/*.ts",
-          "libs/permissions/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/permissions/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/permissions/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/permissions"]
     }

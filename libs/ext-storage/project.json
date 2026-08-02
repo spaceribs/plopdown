@@ -6,19 +6,12 @@
   "prefix": "plopdown",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/ext-storage/**/*.ts",
-          "libs/ext-storage/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/ext-storage/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ext-storage/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/ext-storage"]
     }

@@ -20,19 +20,12 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/plopdown-file/**/*.ts",
-          "libs/plopdown-file/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/plopdown-file/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/plopdown-file/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/plopdown-file"]
     }

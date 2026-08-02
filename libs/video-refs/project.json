@@ -6,19 +6,12 @@
   "prefix": "plopdown",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/video-refs/**/*.ts",
-          "libs/video-refs/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/video-refs/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/video-refs/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/video-refs"]
     }
