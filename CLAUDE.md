@@ -146,8 +146,10 @@ service to a lib that has a `mock/`, add its mock too — sibling specs will exp
   `fullTemplateTypeCheck` are all on in `tsconfig.base.json`.
 - **Commit messages** are short imperative sentences ("Fix a pointer event issue"), not
   conventional-commit prefixes.
-- The repo pins Node 24 (`.nvmrc` = `lts/krypton`); `package-lock.json` is lockfileVersion 3.
-  Both CI workflows pin the same major, and `@angular/build` requires Node >= 24.15.
+- **Toolchain versions live in `.prototools`**, managed by [proto](https://moonrepo.dev/proto) —
+  exact pins (`node`, `npm`), not a floating alias. There is no `.nvmrc`. Both CI workflows install
+  from that same file via `moonrepo/setup-toolchain`, so a version bump is a one-line change in one
+  place. `@angular/build` requires Node >= 24.15; `package-lock.json` is lockfileVersion 3.
 - **ESLint uses flat config** — `eslint.config.mjs` at the root and one per project. The root
   config owns the RxJS rules and the module-boundary rule; a project's own `rules` block is the
   only place that can override a rule its `extends` turns on.

@@ -27,15 +27,20 @@ This project is currently in alpha.
 
 ## Setup
 
-Requires Node 24.15 or newer (`.nvmrc` pins `lts/krypton`) and npm 11. `@angular/build` refuses to
-run on anything older.
+Toolchain versions are pinned in [`.prototools`](.prototools) and managed with
+[proto](https://moonrepo.dev/proto) — currently Node 24.19.0 and npm 11.17.0. `@angular/build`
+refuses to run below Node 24.15, so that is the floor rather than a preference.
 
-Install packages:
+[Install proto](https://moonrepo.dev/docs/proto/install) once, then from the repo root:
 
 ```bash
-$ nvm use
+$ proto use
 $ npm ci
 ```
+
+`proto use` reads `.prototools` and installs the pinned versions. If you would rather not use
+proto, install Node 24.19.0 and npm 11.17.0 by whatever means you prefer — nothing in the build
+depends on proto itself.
 
 ## Development
 
