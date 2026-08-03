@@ -4,29 +4,25 @@ on:
     branches:
       - master
 
-# Every job needs this pinned. The lint/build/test jobs previously had no
-# setup-node step at all and silently ran on whatever Node the runner image
-# shipped -- see the matrix in the setup job, which must move in step.
-env:
-  NODE_VERSION: '24.x'
+# Every job needs the toolchain step. The lint/build/test jobs previously had
+# no setup step at all and silently ran on whatever Node the runner image
+# shipped. The versions now come from .prototools, so there is nothing to keep
+# in step here -- pinning lives in one file for CI and contributors alike.
 
 jobs:
   setup:
     name: Checkout and Install
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [24.x]
 
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v7
+      - name: Setup toolchain
+        uses: moonrepo/setup-toolchain@v0
         with:
-          node-version: ${{ matrix.node-version }}
+          auto-install: true
 
       - name: Cache .npm
         id: cache-npm
@@ -53,10 +49,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Node ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v7
+      - name: Setup toolchain
+        uses: moonrepo/setup-toolchain@v0
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          auto-install: true
 
       - name: Cache node_modules
         uses: actions/cache@v6
@@ -81,10 +77,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Node ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v7
+      - name: Setup toolchain
+        uses: moonrepo/setup-toolchain@v0
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          auto-install: true
 
       - name: Cache node_modules
         uses: actions/cache@v6
@@ -109,10 +105,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Node ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v7
+      - name: Setup toolchain
+        uses: moonrepo/setup-toolchain@v0
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          auto-install: true
 
       - name: Cache node_modules
         uses: actions/cache@v6
