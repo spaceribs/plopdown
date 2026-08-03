@@ -14,11 +14,15 @@ Budget roughly 45 minutes. Part A is the fastest way to catch a broad regression
 ## Before you start
 
 ```bash
-nvm use                      # Node 24.15+
+proto use                    # installs the versions pinned in .prototools
 npm ci
 npm run build:ext            # six surfaces, production
 npm run build plopdown-ext   # manifest + icons + zip
 ```
+
+Any Node 24.15+ works — `@angular/build` refuses to run below it, and nothing here depends on proto
+itself. If you are on a checkout that still has `.nvmrc` rather than `.prototools`, `nvm use` is the
+equivalent first line.
 
 Then, in a second terminal:
 
