@@ -1,12 +1,15 @@
 # Toolchain versions, managed by proto (https://moonrepo.dev/proto).
 #
 # Replaces .nvmrc. Unlike `lts/krypton`, these are exact pins, so every
-# contributor and CI run gets the same Node and npm rather than whatever the
+# contributor and CI run gets the same Node and pnpm rather than whatever the
 # LTS alias resolves to that week.
 #
 # Install with `proto use` (or `proto install`), which reads this file.
 #
+# npm is deliberately absent: pnpm is the package manager and there is no
+# package-lock.json. The npm bundled with Node is not used.
+#
 # 24.15 is the floor rather than a preference: @angular/build declares
 # `node: ^22.22.3 || ^24.15.0 || >=26.0.0` and refuses to run below it.
 node = "24.19.0"
-npm = "11.17.0"
+pnpm = "11.20.0"

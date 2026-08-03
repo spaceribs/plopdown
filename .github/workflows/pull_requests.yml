@@ -4,10 +4,11 @@ on:
     branches:
       - master
 
-# Every job needs the toolchain step. The lint/build/test jobs previously had
-# no setup step at all and silently ran on whatever Node the runner image
-# shipped. The versions now come from .prototools, so there is nothing to keep
-# in step here -- pinning lives in one file for CI and contributors alike.
+# Every job installs its own dependencies. Caching node_modules across jobs the
+# way this workflow used to does not survive pnpm's symlinked layout, so what
+# gets cached is pnpm's content-addressable store instead -- a warm store makes
+# `pnpm install --frozen-lockfile` close to free. Node and pnpm versions come
+# from .prototools, so no version literal lives in this file.
 
 jobs:
   setup:
@@ -24,21 +25,20 @@ jobs:
         with:
           auto-install: true
 
-      - name: Cache .npm
-        id: cache-npm
+      - name: Locate pnpm store
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
         uses: actions/cache@v6
         with:
-          path: |-
-            ~/.npm
-            node_modules
-            dist
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
+            ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        if: steps.cache-npm.outputs.cache-hit != 'true' && steps.cache-node.outputs.cache-hit != 'true'
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
   lint:
     name: Lint Affected
@@ -54,19 +54,23 @@ jobs:
         with:
           auto-install: true
 
-      - name: Cache node_modules
+      - name: Locate pnpm store
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
         uses: actions/cache@v6
         with:
-          path: |-
-            ~/.npm
-            node_modules
-            dist
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
+            ${{ runner.os }}-pnpm-
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Lint Affected Projects
-        run: npm run ci:lint
+        run: pnpm run ci:lint
 
   build:
     name: Build Affected
@@ -82,19 +86,23 @@ jobs:
         with:
           auto-install: true
 
-      - name: Cache node_modules
+      - name: Locate pnpm store
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
         uses: actions/cache@v6
         with:
-          path: |-
-            ~/.npm
-            node_modules
-            dist
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
+            ${{ runner.os }}-pnpm-
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build Affected Projects
-        run: npm run ci:build
+        run: pnpm run ci:build
 
   test:
     name: Test Affected
@@ -110,16 +118,20 @@ jobs:
         with:
           auto-install: true
 
-      - name: Cache node_modules
+      - name: Locate pnpm store
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
         uses: actions/cache@v6
         with:
-          path: |-
-            ~/.npm
-            node_modules
-            dist
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
+            ${{ runner.os }}-pnpm-
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Test Affected Projects
-        run: npm run ci:test
+        run: pnpm run ci:test

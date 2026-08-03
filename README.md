@@ -28,18 +28,18 @@ This project is currently in alpha.
 ## Setup
 
 Toolchain versions are pinned in [`.prototools`](.prototools) and managed with
-[proto](https://moonrepo.dev/proto) — currently Node 24.19.0 and npm 11.17.0. `@angular/build`
+[proto](https://moonrepo.dev/proto) — currently Node 24.19.0 and pnpm 11.20.0. `@angular/build`
 refuses to run below Node 24.15, so that is the floor rather than a preference.
 
 [Install proto](https://moonrepo.dev/docs/proto/install) once, then from the repo root:
 
 ```bash
 $ proto use
-$ npm ci
+$ pnpm install --frozen-lockfile
 ```
 
 `proto use` reads `.prototools` and installs the pinned versions. If you would rather not use
-proto, install Node 24.19.0 and npm 11.17.0 by whatever means you prefer — nothing in the build
+proto, install Node 24.19.0 and pnpm 11.20.0 by whatever means you prefer — nothing in the build
 depends on proto itself.
 
 ## Development
@@ -49,7 +49,7 @@ Please refer to <https://nx.dev/angular/cli/overview> for a complete guide in de
 To start the extension in development mode, run the following commands in different terminals:
 
 ```bash
-$ npm run start:ext
+$ pnpm run start:ext
 
 >  NX  Running target build for projects:
 
@@ -65,7 +65,7 @@ $ npm run start:ext
 ```
 
 ```bash
-$ npm run start:ext-browser
+$ pnpm run start:ext-browser
 
 Running web extension from /.../plopdown-nx/dist/apps/plopdown-ext
 Use --verbose or open Tools > Web Developer > Browser Console to see logging
@@ -81,7 +81,7 @@ This will create a temporary Firefox instance and rebuild any components you edi
 Build all applications using the following command
 
 ```bash
-$ npm run build:ext
+$ pnpm run build:ext
 
 ...
 

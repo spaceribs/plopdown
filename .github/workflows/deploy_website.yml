@@ -19,24 +19,23 @@ jobs:
         with:
           auto-install: true
 
-      - name: Cache .npm
-        id: cache-npm
+      - name: Locate pnpm store
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
         uses: actions/cache@v6
         with:
-          path: |-
-            ~/.npm
-            node_modules
-            dist
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
+            ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        if: steps.cache-npm.outputs.cache-hit != 'true' && steps.cache-node.outputs.cache-hit != 'true'
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build Website
-        run: npm run build website -- --prod
+        run: pnpm run build website --prod
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4

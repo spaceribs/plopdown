@@ -1,0 +1,37 @@
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  es5-ext: true
+  esbuild: true
+  less: true
+  leveldown: true
+  lmdb: true
+  msgpackr-extract: true
+  nx: true
+  unrs-resolver: true
+# pnpm settings. Since pnpm 11 these live here rather than in package.json's
+# "pnpm" field, which is no longer read.
+
+# pnpm does not run dependency build scripts unless they are listed here.
+# These are the ones npm used to run: native bindings and binary downloads the
+# toolchain needs (nx and its lmdb/watcher/msgpackr deps, esbuild, the oxc
+# resolver eslint uses), plus the harmless banner postinstalls.
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - es5-ext
+  - esbuild
+  - less
+  - leveldown
+  - lmdb
+  - msgpackr-extract
+  - nx
+  - unrs-resolver
+
+# pnpm does not read package.json's "overrides" field -- that is npm's. Without
+# these, postcss falls back to 8.5.13 and url-parse to 1.2.0, both of which are
+# the vulnerable versions the earlier security work pinned away.
+overrides:
+  node-notifier: '9.0.1'
+  postcss: '8.5.25'
+  url-parse: '1.5.10'

@@ -11,22 +11,22 @@ Angular 12 apps and libs under the `@plopdown/*` npm scope.
 ## Commands
 
 ```bash
-npm install
-npm run build:ext            # build all six extension surfaces (production)
-npm run build                # build the default project (plopdown-ext) -> zip in dist/extensions
-npm run build website -- --prod   # website builds into /docs (GitHub Pages)
+pnpm install
+pnpm run build:ext            # build all six extension surfaces (production)
+pnpm run build                # build the default project (plopdown-ext) -> zip in dist/extensions
+pnpm run build website --prod   # website builds into /docs (GitHub Pages)
 
-npm test                     # all Jest projects (nx run-many --target=test --all)
-npm run lint                 # nx run-many --target=lint --all
-npm run format:write         # prettier across the workspace
-npm run format:check
+pnpm test                     # all Jest projects (nx run-many --target=test --all)
+pnpm run lint                 # nx run-many --target=lint --all
+pnpm run format:write         # prettier across the workspace
+pnpm run format:check
 ```
 
 Dev loop for the extension — two terminals:
 
 ```bash
-npm run start:ext            # rebuild the six app bundles on change
-npm run start:ext-browser    # web-ext run: temporary Firefox with the extension loaded
+pnpm run start:ext            # rebuild the six app bundles on change
+pnpm run start:ext-browser    # web-ext run: temporary Firefox with the extension loaded
 ```
 
 Targeting one project:
@@ -63,7 +63,7 @@ does not matter whether it runs before or after the six app builds land in their
 This used to be a local Nx plugin (`libs/web-extension`) whose builders were referenced through the
 path `./dist/libs/web-extension:build` — meaning the plugin had to be compiled into `dist/` before
 anything else could build. That bootstrap step is gone; a clean checkout can build the extension
-straight after `npm install`.
+straight after `pnpm install`.
 
 ### The message bus
 
