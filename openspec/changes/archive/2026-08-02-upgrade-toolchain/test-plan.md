@@ -14,20 +14,20 @@ Budget roughly 45 minutes. Part A is the fastest way to catch a broad regression
 ## Before you start
 
 ```bash
-proto use                    # installs the versions pinned in .prototools
-npm ci
-npm run build:ext            # six surfaces, production
-npm run build plopdown-ext   # manifest + icons + zip
+proto use                     # installs the Node and pnpm pinned in .prototools
+pnpm install --frozen-lockfile
+pnpm run build:ext            # six surfaces, production
+pnpm run build plopdown-ext   # manifest + icons + zip
 ```
 
 Any Node 24.15+ works — `@angular/build` refuses to run below it, and nothing here depends on proto
-itself. If you are on a checkout that still has `.nvmrc` rather than `.prototools`, `nvm use` is the
-equivalent first line.
+itself. pnpm is required though: `package-lock.json` is gone, so `npm ci` has nothing to install
+from.
 
 Then, in a second terminal:
 
 ```bash
-npm run start:ext-browser    # web-ext: temporary Firefox with the extension loaded
+pnpm run start:ext-browser    # web-ext: temporary Firefox with the extension loaded
 ```
 
 That profile is disposable — it starts with no permissions, no tracks and no remotes, which is what
@@ -75,7 +75,7 @@ rather than a stylesheet problem.
 
 ### 12.1 Load the extension
 
-- [ ] `npm run start:ext-browser` opens Firefox with Plopdown loaded and the toolbar icon present.
+- [ ] `pnpm run start:ext-browser` opens Firefox with Plopdown loaded and the toolbar icon present.
 - [ ] Open the Browser Console (Ctrl+Shift+J) and keep it open for the rest of the run. **Background
       pipeline errors surface only there** — the background page has no UI.
 
@@ -179,7 +179,7 @@ pipelines survived the gate.
 
 ## Part C — Website
 
-`npm run build website -- --prod` publishes into `/docs` for GitHub Pages, and its stylesheet goes
+`pnpm run build website --prod` publishes into `/docs` for GitHub Pages, and its stylesheet goes
 through the same postcss.
 
 - [ ] Serve `docs/` (`npx http-server docs`) and load it.
