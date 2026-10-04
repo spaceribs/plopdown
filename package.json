@@ -46,7 +46,7 @@
     "@angular/forms": "22.0.8",
     "@angular/platform-browser": "22.0.8",
     "@angular/platform-browser-dynamic": "22.0.8",
-    "@angular/router": "22.0.8",
+    "@angular/router": "22.2.0",
     "@mdi/font": "^5.9.55",
     "@mdi/js": "^5.9.55",
     "@nx/angular": "23.1.1",
