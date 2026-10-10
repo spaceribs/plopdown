@@ -202,8 +202,8 @@ importers:
         specifier: 24.10.1
         version: 24.10.1
       '@types/pouchdb':
-        specifier: 6.4.0
-        version: 6.4.0
+        specifier: 6.4.2
+        version: 6.4.2
       '@types/sanitize-html':
         specifier: ^1.22.0
         version: 1.27.2
@@ -4357,8 +4357,8 @@ packages:
   '@types/pouchdb-replication@6.4.7':
     resolution: {integrity: sha512-slB4zOwri3SAVHioFx/FWC/KqOzzb7nDFtV+qzaKzxkf+U5zTwCbK3uRHaj0d/XQk0DwVeajf1ni3Wiyq3j2OA==}
 
-  '@types/pouchdb@6.4.0':
-    resolution: {integrity: sha512-eGCpX+NXhd5VLJuJMzwe3L79fa9+IDTrAG3CPaf4s/31PD56hOrhDJTSmRELSXuiqXr6+OHzzP0PldSaWsFt7w==}
+  '@types/pouchdb@6.4.2':
+    resolution: {integrity: sha512-YsI47rASdtzR+3V3JE2UKY58snhm0AglHBpyckQBkRYoCbTvGagXHtV0x5n8nzN04jQmvTG+Sm85cIzKT3KXBA==}
 
   '@types/prettier@1.19.1':
     resolution: {integrity: sha512-5qOlnZscTn4xxM5MeGXAMOsIOIKIbh9e85zJWfBRVPlRMEVawzoPhINYbRGkBZCI8LxvBe7tJCdWiarA99OZfQ==}
@@ -14318,7 +14318,7 @@ snapshots:
       '@types/pouchdb-core': 7.0.15
       '@types/pouchdb-find': 7.3.3
 
-  '@types/pouchdb@6.4.0':
+  '@types/pouchdb@6.4.2':
     dependencies:
       '@types/pouchdb-adapter-cordova-sqlite': 1.0.4
       '@types/pouchdb-adapter-fruitdown': 6.1.6
