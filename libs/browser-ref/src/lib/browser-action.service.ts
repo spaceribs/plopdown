@@ -50,7 +50,7 @@ export class BrowserActionService {
     });
   }
 
-  openPopup(): Observable<void> {
+  openPopup(): Observable<boolean> {
     return from(this.browserAction.openPopup());
   }
 }
