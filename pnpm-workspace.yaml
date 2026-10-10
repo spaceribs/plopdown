@@ -1,3 +1,15 @@
+# pnpm settings. Since pnpm 11 these live here rather than in package.json's
+# "pnpm" field, which is no longer read.
+
+# Dependency build scripts pnpm is allowed to run: the native bindings and
+# binary downloads the toolchain needs (nx and its lmdb/watcher/msgpackr deps,
+# esbuild, the oxc resolver eslint uses), plus the harmless banner
+# postinstalls. These are the ones npm used to run.
+#
+# This is the key pnpm 11 reads. An `onlyBuiltDependencies` list used to sit
+# alongside it holding the same ten names; it was dead weight. Dropping this
+# block fails the install with ERR_PNPM_IGNORED_BUILDS, dropping that one
+# changed nothing.
 allowBuilds:
   '@parcel/watcher': true
   core-js: true
@@ -9,29 +21,54 @@ allowBuilds:
   msgpackr-extract: true
   nx: true
   unrs-resolver: true
-# pnpm settings. Since pnpm 11 these live here rather than in package.json's
-# "pnpm" field, which is no longer read.
 
-# pnpm does not run dependency build scripts unless they are listed here.
-# These are the ones npm used to run: native bindings and binary downloads the
-# toolchain needs (nx and its lmdb/watcher/msgpackr deps, esbuild, the oxc
-# resolver eslint uses), plus the harmless banner postinstalls.
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - core-js
-  - es5-ext
-  - esbuild
-  - less
-  - leveldown
-  - lmdb
-  - msgpackr-extract
-  - nx
-  - unrs-resolver
-
-# pnpm does not read package.json's "overrides" field -- that is npm's. Without
-# these, postcss falls back to 8.5.13 and url-parse to 1.2.0, both of which are
-# the vulnerable versions the earlier security work pinned away.
+# pnpm does not read package.json's "overrides" field -- that is npm's.
 overrides:
+  # Without these, postcss falls back to 8.5.13 and url-parse to 1.2.0, both of
+  # which are the vulnerable versions the earlier security work pinned away.
   node-notifier: '9.0.1'
   postcss: '8.5.25'
   url-parse: '1.5.10'
+
+  # Transitive advisories whose direct dependency has not shipped a fixed
+  # release yet. Every target is the lowest patched version inside the major
+  # already resolved, so nothing crosses a major boundary. Together these clear
+  # all six criticals and most of the highs; `pnpm audit` goes 113 -> 15.
+  #
+  # Three more advisories cannot be pinned this way at all -- braces (>=3.0.4),
+  # node-forge (>=1.4.1) and sprintf-js (>=1.1.4) all name patched versions that
+  # are not published.
+  'brace-expansion@1': '1.1.21'
+  'brace-expansion@2': '2.1.7'
+  'brace-expansion@5': '5.0.12'
+  compression: '1.8.2'
+  fast-uri: '3.1.8'
+  'form-data@2': '2.5.6'
+  handlebars: '4.7.10'
+  'js-yaml@3': '3.15.2'
+  'js-yaml@4': '4.3.2'
+  nanoid: '3.3.18'
+  piscina: '5.3.2'
+  postcss-selector-parser: '7.1.6'
+  proxy-addr: '2.0.8'
+  qs: '6.16.0'
+  shell-quote: '1.11.0'
+  source-map-js: '1.2.2'
+  svgo: '4.1.0'
+  undici: '7.29.1'
+  webpack-dev-middleware: '8.3.0'
+
+  # The remaining three are not security pins -- they are compatibility pins for
+  # the Angular 22.2 toolchain, which pulls a second, newer copy of each.
+
+  # @angular/compiler-cli 22.2 imports encodeRangeMappings, which only exists
+  # from 1.6.0, but declares a range (^1.4.14) that the 1.5.5 already in the
+  # tree satisfies. Without this the build dies with "does not provide an
+  # export named 'encodeRangeMappings'".
+  '@jridgewell/sourcemap-codec': '1.6.0'
+
+  # A caniuse-lite that knows Chrome 154 paired with a browserslist that does
+  # not fails the build with "BrowserslistError: Unknown version 154 of
+  # chrome". Collapsing each to one version keeps the pair consistent.
+  browserslist: '4.29.3'
+  caniuse-lite: '1.0.30001815'
