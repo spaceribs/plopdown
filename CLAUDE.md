@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Plopdown is a Firefox-first web extension (Manifest V2) that overlays annotation tracks on top of
 any HTML5 video on the web, plus the promotional site at plopdown.video. It is an Nx monorepo of
-Angular 12 apps and libs under the `@plopdown/*` npm scope.
+Angular 22 apps and libs under the `@plopdown/*` npm scope.
 
 ## Commands
 
@@ -147,9 +147,15 @@ service to a lib that has a `mock/`, add its mock too — sibling specs will exp
 - **Commit messages** are short imperative sentences ("Fix a pointer event issue"), not
   conventional-commit prefixes.
 - **Toolchain versions live in `.prototools`**, managed by [proto](https://moonrepo.dev/proto) —
-  exact pins (`node`, `npm`), not a floating alias. There is no `.nvmrc`. Both CI workflows install
-  from that same file via `moonrepo/setup-toolchain`, so a version bump is a one-line change in one
-  place. `@angular/build` requires Node >= 24.15; `package-lock.json` is lockfileVersion 3.
+  exact pins (`node`, `pnpm`), not a floating alias. There is no `.nvmrc`, and npm is deliberately
+  absent — pnpm is the package manager and there is no `package-lock.json`. Both CI workflows
+  install from that same file via `moonrepo/setup-toolchain`, so a version bump is a one-line change
+  in one place. `@angular/build` requires Node >= 24.15.
+- **pnpm settings live in `pnpm-workspace.yaml`**, not package.json's `pnpm` field, which pnpm 11 no
+  longer reads. `allowBuilds` lists the dependencies permitted to run build scripts; `overrides`
+  carries the security pins (pnpm ignores npm's `overrides` field entirely) plus three compatibility
+  pins the Angular 22.2 toolchain needs. Both are commented in place — read them before changing a
+  version there.
 - **ESLint uses flat config** — `eslint.config.mjs` at the root and one per project. The root
   config owns the RxJS rules and the module-boundary rule; a project's own `rules` block is the
   only place that can override a rule its `extends` turns on.
