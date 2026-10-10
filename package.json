@@ -7,8 +7,8 @@
     "nx": "nx",
     "web-ext": "web-ext",
     "addons-linter": "addons-linter",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "nx serve",
+    "build": "nx build",
     "test": "nx run-many --target=test --all",
     "build:ext": "nx run-many --target=build --projects=browser-action,content-script,options,background,devtool,devtool-panels --parallel --configuration production",
     "start:ext": "nx run-many --target=build --projects=browser-action,content-script,options,background,devtool,devtool-panels --parallel --maxParallel=6 --watch",
@@ -33,8 +33,7 @@
     "help": "nx help",
     "ts2json": "ts-json-schema-generator",
     "json2ts": "json2ts",
-    "workspace-generator": "nx workspace-generator",
-    "postinstall": "node ./decorate-angular-cli.js"
+    "workspace-generator": "nx workspace-generator"
   },
   "private": true,
   "dependencies": {
