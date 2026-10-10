@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
+import type {
   AbstractControl,
   AsyncValidator,
   ValidationErrors,
