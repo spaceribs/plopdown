@@ -1,0 +1,81 @@
+version: 2
+
+# Without this file Dependabot ran on its defaults and opened one PR per
+# package. For a workspace where whole families have to move in lockstep that
+# produces PRs which cannot merge on their own: bumping @angular/core while
+# @angular/common and @angular/compiler stay behind leaves the peer ranges
+# unsatisfiable, so four separate Angular PRs sat open for a month doing
+# nothing. The groups below are the families, so each one arrives as a single
+# reviewable PR.
+
+updates:
+  - package-ecosystem: npm # also covers pnpm-lock.yaml
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      # Repo convention is a short imperative sentence, not a
+      # conventional-commit prefix.
+      prefix: Bump
+    groups:
+      angular:
+        # @angular/*, @angular-devkit/*, @angular-eslint/*, @schematics/angular,
+        # @ngtools/* and the angular-eslint meta-package all share a version
+        # line and have to move together.
+        patterns:
+          - '@angular/*'
+          - '@angular-devkit/*'
+          - '@angular-eslint/*'
+          - '@ngtools/*'
+          - '@schematics/angular'
+          - 'angular-eslint'
+          - '@angular-builders/*'
+      nx:
+        patterns:
+          - 'nx'
+          - '@nx/*'
+      typescript-eslint:
+        patterns:
+          - '@typescript-eslint/*'
+          - 'typescript-eslint'
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - 'eslint-config-*'
+          - '@smarttools/eslint-plugin-rxjs'
+      jest:
+        patterns:
+          - 'jest'
+          - 'jest-*'
+          - 'ts-jest'
+          - '@types/jest'
+      web-extension-tooling:
+        patterns:
+          - 'web-ext'
+          - 'addons-linter'
+          - 'webextension-polyfill'
+      pouchdb:
+        patterns:
+          - 'pouchdb'
+          - 'pouchdb-*'
+          - '@types/pouchdb'
+      types:
+        patterns:
+          - '@types/*'
+        exclude-patterns:
+          - '@types/jest'
+          - '@types/pouchdb'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: Bump
+    groups:
+      actions:
+        patterns:
+          - '*'
