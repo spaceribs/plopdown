@@ -161,7 +161,8 @@ service to a lib that has a `mock/`, add its mock too — sibling specs will exp
   only place that can override a rule its `extends` turns on.
 - **Several `@angular-eslint` rules are deliberately off**: `prefer-standalone`, `prefer-inject`,
   `prefer-on-push-component-change-detection`, and three template accessibility rules. Each would
-  be a refactor rather than a lint fix; see `openspec/changes/upgrade-toolchain/`.
+  be a refactor rather than a lint fix; see
+  `openspec/changes/archive/2026-08-02-upgrade-toolchain/`.
 
 ## Spec-driven changes
 
