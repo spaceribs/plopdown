@@ -15,10 +15,15 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
-    commit-message:
-      # Repo convention is a short imperative sentence, not a
-      # conventional-commit prefix.
-      prefix: Bump
+    # No commit-message prefix: Dependabot's default ("Bump the jest group
+    # ...") already matches the repo's imperative style, and setting
+    # `prefix: Bump` only produced "Bump: Bump the jest group ...".
+    ignore:
+      # .prototools pins Node 24, so type definitions for a newer major
+      # describe APIs the runtime does not have. Minors and patches within 24
+      # still come through; move this together with the Node pin.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
     groups:
       angular:
         # @angular/*, @angular-devkit/*, @angular-eslint/*, @schematics/angular,
@@ -73,8 +78,6 @@ updates:
     directory: /
     schedule:
       interval: monthly
-    commit-message:
-      prefix: Bump
     groups:
       actions:
         patterns:
