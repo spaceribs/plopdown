@@ -117,10 +117,10 @@ export class NewInstallComponent implements OnInit, OnDestroy {
 
         if (existingMainFeed == null) {
           return this.remotesService.addRemote({
-            url: 'https://d8d30792-a35b-4bd0-9e83-8c667c6cfee6-bluemix.cloudantnosqldb.appdomain.cloud',
+            url: 'https://f19eb792-3d6a-4b7e-8b0a-679fa7759de3-bluemix.cloudantnosqldb.appdomain.cloud',
             title: 'Plopdown Main Feed',
-            username: 'apikey-b6480e0220b34c88bb220ec73f3141e4',
-            password: '4a427fd250107198af40dba5b90006f111528dee',
+            username: null,
+            password: null,
             sync: false,
             error: null,
             last_replicated: null,
